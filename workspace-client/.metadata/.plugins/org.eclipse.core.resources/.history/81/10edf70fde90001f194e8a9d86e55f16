@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" >
+	<fx:Declarations>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			private var dpHierarchy:ArrayCollection = new ArrayCollection([
+				{name:"Trivadis ZH-AD 1", children: [
+					{name:"Kölliker Mischa", email:"mischa.koelliker@trivadis.com"}, 
+					{name:"Schudel Pascal", email:"pascal.schudel@trivadis.com"},
+					{name:"Schmid Raffael", email:"raffael.schmid@trivadis.com"}
+				]},
+				{name:"Trivadis ZH-AD 2", children: [
+					{name:"Kölliker Mischa", email:"mischa.koelliker@trivadis.com"}, 
+					{name:"Schudel Pascal", email:"pascal.schudel@trivadis.com"},
+					{name:"Schmid Raffael", email:"raffael.schmid@trivadis.com"}
+				]},
+				{name:"Trivadis ZH-AD 3", children: [
+					{name:"Kölliker Mischa", email:"mischa.koelliker@trivadis.com"}, 
+					{name:"Schudel Pascal", email:"pascal.schudel@trivadis.com"},
+					{name:"Schmid Raffael", email:"raffael.schmid@trivadis.com"}
+				]}
+			]);
+		]]>
+	</fx:Script>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]private var totalPrice:Number = 0.00;
+			
+			protected function itemIndexChangeHandler(event:IndexChangeEvent):void
+			{
+				schedulerViewStack.selectedChild=myList.selectedItem.show;
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<s:VGroup width="100%" height="100%" paddingLeft="10" paddingBottom="10" paddingRight="10" paddingTop="10">
+		<s:HGroup width="100%" height="100">
+		</s:HGroup>
+		<mx:TabNavigator width="100%" height="100%" paddingLeft="10" paddingBottom="10" paddingRight="10" paddingTop="10">
+			<s:NavigatorContent label="Scheduler" width="100%" height="100%">
+				<mx:HBox height="100%" width="100%">
+					<mx:HBox borderStyle="solid" width="10%" height="100%">
+						<s:List change="itemIndexChangeHandler(event)" id="myList" labelField="label" width="100%" height="100%"
+							<s:ArrayCollection>
+								<fx:Object show="{overview}" label="All"></fx:Object>
+								<fx:Object show="{vacation}" label="Vacation"></fx:Object>
+							</s:ArrayCollection>
+						</s:List>
+					</mx:HBox>
+					<mx:ViewStack id="schedulerViewStack" 
+								  borderStyle="solid" 
+								  width="90%" height="100%">
+						<mx:VDividedBox width="100%" height="100%" label="All" id="all">
+							<mx:HBox width="100%" height="60%">
+								<mx:DataGrid width="100%" height="100%">
+								</mx:DataGrid>
+							</mx:HBox>
+							<mx:HBox width="100%" height="40%">
+								<mx:VBox width="50%" height="200">
+									<mx:Form width="100%" height="100%">
+										<mx:FormItem label="Title">
+											<s:TextInput width="100%"/>
+										</mx:FormItem>
+										<mx:FormItem label="Description">
+											<s:TextArea height="100" width="100%"/>
+										</mx:FormItem>
+									</mx:Form>
+								</mx:VBox>
+								<mx:VBox width="50%" height="200">
+									<mx:Form width="100%" height="100%">
+										<mx:FormItem label="From">
+											<mx:DateField/>
+										</mx:FormItem>
+										<mx:FormItem label="To">
+											<mx:DateField/>
+										</mx:FormItem>
+									</mx:Form>
+								</mx:VBox>
+							</mx:HBox>
+						</mx:VDividedBox>
+						<mx:VDividedBox width="100%" height="100%" label="All" id="vacation">
+						</mx:VDividedBox>
+					</mx:ViewStack>
+				</mx:HBox>
+			</s:NavigatorContent>
+			<s:NavigatorContent label="Administration" width="100%" height="100%">
+				<mx:HDividedBox width="100%" height="100%">
+					<mx:VDividedBox width="30%" height="100%" borderColor="#E81818">
+						
+					</mx:VDividedBox>
+					<mx:VDividedBox width="70%" height="100%">
+						<mx:AdvancedDataGrid width="100%" height="40%" sortExpertMode="true">
+							<mx:dataProvider>
+								<mx:HierarchicalData source="{dpHierarchy}"/>
+							</mx:dataProvider>
+							<mx:columns>
+								<mx:AdvancedDataGridColumn dataField="name" headerText="Members"/>
+								<mx:AdvancedDataGridColumn dataField="email" headerText="E-Mail Address"/>
+								<mx:AdvancedDataGridColumn headerText="Delete">
+									<mx:itemRenderer>
+										<fx:Component>
+											<mx:Box horizontalAlign="center" width="100%" render="{false}	">
+												<mx:Button label="Delete" />
+											</mx:Box>
+										</fx:Component>
+									</mx:itemRenderer>
+								</mx:AdvancedDataGridColumn>
+							</mx:columns>
+						</mx:AdvancedDataGrid>
+						<s:VGroup width="100%" height="60%">
+							<mx:Form width="100%" height="100%">
+								<mx:HBox>
+									
+								</mx:HBox>
+								<mx:FormItem label="Team Name:">
+									<s:Label text="Trivadis ZH-AD 1"/>
+								</mx:FormItem>
+								<mx:FormItem label="Team Description:">
+									<s:Label text="Trivadis Application Development Zürich" width="200"/>
+								</mx:FormItem>
+								<mx:Spacer height="30"/>
+								<mx:HBox>
+									<s:Button label="Delete Team"/>
+									<s:Button label="Edit Members"/>
+								</mx:HBox>
+							</mx:Form>
+						</s:VGroup>
+					</mx:VDividedBox>
+				</mx:HDividedBox>
+			</s:NavigatorContent>
+		</mx:TabNavigator>
+	</s:VGroup>
+</s:Application>
