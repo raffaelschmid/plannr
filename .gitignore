@@ -1,0 +1,13 @@
+workspace-server/plannr/spa/project/build/target
+workspace-server/plannr/spa/target
+workspace-server/plannr/spa/lift_example
+workspace-server/plannr/plannr-test/target
+workspace-server/intellij-project/.idea
+workspace-server/intellij-project
+workspace-server/plannr/spa/lib_managed
+http://workspace-server/plannr/spa/derby.log
+http://workspace-server/plannr/plannr.iml
+workspace-client/plannr-client/bin-debug
+workspace-client/plannr-client/bin
+workspace-client/plannr-client/bin-debug
+workspace-client/plannr-client/html-template

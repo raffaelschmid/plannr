@@ -9,6 +9,7 @@ import org.specs.Specification
 import org.specs.specification.BeforeAfter
 import xml.Node
 import net.liftweb.common.{Box, Failure, Full}
+import ch.plannr.common.persistence.Dataloader
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,10 +19,10 @@ import net.liftweb.common.{Box, Failure, Full}
  * To change this template use File | Settings | File Templates.
  */
 
-trait ServerIntegrationSpecification extends Specification with BeforeAfter with TestKit{
+trait ServerIntegrationSpecification extends Specification with BeforeAfter with TestKit with Dataloader {
   override def baseUrl = SingletonServer.baseUrl
 
-  implicit def responseType2Node(response:ResponseType): Node = response.xml match {
+  implicit def responseType2Node(response: ResponseType): Node = response.xml match {
     case x: Failure => <error>$
       {x.msg}
     </error>
@@ -30,7 +31,7 @@ trait ServerIntegrationSpecification extends Specification with BeforeAfter with
   }
 
   doBeforeSpec(SingletonServer.startup)
-  doAfterSpec {SingletonServer.shutdown}
+  doAfterSpec(SingletonServer.shutdown)
 }
 //object ServerIntegrationSpecification extends TestKit{
 //

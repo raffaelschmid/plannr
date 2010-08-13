@@ -12,8 +12,12 @@ import net.liftweb.common.{Box, Failure, Full}
 import xml.{Node, Elem}
 import net.liftweb.http.testing.{ClientBuilder, HttpResponse}
 import org.specs.Specification
+import bootstrap.liftweb.Fixtures
 
 class LoginWebserviceSpec extends Specification with ServerIntegrationSpecification {
+
+  def fixture = Fixtures.load
+  
   "POST to /webservices/login" should {
     "return the user as xml (credentials, user available)" in {
       val xml: Node = post("/webservices/login", buildBasicAuthClient("raffi.schmid@gmail.com", "plannr"),Nil)

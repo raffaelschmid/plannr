@@ -3,9 +3,9 @@ package bootstrap.liftweb
 import net.liftweb.common.Loggable
 import net.liftweb.util.Props
 import Props.RunModes._
-import ch.plannr.common.persistence.Model
-import javax.persistence.{EntityTransaction, EntityManager, Persistence, EntityManagerFactory}
-import ch.plannr.model.{Role, User}
+import javax.persistence.EntityTransaction
+import ch.plannr.model.{Address, Role, User}
+import ch.plannr.common.persistence.DBModel
 
 /**
  * User: Raffael Schmid
@@ -13,64 +13,73 @@ import ch.plannr.model.{Role, User}
  * Load fixtures environment specific
  */
 object Fixtures extends Loggable {
-  var emf: EntityManagerFactory = _
 
   def load() {
-    var em: EntityManager = null;
-    var tx: EntityTransaction = null
-    try {
-      em = Model.openEM
-      tx = em.getTransaction
-
-      logger.info("-----------------------------------------------------")
-      logger.info("-- fixturing -> started")
-      logger.info("-----------------------------------------------------")
-      Props.mode match {
-        case Development => {
-          developmentFixtures(em)
-        }
-        case Test => {
-          testFixtures(em)
-        }
-        case Production => {
-          productionFixtures(em)
-        }
-        case _ => logger.info("no runmode selected -> load nothing")
+    logger.info("-----------------------------------------------------")
+    logger.info("-- fixturing -> started")
+    logger.info("-----------------------------------------------------")
+    Props.mode match {
+      case Development => {
+        developmentFixtures
       }
-      logger.info("-----------------------------------------------------")
-      logger.info("-- fixturing -> ended")
-      logger.info("-----------------------------------------------------")
+      case Test => {
+        testFixtures
+      }
+      case Production => {
+        productionFixtures
+      }
+      case _ => logger.info("no runmode selected -> load nothing")
+    }
+    logger.info("-----------------------------------------------------")
+    logger.info("-- fixturing -> ended")
+    logger.info("-----------------------------------------------------")
 
-      tx.commit
+  }
+
+  def testFixtures: Unit = {
+    var trx: EntityTransaction = null
+    try {
+
+      val author1: User = new User
+      author1.username = "schmidic"
+      author1.firstname = "Raffael"
+      author1.lastname = "Schmid"
+      author1.password = "schmidic"
+      author1.email = "raffi.schmid@gmail.com"
+
+      val address: Address = new Address
+      address.street1 = "Bahnhofstrasse 56"
+      address.zip = 5430
+      address.city = "Wettingen"
+
+      author1.address = address
+
+
+      val admin: Role = new Role
+      admin.rolename = "administrator"
+      admin.persist
+
+      author1.roles.add(admin)
+      author1.persist
+
+      val list = User.findAll
+      
     }
     catch {
       case ex: Exception => {
         ex.printStackTrace()
-        tx.rollback
+        trx.rollback
       }
     } finally {
-      if (em != null) em.close()
     }
-  }
-
-  def testFixtures(em: EntityManager): Unit = {
-    val author1: User = new User
-    author1.username = "schmidic"
-    author1.firstname="Raffael"
-    author1.lastname="Schmid"
-
-    val admin: Role = new Role
-    admin.rolename = "administrator"
-    em.persist(admin)
-    author1.roles.add(admin)
-
-    em.persist(author1)
 
   }
 
-  def developmentFixtures(em: EntityManager): Unit = testFixtures(em)
+  def developmentFixtures: Unit = testFixtures
 
-  def productionFixtures(em: EntityManager): Unit = {logger.info("production mode -> load nothing")}
+  def productionFixtures: Unit = {
+    logger.info("production mode -> load nothing")
+  }
 
-  def nonefixtures(em: EntityManager): Unit = logger.info("no runmode selected -> load nothing")
+  def nonefixtures(): Unit = logger.info("no runmode selected -> load nothing")
 }

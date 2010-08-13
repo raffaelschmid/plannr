@@ -43,6 +43,7 @@ object SingletonServer {
   def shutdown = {
     if (initialized) {
       println("shutting down server")
+      
       try {
         server.stop()
         server.join()

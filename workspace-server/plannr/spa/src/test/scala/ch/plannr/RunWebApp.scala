@@ -1,6 +1,5 @@
 package ch.plannr
 
-import common.persistence.Model
 import model.{User}
 import org.mortbay.jetty.webapp.WebAppContext
 import org.mortbay.jetty.Server

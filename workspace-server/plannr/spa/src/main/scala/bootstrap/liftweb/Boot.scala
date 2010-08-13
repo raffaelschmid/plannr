@@ -27,7 +27,8 @@ import auth.{userRoles, AuthRole, HttpBasicAuthentication}
 import ch.plannr.model._
 import S.?
 import ch.plannr.webservices.LoginWebservice
-import ch.plannr.common.persistence.Model
+import ch.plannr.common.persistence.DBModel
+
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -45,15 +46,14 @@ class Boot {
     LiftRules.authentication = HttpBasicAuthentication("lift") {
       case (username, password, req) => {
         try {
-          println(">>>>>>>>>>>>>>>>>>>>>>>>>>>")
-          println(Model.createNamedQuery("findByUsername",("username","schmidic")).getSingleResult)
-          println(">>>>>>>>>>>>>>>>>>>>>>>>>>>")
 
           println(username + "->" + password)
 
-//          User.login(username, password)
-//
-//          logger.info("You are now authenticated !")
+          println(User.findByUsername(username))
+          
+          //          User.login(username, password)
+          //
+          //          logger.info("You are now authenticated !")
           userRoles(AuthRole("admin"))
           true
         }
@@ -67,10 +67,24 @@ class Boot {
       }
     }
     LiftRules.loggedInTest = Full(() => true)
-    
+
     LiftRules.dispatch.append(LoginWebservice)
 
-    Fixtures.load
+//    S.addAround(new LoanWrapper {
+//   def apply[T](f: => T):T = {
+//      try {
+//         f
+//      }
+//      catch {
+//         case e => DBModel.getTransaction.setRollbackOnly
+//        f
+//      }
+//      finally {
+//         DBModel.cleanup
+//      }
+//   }
+//})
+
   }
 }
 

@@ -17,15 +17,16 @@ package ch.plannr {
 package model {
 
 import _root_.javax.persistence._
-import java.lang.reflect.Field
+import javax.validation.constraints.Size
+import org.hibernate.validator.constraints.{NotEmpty, Email}
+import common.persistence.{Persistent, DBModel}
 
 /**
  *
  */
 @Entity
 @Table(name = "tbl_user")
-//@Table{val name = "tbl_user"}
-class User extends ToString {
+class User extends ToString with Persistent {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   var id: Long = _
@@ -33,14 +34,25 @@ class User extends ToString {
   @Column(unique = true, nullable = false)
   var username: String = ""
 
+  @Column(nullable = false)
+  @Size(min = 6, max = 10)
+  var password: String = ""
+
   @Column(unique = true, nullable = false)
+  @Email
   var email: String = ""
 
   @Column(nullable = false)
+  @NotEmpty
   var firstname: String = ""
 
   @Column(nullable = false)
+  @NotEmpty
   var lastname: String = ""
+
+  @Embedded
+  var address: Address = new Address
+
 
   @ManyToMany
   @JoinTable(name = "USER_ROLE",
@@ -48,8 +60,19 @@ class User extends ToString {
     inverseJoinColumns = Array(new JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")))
   var roles: _root_.java.util.Set[Role] = new _root_.java.util.HashSet[Role]()
 
+  
+
 }
+object User extends User {
+  
+  def findAll: List[User] = {
+    val users = DBModel.createNamedQuery[User]("findAllUsers").getResultList()
+    List(users: _*)
+  }
+  def findByUsername(username:String):User = {
+    DBModel.createNamedQuery[User]("findByUsername",Pair("username","schmidic")).getSingleResult
+  }
 
-
+}
 }
 }
