@@ -1,7 +1,7 @@
 package ch.plannr.model
 
 import javax.persistence._
-import ch.plannr.common.persistence.Persistent
+import ch.plannr.common.persistence.{Domain, Persistent}
 
 /**
  * User: Raffael Schmid
@@ -10,7 +10,8 @@ import ch.plannr.common.persistence.Persistent
  */
 
 @Entity
-class Role extends ToString  with Persistent{
+@Table(name = "TBL_ROLE")
+class Role extends Domain  with Persistent{
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   var id: Long = _

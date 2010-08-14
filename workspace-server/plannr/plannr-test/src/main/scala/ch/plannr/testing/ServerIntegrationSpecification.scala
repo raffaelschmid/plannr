@@ -22,13 +22,13 @@ import ch.plannr.common.persistence.Dataloader
 trait ServerIntegrationSpecification extends Specification with BeforeAfter with TestKit with Dataloader {
   override def baseUrl = SingletonServer.baseUrl
 
-  implicit def responseType2Node(response: ResponseType): Node = response.xml match {
-    case x: Failure => <error>$
-      {x.msg}
-    </error>
-    case x@Full(m) => x.open_!
-    case _ => <error>undefined</error>
-  }
+//  implicit def responseType2Node(response: ResponseType): Node = response.xml match {
+//    case x: Failure => <error>
+//      {x.msg}
+//    </error>
+//    case x@Full(m) => x.open_!
+//    case _ => <error>undefined</error>
+//  }
 
   doBeforeSpec(SingletonServer.startup)
   doAfterSpec(SingletonServer.shutdown)

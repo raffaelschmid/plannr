@@ -44,16 +44,10 @@ class Boot {
 
 
     LiftRules.authentication = HttpBasicAuthentication("lift") {
-      case (username, password, req) => {
+      case (usernameOrEmail, password, req) => {
         try {
 
-          println(username + "->" + password)
-
-          println(User.findByUsername(username))
-          
-          //          User.login(username, password)
-          //
-          //          logger.info("You are now authenticated !")
+          val user = User.login(usernameOrEmail, password)
           userRoles(AuthRole("admin"))
           true
         }
@@ -70,20 +64,20 @@ class Boot {
 
     LiftRules.dispatch.append(LoginWebservice)
 
-//    S.addAround(new LoanWrapper {
-//   def apply[T](f: => T):T = {
-//      try {
-//         f
-//      }
-//      catch {
-//         case e => DBModel.getTransaction.setRollbackOnly
-//        f
-//      }
-//      finally {
-//         DBModel.cleanup
-//      }
-//   }
-//})
+    //    S.addAround(new LoanWrapper {
+    //   def apply[T](f: => T):T = {
+    //      try {
+    //         f
+    //      }
+    //      catch {
+    //         case e => DBModel.getTransaction.setRollbackOnly
+    //        f
+    //      }
+    //      finally {
+    //         DBModel.cleanup
+    //      }
+    //   }
+    //})
 
   }
 }

@@ -44,8 +44,9 @@ object Fixtures extends Loggable {
       author1.username = "schmidic"
       author1.firstname = "Raffael"
       author1.lastname = "Schmid"
-      author1.password = "schmidic"
+      author1.password = "plannr"
       author1.email = "raffi.schmid@gmail.com"
+      author1.validated=true
 
       val address: Address = new Address
       address.street1 = "Bahnhofstrasse 56"
@@ -63,6 +64,8 @@ object Fixtures extends Loggable {
       author1.persist
 
       val list = User.findAll
+      println("---------------all users----------------")
+      println(list)
       
     }
     catch {

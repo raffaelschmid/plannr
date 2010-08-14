@@ -19,14 +19,14 @@ package model {
 import _root_.javax.persistence._
 import javax.validation.constraints.Size
 import org.hibernate.validator.constraints.{NotEmpty, Email}
-import common.persistence.{Persistent, DBModel}
+import common.persistence.{Domain, Persistent, DBModel}
 
 /**
  *
  */
 @Entity
-@Table(name = "tbl_user")
-class User extends ToString with Persistent {
+@Table(name = "TBL_USER")
+class User extends MegaBasicUser[User] with Domain with Persistent {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   var id: Long = _
@@ -50,6 +50,9 @@ class User extends ToString with Persistent {
   @NotEmpty
   var lastname: String = ""
 
+  @Column
+  var validated: Boolean = false
+
   @Embedded
   var address: Address = new Address
 
@@ -60,19 +63,31 @@ class User extends ToString with Persistent {
     inverseJoinColumns = Array(new JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")))
   var roles: _root_.java.util.Set[Role] = new _root_.java.util.HashSet[Role]()
 
-  
+  override def toXml =
+    <user>
+      <id>
+        {id}
+      </id>
+      <username>
+        {username}
+      </username>
+      <firstname>
+        {firstname}
+      </firstname>
+      <lastname>
+        {lastname}
+      </lastname>
+      <email>
+        {email}
+      </email>
+      <validated>
+        {validated}
+      </validated>
+    </user>
+
 
 }
-object User extends User {
-  
-  def findAll: List[User] = {
-    val users = DBModel.createNamedQuery[User]("findAllUsers").getResultList()
-    List(users: _*)
-  }
-  def findByUsername(username:String):User = {
-    DBModel.createNamedQuery[User]("findByUsername",Pair("username","schmidic")).getSingleResult
-  }
-
+object User extends User with MetaMegaBasicUser[User] {
 }
 }
 }

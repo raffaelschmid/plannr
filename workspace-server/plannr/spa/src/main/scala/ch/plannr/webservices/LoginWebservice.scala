@@ -21,19 +21,11 @@ object LoginWebservice extends RestHelper {
   }
 
 
-  // define a REST handler for an XML request
   serve {
     case "webservices" :: "login" :: _ Post _ => {
 
-
-      UserInfo("Raffael", "Schmid", "raffi.schmid@gmail.com").toXml
+      if (User.loggedIn_?) User.currentUser.open_!.toXml else <error/>
     }
   }
-
-  //  implicit def userToInfo(u: User): UserInfo =
-  //    UserInfo(u.firstName, u.lastName, u.email)
-  //
-  //  implicit def uLstToInfo(ul: List[User]): List[UserInfo] =
-  //    ul.map(userToInfo)
 
 }

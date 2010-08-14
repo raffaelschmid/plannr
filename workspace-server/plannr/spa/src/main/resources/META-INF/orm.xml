@@ -13,6 +13,12 @@
         <named-query name="findByUsername">
             <query><![CDATA[from User u where u.username=:username]]></query>
         </named-query>
+        <named-query name="findByUsernameOrEmail">
+            <query><![CDATA[from User u where u.username=:username or u.email=:email]]></query>
+        </named-query>
+        <named-query name="findById">
+            <query><![CDATA[from User u where u.id=:id]]></query>
+        </named-query>
     </entity>
     <entity class="ch.plannr.model.Role"></entity>
 </entity-mappings>
