@@ -27,8 +27,7 @@ import auth.{userRoles, AuthRole, HttpBasicAuthentication}
 import ch.plannr.model._
 import S.?
 import ch.plannr.webservices.LoginWebservice
-import ch.plannr.common.persistence.DBModel
-
+import ch.plannr.common.persistence.{TransactionalLoanWrapper, DBModel}
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -39,19 +38,17 @@ class Boot {
     LiftRules.addToPackages("ch.plannr")
 
     LiftRules.httpAuthProtectedResource.append {
-      case Req("webservices" :: _, _, _) => Full(AuthRole("admin"))
+      case Req("webservices" :: "login" :: _, _, _) => Full(AuthRole("admin"))
     }
 
 
     LiftRules.authentication = HttpBasicAuthentication("lift") {
       case (usernameOrEmail, password, req) => {
         try {
-
           val user = User.login(usernameOrEmail, password)
           userRoles(AuthRole("admin"))
           true
         }
-
         catch {
           case se: SecurityException => {
             false
@@ -64,20 +61,7 @@ class Boot {
 
     LiftRules.dispatch.append(LoginWebservice)
 
-    //    S.addAround(new LoanWrapper {
-    //   def apply[T](f: => T):T = {
-    //      try {
-    //         f
-    //      }
-    //      catch {
-    //         case e => DBModel.getTransaction.setRollbackOnly
-    //        f
-    //      }
-    //      finally {
-    //         DBModel.cleanup
-    //      }
-    //   }
-    //})
+    S.addAround(new TransactionalLoanWrapper())
 
   }
 }

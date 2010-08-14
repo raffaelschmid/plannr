@@ -17,7 +17,7 @@ trait RESTSupport {
   </error>
 
 
-  def replyXmlMessages(messages: String*) = {
+  def xmlMessage(messages: String*) = {
     <response>
       <messages>
         {messages.map {getMessage}}
@@ -25,7 +25,7 @@ trait RESTSupport {
     </response>
   }
 
-  def replyXmlErrors(errors: String*) = {
+  def xmlError(errors: String*) = {
     <response>
       <errors>
         {errors.map {getError}}

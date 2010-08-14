@@ -4,27 +4,20 @@ import net.liftweb.http.rest.RestHelper
 import net.liftweb.json.Extraction
 import ch.plannr.model.User
 import ch.plannr.common.persistence.DBModel
+import ch.plannr.common.webservice.RESTSupport
+import net.liftweb.http.{Req, PostRequest}
 
-object LoginWebservice extends RestHelper {
-  case class UserInfo(firstName: String, lastName: String, email: String) {
-    def toXml = <user>
-      <firstname>
-        {firstName}
-      </firstname> <lastname>
-        {lastName}
-      </lastname> <email>
-        {email}
-      </email>
-    </user>
-
-    def toJson = Extraction.decompose(this)
-  }
-
-
+object LoginWebservice extends RestHelper with RESTSupport{
+  
   serve {
     case "webservices" :: "login" :: _ Post _ => {
+      if (User.loggedIn_?) User.currentUser.open_!.toXml else xmlError("error while logging you in")
+    }
+    case r @ Req("webservices" :: "register" :: _, _, PostRequest) => {
 
-      if (User.loggedIn_?) User.currentUser.open_!.toXml else <error/>
+      println("-------------------")
+      println(r.xml)
+      xmlError("unsupported")
     }
   }
 

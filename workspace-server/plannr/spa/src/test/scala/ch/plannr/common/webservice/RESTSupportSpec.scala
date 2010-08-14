@@ -11,10 +11,10 @@ import org.specs.runner.{JUnit, ScalaTest}
  */
 class RESTSupportSpec extends Specification with RESTSupport{
 
-  "calls to replyXmlMessages"  should {
+  "calls to xmlMessage"  should {
     val xml =  <response><messages><message>1st message</message></messages></response>
     "return " in {
-      trim(replyXmlMessages("1st message")) must beEqualTo(trim(xml))
+      trim(xmlMessage("1st message")) must beEqualTo(trim(xml))
     }
   }
 }
