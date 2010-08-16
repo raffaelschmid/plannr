@@ -13,16 +13,21 @@ import ch.plannr.common.ToString
 @Embeddable
 @Access(AccessType.FIELD)
 class Address extends ToString{
+  @Column(name="STREET1")
   var street1: String = _
 
+  @Column(name="STREET2")
   var street2: String = _
 
+  @Column(name="ZIP")
   @Size(min = 4, max = 10)
   var zip: Int = _
 
+  @Column(name="CITY")
   var city: String = _
 
   @Size(min = 3, max = 3)
+  @Column(name="COUNTRY_CODE")
   var countryCode: String = _
 
 

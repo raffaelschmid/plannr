@@ -14,7 +14,10 @@ import net.liftweb.http.{SessionVar, CleanRequestVarOnSessionTransition, Request
 trait MegaBasicUser[T <: MegaBasicUser[T]] {
   self: T =>
 
+
   def id: Long
+
+  def activationSalt: Long
 
   def validated: Boolean
 
@@ -53,10 +56,10 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
   }
 
 
-  def login(usernameOrEmailValue: String, passwordValue: String): ModelType = {
+  def login(email: String, passwordValue: String): ModelType = {
 
 
-    val user = findByUsername(usernameOrEmailValue)
+    val user = findByEmail(email)
     user match {
       case Full(user) if user.validated &&
               user.password == (passwordValue) => {
@@ -88,18 +91,17 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     }
   }
 
-  def findByUsername(username: String): Box[ModelType] = {
-    val user: ModelType = DBModel.createNamedQuery[ModelType]("findByUsername", Pair("username", username)).getSingleResult
+  def findByEmail(email: String): Box[ModelType] = {
+    val user: ModelType = DBModel.createNamedQuery[ModelType]("findByEmail", Pair("email", email)).getSingleResult
     user match {
       case _ => Full(user)
     }
   }
 
-  def findByUsernameOrEmail(usernameOrEmail: String): Box[ModelType] = {
-    val user = DBModel.createNamedQuery("findByUsernameOrEmail", Pair("username", usernameOrEmail), Pair("email", usernameOrEmail)).getSingleResult
+  def findByUserIdAndSalt(userId: Long, salt:Long): Box[ModelType] = {
+    val user = DBModel.createNamedQuery("findByUserIdAndSalt", Pair("userId", userId), Pair("salt", salt)).getSingleResult
     user match {
       case _ => Full(user)
     }
   }
-
 }

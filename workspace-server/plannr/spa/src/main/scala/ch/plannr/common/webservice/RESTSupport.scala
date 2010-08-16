@@ -18,9 +18,10 @@ trait RESTSupport {
   </error>
 
   private def getViolation(v: ConstraintViolation[_]): Node = {
-      <violation property={v.getPropertyPath.toString} message={v.getMessage}/>
+      <violation property={v.getPropertyPath.toString} message={v.getMessage} value={v.getInvalidValue.toString}/>
   }
 
+  def xmlSuccess = <response success="true"/>
 
   def xmlMessage(messages: String*) = {
     <response>

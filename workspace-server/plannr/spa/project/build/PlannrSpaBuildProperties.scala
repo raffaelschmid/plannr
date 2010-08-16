@@ -12,6 +12,7 @@ class Backend(info: ProjectInfo) extends DefaultWebProject(info) {
     "mysql"%"mysql-connector-java" % "5.1.13" % "compile->default",
     //"jaxb" % "jaxb-api" % "2.1.5" % "compile->default",
     "net.liftweb" % "lift-webkit_2.8.0" % liftVersion % "compile->default",
+    "net.liftweb" % "lift-util_2.8.0" % liftVersion % "compile->default",
     "net.liftweb" % "lift-jpa_2.8.0" % liftVersion % "compile->default",
     "org.hibernate" % "hibernate-entitymanager" % "3.5.1-Final" % "compile->default",
     "org.hibernate" % "hibernate-validator" % "4.1.0.Final" % "compile->default",

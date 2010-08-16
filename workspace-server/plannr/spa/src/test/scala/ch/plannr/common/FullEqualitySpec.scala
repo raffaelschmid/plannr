@@ -10,18 +10,15 @@ import org.specs.Specification
  */
 class FullEqualitySpec extends Specification with FullEquality {
   val origA = new User()
-  origA.username = "a"
   origA.firstname = "a"
   origA.email = "a"
 
   val equalA = new User()
-  equalA.username = "a"
   equalA.firstname = "a"
   equalA.email = "a"
 
   val notEqualA = new User()
-  notEqualA.username = "b"
-  notEqualA.firstname = "a"
+  notEqualA.firstname = "b"
   notEqualA.email = "a"
 
 

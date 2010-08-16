@@ -15,25 +15,21 @@
  */
 package bootstrap.liftweb
 
-import _root_.java.util.Locale
-
-import _root_.net.liftweb.common.{Box, Empty, Full}
-import _root_.net.liftweb.util.{LoanWrapper, LogBoot}
+import _root_.net.liftweb.common.Full
 import _root_.net.liftweb.http._
-import _root_.net.liftweb.http.provider._
-import _root_.net.liftweb.sitemap._
-import _root_.net.liftweb.sitemap.Loc._
 import auth.{userRoles, AuthRole, HttpBasicAuthentication}
 import ch.plannr.model._
-import S.?
 import ch.plannr.webservices.UserWebservice
-import ch.plannr.common.persistence.{TransactionalLoanWrapper, DBModel}
+import ch.plannr.common.persistence.TransactionalLoanWrapper
+import net.liftweb.util.Mailer
+import net.liftweb.util.Mailer.{From, Subject,To,PlainMailBodyType,XHTMLMailBodyType}
+import javax.mail.{PasswordAuthentication, Authenticator}
 
 /**
  * A class that's instantiated early and run.  It allows the application
  * to modify lift's environment
  */
-class Boot {
+class Boot{
   def boot {
     LiftRules.addToPackages("ch.plannr")
 
@@ -43,9 +39,9 @@ class Boot {
 
 
     LiftRules.authentication = HttpBasicAuthentication("lift") {
-      case (usernameOrEmail, password, req) => {
+      case (email, password, req) => {
         try {
-          val user = User.login(usernameOrEmail, password)
+          val user = User.login(email, password)
           userRoles(AuthRole("admin"))
           true
         }
@@ -62,7 +58,7 @@ class Boot {
     LiftRules.dispatch.append(UserWebservice)
 
     S.addAround(new TransactionalLoanWrapper())
-
+    
   }
 }
 

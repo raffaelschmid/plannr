@@ -3,24 +3,31 @@ package ch.plannr.webservices
 import net.liftweb.http.rest.RestHelper
 import ch.plannr.model.User
 import ch.plannr.common.webservice.RESTSupport
-import net.liftweb.http.{Req, PostRequest}
 import javax.validation.ConstraintViolationException
 import collection.JavaConversions
+import ch.plannr.services.UserService
+import net.liftweb.http.{S, GetRequest, Req, PostRequest}
+import net.liftweb.util.Props
 
 object UserWebservice extends RestHelper with RESTSupport {
   serve {
+    // /webservices/login
     case "webservices" :: "login" :: _ Post _ => {
-      if (User.loggedIn_?) User.currentUser.open_!.toXml else xmlError("error while logging you in")
+      val u = UserService.login
+      if (u.isDefined)
+        u.open_!.toXml
+      else xmlError("error while logging you in")
     }
+    // /webservices/register
     case r@Req("webservices" :: "register" :: _, _, PostRequest) => {
 
       try {
+        println("runmode:" + Props.mode)
 
         val user = User.fromXml(r.xml.open_!)
-        println(user)
-        user.persist
+        val registeredUser = UserService.register(user)
 
-        user.toXml
+        registeredUser.toXml
       }
       catch {
         case ex: ConstraintViolationException =>
@@ -29,6 +36,21 @@ object UserWebservice extends RestHelper with RESTSupport {
           xmlViolation(set)
         case ex: Exception =>
           xmlMessage(ex.getMessage)
+      }
+    }
+    // /webservices/validate/3?salt=23323
+    case r@Req("webservices" :: "validate" :: userid :: _, _, GetRequest) => {
+
+      try {
+        val salt = S.param("salt").open_!.toLong
+        if (UserService.validate(userid.toLong, salt))
+          xmlSuccess
+        else
+          xmlError("error while user validation: salt not valid")
+
+      }
+      catch {
+        case ex: Exception => xmlError("error while user validation: userid not found")
       }
     }
   }

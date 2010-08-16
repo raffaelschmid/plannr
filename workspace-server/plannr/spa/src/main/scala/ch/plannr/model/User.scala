@@ -28,31 +28,33 @@ import common.FullEquality
  */
 @Entity
 @Table(name = "TBL_USER")
-class User extends MegaBasicUser[User] with Domain with Persistent {
+class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "ID")
   var id: Long = _
 
-  @Column(unique = true, nullable = false)
-  var username: String = _
+  @Column(name = "ACTIVATION_SALT", nullable = false)
+  var activationSalt: Long = _
 
-  @Column(nullable = false)
-  @Size(min = 6, max = 10)
-  var password: String = _
-
-  @Column(unique = true, nullable = false)
+  @Column(name = "EMAIL", unique = true, nullable = false)
   @Email
   var email: String = _
 
-  @Column(nullable = false)
+  @Column(name = "PASSWORD", nullable = false)
+  @Size(min = 6, max = 10)
+  var password: String = _
+
+
+  @Column(name = "FIRST_NAME", nullable = false)
   @NotEmpty
   var firstname: String = _
 
-  @Column(nullable = false)
+  @Column(name = "LAST_NAME", nullable = false)
   @NotEmpty
   var lastname: String = _
 
-  @Column
+  @Column(name = "VALIDATED")
   var validated: Boolean = false
 
   @Embedded
@@ -70,10 +72,9 @@ class User extends MegaBasicUser[User] with Domain with Persistent {
       <id>
         {id}
       </id>
-      <username>
-        {username}
-      </username>
-      <password>{password}</password>
+      <password>
+        {password}
+      </password>
       <firstname>
         {firstname}
       </firstname>
@@ -87,11 +88,21 @@ class User extends MegaBasicUser[User] with Domain with Persistent {
         {validated}
       </validated>
       <address>
-        <street1>{address.street1}</street1>
-        <street2>{address.street2}</street2>
-        <zip>{address.zip}</zip>
-        <city>{address.city}</city>
-        <countryCode>{address.countryCode}</countryCode>
+        <street1>
+          {address.street1}
+        </street1>
+        <street2>
+          {address.street2}
+        </street2>
+        <zip>
+          {address.zip}
+        </zip>
+        <city>
+          {address.city}
+        </city>
+        <countryCode>
+          {address.countryCode}
+        </countryCode>
       </address>
     </user>
 
@@ -102,15 +113,15 @@ class User extends MegaBasicUser[User] with Domain with Persistent {
   override def equals(other: Any): Boolean =
     other match {
       case that: User =>
-        (that canEqual this) && username == that.username
+        (that canEqual this) && email == that.email
       case _ => false
     }
 
   /**
    * persistence provider needs carefully selected properties for calculating hashCode
-   * username should not be null in any case but because of it is an entity has vars instead of vals
+   * email should not be null in any case but because of it is an entity it's a var
    */
-  override def hashCode: Int = 41 + username.hashCode
+  override def hashCode: Int = 41 + email.hashCode
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[User]
 }
@@ -120,7 +131,6 @@ object User extends User with MetaMegaBasicUser[User] with FullEquality {
 
     val user = new User()
     user.id = xml \ "id"
-    user.username = xml \ "username"
     user.password = xml \ "password"
     user.firstname = xml \ "firstname"
     user.lastname = xml \ "lastname"

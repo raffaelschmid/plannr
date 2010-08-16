@@ -10,11 +10,11 @@
         <named-query name="findAllUsers">
             <query><![CDATA[from User u order by u.lastname]]></query>
         </named-query>
-        <named-query name="findByUsername">
-            <query><![CDATA[from User u where u.username=:username]]></query>
+        <named-query name="findByEmail">
+            <query><![CDATA[from User u where u.email=:email]]></query>
         </named-query>
-        <named-query name="findByUsernameOrEmail">
-            <query><![CDATA[from User u where u.username=:username or u.email=:email]]></query>
+        <named-query name="findByUserIdAndSalt">
+            <query><![CDATA[from User u where u.id=:userId and u.activationSalt=:salt]]></query>
         </named-query>
         <named-query name="findById">
             <query><![CDATA[from User u where u.id=:id]]></query>

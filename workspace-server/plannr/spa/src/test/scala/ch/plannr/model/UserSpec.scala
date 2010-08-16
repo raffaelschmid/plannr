@@ -53,7 +53,6 @@ object UserSpec {
   def testuser = {
     val user = new User
     user.firstname = "firstname"
-    user.username = "username"
     user.lastname = "lastname"
     user.email = "email"
     user

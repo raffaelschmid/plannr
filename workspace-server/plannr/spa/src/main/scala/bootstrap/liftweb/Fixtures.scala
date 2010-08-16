@@ -41,11 +41,10 @@ object Fixtures extends Loggable {
     try {
 
       val user1: User = new User
-      user1.username = "schmidic"
       user1.firstname = "Raffael"
       user1.lastname = "Schmid"
       user1.password = "plannr"
-      user1.email = "raffi.schmid@gmail.com"
+      user1.email = "raffael.schmid@plannr.ch"
       user1.validated=true
 
       val address1: Address = new Address
