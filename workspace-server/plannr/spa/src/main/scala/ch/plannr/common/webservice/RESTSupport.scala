@@ -1,6 +1,7 @@
 package ch.plannr.common.webservice
 
 import scala.xml.Node
+import javax.validation.ConstraintViolation
 
 /**
  * User: Raffael Schmid
@@ -8,13 +9,17 @@ import scala.xml.Node
  * TODO
  */
 trait RESTSupport {
-  def getMessage(msg: String): Node = <message>
+  private def getMessage(msg: String): Node = <message>
     {msg}
   </message>
 
-  def getError(error: String): Node = <error>
+  private def getError(error: String): Node = <error>
     {error}
   </error>
+
+  private def getViolation(v: ConstraintViolation[_]): Node = {
+      <violation property={v.getPropertyPath.toString} message={v.getMessage}/>
+  }
 
 
   def xmlMessage(messages: String*) = {
@@ -30,6 +35,14 @@ trait RESTSupport {
       <errors>
         {errors.map {getError}}
       </errors>
+    </response>
+  }
+
+  def xmlViolation(violations: Set[ConstraintViolation[_]]) = {
+    <response>
+      <violations>
+        {violations.map {getViolation}}
+      </violations>
     </response>
   }
 }

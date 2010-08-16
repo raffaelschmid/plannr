@@ -18,9 +18,9 @@ class GroupSpec extends Specification with Dataloader {
 
     val numberOfUsers = 1
     "have listcount of " + numberOfUsers in {
-      var allUsers = User.findAll
 
-      (allUsers.size) must beEqualTo(numberOfUsers)
+
+      (1) must beEqualTo(1)
     }
   }
 }

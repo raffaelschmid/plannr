@@ -20,6 +20,8 @@ import _root_.javax.persistence._
 import javax.validation.constraints.Size
 import org.hibernate.validator.constraints.{NotEmpty, Email}
 import common.persistence.{Domain, Persistent, DBModel}
+import xml.{NodeSeq, Node}
+import common.FullEquality
 
 /**
  *
@@ -32,23 +34,23 @@ class User extends MegaBasicUser[User] with Domain with Persistent {
   var id: Long = _
 
   @Column(unique = true, nullable = false)
-  var username: String = ""
+  var username: String = _
 
   @Column(nullable = false)
   @Size(min = 6, max = 10)
-  var password: String = ""
+  var password: String = _
 
   @Column(unique = true, nullable = false)
   @Email
-  var email: String = ""
+  var email: String = _
 
   @Column(nullable = false)
   @NotEmpty
-  var firstname: String = ""
+  var firstname: String = _
 
   @Column(nullable = false)
   @NotEmpty
-  var lastname: String = ""
+  var lastname: String = _
 
   @Column
   var validated: Boolean = false
@@ -71,6 +73,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent {
       <username>
         {username}
       </username>
+      <password>{password}</password>
       <firstname>
         {firstname}
       </firstname>
@@ -83,11 +86,82 @@ class User extends MegaBasicUser[User] with Domain with Persistent {
       <validated>
         {validated}
       </validated>
+      <address>
+        <street1>{address.street1}</street1>
+        <street2>{address.street2}</street2>
+        <zip>{address.zip}</zip>
+        <city>{address.city}</city>
+        <countryCode>{address.countryCode}</countryCode>
+      </address>
     </user>
 
 
+  /**
+   * persistence provider needs carefully selected properties for equality check
+   */
+  override def equals(other: Any): Boolean =
+    other match {
+      case that: User =>
+        (that canEqual this) && username == that.username
+      case _ => false
+    }
+
+  /**
+   * persistence provider needs carefully selected properties for calculating hashCode
+   * username should not be null in any case but because of it is an entity has vars instead of vals
+   */
+  override def hashCode: Int = 41 + username.hashCode
+
+  def canEqual(other: Any): Boolean = other.isInstanceOf[User]
 }
-object User extends User with MetaMegaBasicUser[User] {
+object User extends User with MetaMegaBasicUser[User] with FullEquality {
+  def fromXml(xml: Node): User = {
+
+
+    val user = new User()
+    user.id = xml \ "id"
+    user.username = xml \ "username"
+    user.password = xml \ "password"
+    user.firstname = xml \ "firstname"
+    user.lastname = xml \ "lastname"
+    user.email = xml \ "email"
+    user.password = xml \ "password"
+
+    val address = new Address
+    user.address = address
+    user.address.street1 = xml \ "address" \ "street1"
+    user.address.street2 = xml \ "address" \ "street2"
+    user.address.zip = xml \ "address" \ "zip"
+    user.address.city = xml \ "address" \ "city"
+    user.address.countryCode = xml \ "address" \ "country_code"
+
+    user
+  }
+
+  implicit def extract(s: NodeSeq): String = {
+    val value = s.text.trim
+    if (value.isEmpty) null else value
+  }
+
+  implicit def string2Long(ns: NodeSeq): Long = {
+    val s = extract(ns)
+    if (s != null) s.toLong else 0
+  }
+
+  implicit def string2Int(ns: NodeSeq): Int = {
+    val s = extract(ns)
+    if (s != null) s.toInt else 0
+  }
+
+
 }
+case class ?:[T](x: T) {
+  def apply(): T = x
+
+  def apply[U >: Null](f: T => U): ?:[U] =
+    if (x == null) ?:[U](null)
+    else ?:[U](f(x))
+}
+
 }
 }

@@ -26,7 +26,7 @@ import _root_.net.liftweb.sitemap.Loc._
 import auth.{userRoles, AuthRole, HttpBasicAuthentication}
 import ch.plannr.model._
 import S.?
-import ch.plannr.webservices.LoginWebservice
+import ch.plannr.webservices.UserWebservice
 import ch.plannr.common.persistence.{TransactionalLoanWrapper, DBModel}
 
 /**
@@ -59,7 +59,7 @@ class Boot {
     }
     LiftRules.loggedInTest = Full(() => true)
 
-    LiftRules.dispatch.append(LoginWebservice)
+    LiftRules.dispatch.append(UserWebservice)
 
     S.addAround(new TransactionalLoanWrapper())
 

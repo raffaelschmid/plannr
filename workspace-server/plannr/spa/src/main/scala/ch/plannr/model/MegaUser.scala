@@ -81,7 +81,7 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     List(users: _*)
   }
 
-  def findById(id: String): Box[ModelType] = {
+  def findById(id: Long): Box[ModelType] = {
     val user: ModelType = DBModel.createNamedQuery[ModelType]("findById", Pair("id", id)).getSingleResult
     user match {
       case _ => Full(user)

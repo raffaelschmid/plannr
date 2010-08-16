@@ -40,28 +40,28 @@ object Fixtures extends Loggable {
     var trx: EntityTransaction = null
     try {
 
-      val author1: User = new User
-      author1.username = "schmidic"
-      author1.firstname = "Raffael"
-      author1.lastname = "Schmid"
-      author1.password = "plannr"
-      author1.email = "raffi.schmid@gmail.com"
-      author1.validated=true
+      val user1: User = new User
+      user1.username = "schmidic"
+      user1.firstname = "Raffael"
+      user1.lastname = "Schmid"
+      user1.password = "plannr"
+      user1.email = "raffi.schmid@gmail.com"
+      user1.validated=true
 
-      val address: Address = new Address
-      address.street1 = "Bahnhofstrasse 56"
-      address.zip = 5430
-      address.city = "Wettingen"
+      val address1: Address = new Address
+      address1.street1 = "Bahnhofstrasse 56"
+      address1.zip = 5430
+      address1.city = "Wettingen"
 
-      author1.address = address
+      user1.address = address1
 
 
-      val admin: Role = new Role
-      admin.rolename = "administrator"
-      admin.persist
+      val admin_role: Role = new Role
+      admin_role.rolename = "administrator"
+      admin_role.persist
 
-      author1.roles.add(admin)
-      author1.persist
+      user1.roles.add(admin_role)
+      user1.persist
 
       val list = User.findAll
       println("---------------all users----------------")
