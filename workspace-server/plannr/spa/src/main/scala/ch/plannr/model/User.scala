@@ -17,11 +17,11 @@ package ch.plannr {
 package model {
 
 import _root_.javax.persistence._
-import javax.validation.constraints.Size
 import org.hibernate.validator.constraints.{NotEmpty, Email}
-import common.persistence.{Domain, Persistent, DBModel}
+import common.persistence.{Domain, Persistent}
 import xml.{NodeSeq, Node}
 import common.FullEquality
+import javax.validation.constraints.{NotNull, Size}
 
 /**
  *
@@ -35,37 +35,58 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   var id: Long = _
 
   @Column(name = "ACTIVATION_SALT", nullable = false)
+  @NotNull
   var activationSalt: Long = _
+
 
   @Column(name = "EMAIL", unique = true, nullable = false)
   @Email
+  @NotNull
   var email: String = _
 
   @Column(name = "PASSWORD", nullable = false)
+  @NotNull
   @Size(min = 6, max = 10)
   var password: String = _
 
 
   @Column(name = "FIRST_NAME", nullable = false)
+  @NotNull
   @NotEmpty
   var firstname: String = _
 
   @Column(name = "LAST_NAME", nullable = false)
+  @NotNull
   @NotEmpty
   var lastname: String = _
 
   @Column(name = "VALIDATED")
+  @NotNull
   var validated: Boolean = false
 
   @Embedded
   var address: Address = new Address
-
 
   @ManyToMany
   @JoinTable(name = "USER_ROLE",
     joinColumns = Array(new JoinColumn(name = "USER_ID", referencedColumnName = "ID")),
     inverseJoinColumns = Array(new JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")))
   var roles: _root_.java.util.Set[Role] = new _root_.java.util.HashSet[Role]()
+
+  @ManyToMany
+  @JoinTable(
+    name = "USER_TEAM",
+    joinColumns = Array(new JoinColumn(name = "USER_ID", referencedColumnName = "ID")),
+    inverseJoinColumns = Array(new JoinColumn(name = "TEAM_ID", referencedColumnName = "ID")))
+  var teams: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]()
+
+
+  @OneToMany(mappedBy = "user")
+  var vacations: _root_.java.util.Set[Vacation] = new _root_.java.util.HashSet[Vacation]
+
+  @OneToMany(mappedBy = "user")
+  var comments: _root_.java.util.Set[Comment] = _
+
 
   override def toXml =
     <user>

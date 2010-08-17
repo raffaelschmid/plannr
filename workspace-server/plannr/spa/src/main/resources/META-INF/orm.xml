@@ -6,7 +6,7 @@
 
     <package>ch.plannr.model</package>
 
-    <entity class="ch.plannr.model.User">
+    <entity class="User">
         <named-query name="findAllUsers">
             <query><![CDATA[from User u order by u.lastname]]></query>
         </named-query>
@@ -20,5 +20,8 @@
             <query><![CDATA[from User u where u.id=:id]]></query>
         </named-query>
     </entity>
-    <entity class="ch.plannr.model.Role"></entity>
+    <entity class="Role"></entity>
+    <entity class="Team"></entity>
+    <entity class="Vacation"></entity>
+    <entity class="Comment"></entity>
 </entity-mappings>
