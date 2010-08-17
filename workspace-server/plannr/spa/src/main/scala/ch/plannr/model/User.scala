@@ -165,13 +165,5 @@ object User extends User with MetaMegaBasicUser[User] with FullEquality {
 
 
 }
-case class ?:[T](x: T) {
-  def apply(): T = x
-
-  def apply[U >: Null](f: T => U): ?:[U] =
-    if (x == null) ?:[U](null)
-    else ?:[U](f(x))
-}
-
 }
 }
