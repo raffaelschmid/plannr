@@ -37,11 +37,11 @@ trait Persistent[T] {
 
   def remove = {
     DBModel.remove(this)
-    this
+    true
   }
 
   def removeAndFlush = {
     DBModel.removeAndFlush(this)
-    this
+    true
   }
 }

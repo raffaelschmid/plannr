@@ -2,9 +2,10 @@ package ch.plannr.model
 
 import javax.validation.constraints.{Size, NotNull}
 import javax.persistence._
-import ch.plannr.common.persistence.{Persistent, Domain}
 import xml.Node
 import ch.plannr.common.{Conversion, FullEquality}
+import reflect.BeanProperty
+import ch.plannr.common.persistence.{DBModel, Persistent, Domain}
 
 /**
  * User: Raffael Schmid
@@ -30,7 +31,12 @@ class Team extends Domain with Persistent[Team] {
   var description: String = _
 
 
-  @ManyToMany(mappedBy = "teams")
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "OWNER_ID", referencedColumnName = "ID")
+  @BeanProperty
+  var owner: User = _
+
+  @ManyToMany(mappedBy = "memberOf")
   var members: _root_.java.util.Set[User] = new _root_.java.util.HashSet[User]()
 
   override def toXml =
@@ -55,5 +61,9 @@ object Team extends Team with FullEquality with Conversion {
     team.name = xml \ "name"
     team.description = xml \ "description"
     team
+  }
+
+  def findById(id: Long) = {
+    DBModel.find(classOf[Team], id)
   }
 }

@@ -31,6 +31,8 @@ import ch.plannr.webservices.{TeamWebservice, UserWebservice}
  */
 class Boot {
   def boot {
+    LiftRules.resourceNames = "messages" :: LiftRules.resourceNames
+
     LiftRules.addToPackages("ch.plannr")
 
     LiftRules.httpAuthProtectedResource.append {

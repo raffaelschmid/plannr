@@ -19,10 +19,9 @@ object UserService extends MailSupport {
   /**
    *  user was created on his own and must validate
    */
-
   private def sendValidationEmail(user: User): Unit = {
     //send mail to user
-    def subject = S.??("sign.up.confirmation")
+    def subject = S.?("sign.up.confirmation")
     val email: String = user.email
     def emailFrom = Props.get("mail.from").open_!
     val validationLink = S.hostAndPath + "/webservices/validate/" + user.id + "?salt=" + user.activationSalt
@@ -34,12 +33,21 @@ object UserService extends MailSupport {
               (bccEmail.toList.map(BCC(_)))): _*)
   }
 
-
   /**
    * user was created by a team owner and must retrieve a confirmation
    */
   private def sendNotificationEmail(user: User): Unit = {
+    //send mail to user
+    def subject = S.?("registration.foreign.subject")
+    val email: String = user.email
+    def emailFrom = Props.get("mail.from").open_!
+    val notificationLink = S.hostAndPath + "/webservices/registrationform/" + user.id + "?salt=" + user.activationSalt
+    val msgXml = MailTemplates.notificationMailBody(user.firstname, notificationLink)
+    def bccEmail: Box[String] = Empty
 
+    sendMail(From(emailFrom), Subject(subject),
+      (To(user.email) :: xmlToMailBodyType(msgXml) ::
+              (bccEmail.toList.map(BCC(_)))): _*)
   }
 
 
@@ -51,9 +59,12 @@ object UserService extends MailSupport {
     //save user
     user.persist
 
-
-    sendValidationEmail(user)
-
+    if (selfRegistration) {
+      sendValidationEmail(user)
+    }
+    else {
+      sendNotificationEmail(user)
+    }
     user
   }
 
@@ -67,8 +78,10 @@ object UserService extends MailSupport {
     else {
       false
     }
+  }
 
-
+  def findByEmail(email: String): Box[User] = {
+    User.findByEmail(email)
   }
 
   /**

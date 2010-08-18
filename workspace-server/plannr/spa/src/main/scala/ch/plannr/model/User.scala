@@ -23,6 +23,7 @@ import xml.{NodeSeq, Node}
 import javax.validation.constraints.{NotNull, Size}
 import util.Random
 import common.{Conversion, FullEquality}
+import reflect.BeanProperty
 
 /**
  *
@@ -64,25 +65,30 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   @NotNull
   var validated: Boolean = false
 
-  @Column(name="SELF_REGISTERED")
+  @Column(name = "SELF_REGISTERED")
   @NotNull
-  var selfRegistered:Boolean = false
+  var selfRegistered: Boolean = false
 
   @Embedded
   var address: Address = new Address
 
   @ManyToMany
-  @JoinTable(name = "USER_ROLE",
+  @JoinTable(name = "ROLEMAPPING",
     joinColumns = Array(new JoinColumn(name = "USER_ID", referencedColumnName = "ID")),
     inverseJoinColumns = Array(new JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")))
   var roles: _root_.java.util.Set[Role] = new _root_.java.util.HashSet[Role]()
 
   @ManyToMany
   @JoinTable(
-    name = "USER_TEAM",
+    name = "MEMBERSHIP",
     joinColumns = Array(new JoinColumn(name = "USER_ID", referencedColumnName = "ID")),
     inverseJoinColumns = Array(new JoinColumn(name = "TEAM_ID", referencedColumnName = "ID")))
-  var teams: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]()
+  var memberOf: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]()
+
+
+  @OneToMany(mappedBy = "owner", targetEntity = classOf[Team], fetch = FetchType.EAGER)
+  @BeanProperty
+  var ownerOf: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]
 
 
   @OneToMany(mappedBy = "user")
@@ -153,7 +159,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[User]
 }
-object User extends User with MetaMegaBasicUser[User] with FullEquality with Conversion{
+object User extends User with MetaMegaBasicUser[User] with FullEquality with Conversion {
   private var rand = new Random()
 
   def fromXml(xml: Node): User = {

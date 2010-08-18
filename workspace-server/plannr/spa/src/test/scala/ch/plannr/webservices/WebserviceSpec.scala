@@ -46,7 +46,7 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
 
   "POST to /webservices/register" should {
     "return fully registered user (valid user)" in {
-      val response: TestResponse = post("/webservices/register", invalidUser.toXml)
+      val response: TestResponse = post("/webservices/register", invalidUser01.toXml)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
       val xml = response.xml.open_!
@@ -56,7 +56,23 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
 
 
     "return fully registered user (valid user)" in {
-      val response: TestResponse = post("/webservices/register", validUser.toXml)
+      val response: TestResponse = post("/webservices/register?self=true", validUser01.toXml)
+      response.!(200, "valid credentials given -> 200 should be returned but wasn't")
+
+      val xml = response.xml.open_!
+      val userId = (xml \\ "user" \\ "id").text.trim.toLong
+      val activationSalt = (xml \\ "user" \\ "activation_salt").text.trim.toLong
+
+      activationSalt mustNot beEqual(0)
+      println("activationsalt:" + activationSalt)
+      userId mustNot beEqual(0)
+
+      // because no transaction is closed during different tests
+      User.findById(userId).open_!.removeAndFlush
+    }
+
+    "return fully registered user and send notification mail if user was registered by other" in {
+      val response: TestResponse = post("/webservices/register", validUser01.toXml)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
       val xml = response.xml.open_!
@@ -77,7 +93,7 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
     "validate user if exist" in {
 
       //persist new user and flush because
-      val userToValidate = validUser.persistAndFlush
+      val userToValidate = validUser01.persistAndFlush
 
       val userid = userToValidate.id
       val salt = userToValidate.activationSalt
@@ -98,7 +114,7 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
   "POST to /webservices/update/${userid}" should {
     "save updated user" in {
       //save before update
-      val alreadyPersistedUser = validUser
+      val alreadyPersistedUser = validUser01
       alreadyPersistedUser.persistAndFlush
 
       //now the test
@@ -120,30 +136,51 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
     }
   }
 
+  "GET to /webservices/user/find?email=raffael.schmid@plannr.ch" should {
+    "return error xml if instance is not valid" in {
 
+      val response: TestResponse = get("/webservices/user/find?email=raffael.schmid@plannr.ch")
+      response.!(200, "valid credentials given -> 200 should be returned but wasn't")
+
+      val xml = response.xml.open_!
+      println(xml)
+      (xml \\ "user" \\ "firstname").text.trim must beEqual("Raffael")
+      (xml \\ "user" \\ "lastname").text.trim must beEqual("Schmid")
+      (xml \\ "user" \\ "email").text.trim must beEqual("raffael.schmid@plannr.ch")
+    }
+  }
+
+
+  //---------------------------------------
 
   "POST to /webservices/team" should {
     "return error xml if instance is not valid" in {
 
-      val response: TestResponse = post("/webservices/team", invalidTeam.toXml)
+      val response: TestResponse = post("/webservices/team/add?ownerId=1", invalidTeam.toXml)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
       val xml = response.xml.open_!
       val violations: NodeSeq = (xml \\ "response" \\ "violations" \\ "violation")
-      (violations(0) \ "@property").text.trim must beIn(List("name","description"))
-      (violations(1) \ "@property").text.trim must beIn(List("name","description"))
-    }
+      (violations(0) \ "@property").text.trim must beIn(List("name", "description"))
+      (violations(1) \ "@property").text.trim must beIn(List("name", "description"))
 
-    "return team as xml if input is valid" in {
-      val response: TestResponse = post("/webservices/team", validTeam.toXml)
+    }
+    "return error xml if instance is not valid" in {
+
+      val response: TestResponse = post("/webservices/team/add?ownerId=1", validTeam.toXml)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
-      val xml = response.xml.open_!
 
-      (xml \\ "team" \\ "id").text.trim.toLong mustNot beEqualTo(0)
-      (xml \\ "team" \\ "name").text.trim must beEqualTo("namename")
-      (xml \\ "team" \\ "description").text.trim must beEqualTo("descriptiondescription")
+      val getResponse: TestResponse = get("/webservices/team?ownerId=1")
+      println(getResponse.xml.open_!)
 
     }
+    "return error xml if instance is not valid" in {
+
+      val response: TestResponse = delete("/webservices/team/2")
+      response.!(200, "valid credentials given -> 200 should be returned but wasn't")
+      
+    }
+
   }
 
 
@@ -153,7 +190,7 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
 }
 
 trait UserTestdata {
-  def invalidUser = {
+  def invalidUser01 = {
     val user = new User
     user.firstname = "firstname"
     user.lastname = "lastname"
@@ -162,12 +199,21 @@ trait UserTestdata {
     user
   }
 
-  def validUser = {
+  def validUser01 = {
     val user = new User
     user.firstname = "firstname"
     user.lastname = "lastname"
     user.password = "webservice"
-    user.email = "webservice@plannr.ch"
+    user.email = "webservice01@plannr.ch"
+    user
+  }
+
+  def validUser02 = {
+    val user = new User
+    user.firstname = "firstname"
+    user.lastname = "lastname"
+    user.password = "webservice"
+    user.email = "webservice-02@plannr.ch"
     user
   }
 }
@@ -182,7 +228,7 @@ trait TeamTestdata {
 
   def validTeam = {
     val team = new Team
-    team.name = "namename"
+    team.name = "namenamename"
     team.description = "descriptiondescription"
     team
   }

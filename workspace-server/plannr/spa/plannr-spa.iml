@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="" />
+        <datasource-mapping>
+          <factory-entry name="jpaweb" />
+        </datasource-mapping>
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
+    <facet type="scala" name="Scala">
+      <configuration>
+        <option name="compilerLibraryLevel" value="Project" />
+        <option name="compilerLibraryName" value="Maven: org.scala-lang:scala-compiler-bundle:2.8.0" />
+        <option name="deprecationWarnings" value="true" />
+        <option name="maximumHeapSize" value="1024" />
+        <option name="vmOptions" value="-DpackageLinkDefs=file:///Users/rschmid/general-workspaces/hszt/plannr/software/workspace-server/plannr/spa/target/packageLinkDefs.properties" />
+      </configuration>
+    </facet>
     <facet type="Scala" name="Scala">
       <configuration>
         <option name="takeFromSettings" value="true" />
@@ -14,14 +33,6 @@
             <option value="$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.8.0/scala-library-2.8.0.jar" />
           </array>
         </option>
-      </configuration>
-    </facet>
-    <facet type="jpa" name="JPA">
-      <configuration>
-        <setting name="validation-enabled" value="true" />
-        <setting name="provider-name" value="" />
-        <datasource-mapping />
-        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
     </facet>
   </component>
@@ -47,6 +58,7 @@
     <orderEntry type="library" name="Maven: org.scala-libs:scalajpa:1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.h2database:h2:1.2.134" level="project" />
     <orderEntry type="library" name="Maven: org.scala-tools.testing:scalatest:0.9.5" level="project" />
+    <orderEntry type="library" name="scala-library-2.8.0.r20327-b20091231020112" level="application" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.13" level="project" />
     <orderEntry type="library" name="Maven: geronimo-spec:geronimo-spec-ejb:2.1-rc4" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:3.5.1-Final" level="project" />
@@ -84,8 +96,8 @@
     <orderEntry type="library" name="Maven: org.scala-libs:scalajpa:1.2-scala280-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.mortbay.jetty:jetty:6.1.25" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.mortbay.jetty:jetty-util:6.1.25" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.mortbay.jetty:jetty:6.1.16" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.mortbay.jetty:jetty-util:6.1.16" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mortbay.jetty:servlet-api:2.5-20081211" level="project" />
     <orderEntry type="library" name="Maven: net.liftweb:lift-testkit_2.8.0:2.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />

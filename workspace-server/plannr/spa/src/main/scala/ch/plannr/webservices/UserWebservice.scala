@@ -21,9 +21,11 @@ object UserWebservice extends RestHelper with RESTSupport {
     // /webservices/register
     case r@Req("webservices" :: "register" :: _, _, PostRequest) => {
 
+      val wasSelfRegistered = retrieveSelfRegistrationParam
+
       try {
         val user = User.fromXml(r.xml.open_!)
-        val registeredUser = UserService.register(user,true)
+        val registeredUser = UserService.register(user, wasSelfRegistered)
 
         registeredUser.toXml
       }
@@ -68,8 +70,22 @@ object UserWebservice extends RestHelper with RESTSupport {
           xmlMessage(ex.getMessage)
       }
     }
+    case r@Req("webservices" :: "user" :: "find" :: _, _, GetRequest) => {
+      if (S.param("email").isDefined) {
+        val email = S.param("email").open_!
+        val user = UserService.findByEmail(email)
+        if (user.isDefined) {
+          user.open_!.toXml
+        }
+        else {
+          xmlError("no user found")
+        }
+      }
+      else {
+        xmlError("email parameter not found")
+      }
+    }
   }
-
   private def retrieveSelfRegistrationParam: Boolean = {
     try {
       if (S.param("self").isDefined)

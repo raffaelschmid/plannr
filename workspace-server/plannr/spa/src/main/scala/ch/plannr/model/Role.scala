@@ -11,7 +11,7 @@ import ch.plannr.common.persistence.{Domain, Persistent}
 
 @Entity
 @Table(name = "TBL_ROLE")
-class Role extends Domain  with Persistent[Role]{
+class Role extends Domain with Persistent[Role]{//  with Persistent[Role]{
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name="ID")

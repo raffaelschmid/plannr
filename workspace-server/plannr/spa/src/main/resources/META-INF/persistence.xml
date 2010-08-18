@@ -11,7 +11,7 @@
             <property name="hibernate.connection.password" value="plannr"/>
             <property name="hibernate.max_fetch_depth" value="3"/>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 </persistence>
