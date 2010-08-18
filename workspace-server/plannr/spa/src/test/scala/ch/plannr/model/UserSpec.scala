@@ -11,7 +11,6 @@ import ch.plannr.common.persistence.{DBModel, Dataloader}
  * TODO
  */
 class UserSpec extends Specification with Dataloader {
-
   def fixture = Fixtures.load
 
   "findAll on User" should {
@@ -43,11 +42,18 @@ class UserSpec extends Specification with Dataloader {
       println(user.address)
       println(clone.address)
 
-      User.fullEquality(user,clone) must beTrue
+      User.fullEquality(user, clone) must beTrue
     }
   }
 
-  
+  "newActivationSalt" should {
+    "return random long number" in {
+      val activationSalt = User.newActivationSalt
+      activationSalt mustNot beEqual(0)
+    }
+  }
+
+
 }
 object UserSpec {
   def testuser = {

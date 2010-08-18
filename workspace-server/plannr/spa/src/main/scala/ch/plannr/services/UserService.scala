@@ -6,6 +6,7 @@ import ch.plannr.common.mail.{MailTemplates, MailSupport}
 import net.liftweb.util.Mailer._
 import net.liftweb.common.{Box, Empty}
 import net.liftweb.util.{Props, Mailer}
+import util.Random
 
 /**
  * User: Raffael Schmid
@@ -15,10 +16,12 @@ import net.liftweb.util.{Props, Mailer}
 object UserService extends MailSupport {
   def login = if (User.loggedIn_?) User.currentUser else Empty
 
+  /**
+   *  user was created on his own and must validate
+   */
 
-  def register(user: User): User = {
-    user.persist
-
+  private def sendValidationEmail(user: User): Unit = {
+    //send mail to user
     def subject = S.??("sign.up.confirmation")
     val email: String = user.email
     def emailFrom = Props.get("mail.from").open_!
@@ -29,13 +32,32 @@ object UserService extends MailSupport {
     sendMail(From(emailFrom), Subject(subject),
       (To(user.email) :: xmlToMailBodyType(msgXml) ::
               (bccEmail.toList.map(BCC(_)))): _*)
+  }
+
+
+  /**
+   * user was created by a team owner and must retrieve a confirmation
+   */
+  private def sendNotificationEmail(user: User): Unit = {
+
+  }
+
+
+  def register(user: User, selfRegistration: Boolean): User = {
+
+    //set new activation salt
+    user.activationSalt = User.newActivationSalt
+
+    //save user
+    user.persist
+
+
+    sendValidationEmail(user)
 
     user
   }
 
   def validate(userid: Long, salt: Long): Boolean = {
-
-    println(userid + ", " + salt)
     val user = User.findById(userid).open_!
     if (user.activationSalt == salt) {
       user.validated = true
@@ -47,5 +69,13 @@ object UserService extends MailSupport {
     }
 
 
+  }
+
+  /**
+   * update of data
+   */
+  def update(newUser: User): User = {
+    val savedNewUser = newUser.merge
+    savedNewUser
   }
 }

@@ -13,10 +13,9 @@ import ch.plannr.common.persistence.DBModel
  * Load fixtures environment specific
  */
 object Fixtures extends Loggable {
-
   def load() {
     logger.info("-----------------------------------------------------")
-    logger.info("-- fixturing -> started")
+    logger.info("-- fixturing -> started in mode: " + Props.modeName)
     logger.info("-----------------------------------------------------")
     Props.mode match {
       case Development => {
@@ -31,13 +30,12 @@ object Fixtures extends Loggable {
       case _ => logger.info("no runmode selected -> load nothing")
     }
     logger.info("-----------------------------------------------------")
-    logger.info("-- fixturing -> ended")
+    logger.info("-- fixturing -> ended in mode: " + Props.modeName)
     logger.info("-----------------------------------------------------")
 
   }
 
   def testFixtures: Unit = {
-    var trx: EntityTransaction = null
     try {
 
       val user1: User = new User
@@ -45,7 +43,8 @@ object Fixtures extends Loggable {
       user1.lastname = "Schmid"
       user1.password = "plannr"
       user1.email = "raffael.schmid@plannr.ch"
-      user1.validated=true
+      user1.activationSalt = User.newActivationSalt
+      user1.validated = true
 
       val address1: Address = new Address
       address1.street1 = "Bahnhofstrasse 56"
@@ -57,22 +56,21 @@ object Fixtures extends Loggable {
 
       val admin_role: Role = new Role
       admin_role.rolename = "administrator"
-      admin_role.persist
+      admin_role.persistAndFlush
 
       user1.roles.add(admin_role)
-      user1.persist
+      user1.persistAndFlush
 
       val list = User.findAll
       println("---------------all users----------------")
       println(list)
-      
     }
     catch {
       case ex: Exception => {
         ex.printStackTrace()
-        trx.rollback
       }
     } finally {
+
     }
 
   }

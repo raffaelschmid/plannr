@@ -21,6 +21,8 @@ class MailSpec extends Specification with MailSupport {
         PlainMailBodyType("test body"), XHTMLMailBodyType(<html>
           <body>test</body>
         </html>))
+
+      1 must beEqual(1)
     }
   }
 }

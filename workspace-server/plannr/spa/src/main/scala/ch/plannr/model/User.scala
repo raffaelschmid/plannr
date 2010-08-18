@@ -20,8 +20,9 @@ import _root_.javax.persistence._
 import org.hibernate.validator.constraints.{NotEmpty, Email}
 import common.persistence.{Domain, Persistent}
 import xml.{NodeSeq, Node}
-import common.FullEquality
 import javax.validation.constraints.{NotNull, Size}
+import util.Random
+import common.{Conversion, FullEquality}
 
 /**
  *
@@ -44,8 +45,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   @NotNull
   var email: String = _
 
-  @Column(name = "PASSWORD", nullable = false)
-  @NotNull
+  @Column(name = "PASSWORD")
   @Size(min = 6, max = 10)
   var password: String = _
 
@@ -63,6 +63,10 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   @Column(name = "VALIDATED")
   @NotNull
   var validated: Boolean = false
+
+  @Column(name="SELF_REGISTERED")
+  @NotNull
+  var selfRegistered:Boolean = false
 
   @Embedded
   var address: Address = new Address
@@ -93,6 +97,9 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
       <id>
         {id}
       </id>
+      <activation_salt>
+        {activationSalt}
+      </activation_salt>
       <password>
         {password}
       </password>
@@ -146,10 +153,10 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[User]
 }
-object User extends User with MetaMegaBasicUser[User] with FullEquality {
+object User extends User with MetaMegaBasicUser[User] with FullEquality with Conversion{
+  private var rand = new Random()
+
   def fromXml(xml: Node): User = {
-
-
     val user = new User()
     user.id = xml \ "id"
     user.password = xml \ "password"
@@ -169,21 +176,7 @@ object User extends User with MetaMegaBasicUser[User] with FullEquality {
     user
   }
 
-  implicit def extract(s: NodeSeq): String = {
-    val value = s.text.trim
-    if (value.isEmpty) null else value
-  }
-
-  implicit def string2Long(ns: NodeSeq): Long = {
-    val s = extract(ns)
-    if (s != null) s.toLong else 0
-  }
-
-  implicit def string2Int(ns: NodeSeq): Int = {
-    val s = extract(ns)
-    if (s != null) s.toInt else 0
-  }
-
+  def newActivationSalt = rand.nextLong
 
 }
 }

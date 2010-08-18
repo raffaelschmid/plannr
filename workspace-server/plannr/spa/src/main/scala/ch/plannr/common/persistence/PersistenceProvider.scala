@@ -25,12 +25,12 @@ trait Persistent[T] {
     this
   }
 
-  def merge = {
+  def merge: T = {
     DBModel.merge(this)
     this
   }
 
-  def mergeAndFlush = {
+  def mergeAndFlush: T = {
     DBModel.mergeAndFlush(this)
     this
   }

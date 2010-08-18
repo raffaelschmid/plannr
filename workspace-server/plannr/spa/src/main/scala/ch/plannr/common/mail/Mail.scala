@@ -25,6 +25,9 @@ trait MailSupport {
     val bodyTypes = infoList.flatMap {case x: MailBodyType => Some[MailBodyType](x); case _ => None}
     bodyTypes match {
       case PlainMailBodyType(txt) :: Nil =>
+        println("- - - - - - - - - -")
+        println("from: " + from.address)
+        println("subject: " + subject.subject)
         println(txt)
       case _ =>
         bodyTypes.foreach {
@@ -35,13 +38,14 @@ trait MailSupport {
                 println("from: " + from.address)
                 println("subject: " + subject.subject)
                 println(txt)
-                println("- - - - - - - - - -")
               }
               case XHTMLMailBodyType(html) => {
-                println(html.toString)
                 println("- - - - - - - - - -")
+                println("from: " + from.address)
+                println("subject: " + subject.subject)
+                println(html.toString)
               }
-              case _ => 
+              case _ =>
             }
         }
     }

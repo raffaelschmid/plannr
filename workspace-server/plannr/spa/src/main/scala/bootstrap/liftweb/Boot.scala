@@ -19,17 +19,17 @@ import _root_.net.liftweb.common.Full
 import _root_.net.liftweb.http._
 import auth.{userRoles, AuthRole, HttpBasicAuthentication}
 import ch.plannr.model._
-import ch.plannr.webservices.UserWebservice
 import ch.plannr.common.persistence.TransactionalLoanWrapper
 import net.liftweb.util.Mailer
-import net.liftweb.util.Mailer.{From, Subject,To,PlainMailBodyType,XHTMLMailBodyType}
+import net.liftweb.util.Mailer.{From, Subject, To, PlainMailBodyType, XHTMLMailBodyType}
 import javax.mail.{PasswordAuthentication, Authenticator}
+import ch.plannr.webservices.{TeamWebservice, UserWebservice}
 
 /**
  * A class that's instantiated early and run.  It allows the application
  * to modify lift's environment
  */
-class Boot{
+class Boot {
   def boot {
     LiftRules.addToPackages("ch.plannr")
 
@@ -56,9 +56,10 @@ class Boot{
     LiftRules.loggedInTest = Full(() => true)
 
     LiftRules.dispatch.append(UserWebservice)
+    LiftRules.dispatch.append(TeamWebservice)
 
     S.addAround(new TransactionalLoanWrapper())
-    
+
   }
 }
 

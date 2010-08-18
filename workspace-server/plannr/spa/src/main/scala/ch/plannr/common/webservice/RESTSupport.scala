@@ -9,6 +9,8 @@ import javax.validation.ConstraintViolation
  * TODO
  */
 trait RESTSupport {
+  private def stringValue(o: Any): String = if (o != null) o.toString else ""
+
   private def getMessage(msg: String): Node = <message>
     {msg}
   </message>
@@ -18,7 +20,7 @@ trait RESTSupport {
   </error>
 
   private def getViolation(v: ConstraintViolation[_]): Node = {
-      <violation property={v.getPropertyPath.toString} message={v.getMessage} value={v.getInvalidValue.toString}/>
+      <violation property={stringValue(v.getPropertyPath)} message={stringValue(v.getMessage)} value={stringValue(v.getInvalidValue)}/>
   }
 
   def xmlSuccess = <response success="true"/>

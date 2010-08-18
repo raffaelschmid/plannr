@@ -3,6 +3,7 @@ package ch.plannr.testing
 import org.mortbay.jetty.webapp.WebAppContext
 import org.mortbay.jetty.Server
 import org.mortbay.jetty.nio.SelectChannelConnector
+import java.io.File
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,48 +13,56 @@ import org.mortbay.jetty.nio.SelectChannelConnector
  * To change this template use File | Settings | File Templates.
  */
 
+class SingletonServer {
+}
 object SingletonServer {
-  def port = 9999
+  def port = 8080
+
   def url = "localhost"
 
   def baseUrl = "http://" + url + ":" + port
 
-  var server: Server = new Server
+  var server: Server = null
 
   var initialized = false
 
   def startup = {
-    if (!initialized) {
-      println("starting down server")
-      val scc = new SelectChannelConnector
-      scc.setPort(port)
-      server.setConnectors(Array(scc))
+    server = new Server
+    println("starting server")
+    val scc = new SelectChannelConnector
+    scc.setPort(SingletonServer.port)
+    server.setConnectors(Array(scc))
 
-      val context = new WebAppContext()
-      context.setServer(server)
-      context.setContextPath("/")
-      context.setWar("src/main/webapp")
+    val context = new WebAppContext()
+    context.setServer(server)
+    context.setContextPath("/")
+    context.setWar("src/main/webapp")
 
-      server.addHandler(context)
-      server.start()
-      initialized = true
-    }
+    server.addHandler(context)
+    server.start()
+    new File("jettylock").createNewFile
+
   }
 
   def shutdown = {
-    if (initialized) {
-      println("shutting down server")
-      
-      try {
-        server.stop()
-        server.join()
-      }
-      catch {
-        case exc: Exception => {}
-      }
-      finally {
-        initialized = false
-      }
-    }
+    server.stop
+    server.join
+
+
+    //    initialized = false
+    //    if (initialized) {
+    //      println("shutting down server")
+    //
+    //      try {
+    //        server.stop
+    //        server.join
+    //      }
+    //      catch {
+    //        case exc: Exception => {}
+    //      }
+    //      finally {
+    //        initialized = false
+    //      }
+    //    }
   }
 }

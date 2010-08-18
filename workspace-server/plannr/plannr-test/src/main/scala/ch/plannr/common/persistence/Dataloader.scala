@@ -11,6 +11,7 @@ import org.specs.Specification
 object RunOnce {
   var shouldRun = true
 }
+
 trait Dataloader extends Specification with BeforeAfter {
 
   def fixture

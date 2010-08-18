@@ -22,10 +22,8 @@ object UserWebservice extends RestHelper with RESTSupport {
     case r@Req("webservices" :: "register" :: _, _, PostRequest) => {
 
       try {
-        println("runmode:" + Props.mode)
-
         val user = User.fromXml(r.xml.open_!)
-        val registeredUser = UserService.register(user)
+        val registeredUser = UserService.register(user,true)
 
         registeredUser.toXml
       }
@@ -53,6 +51,34 @@ object UserWebservice extends RestHelper with RESTSupport {
         case ex: Exception => xmlError("error while user validation: userid not found")
       }
     }
+    case r@Req("webservices" :: "update" :: userid :: _, _, PostRequest) => {
+      try {
+        val user = User.fromXml(r.xml.open_!)
+        println(user)
+
+        val updatedUser = UserService.update(user)
+
+        updatedUser.toXml
+      }
+      catch {
+        case ex: ConstraintViolationException =>
+          val set = Set() ++ (JavaConversions.asSet(ex.getConstraintViolations))
+          xmlViolation(set)
+        case ex: Exception =>
+          xmlMessage(ex.getMessage)
+      }
+    }
   }
 
+  private def retrieveSelfRegistrationParam: Boolean = {
+    try {
+      if (S.param("self").isDefined)
+        S.param("self").open_!.toBoolean
+      else
+        false
+    }
+    catch {
+      case ex: Exception => false
+    }
+  }
 }
