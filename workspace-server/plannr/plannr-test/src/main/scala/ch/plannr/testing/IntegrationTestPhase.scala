@@ -3,7 +3,7 @@ package ch.plannr.testing
 import org.specs.Specification
 import org.specs.specification.BeforeAfter
 import ch.plannr.common.persistence.Dataloader
-import net.liftweb.http.testing.TestKit
+import net.liftweb.http.testing.{ReportFailure, TestKit}
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,6 +33,9 @@ trait IntegrationTestPhase extends Specification with TestKit {
   doBeforeSpec(SingletonServer.startup)
   doAfterSpec(SingletonServer.shutdown)
 
+  implicit val reportError = new ReportFailure {
+    def fail(msg: String): Nothing = error(msg)
+  }
 }
 //object ServerIntegrationSpecification extends TestKit{
 //

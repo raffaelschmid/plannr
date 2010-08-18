@@ -43,7 +43,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
         if (S.param("ownerId").isDefined) {
           val ownerId = S.param("ownerId").open_!.toLong
           val user = User.findById(ownerId)
-          val set = Set() ++ asSet(user.open_!.ownerOf)
+          val set = asSet(user.open_!.ownerOf)
           list2Xml(set.toArray: _*)
         }
         else {
@@ -62,7 +62,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
 
       println("=======================")
       println(teamId)
-      TeamService.delete(Team.findById(teamId.get(0).toLong).get)
+      TeamService.delete(Team.findById(teamId(0).toLong).get)
       xmlMessage("")
     }
 

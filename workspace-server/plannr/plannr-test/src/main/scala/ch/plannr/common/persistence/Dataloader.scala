@@ -6,19 +6,18 @@ import org.specs.Specification
 /**
  * User: Raffael Schmid
  *
- * a poor solution for the dataloader only run once per tests
+ * TODO
  */
-object RunOnce {
-  var shouldRun = true
-}
-
 trait Dataloader extends Specification with BeforeAfter {
+  def fixtureStart = println("no fixtures configured")
 
-  def fixture
+  def fixtureEnd = println("no fixtures configured")
+  
   doBeforeSpec {
-    if (RunOnce.shouldRun) {
-      fixture
-      RunOnce.shouldRun = false
-    }
+    fixtureStart
+  }
+
+  doAfterSpec {
+    fixtureEnd
   }
 }

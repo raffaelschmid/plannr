@@ -1,7 +1,6 @@
 package ch.plannr.services
 
 import org.specs.Specification
-import bootstrap.liftweb.Fixtures
 import ch.plannr.model.{User, Team}
 import ch.plannr.common.persistence.{DBModel, Dataloader}
 
@@ -11,7 +10,6 @@ import ch.plannr.common.persistence.{DBModel, Dataloader}
  * TODO
  */
 //class TeamServiceSpec extends Specification with TeamTestdata with Dataloader {
-//  def fixture = println("")
 //
 //  //  "save team" should {
 //  //    "return saved team while execution with a valid object" in {

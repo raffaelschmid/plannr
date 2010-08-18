@@ -52,6 +52,7 @@ class Team extends Domain with Persistent[Team] {
       </description>
     </team>
 
+  override def toString = "Team [ id=" + id + ", name=" + name + ", description=" + description + "]"
 }
 
 object Team extends Team with FullEquality with Conversion {

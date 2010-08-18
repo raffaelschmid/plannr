@@ -1,9 +1,7 @@
 package ch.plannr.model
 
-import org.specs.specification.BeforeAfter
 import org.specs.Specification
-import bootstrap.liftweb.Fixtures
-import ch.plannr.common.persistence.{DBModel, Dataloader}
+import ch.plannr.common.persistence.Dataloader
 
 /**
  * User: Raffael Schmid
@@ -11,8 +9,6 @@ import ch.plannr.common.persistence.{DBModel, Dataloader}
  * TODO
  */
 class UserSpec extends Specification with Dataloader {
-  def fixture = Fixtures.load
-
   "findAll on User" should {
 
     val numberOfUsers = 1

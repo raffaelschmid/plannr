@@ -103,9 +103,9 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
       <id>
         {id}
       </id>
-      <activation_salt>
+      <activationSalt>
         {activationSalt}
-      </activation_salt>
+      </activationSalt>
       <password>
         {password}
       </password>
@@ -118,6 +118,9 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
       <email>
         {email}
       </email>
+      <selfRegistered>
+        {selfRegistered}
+      </selfRegistered>
       <validated>
         {validated}
       </validated>
@@ -158,6 +161,8 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   override def hashCode: Int = 41 + email.hashCode
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[User]
+
+  override def toString = "User [ id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", activationSalt=" + activationSalt + "]"
 }
 object User extends User with MetaMegaBasicUser[User] with FullEquality with Conversion {
   private var rand = new Random()
@@ -170,6 +175,9 @@ object User extends User with MetaMegaBasicUser[User] with FullEquality with Con
     user.lastname = xml \ "lastname"
     user.email = xml \ "email"
     user.password = xml \ "password"
+    user.activationSalt = xml \ "activationSalt"
+    user.selfRegistered = xml \ "selfRegistered"
+    user.validated = xml \ "validated"
 
     val address = new Address
     user.address = address
@@ -182,7 +190,7 @@ object User extends User with MetaMegaBasicUser[User] with FullEquality with Con
     user
   }
 
-  def newActivationSalt = rand.nextLong
+  def newActivationSalt: Long = rand.nextLong
 
 }
 }

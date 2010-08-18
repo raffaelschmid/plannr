@@ -7,27 +7,21 @@ package ch.plannr.webservices
  * In this case it catchs the groove.
  */
 
-
 import _root_.ch.plannr.testing.IntegrationTestPhase
 import org.specs.Specification
-import bootstrap.liftweb.Fixtures
 import net.liftweb.http.testing._
-import ch.plannr.common.persistence.Dataloader
-import ch.plannr.model.{Team, User}
-import xml.NodeSeq
+import ch.plannr.model.User
 
-class WebserviceSpec extends Specification with IntegrationTestPhase with Dataloader with UserTestdata with TeamTestdata {
-  def fixture = Fixtures.load
-
+class UserWebserviceSpec extends Specification with IntegrationTestPhase with UserTestdata {
   "POST to /webservices/login" should {
     "credentials match" in {
       val response = post("/webservices/login", buildBasicAuthClient("raffael.schmid@plannr.ch", "plannr"), Nil)
-      val xml = response.xml.open_!
-
-      (xml \\ "user" \\ "lastname").text.trim must beEqualTo("Schmid")
-      (xml \\ "user" \\ "firstname").text.trim must beEqualTo("Raffael")
-      (xml \\ "user" \\ "email").text.trim must beEqualTo("raffael.schmid@plannr.ch")
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
+      val user = User.fromXml(response.xml.open_!)
+
+      user.lastname must beEqualTo("Schmid")
+      user.firstname must beEqualTo("Raffael")
+      user.email must beEqualTo("raffael.schmid@plannr.ch")
     }
 
     "wrong password" in {
@@ -59,32 +53,26 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
       val response: TestResponse = post("/webservices/register?self=true", validUser01.toXml)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
-      val xml = response.xml.open_!
-      val userId = (xml \\ "user" \\ "id").text.trim.toLong
-      val activationSalt = (xml \\ "user" \\ "activation_salt").text.trim.toLong
+      val user = User.fromXml(response.xml.open_!)
 
-      activationSalt mustNot beEqual(0)
-      println("activationsalt:" + activationSalt)
-      userId mustNot beEqual(0)
+      user.activationSalt mustNot beEqual(0)
+      user.id mustNot beEqual(0)
 
-      // because no transaction is closed during different tests
-      User.findById(userId).open_!.removeAndFlush
+      // because no transaction is closed during different tests->flush
+      User.findById(user.id).open_!.removeAndFlush
     }
 
     "return fully registered user and send notification mail if user was registered by other" in {
       val response: TestResponse = post("/webservices/register", validUser01.toXml)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
-      val xml = response.xml.open_!
-      val userId = (xml \\ "user" \\ "id").text.trim.toLong
-      val activationSalt = (xml \\ "user" \\ "activation_salt").text.trim.toLong
+      val user = User.fromXml(response.xml.open_!)
 
-      activationSalt mustNot beEqual(0)
-      println("activationsalt:" + activationSalt)
-      userId mustNot beEqual(0)
+      user.activationSalt mustNot beEqual(0)
+      user.id mustNot beEqual(0)
 
-      // because no transaction is closed during different tests
-      User.findById(userId).open_!.removeAndFlush
+      // because no transaction is closed during different tests->flush
+      User.findById(user.id).open_!.removeAndFlush
     }
 
   }
@@ -98,15 +86,13 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
       val userid = userToValidate.id
       val salt = userToValidate.activationSalt
 
-      val url = "/webservices/validate/" + userid + "?salt=" + salt
-      println("url to call: " + url)
-      val response: TestResponse = get(url)
+      val response: TestResponse = get("/webservices/validate/" + userid + "?salt=" + salt)
       response.!(200, "user with valid id and salt should be validated")
 
       val xml = response.xml.open_!
       ((xml \\ "response" \\ "@success").text.trim) must beEqualTo("true")
-      (1) must beEqualTo(1)
 
+      // because no transaction is closed during different tests->flush
       userToValidate.removeAndFlush
     }
   }
@@ -142,50 +128,11 @@ class WebserviceSpec extends Specification with IntegrationTestPhase with Datalo
       val response: TestResponse = get("/webservices/user/find?email=raffael.schmid@plannr.ch")
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
-      val xml = response.xml.open_!
-      println(xml)
-      (xml \\ "user" \\ "firstname").text.trim must beEqual("Raffael")
-      (xml \\ "user" \\ "lastname").text.trim must beEqual("Schmid")
-      (xml \\ "user" \\ "email").text.trim must beEqual("raffael.schmid@plannr.ch")
+      val user = User.fromXml(response.xml.open_!)
+      user.firstname must beEqual("Raffael")
+      user.lastname must beEqual("Schmid")
+      user.email must beEqual("raffael.schmid@plannr.ch")
     }
-  }
-
-
-  //---------------------------------------
-
-  "POST to /webservices/team" should {
-    "return error xml if instance is not valid" in {
-
-      val response: TestResponse = post("/webservices/team/add?ownerId=1", invalidTeam.toXml)
-      response.!(200, "valid credentials given -> 200 should be returned but wasn't")
-
-      val xml = response.xml.open_!
-      val violations: NodeSeq = (xml \\ "response" \\ "violations" \\ "violation")
-      (violations(0) \ "@property").text.trim must beIn(List("name", "description"))
-      (violations(1) \ "@property").text.trim must beIn(List("name", "description"))
-
-    }
-    "return error xml if instance is not valid" in {
-
-      val response: TestResponse = post("/webservices/team/add?ownerId=1", validTeam.toXml)
-      response.!(200, "valid credentials given -> 200 should be returned but wasn't")
-
-      val getResponse: TestResponse = get("/webservices/team?ownerId=1")
-      println(getResponse.xml.open_!)
-
-    }
-    "return error xml if instance is not valid" in {
-
-      val response: TestResponse = delete("/webservices/team/2")
-      response.!(200, "valid credentials given -> 200 should be returned but wasn't")
-      
-    }
-
-  }
-
-
-  implicit val reportError = new ReportFailure {
-    def fail(msg: String): Nothing = error(msg)
   }
 }
 
@@ -218,18 +165,3 @@ trait UserTestdata {
   }
 }
 
-trait TeamTestdata {
-  def invalidTeam = {
-    val team = new Team
-    team.name = "name" //insufficient characters (min:5)
-    team.description = "description" //insufficient characters(min:20)
-    team
-  }
-
-  def validTeam = {
-    val team = new Team
-    team.name = "namenamename"
-    team.description = "descriptiondescription"
-    team
-  }
-}

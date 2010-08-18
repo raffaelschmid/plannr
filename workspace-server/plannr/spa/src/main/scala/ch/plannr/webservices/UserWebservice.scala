@@ -3,11 +3,11 @@ package ch.plannr.webservices
 import net.liftweb.http.rest.RestHelper
 import ch.plannr.model.User
 import ch.plannr.common.webservice.RESTSupport
-import javax.validation.ConstraintViolationException
-import collection.JavaConversions
+import collection.JavaConversions._
 import ch.plannr.services.UserService
 import net.liftweb.http.{S, GetRequest, Req, PostRequest}
 import net.liftweb.util.Props
+import javax.validation.{ConstraintViolation, ConstraintViolationException}
 
 object UserWebservice extends RestHelper with RESTSupport {
   serve {
@@ -31,7 +31,7 @@ object UserWebservice extends RestHelper with RESTSupport {
       }
       catch {
         case ex: ConstraintViolationException =>
-          val set = Set() ++ (JavaConversions.asSet(ex.getConstraintViolations))
+          val set = Set() ++ (asSet(ex.getConstraintViolations))
           //set.foreach(println(_.getMessage))
           xmlViolation(set)
         case ex: Exception =>
@@ -64,7 +64,7 @@ object UserWebservice extends RestHelper with RESTSupport {
       }
       catch {
         case ex: ConstraintViolationException =>
-          val set = Set() ++ (JavaConversions.asSet(ex.getConstraintViolations))
+          val set = Set() ++ asSet(ex.getConstraintViolations)
           xmlViolation(set)
         case ex: Exception =>
           xmlMessage(ex.getMessage)
