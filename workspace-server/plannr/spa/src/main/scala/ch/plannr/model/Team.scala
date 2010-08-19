@@ -56,6 +56,13 @@ class Team extends Domain with Persistent[Team] {
 }
 
 object Team extends Team with FullEquality with Conversion {
+  def apply(name: String, description: String): Team = {
+    val retVal = new Team
+    retVal.name = name
+    retVal.description = description
+    retVal
+  }
+
   def fromXml(xml: Node): Team = {
     val team = new Team()
     team.id = xml \ "id"

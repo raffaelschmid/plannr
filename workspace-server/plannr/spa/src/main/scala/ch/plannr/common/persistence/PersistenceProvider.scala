@@ -44,4 +44,9 @@ trait Persistent[T] {
     DBModel.removeAndFlush(this)
     true
   }
+
+  def flush = {
+    DBModel.flush
+    true
+  }
 }
