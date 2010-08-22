@@ -11,9 +11,13 @@ import ch.plannr.common.ToString
  *
  * TODO
  */
-trait Domain{ // extends ToString {
+trait Domain { // extends ToString {
 
-  def toXml = <undefined/>
-  def toJson = new JString("undefined")
- 
+  def toXml = <unsupported/>
+
+  def toJson = new JString("unsupported")
+
+}
+trait MetaDomain[T] {
+  def fromXml(xml: Node): T
 }

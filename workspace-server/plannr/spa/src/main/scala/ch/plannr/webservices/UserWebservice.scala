@@ -43,7 +43,8 @@ object UserWebservice extends RestHelper with RESTSupport {
 
       try {
         val salt = S.param("salt").open_!.toLong
-        if (UserService.validate(userid.toLong, salt))
+        val user = User.findById(userid.toLong).open_!
+        if (UserService.validate(user, salt))
           xmlSuccess
         else
           xmlError("error while user validation: salt not valid")

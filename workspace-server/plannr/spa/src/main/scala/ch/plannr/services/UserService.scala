@@ -68,8 +68,7 @@ object UserService extends MailSupport {
     user
   }
 
-  def validate(userid: Long, salt: Long): Boolean = {
-    val user = User.findById(userid).open_!
+  def validate(user: User, salt: Long): Boolean = {
     if (user.activationSalt == salt) {
       user.validated = true
       user.persist

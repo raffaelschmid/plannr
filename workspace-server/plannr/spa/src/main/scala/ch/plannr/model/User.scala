@@ -18,12 +18,12 @@ package model {
 
 import _root_.javax.persistence._
 import org.hibernate.validator.constraints.{NotEmpty, Email}
-import common.persistence.{Domain, Persistent}
 import xml.{NodeSeq, Node}
 import javax.validation.constraints.{NotNull, Size}
 import util.Random
 import common.{Conversion, FullEquality}
 import reflect.BeanProperty
+import common.persistence.{MetaDomain, Domain, Persistent}
 
 /**
  *
@@ -86,8 +86,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   var memberOf: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]()
 
 
-  @OneToMany(mappedBy = "owner", targetEntity = classOf[Team], fetch = FetchType.EAGER)
-  @BeanProperty
+  @OneToMany(mappedBy = "owner")
   var ownerOf: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]
 
 
@@ -164,7 +163,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
 
   override def toString = "User [ id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", activationSalt=" + activationSalt + "]"
 }
-object User extends User with MetaMegaBasicUser[User] with FullEquality with Conversion {
+object User extends User with MetaDomain[User] with MetaMegaBasicUser[User] with FullEquality with Conversion {
   private var rand = new Random()
 
   def fromXml(xml: Node): User = {

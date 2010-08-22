@@ -6,6 +6,7 @@ import xml.Node
 import ch.plannr.common.{Conversion, FullEquality}
 import reflect.BeanProperty
 import ch.plannr.common.persistence.{DBModel, Persistent, Domain}
+import net.liftweb.common.Box
 
 /**
  * User: Raffael Schmid
@@ -31,13 +32,15 @@ class Team extends Domain with Persistent[Team] {
   var description: String = _
 
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne
   @JoinColumn(name = "OWNER_ID", referencedColumnName = "ID")
-  @BeanProperty
   var owner: User = _
 
   @ManyToMany(mappedBy = "memberOf")
   var members: _root_.java.util.Set[User] = new _root_.java.util.HashSet[User]()
+
+  @OneToMany(mappedBy = "team")
+  var vacations: _root_.java.util.Set[Vacation] = new _root_.java.util.HashSet[Vacation]
 
   override def toXml =
     <team>
@@ -71,7 +74,7 @@ object Team extends Team with FullEquality with Conversion {
     team
   }
 
-  def findById(id: Long) = {
+  def findById(id: Long): Box[Team] = {
     DBModel.find(classOf[Team], id)
   }
 }

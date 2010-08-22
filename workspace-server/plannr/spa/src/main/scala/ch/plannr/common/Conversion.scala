@@ -1,6 +1,9 @@
 package ch.plannr.common
 
 import xml.NodeSeq
+import java.text.SimpleDateFormat
+import java.util.Date
+import javax.persistence.Transient
 
 /**
  * User: Raffael Schmid
@@ -26,5 +29,22 @@ trait Conversion {
   implicit def string2Boolean(ns: NodeSeq): Boolean = {
     val s = extract(ns)
     if (s != null) s.toBoolean else false
+  }
+
+  @Transient
+  private val dateFormatString = "yyyyMMdd"
+
+  implicit def string2Date(strDate: String): Date = new SimpleDateFormat(dateFormatString).parse(strDate)
+
+  implicit def node2Date(nodeDate: NodeSeq): Date = {
+    val strDate = extract(nodeDate)
+
+    val retVal = if (strDate != null) new SimpleDateFormat(dateFormatString).parse(strDate) else null
+    retVal
+  }
+
+  implicit def date2String(date: Date): String = {
+    val retVal = if (date != null) new SimpleDateFormat(dateFormatString).format(date) else null
+    retVal
   }
 }

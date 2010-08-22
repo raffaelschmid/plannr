@@ -20,10 +20,7 @@ import _root_.net.liftweb.http._
 import auth.{userRoles, AuthRole, HttpBasicAuthentication}
 import ch.plannr.model._
 import ch.plannr.common.persistence.TransactionalLoanWrapper
-import net.liftweb.util.Mailer
-import net.liftweb.util.Mailer.{From, Subject, To, PlainMailBodyType, XHTMLMailBodyType}
-import javax.mail.{PasswordAuthentication, Authenticator}
-import ch.plannr.webservices.{TeamWebservice, UserWebservice}
+import ch.plannr.webservices._
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -59,6 +56,7 @@ class Boot {
 
     LiftRules.dispatch.append(UserWebservice)
     LiftRules.dispatch.append(TeamWebservice)
+    LiftRules.dispatch.append(VacationWebservice)
 
     S.addAround(new TransactionalLoanWrapper())
 
