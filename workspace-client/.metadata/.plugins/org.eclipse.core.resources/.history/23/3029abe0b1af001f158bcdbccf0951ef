@@ -1,0 +1,10 @@
+package ch.plannr.event
+{
+	public class Events
+	{
+		public static const var TRY_REGISTRATION:String="registration_try";
+		
+		
+		
+	}
+}

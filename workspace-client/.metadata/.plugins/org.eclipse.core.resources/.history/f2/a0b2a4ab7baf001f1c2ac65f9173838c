@@ -1,0 +1,33 @@
+package ch.plannr.core
+{
+
+	import ch.plannr.model.User;
+	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	
+	import mx.events.PropertyChangeEvent;
+	import mx.rpc.http.HTTPService;
+	import mx.utils.Base64Encoder;
+		
+	public class ServiceRegistry extends EventDispatcher
+	{
+		private static var instance:ServiceRegistry = new ServiceRegistry();
+		public function ServiceRegistry() {
+		}
+		public static function getInstance():ServiceRegistry {
+			return ServiceRegistry.instance;
+		}
+		
+		public function getLoginService():HTTPService
+		{
+			var loginService:HTTPService = new HTTPService("http://localhost:8080","/webservices/register");
+			loginService.headers=Context.getInstance().getAuthorizationHeaders();
+			loginService.method="POST";
+			return loginService;
+		} 
+		
+		
+		
+	}
+}

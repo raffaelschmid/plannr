@@ -1,0 +1,15 @@
+package ch.plannr.service
+{
+	import mx.rpc.http.HTTPService;
+
+	public class HttpServiceFactory
+	{
+		public function getService(url:String,method:String="GET",authentication:Boolean=false,contentType:String="application/xml"):HTTPService{
+			var service:HTTPService = new HTTPService(url);
+			service.method=method;
+			service.contentType=contentType;
+			service.resultFormat="e4x";
+			return service;
+		}
+	}
+}

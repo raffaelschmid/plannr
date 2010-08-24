@@ -40,7 +40,7 @@ object VacationWebservice extends RestHelper with RESTSupport {
           val set = Set() ++ (asSet(ex.getConstraintViolations))
           xmlViolation(set)
         case ex: IllegalArgumentException =>
-          xmlMessage(ex.getMessage)
+          xmlError(ex.getMessage)
       }
     }
   }

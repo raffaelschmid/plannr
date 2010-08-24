@@ -1,0 +1,7 @@
+package ch.plannr.client.core
+{
+	public interface Command
+	{
+		public function execute(event:Event);		
+	}
+}

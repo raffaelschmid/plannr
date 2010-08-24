@@ -1,0 +1,9 @@
+package ch.plannr.config
+{
+	public class States
+	{
+		public function States()
+		{
+		}
+	}
+}

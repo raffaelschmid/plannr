@@ -1,0 +1,7 @@
+package ch.plannr.event
+{
+	public class Event
+	{
+	
+	}
+}

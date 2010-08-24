@@ -1,0 +1,7 @@
+package ch.plannr.config
+{
+	public class States
+	{
+		public static const LOGGED_IN:String="LOGGED_IN";
+	}
+}

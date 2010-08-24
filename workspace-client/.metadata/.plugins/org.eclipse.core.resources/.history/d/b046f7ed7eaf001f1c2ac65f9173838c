@@ -1,0 +1,9 @@
+package ch.plannr.service
+{
+	public class UserService
+	{
+		public function UserService()
+		{
+		}
+	}
+}

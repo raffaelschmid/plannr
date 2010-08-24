@@ -1,0 +1,9 @@
+<swiz:BeanProvider 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:swiz="http://swiz.swizframework.org" xmlns:service="ch.plannr.service.*" xmlns:controller="ch.plannr.controller.*" xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+		<controller:UserController id="userController"/>
+		<swiz:Prototype beanFactory=""
+		<swiz:ServiceHelper id="serviceHelper" />
+	</fx:Declarations>
+</swiz:BeanProvider>

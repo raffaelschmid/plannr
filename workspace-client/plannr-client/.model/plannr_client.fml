@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="RegisterService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">HTTPMultiService</item>
+      <item name="Package">ch.plannr.client.services.registerservice</item>
+      <item name="rootURL">http://localhost:8080</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">HTTPService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">ch.plannr.client.datatypes</item>
+      <item name="LINKED_FILE"></item>
+    </annotation>
+    <function name="register" arguments="strXml:string" return-type="User">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="ActionScriptGeneration">
+        <item name="SerializationFilter">com.adobe.serializers.xml.XMLSerializationFilter</item>
+        <item name="method">POST</item>
+        <item name="contentType">application/xml</item>
+        <item name="requestBodyParameter">true</item>
+        <item name="url">/webservices/register</item>
+      </annotation>
+      <annotation name="url group">
+        <item name="completeURL">http://localhost:8080/webservices/register</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">id,activationSalt,password,firstname,lastname,email,selfRegistered,validated,address</item>
+      </annotation>
+      <annotation name="Properties">
+        <item name="xPath">/</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParamNames">strXml</item>
+        <item name="inputParams">string</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="User">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">User</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">RegisterService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="register">
+      <item name="propertySpecifier">id,activationSalt,password,firstname,lastname,email,selfRegistered,validated,address</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">ch.plannr.client.datatypes</item>
+    </annotation>
+    <property name="id" type="string" required="true"/>
+    <property name="activationSalt" type="string" required="true"/>
+    <property name="password" type="string" required="true"/>
+    <property name="firstname" type="string" required="true"/>
+    <property name="lastname" type="string" required="true"/>
+    <property name="email" type="string" required="true"/>
+    <property name="selfRegistered" type="string" required="true"/>
+    <property name="validated" type="string" required="true"/>
+    <property name="address" type="Address" required="true"/>
+  </entity>
+  <entity name="Address">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Address</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">RegisterService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">ch.plannr.client.datatypes</item>
+    </annotation>
+    <property name="street1" type="string" required="true"/>
+    <property name="street2" type="string" required="true"/>
+    <property name="zip" type="string" required="true"/>
+    <property name="city" type="string" required="true"/>
+    <property name="countryCode" type="string" required="true"/>
+  </entity>
+</model>

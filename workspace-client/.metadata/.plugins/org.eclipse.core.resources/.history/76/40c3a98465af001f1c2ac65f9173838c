@@ -1,0 +1,77 @@
+package ch.plannr.client.core
+{
+
+	import ch.plannr.client.model.User;
+	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	
+	import mx.events.PropertyChangeEvent;
+	import mx.utils.Base64Encoder;
+		
+	public class Context extends EventDispatcher
+	{
+		private static var instance:Context = new Context();
+		public function Context() {
+		}
+		public static function getInstance():Context {
+			return Context.instance;
+		}
+		
+		private var _currentUser:User = null;
+		private var _email:String = null;
+		private var _password:String = null;
+		
+		
+		public function getAuthorizationHeaders():Array
+		{
+			trace(_email,_password);
+			var headers:Array = new Array();
+			var encoder:Base64Encoder=new Base64Encoder();
+			encoder.encode(_email + ":" + _password);
+			headers["Authorization"]="Basic " + encoder.toString();
+			return headers;
+		}
+		
+		
+		
+		[Bindable(event="propertyChange")]
+		public function get currentUser() : User
+		{
+			return _currentUser;
+		}
+		
+		public function set currentUser(value:User) : void
+		{
+			var oldValue:User = _currentUser;
+			if (oldValue !== value)
+			{
+				_currentUser = value;
+				dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "currentUser", oldValue, _currentUser));
+			}
+		}
+		
+		public function get email():String
+		{
+			return _email;
+		}
+		
+		public function set email(value:String):void
+		{
+			_email= value;
+		} 
+
+		public function get password():String
+		{
+			return password;
+		}
+		
+		public function set password(value:String):void
+		{
+			_password= value;
+		} 
+		
+		
+		
+	}
+}

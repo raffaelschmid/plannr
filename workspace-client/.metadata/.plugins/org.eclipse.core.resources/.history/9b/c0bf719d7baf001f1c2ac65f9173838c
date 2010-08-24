@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" height="100%" width="100%" minWidth="955" minHeight="600" xmlns:panel="ch.plannr.view.panel.*" xmlns:common="ch.plannr.client.view.common.*" xmlns:configuration="ch.plannr.client.configuration.*" xmlns:swiz="http://swiz.swizframework.org">
+	<fx:Declarations>
+		<swiz:Swiz>
+			
+			<!-- BeanProviders simply contain the non-display objects that Swiz should process. -->
+			<swiz:beanProviders>
+				<!--<config:Beans />-->
+			</swiz:beanProviders>
+			
+			<swiz:config>
+				<!-- The eventPackages value tells Swiz the path to your Event classes,
+				and viewPackages is an optional value that speeds up the processing of display classes. -->
+				<swiz:SwizConfig
+					eventPackages="org.swizframework.quickswiz.event.*"
+					viewPackages="org.swizframework.quickswiz.view.*" />
+			</swiz:config>
+			
+		</swiz:Swiz>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import ch.plannr.view.component.BoxRegister
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="notLoggedIn"/>
+		<s:State name="loggedIn"/>
+	</s:states>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<common:Header/>
+	<panel:PanelMain includeIn="loggedIn"/>
+	<panel:PanelSplash includeIn="notLoggedIn" horizontalAlign="center"/>
+</s:Application>

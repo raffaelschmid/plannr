@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="com.adobe.flexbuilder.editorcore.ui.pi.PropertiesView">
-		<item value="true" key="Size and Position"/>
+		<item value="false" key="Size and Position"/>
+		<item value="Effects" key="TreeGridImpl.TopCategory"/>
 		<item value="true" key="Layout"/>
-		<item value="true" key="Style"/>
-		<item value="1" key="ViewOption"/>
+		<item value="130" key="TreeGridImpl.ColumnZeroWidth"/>
+		<item value="rollOverEffect" key="TreeGridImpl.TopAttribute"/>
+		<item value="false" key="Style"/>
+		<item value="2" key="ViewOption"/>
 		<item value="true" key="Common"/>
+		<item value="78" key="TreeGridImpl.ColumnOneWidth"/>
+		<list key="CategoryExpanded">
+			<item value="true"/>
+			<item value="true"/>
+			<item value="true"/>
+			<item value="false"/>
+			<item value="false"/>
+			<item value="false"/>
+			<item value="false"/>
+		</list>
+		<list key="CategoryNames">
+			<item value="Common"/>
+			<item value="Effects"/>
+			<item value="Events"/>
+			<item value="Size"/>
+			<item value="Styles"/>
+			<item value="Other"/>
+			<item value="Layout Constraints"/>
+		</list>
 	</section>
 </section>

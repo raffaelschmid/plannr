@@ -1,0 +1,46 @@
+package ch.plannr.client.core
+{
+
+	import ch.plannr.client.model.User;
+	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	
+	import mx.events.PropertyChangeEvent;
+		
+	public class Context extends EventDispatcher
+	{
+		private static var instance:Context = new Context();
+		public function Context() {
+		}
+		public static function getInstance():Context {
+			return Context.instance;
+		}
+		
+		private var _currentUser:User = null;
+		
+		[Bindable(event="propertyChange")]
+		public function get currentUser() : User
+		{
+			return _currentUser;
+		}
+		
+		public function set currentUser(value:User) : void
+		{
+			var oldValue:User = _currentUser;
+			if (oldValue !== value)
+			{
+				_currentUser = value;
+				dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "currentUser", oldValue, _currentUser));
+			}
+		}
+		public function getAuthorizationHeaders(username:String, password:String):Array
+		{
+			var headers:Array = new Array();
+			var encoder:Base64Encoder=new Base64Encoder();
+			encoder.encode(username + ":" + password);
+			headers["Authorization"]="Basic " + encoder.toString();
+			return headers;
+		}
+	}
+}

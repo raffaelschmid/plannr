@@ -25,8 +25,14 @@ trait RESTSupport {
 
   def xmlSuccess = <response success="true"/>
 
-  def xmlMessage(messages: String*) = {
-    <response>
+  def xmlSuccess(xml: Node): Node = {
+    <response success="true">
+      {xml}
+    </response>
+  }
+
+  def xmlSuccess(messages: String*) = {
+    <response success="true">
       <messages>
         {messages.map {getMessage}}
       </messages>
@@ -34,7 +40,7 @@ trait RESTSupport {
   }
 
   def xmlError(errors: String*) = {
-    <response>
+    <response success="false">
       <errors>
         {errors.map {getError}}
       </errors>
@@ -42,7 +48,7 @@ trait RESTSupport {
   }
 
   def xmlViolation(violations: Set[ConstraintViolation[_]]) = {
-    <response>
+    <response success="false">
       <violations>
         {violations.map {getViolation}}
       </violations>

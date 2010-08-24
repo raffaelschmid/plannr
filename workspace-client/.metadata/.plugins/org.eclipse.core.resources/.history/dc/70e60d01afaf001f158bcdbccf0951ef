@@ -1,0 +1,21 @@
+package ch.plannr.service
+{
+	import mx.controls.Alert;
+	import mx.rpc.http.HTTPService;
+
+	public class HttpServiceFactory
+	{
+		[Inject]
+		public var rootUrl:String;
+		
+		public function getService(url:String,method:String="GET",authentication:Boolean=false,contentType:String="application/xml"):HTTPService{
+			var service:HTTPService = new HTTPService();
+			service.method=method;
+			service.contentType=contentType;
+			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
+			service.showBusyCursor=true;
+			service.url = rootUrl+url;
+			return service;
+		}
+	}
+}

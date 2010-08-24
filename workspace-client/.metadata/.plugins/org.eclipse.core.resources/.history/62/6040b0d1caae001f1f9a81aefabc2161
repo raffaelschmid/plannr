@@ -1,0 +1,32 @@
+package ch.plannr.client.core
+{
+	
+	import ch.plannr.client.datatypes.User
+	public class Context
+	{
+		private static var instance:Context = new Context();
+		public function Singleton() {
+		}
+		public static function getInstance():Context {
+			return Context.instance;
+		}
+		
+		var _currentUser:User = null;
+		
+		[Bindable(event="propertyChange")]
+		public function get currentUser() : User
+		{
+			return _currentUser;
+		}
+		
+		public function set currentUser(value:User) : void
+		{
+			var oldValue:User = _currentUser;
+			if (oldValue !== value)
+			{
+				_currentUser = value;
+				this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "currentUser", oldValue, _currentUser));
+			}
+		}
+	}
+}

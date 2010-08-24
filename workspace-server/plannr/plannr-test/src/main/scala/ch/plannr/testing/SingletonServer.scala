@@ -16,7 +16,7 @@ import java.io.File
 class SingletonServer {
 }
 object SingletonServer {
-  def port = 8080
+  def port = 9999
 
   def url = "localhost"
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="plannr-client|Register|register">
+		<item value="true" key="SaveInput"/>
+		<list key="ArgumentsArray">
+			<item value="&lt;user&gt;&#x0D;    &lt;password&gt;testuser&lt;/password&gt;&#x0D;    &lt;firstname&gt;Testuser&lt;/firstname&gt;&#x0D;    &lt;lastname&gt;Testuser&lt;/lastname&gt;&#x0D;    &lt;email&gt;testuser@plannr.ch&lt;/email&gt;&#x0D;&lt;/user&gt;"/>
+			<item value="&lt;user&gt;     &lt;password&gt;testuser&lt;/password&gt;     &lt;firstname&gt;Testuser&lt;/firstname&gt;     &lt;lastname&gt;Testuser&lt;/lastname&gt;     &lt;email&gt;testuser@plannr.ch&lt;/email&gt; &lt;/user&gt;"/>
+			<item value=""/>
+		</list>
+	</section>
+	<section name="plannr-client|RegisterService|register">
+		<item value="true" key="SaveInput"/>
+		<item value="" key="SampleResponse"/>
+		<item value="ENTER_ARGUMENTS" key="HTTPPostInputOption"/>
+		<list key="ArgumentsArray">
+			<item value="&lt;user&gt;&#x0D;    &lt;password&gt;testuser&lt;/password&gt;&#x0D;    &lt;firstname&gt;Testuser&lt;/firstname&gt;&#x0D;    &lt;lastname&gt;Testuser&lt;/lastname&gt;&#x0D;    &lt;email&gt;asdfqwer@plannr.ch&lt;/email&gt;&#x0D;&lt;/user&gt;"/>
+			<item value="&lt;user&gt;     &lt;password&gt;testuser&lt;/password&gt;     &lt;firstname&gt;Testuser&lt;/firstname&gt;     &lt;lastname&gt;Testuser&lt;/lastname&gt;     &lt;email&gt;asdfqwer@plannr.ch&lt;/email&gt; &lt;/user&gt;"/>
+			<item value=""/>
+		</list>
+	</section>
+</section>

@@ -25,7 +25,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
           savedTeam.toXml
         }
         else {
-          xmlMessage("ownerId must be specified")
+          xmlError("ownerId must be specified")
         }
       }
       catch {
@@ -33,7 +33,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
           val set = Set() ++ (asSet(ex.getConstraintViolations))
           xmlViolation(set)
         case ex: IllegalArgumentException =>
-          xmlMessage(ex.getMessage)
+          xmlError(ex.getMessage)
       }
     }
 
@@ -47,7 +47,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
           list2TeamsXml(set.toArray: _*)
         }
         else {
-          xmlMessage("ownerId must be specified")
+          xmlError("ownerId must be specified")
         }
       }
       catch {
@@ -55,7 +55,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
           val set: Set[ConstraintViolation[_]] = Set() ++ (ex.getConstraintViolations)
           xmlViolation(set)
         case ex: IllegalArgumentException =>
-          xmlMessage(ex.getMessage)
+          xmlError(ex.getMessage)
       }
     }
 

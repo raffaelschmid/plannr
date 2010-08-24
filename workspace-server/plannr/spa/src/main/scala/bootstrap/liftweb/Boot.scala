@@ -21,6 +21,7 @@ import auth.{userRoles, AuthRole, HttpBasicAuthentication}
 import ch.plannr.model._
 import ch.plannr.common.persistence.TransactionalLoanWrapper
 import ch.plannr.webservices._
+import ch.plannr.common.http.CustomHttpBasicAuthentication
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -37,7 +38,7 @@ class Boot {
     }
 
 
-    LiftRules.authentication = HttpBasicAuthentication("lift") {
+    LiftRules.authentication = CustomHttpBasicAuthentication("lift") {
       case (email, password, req) => {
         try {
           val user = User.login(email, password)

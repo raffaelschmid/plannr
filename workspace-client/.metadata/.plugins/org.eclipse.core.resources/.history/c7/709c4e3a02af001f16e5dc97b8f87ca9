@@ -1,0 +1,16 @@
+package ch.plannr.client.commands
+{
+	import ch.plannr.client.events.UserRegisteredEvent;
+	
+	import mx.controls.Alert;
+
+	public class UserRegisteredCommand
+	{
+		public function UserRegisteredCommand()
+		{
+		}
+		public function execute(event:UserRegisteredEvent){
+			Alert.show("hello" + event.user.firstname);
+		}
+	}
+}

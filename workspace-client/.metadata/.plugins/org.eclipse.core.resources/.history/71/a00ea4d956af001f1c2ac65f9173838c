@@ -1,0 +1,46 @@
+package ch.plannr.client.events
+{
+	import ch.plannr.client.model.User;
+	
+	import flash.events.Event;
+	
+	public class UserRegisterEvent extends Event
+	{
+		private var _body:XML = null;
+
+		public static const ID:String = "UserRegisterEvent";
+
+		public function UserRegisterEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+		{
+			super(type, bubbles, cancelable);
+		}
+		public function get username() : String
+		{
+			return _username;
+		}
+		
+		public function set username(value:String):void
+		{
+			_username= value;
+		} 
+		public function get password() : String
+		{
+			return _username;
+		}
+		
+		public function set password(value:String):void
+		{
+			_username= value;
+		} 
+		public function get user() : XML
+		{
+			return _user;
+		}
+		
+		public function set user(value:XML):void
+		{
+			_user= value;
+		} 
+		
+	}
+}

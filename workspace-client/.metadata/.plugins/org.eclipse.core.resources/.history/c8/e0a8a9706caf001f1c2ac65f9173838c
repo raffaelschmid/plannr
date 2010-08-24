@@ -1,0 +1,28 @@
+package ch.plannr.client.commands
+
+{
+	public class UserLoginCommand extends EventDispatcher implements IResponder
+	{
+		public function execute (params:Object):void
+		{
+			//we are not doing anything to the object yet so we will just pass it back
+			result(params.data);
+		}
+		
+		public function result (data:Object):void
+		{
+			var vo:UserVO = new UserVO();
+			vo.firstName = data.firstName;
+			vo.lastName = data.lastName;
+			
+			var sEvt:DynamicEvent = new DynamicEvent("result");
+			sEvt.data = vo;
+			
+			dispatchEvent(sEvt);
+		}
+		
+		public function fault (info:Object):void
+		{
+		}
+	}
+}

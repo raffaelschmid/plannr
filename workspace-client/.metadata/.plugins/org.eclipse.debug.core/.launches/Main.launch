@@ -2,7 +2,7 @@
 <launchConfiguration type="com.adobe.flexbuilder.debug.launchConfigurationType.flash">
 <stringAttribute key="com.adobe.flexbuilder.debug.ATTR_APPLICATION" value="src/Main.mxml"/>
 <stringAttribute key="com.adobe.flexbuilder.debug.ATTR_PROJECT" value="plannr-client"/>
-<stringAttribute key="com.adobe.flexbuilder.debug.ATTR_RUN_URL" value="file:/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/bin-debug/Main.html"/>
+<stringAttribute key="com.adobe.flexbuilder.debug.ATTR_RUN_URL" value=""/>
 <booleanAttribute key="com.adobe.flexbuilder.debug.ATTR_USE_DEFAULT_URLS" value="true"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/plannr-client"/>

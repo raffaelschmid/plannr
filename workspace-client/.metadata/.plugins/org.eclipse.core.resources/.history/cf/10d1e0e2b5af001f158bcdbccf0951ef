@@ -1,0 +1,48 @@
+package ch.plannr.controller
+{
+	import ch.plannr.event.CustomEvent;
+	import ch.plannr.event.Events;
+	import ch.plannr.model.User;
+	import ch.plannr.service.HttpServiceFactory;
+	
+	import flash.events.IEventDispatcher;
+	import flash.net.URLRequest;
+	
+	import mx.controls.Alert;
+	import mx.rpc.events.ResultEvent;
+	import mx.rpc.http.HTTPService;
+	
+	import org.swizframework.utils.services.ServiceHelper;
+
+	public class UserController
+	{
+		
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
+		[Inject]
+		public var serviceHelper : ServiceHelper;
+		
+		[Inject]
+		public var httpServiceFactory:HttpServiceFactory;
+		
+		[Bindable]
+		[Inject(source="context.currentUser", twoWay="true")]
+		public var currentUser : User;
+		
+		
+		
+		[Mediate( event="Events.REGISTRATION_ATTEMPT", properties="user" )]
+		public function registerUser( user : User ) : void
+		{
+			serviceHelper.executeServiceCall( httpServiceFactory.getService("/webservices/register","POST").send(user.toXml()), handleRegistrationResult );
+		}
+
+		private function handleRegistrationResult( event : ResultEvent ) : void
+		{
+			Alert.show(event.result.response.toString());
+			dispatcher.dispatchEvent(new CustomEvent(Events.REGISTRATION_SUCCESS));
+		}
+		
+	}
+}

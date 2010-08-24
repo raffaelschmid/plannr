@@ -14,7 +14,7 @@ class RESTSupportSpec extends Specification with RESTSupport{
   "calls to xmlMessage"  should {
     val xml =  <response><messages><message>1st message</message></messages></response>
     "return " in {
-      trim(xmlMessage("1st message")) must beEqualTo(trim(xml))
+      trim(xmlError("1st message")) must beEqualTo(trim(xml))
     }
   }
 }

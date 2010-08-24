@@ -1,0 +1,20 @@
+package ch.plannr.client.core
+{
+
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import ch.plannr.client.datatypes.User;
+	import mx.events.PropertyChangeEvent;
+		
+	public class EventRegistry extends EventDispatcher
+	{
+		private static var instance:EventRegistry = new EventRegistry();
+		public function EventRegistry() {
+		}
+
+		public static function getInstance():EventRegistry {
+			return EventRegistry.instance;
+		}
+		
+	}
+}

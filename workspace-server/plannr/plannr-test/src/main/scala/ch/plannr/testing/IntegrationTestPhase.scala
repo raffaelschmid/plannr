@@ -14,7 +14,7 @@ import net.liftweb.http.testing.{ReportFailure, TestKit}
  */
 
 trait IntegrationTestPhase extends Specification with TestKit {
-  def port = 8080
+  def port = 9999
 
   def url = "localhost"
 

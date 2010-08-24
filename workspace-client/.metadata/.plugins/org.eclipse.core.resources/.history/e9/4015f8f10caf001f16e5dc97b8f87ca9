@@ -1,0 +1,12 @@
+package ch.plannr.client.model
+{
+	public class User
+	{
+		private var firstname:String = null;
+		private var lastname:String=null;
+		
+		public function User()
+		{
+		}
+	}
+}

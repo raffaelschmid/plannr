@@ -1,0 +1,952 @@
+
+/**
+ * This is a generated class and is not intended for modification.  
+ */
+package ch.plannr.client.datatypes
+{
+import com.adobe.fiber.styles.IStyle;
+import com.adobe.fiber.styles.Style;
+import com.adobe.fiber.styles.StyleValidator;
+import com.adobe.fiber.valueobjects.AbstractEntityMetadata;
+import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
+import com.adobe.fiber.valueobjects.IPropertyIterator;
+import mx.events.ValidationResultEvent;
+import com.adobe.fiber.core.model_internal;
+import com.adobe.fiber.valueobjects.IModelType;
+import mx.events.PropertyChangeEvent;
+
+use namespace model_internal;
+
+[ExcludeClass]
+internal class _AddressEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
+{
+    private static var emptyArray:Array = new Array();
+
+    model_internal static var allProperties:Array = new Array("street1", "street2", "zip", "city", "countryCode");
+    model_internal static var allAssociationProperties:Array = new Array();
+    model_internal static var allRequiredProperties:Array = new Array("street1", "street2", "zip", "city", "countryCode");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("street1", "street2", "zip", "city", "countryCode");
+    model_internal static var guardedProperties:Array = new Array();
+    model_internal static var dataProperties:Array = new Array("street1", "street2", "zip", "city", "countryCode");
+    model_internal static var derivedProperties:Array = new Array();
+    model_internal static var collectionProperties:Array = new Array();
+    model_internal static var collectionBaseMap:Object;
+    model_internal static var entityName:String = "Address";
+    model_internal static var dependentsOnMap:Object;
+    model_internal static var dependedOnServices:Array = new Array();
+
+    
+    model_internal var _street1IsValid:Boolean;
+    model_internal var _street1Validator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _street1IsValidCacheInitialized:Boolean = false;
+    model_internal var _street1ValidationFailureMessages:Array;
+    
+    model_internal var _street2IsValid:Boolean;
+    model_internal var _street2Validator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _street2IsValidCacheInitialized:Boolean = false;
+    model_internal var _street2ValidationFailureMessages:Array;
+    
+    model_internal var _zipIsValid:Boolean;
+    model_internal var _zipValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _zipIsValidCacheInitialized:Boolean = false;
+    model_internal var _zipValidationFailureMessages:Array;
+    
+    model_internal var _cityIsValid:Boolean;
+    model_internal var _cityValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _cityIsValidCacheInitialized:Boolean = false;
+    model_internal var _cityValidationFailureMessages:Array;
+    
+    model_internal var _countryCodeIsValid:Boolean;
+    model_internal var _countryCodeValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _countryCodeIsValidCacheInitialized:Boolean = false;
+    model_internal var _countryCodeValidationFailureMessages:Array;
+
+    model_internal var _instance:_Super_Address;
+    model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
+
+    public function _AddressEntityMetadata(value : _Super_Address)
+    {
+        // initialize property maps
+        if (model_internal::dependentsOnMap == null)
+        {
+            // depenents map
+            model_internal::dependentsOnMap = new Object();
+            model_internal::dependentsOnMap["street1"] = new Array();
+            model_internal::dependentsOnMap["street2"] = new Array();
+            model_internal::dependentsOnMap["zip"] = new Array();
+            model_internal::dependentsOnMap["city"] = new Array();
+            model_internal::dependentsOnMap["countryCode"] = new Array();
+
+            // collection base map
+            model_internal::collectionBaseMap = new Object()
+        }
+
+        model_internal::_instance = value;
+        model_internal::_street1Validator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForStreet1);
+        model_internal::_street1Validator.required = true;
+        model_internal::_street1Validator.requiredFieldError = "street1 is required";
+        //model_internal::_street1Validator.source = model_internal::_instance;
+        //model_internal::_street1Validator.property = "street1";
+        model_internal::_street2Validator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForStreet2);
+        model_internal::_street2Validator.required = true;
+        model_internal::_street2Validator.requiredFieldError = "street2 is required";
+        //model_internal::_street2Validator.source = model_internal::_instance;
+        //model_internal::_street2Validator.property = "street2";
+        model_internal::_zipValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForZip);
+        model_internal::_zipValidator.required = true;
+        model_internal::_zipValidator.requiredFieldError = "zip is required";
+        //model_internal::_zipValidator.source = model_internal::_instance;
+        //model_internal::_zipValidator.property = "zip";
+        model_internal::_cityValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForCity);
+        model_internal::_cityValidator.required = true;
+        model_internal::_cityValidator.requiredFieldError = "city is required";
+        //model_internal::_cityValidator.source = model_internal::_instance;
+        //model_internal::_cityValidator.property = "city";
+        model_internal::_countryCodeValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForCountryCode);
+        model_internal::_countryCodeValidator.required = true;
+        model_internal::_countryCodeValidator.requiredFieldError = "countryCode is required";
+        //model_internal::_countryCodeValidator.source = model_internal::_instance;
+        //model_internal::_countryCodeValidator.property = "countryCode";
+    }
+
+    override public function getEntityName():String
+    {
+        return model_internal::entityName;
+    }
+
+    override public function getProperties():Array
+    {
+        return model_internal::allProperties;
+    }
+
+    override public function getAssociationProperties():Array
+    {
+        return model_internal::allAssociationProperties;
+    }
+
+    override public function getRequiredProperties():Array
+    {
+         return model_internal::allRequiredProperties;   
+    }
+
+    override public function getDataProperties():Array
+    {
+        return model_internal::dataProperties;
+    }
+
+    override public function getGuardedProperties():Array
+    {
+        return model_internal::guardedProperties;
+    }
+
+    override public function getUnguardedProperties():Array
+    {
+        return model_internal::allAlwaysAvailableProperties;
+    }
+
+    override public function getDependants(propertyName:String):Array
+    {
+       if (model_internal::dataProperties.indexOf(propertyName) == -1)
+            throw new Error(propertyName + " is not a data property of entity Address");  
+            
+       return model_internal::dependentsOnMap[propertyName] as Array;  
+    }
+
+    override public function getDependedOnServices():Array
+    {
+        return model_internal::dependedOnServices;
+    }
+
+    override public function getCollectionProperties():Array
+    {
+        return model_internal::collectionProperties;
+    }
+
+    override public function getCollectionBase(propertyName:String):String
+    {
+        if (model_internal::collectionProperties.indexOf(propertyName) == -1)
+            throw new Error(propertyName + " is not a collection property of entity Address");  
+
+        return model_internal::collectionBaseMap[propertyName];
+    }
+
+    override public function getAvailableProperties():com.adobe.fiber.valueobjects.IPropertyIterator
+    {
+        return new com.adobe.fiber.valueobjects.AvailablePropertyIterator(this);
+    }
+
+    override public function getValue(propertyName:String):*
+    {
+        if (model_internal::allProperties.indexOf(propertyName) == -1)
+        {
+            throw new Error(propertyName + " does not exist for entity Address");
+        }
+
+        return model_internal::_instance[propertyName];
+    }
+
+    override public function setValue(propertyName:String, value:*):void
+    {
+        if (model_internal::dataProperties.indexOf(propertyName) == -1)
+        {
+            throw new Error(propertyName + " is not a data property of entity Address");
+        }
+
+        model_internal::_instance[propertyName] = value;
+    }
+
+    override public function getMappedByProperty(associationProperty:String):String
+    {
+        switch(associationProperty)
+        {
+            default:
+            {
+                return null;
+            }
+        }
+    }
+
+    override public function getPropertyLength(propertyName:String):int
+    {
+        switch(propertyName)
+        {
+            default:
+            {
+                return 0;
+            }
+        }
+    }
+
+    override public function isAvailable(propertyName:String):Boolean
+    {
+        if (model_internal::allProperties.indexOf(propertyName) == -1)
+        {
+            throw new Error(propertyName + " does not exist for entity Address");
+        }
+
+        if (model_internal::allAlwaysAvailableProperties.indexOf(propertyName) != -1)
+        {
+            return true;
+        }
+
+        switch(propertyName)
+        {
+            default:
+            {
+                return true;
+            }
+        }
+    }
+
+    override public function getIdentityMap():Object
+    {
+        var returnMap:Object = new Object();
+
+        return returnMap;
+    }
+
+    [Bindable(event="propertyChange")]
+    override public function get invalidConstraints():Array
+    {
+        if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+        {
+            return model_internal::_instance.model_internal::_invalidConstraints;
+        }
+        else
+        {
+            // recalculate isValid
+            model_internal::_instance.model_internal::_isValid = model_internal::_instance.model_internal::calculateIsValid();
+            return model_internal::_instance.model_internal::_invalidConstraints;        
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    override public function get validationFailureMessages():Array
+    {
+        if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+        {
+            return model_internal::_instance.model_internal::_validationFailureMessages;
+        }
+        else
+        {
+            // recalculate isValid
+            model_internal::_instance.model_internal::_isValid = model_internal::_instance.model_internal::calculateIsValid();
+            return model_internal::_instance.model_internal::_validationFailureMessages;
+        }
+    }
+
+    override public function getDependantInvalidConstraints(propertyName:String):Array
+    {
+        var dependants:Array = getDependants(propertyName);
+        if (dependants.length == 0)
+        {
+            return emptyArray;
+        }
+
+        var currentlyInvalid:Array = invalidConstraints;
+        if (currentlyInvalid.length == 0)
+        {
+            return emptyArray;
+        }
+
+        var filterFunc:Function = function(element:*, index:int, arr:Array):Boolean
+        {
+            return dependants.indexOf(element) > -1;
+        }
+
+        return currentlyInvalid.filter(filterFunc);
+    }
+
+    /**
+     * isValid
+     */
+    [Bindable(event="propertyChange")] 
+    public function get isValid() : Boolean
+    {
+        if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+        {
+            return model_internal::_instance.model_internal::_isValid;
+        }
+        else
+        {
+            // recalculate isValid
+            model_internal::_instance.model_internal::_isValid = model_internal::_instance.model_internal::calculateIsValid();
+            return model_internal::_instance.model_internal::_isValid;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isStreet1Available():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isStreet2Available():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isZipAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isCityAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isCountryCodeAvailable():Boolean
+    {
+        return true;
+    }
+
+
+    /**
+     * derived property recalculation
+     */
+    public function invalidateDependentOnStreet1():void
+    {
+        if (model_internal::_street1IsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfStreet1 = null;
+            model_internal::calculateStreet1IsValid();
+        }
+    }
+    public function invalidateDependentOnStreet2():void
+    {
+        if (model_internal::_street2IsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfStreet2 = null;
+            model_internal::calculateStreet2IsValid();
+        }
+    }
+    public function invalidateDependentOnZip():void
+    {
+        if (model_internal::_zipIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfZip = null;
+            model_internal::calculateZipIsValid();
+        }
+    }
+    public function invalidateDependentOnCity():void
+    {
+        if (model_internal::_cityIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfCity = null;
+            model_internal::calculateCityIsValid();
+        }
+    }
+    public function invalidateDependentOnCountryCode():void
+    {
+        if (model_internal::_countryCodeIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfCountryCode = null;
+            model_internal::calculateCountryCodeIsValid();
+        }
+    }
+
+    model_internal function fireChangeEvent(propertyName:String, oldValue:Object, newValue:Object):void
+    {
+        this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, propertyName, oldValue, newValue));
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get street1Style():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get street1Validator() : StyleValidator
+    {
+        return model_internal::_street1Validator;
+    }
+
+    model_internal function set _street1IsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_street1IsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_street1IsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "street1IsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get street1IsValid():Boolean
+    {
+        if (!model_internal::_street1IsValidCacheInitialized)
+        {
+            model_internal::calculateStreet1IsValid();
+        }
+
+        return model_internal::_street1IsValid;
+    }
+
+    model_internal function calculateStreet1IsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_street1Validator.validate(model_internal::_instance.street1)
+        model_internal::_street1IsValid_der = (valRes.results == null);
+        model_internal::_street1IsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::street1ValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::street1ValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get street1ValidationFailureMessages():Array
+    {
+        if (model_internal::_street1ValidationFailureMessages == null)
+            model_internal::calculateStreet1IsValid();
+
+        return _street1ValidationFailureMessages;
+    }
+
+    model_internal function set street1ValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_street1ValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_street1ValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "street1ValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get street2Style():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get street2Validator() : StyleValidator
+    {
+        return model_internal::_street2Validator;
+    }
+
+    model_internal function set _street2IsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_street2IsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_street2IsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "street2IsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get street2IsValid():Boolean
+    {
+        if (!model_internal::_street2IsValidCacheInitialized)
+        {
+            model_internal::calculateStreet2IsValid();
+        }
+
+        return model_internal::_street2IsValid;
+    }
+
+    model_internal function calculateStreet2IsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_street2Validator.validate(model_internal::_instance.street2)
+        model_internal::_street2IsValid_der = (valRes.results == null);
+        model_internal::_street2IsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::street2ValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::street2ValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get street2ValidationFailureMessages():Array
+    {
+        if (model_internal::_street2ValidationFailureMessages == null)
+            model_internal::calculateStreet2IsValid();
+
+        return _street2ValidationFailureMessages;
+    }
+
+    model_internal function set street2ValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_street2ValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_street2ValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "street2ValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get zipStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get zipValidator() : StyleValidator
+    {
+        return model_internal::_zipValidator;
+    }
+
+    model_internal function set _zipIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_zipIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_zipIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "zipIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get zipIsValid():Boolean
+    {
+        if (!model_internal::_zipIsValidCacheInitialized)
+        {
+            model_internal::calculateZipIsValid();
+        }
+
+        return model_internal::_zipIsValid;
+    }
+
+    model_internal function calculateZipIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_zipValidator.validate(model_internal::_instance.zip)
+        model_internal::_zipIsValid_der = (valRes.results == null);
+        model_internal::_zipIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::zipValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::zipValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get zipValidationFailureMessages():Array
+    {
+        if (model_internal::_zipValidationFailureMessages == null)
+            model_internal::calculateZipIsValid();
+
+        return _zipValidationFailureMessages;
+    }
+
+    model_internal function set zipValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_zipValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_zipValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "zipValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get cityStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get cityValidator() : StyleValidator
+    {
+        return model_internal::_cityValidator;
+    }
+
+    model_internal function set _cityIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_cityIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_cityIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "cityIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get cityIsValid():Boolean
+    {
+        if (!model_internal::_cityIsValidCacheInitialized)
+        {
+            model_internal::calculateCityIsValid();
+        }
+
+        return model_internal::_cityIsValid;
+    }
+
+    model_internal function calculateCityIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_cityValidator.validate(model_internal::_instance.city)
+        model_internal::_cityIsValid_der = (valRes.results == null);
+        model_internal::_cityIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::cityValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::cityValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get cityValidationFailureMessages():Array
+    {
+        if (model_internal::_cityValidationFailureMessages == null)
+            model_internal::calculateCityIsValid();
+
+        return _cityValidationFailureMessages;
+    }
+
+    model_internal function set cityValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_cityValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_cityValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "cityValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get countryCodeStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get countryCodeValidator() : StyleValidator
+    {
+        return model_internal::_countryCodeValidator;
+    }
+
+    model_internal function set _countryCodeIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_countryCodeIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_countryCodeIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "countryCodeIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get countryCodeIsValid():Boolean
+    {
+        if (!model_internal::_countryCodeIsValidCacheInitialized)
+        {
+            model_internal::calculateCountryCodeIsValid();
+        }
+
+        return model_internal::_countryCodeIsValid;
+    }
+
+    model_internal function calculateCountryCodeIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_countryCodeValidator.validate(model_internal::_instance.countryCode)
+        model_internal::_countryCodeIsValid_der = (valRes.results == null);
+        model_internal::_countryCodeIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::countryCodeValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::countryCodeValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get countryCodeValidationFailureMessages():Array
+    {
+        if (model_internal::_countryCodeValidationFailureMessages == null)
+            model_internal::calculateCountryCodeIsValid();
+
+        return _countryCodeValidationFailureMessages;
+    }
+
+    model_internal function set countryCodeValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_countryCodeValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_countryCodeValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "countryCodeValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
+
+     /**
+     * 
+     * @inheritDoc 
+     */ 
+     override public function getStyle(propertyName:String):com.adobe.fiber.styles.IStyle
+     {
+         switch(propertyName)
+         {
+            default:
+            {
+                return null;
+            }
+         }
+     }
+     
+     /**
+     * 
+     * @inheritDoc 
+     *  
+     */  
+     override public function getPropertyValidationFailureMessages(propertyName:String):Array
+     {
+         switch(propertyName)
+         {
+            case("street1"):
+            {
+                return street1ValidationFailureMessages;
+            }
+            case("street2"):
+            {
+                return street2ValidationFailureMessages;
+            }
+            case("zip"):
+            {
+                return zipValidationFailureMessages;
+            }
+            case("city"):
+            {
+                return cityValidationFailureMessages;
+            }
+            case("countryCode"):
+            {
+                return countryCodeValidationFailureMessages;
+            }
+            default:
+            {
+                return emptyArray;
+            }
+         }
+     }
+
+}
+
+}

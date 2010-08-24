@@ -13,14 +13,22 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="REGISTRATION_SUCCESS" key="selection"/>
 		<list key="findhistory">
-			<item value="textAlign"/>
-			<item value="textA"/>
-			<item value="tree"/>
-			<item value="branch"/>
+			<item value="current"/>
+			<item value="U"/>
+			<item value="username"/>
+			<item value="lError"/>
+			<item value="serializationFilter"/>
+			<item value="serializer0"/>
+			<item value="last"/>
+			<item value="registration_complete"/>
 		</list>
 		<list key="replacehistory">
+			<item value="email"/>
+			<item value="lMessage"/>
+			<item value="EventRegistry"/>
+			<item value="panel"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">

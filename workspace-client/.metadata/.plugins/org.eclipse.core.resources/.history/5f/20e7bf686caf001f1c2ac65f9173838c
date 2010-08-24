@@ -1,0 +1,9 @@
+package ch.plannr.client.commands
+{
+	public class UserLoginCommand
+	{
+		public function UserLoginCommand()
+		{
+		}
+	}
+}

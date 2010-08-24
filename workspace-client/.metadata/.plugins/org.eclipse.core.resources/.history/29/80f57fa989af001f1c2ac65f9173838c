@@ -1,0 +1,30 @@
+package ch.plannr.service
+{
+	import ch.plannr.model.User;
+	
+	import flash.events.IEventDispatcher;
+	
+	import mx.rpc.AsyncToken;
+	
+	import org.swizframework.utils.services.MockDelegateHelper;
+
+	public class UserService
+	{
+		[Dispatcher]
+		public var dispatcher : IEventDispatcher;
+		
+		private var mockHelper : MockDelegateHelper;
+		
+		
+		public function UserService()
+		{
+			mockHelper = new MockDelegateHelper();
+		}
+		
+		public function registerUser( user : User ) : AsyncToken
+		{
+			user.id = Math.round( Math.random() * 100 );
+			return mockHelper.createMockResult( user );
+		}
+	}
+}

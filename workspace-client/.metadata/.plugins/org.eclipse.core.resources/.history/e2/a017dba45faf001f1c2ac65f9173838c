@@ -1,0 +1,18 @@
+package ch.plannr.client.events
+{
+	import ch.plannr.client.model.User;
+	
+	import flash.events.Event;
+	
+	public class UserLoginEvent extends Event
+	{
+		private var _requestBody:XML = null;
+
+		public static const ID:String = "UserRegisterEvent";
+
+		public function UserLoginEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+		{
+			super(type, bubbles, cancelable);
+		}
+	}
+}

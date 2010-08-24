@@ -1,0 +1,19 @@
+package ch.plannr.service
+{
+	import mx.controls.Alert;
+	import mx.rpc.http.HTTPService;
+
+	public class HttpServiceFactory
+	{
+		var rootUrl:String = "http://localhost:8080";
+		
+		public function getService(url:String,method:String="GET",authentication:Boolean=false,contentType:String="application/xml"):HTTPService{
+			var service:HTTPService = new HTTPService(rootUrl, url);
+			service.method=method;
+			service.contentType=contentType;
+			service.resultFormat="e4x";
+			Alert.show("service created");
+			return service;
+		}
+	}
+}

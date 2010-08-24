@@ -1,0 +1,48 @@
+package ch.plannr.client.model
+{
+	public class User
+	{
+		private var _firstname:String = null;
+		private var _lastname:String=null;
+		private var _email:String=null;
+		private var _password:String = null;
+		
+		public function User()
+		{
+		}
+		
+		public function set firstname(firstname:String):void
+		{
+			_firstname= firstname;
+		}
+		public function set lastname(lastname:String):void
+		{
+			_lastname= lastname;
+		}
+		public function set email(email:String):void
+		{
+			_email= email;
+		}
+		public function set password(password:String):void
+		{
+			_password= password;
+		}
+		
+		public function get firstname():String
+		{
+			return _firstname;
+		}
+		public function get lastname():String
+		{
+			return _lastname;
+		}
+		public function get email():String
+		{
+			return _email;
+		}
+		public function get password():String
+		{
+			return _password;
+		}
+	}
+}

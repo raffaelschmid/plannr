@@ -1,0 +1,12 @@
+package ch.plannr.client.events
+{
+	import flash.events.Event;
+	
+	public class UserRegisteredEvent extends Event
+	{
+		public function UserRegisteredEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+		{
+			super(type, bubbles, cancelable);
+		}
+	}
+}
