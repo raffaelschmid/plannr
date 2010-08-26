@@ -11,13 +11,21 @@ import _root_.ch.plannr.testing.IntegrationTestPhase
 import org.specs.Specification
 import net.liftweb.http.testing._
 import ch.plannr.model.User
+import ch.plannr.common.Conversion
 
-class UserWebserviceSpec extends Specification with IntegrationTestPhase with UserTestdata {
+class UserWebserviceSpec extends Specification with IntegrationTestPhase with UserTestdata with Conversion{
+
+//  def doooo={
+//    val test:TestResponse = post("/webservices/login", buildBasicAuthClient("raffael.schmid@plannr.ch", "plannr"), Nil)
+//    println("df")
+//  }
+
   "POST to /webservices/login" should {
     "credentials match" in {
-      val response = post("/webservices/login", buildBasicAuthClient("raffael.schmid@plannr.ch", "plannr"), Nil)
+//      doooo
+      val response:TestResponse = post("/webservices/login", buildBasicAuthClient("raffael.schmid@plannr.ch", "plannr"), Nil)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
-      val user = User.fromXml(response.xml.open_!)
+      val user = User.fromXml(response.xml.open_! \\ "response" \\ "user")
 
       user.lastname must beEqualTo("Schmid")
       user.firstname must beEqualTo("Raffael")
@@ -53,7 +61,9 @@ class UserWebserviceSpec extends Specification with IntegrationTestPhase with Us
       val response: TestResponse = post("/webservices/register?self=true", validUser01.toXml)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
-      val user = User.fromXml(response.xml.open_!)
+      val user = User.fromXml(response.xml.open_! \\ "response" \\ "user")
+
+
 
       user.activationSalt mustNot beEqual(0)
       user.id mustNot beEqual(0)
@@ -66,7 +76,7 @@ class UserWebserviceSpec extends Specification with IntegrationTestPhase with Us
       val response: TestResponse = post("/webservices/register", validUser01.toXml)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
-      val user = User.fromXml(response.xml.open_!)
+      val user = User.fromXml(response.xml.open_! \\ "response" \\ "user")
 
       user.activationSalt mustNot beEqual(0)
       user.id mustNot beEqual(0)
@@ -110,7 +120,7 @@ class UserWebserviceSpec extends Specification with IntegrationTestPhase with Us
 
       val url = "/webservices/update/" + alreadyPersistedUser.id.toString
       val response: TestResponse = post(url, alreadyPersistedUser.toXml)
-      val updatedUser = User.fromXml(response.xml.open_!)
+      val updatedUser = User.fromXml(response.xml.open_! \\ "response" \\ "user")
 
       //and the assertions
       updatedUser.firstname must beEqual("newfirstname")
@@ -128,7 +138,7 @@ class UserWebserviceSpec extends Specification with IntegrationTestPhase with Us
       val response: TestResponse = get("/webservices/user/find?email=raffael.schmid@plannr.ch")
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
 
-      val user = User.fromXml(response.xml.open_!)
+      val user = User.fromXml(response.xml.open_! \\ "response" \\ "user")
       user.firstname must beEqual("Raffael")
       user.lastname must beEqual("Schmid")
       user.email must beEqual("raffael.schmid@plannr.ch")

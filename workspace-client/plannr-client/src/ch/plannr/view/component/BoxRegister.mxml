@@ -15,8 +15,7 @@
 			
 			
 			private function tryRegister():void{
-				var event : UserRegisterEvent = new UserRegisterEvent();
-				event.user = new User(tiFirstName.text, tiLastname.text,tiEmail.text,tiPassword.text);
+				var event : UserRegisterEvent = new UserRegisterEvent(new User(tiFirstName.text, tiLastname.text,tiEmail.text,tiPassword.text));
 				dispatchEvent(event);
 			}
 			

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent label="Teams" width="100%" height="100%"  
+					xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			import ch.plannr.event.CustomEvent;
+			import ch.plannr.event.Events;
+			import ch.plannr.event.TeamSelectedEvent;
+			import ch.plannr.model.Team;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			[Bindable]
+			[Inject(source="context.selectedTeam", bind="true",twoWay="true")]
+			public var selectedTeam:Team = null;
+			
+			[Bindable]
+			[Inject(source="context.ownedTeams", bind="true")]
+			public var ownedTeams:ArrayCollection = null;
+			
+			
+			public function selectTeam():void{
+				selectedTeam=cbTeam.selectedItem;
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="MANAGE_TEAM"/>
+		<s:State name="CREATE_TEAM"/>
+	</s:states>
+	<s:BorderContainer width="100%" height="100%" >
+		<s:layout><s:HorizontalLayout/></s:layout>
+		<s:BorderContainer width="30%" height="100%" borderColor="#E81818" minWidth="410">
+			<s:layout><s:VerticalLayout/></s:layout>
+			<mx:Form width="100%" height="100%" id="editTeamForm" includeIn="MANAGE_TEAM">
+				<mx:FormItem label="Choose Team">
+					<s:DropDownList dataProvider="{ownedTeams}" labelField="name" change="selectTeam()" width="250" id="cbTeam" />
+				</mx:FormItem>
+				<mx:Spacer height="30"/>
+				<mx:FormItem label="Team Name:" visible="{selectedTeam!=null}">
+					<s:TextInput text="{selectedTeam.name}" width="200"/>
+				</mx:FormItem>
+				<mx:FormItem label="Team Description:" visible="{selectedTeam!=null}">
+					<s:TextArea text="{selectedTeam.description}" width="200" height="100"/>
+				</mx:FormItem>
+			</mx:Form>
+			<mx:Form width="100%" height="100%" id="createTeamForm" includeIn="CREATE_TEAM">
+				<mx:FormItem label="Team Name:">
+					<s:TextInput id="createTeamName" width="200"/>
+				</mx:FormItem>
+				<mx:FormItem label="Team Description:">
+					<s:TextArea id="createTeamDescription" width="200" height="100"/>
+				</mx:FormItem>
+				<mx:Spacer height="30"/>
+			</mx:Form>
+			<!--button bar-->
+			<s:BorderContainer styleName="toolbox" width="100%">
+				<s:layout><s:HorizontalLayout  horizontalAlign="center"/></s:layout>
+				<s:Group includeIn="MANAGE_TEAM" visible="{selectedTeam!=null}">
+					<s:layout><s:HorizontalLayout/></s:layout>
+					<s:Button label="Edit Team"/>
+					<s:Button label="Delete Team"/>
+					<s:Button label="Create Team" click="currentState='CREATE_TEAM'"/>
+				</s:Group>
+				<s:Group includeIn="CREATE_TEAM">
+					<s:layout><s:HorizontalLayout/></s:layout>
+					<s:Button label="Add Team"/>
+					<s:Button label="Cancel" click="currentState='MANAGE_TEAM'"/>	
+				</s:Group>
+			</s:BorderContainer>
+		</s:BorderContainer>
+		<s:BorderContainer width="70%" height="100%" visible="{selectedTeam!=null}" includeIn="MANAGE_TEAM">
+			<s:layout><s:HorizontalLayout/></s:layout>
+			<mx:AdvancedDataGrid width="100%" height="40%" dataProvider="{selectedTeam.members}">
+				<mx:columns>
+					<mx:AdvancedDataGridColumn dataField="firstname" headerText="Firstname"/>
+					<mx:AdvancedDataGridColumn dataField="lastname" headerText="Lastname"/>
+					<mx:AdvancedDataGridColumn dataField="email" headerText="E-Mail"/>
+					<mx:AdvancedDataGridColumn dataField="address.city" headerText="E-Mail"/>
+					<mx:AdvancedDataGridColumn headerText="Delete">
+						<mx:itemRenderer>
+							<fx:Component>
+								<mx:Box horizontalAlign="center" width="100%" render="{false}	">
+									<mx:Button label="Delete" />
+								</mx:Box>
+							</fx:Component>
+						</mx:itemRenderer>
+					</mx:AdvancedDataGridColumn>
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+			<s:VGroup width="100%" height="60%">
+			</s:VGroup>
+		</s:BorderContainer>
+	</s:BorderContainer>
+</s:NavigatorContent>

@@ -1,0 +1,13 @@
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adope.com/flex/mx";
+
+s|BorderContainer {
+	border-style:none;
+	border-color:#000000;
+}
+s|BorderContainer.toolbox  {
+	border-style:none;
+	border-visible:false;
+}
+
+

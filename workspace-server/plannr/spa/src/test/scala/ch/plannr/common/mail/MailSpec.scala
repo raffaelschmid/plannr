@@ -13,9 +13,7 @@ class MailSpec extends Specification with MailSupport {
   "MailSender" should {
     "should send plain mail" in {
 
-
-      println(System.getProperty("run.mode"))
-      sendMail(From("plannr.test@gmail.com"),
+    sendMail(From("plannr.test@gmail.com"),
         Subject("testmail"),
         To("raffi.schmid@gmail.com"),
         PlainMailBodyType("test body"), XHTMLMailBodyType(<html>

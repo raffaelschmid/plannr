@@ -1,0 +1,24 @@
+package ch.plannr.event
+{
+	import ch.plannr.model.Team;
+	import ch.plannr.model.User;
+	
+	import flash.events.Event;
+	
+	public class TeamSelectedEvent extends Event
+	{
+		private var _team:Team;
+		
+		public function TeamSelectedEvent(team:Team)
+		{
+			super(Events.OWNED_TEAMS_SELECTED,true);
+			this._team=team;
+		}
+		
+		public function get team():Team
+		{
+			return _team;
+		}
+		
+	}
+}

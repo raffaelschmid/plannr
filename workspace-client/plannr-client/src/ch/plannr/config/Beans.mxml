@@ -12,6 +12,7 @@
 		
 		<!--controllers-->
 		<controller:UserController id="userController"/>
+		<controller:TeamController id="teamController"/>
 		
 		<!--services-->
 		<swiz:ServiceHelper id="serviceHelper" />

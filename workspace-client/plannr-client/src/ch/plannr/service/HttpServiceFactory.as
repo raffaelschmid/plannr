@@ -18,26 +18,54 @@ package ch.plannr.service
 		public var password:String = null;
 		
 		
-		public function getService(url:String,method:String="GET",authentication:Boolean=false,contentType:String="application/xml"):HTTPService{
+		public function postService(url:String,authentication:Boolean=false):HTTPService{
 			var service:HTTPService = new HTTPService();
-			service.method=method;
-			service.contentType=contentType;
+			service.method="POST";
+			service.contentType="application/xml";
 			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
 			service.showBusyCursor=true;
 			service.url = rootUrl+url;
-			
-			if(authentication) 
-				service.headers = getAuthorizationHeaders();
+			service.headers = getAuthorizationHeaders(authentication,"POST");
 			
 			return service;
 		}
 		
-		private function getAuthorizationHeaders():Array
+		public function getService(url:String,authentication:Boolean=false):HTTPService{
+			var service:HTTPService = new HTTPService();
+			service.method="GET";
+			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
+			service.showBusyCursor=true;
+			service.url = rootUrl+url;
+			service.headers = getAuthorizationHeaders(authentication,"GET");
+			
+			return service;
+		}
+		
+		public function deleteService(url:String,authentication:Boolean=false):HTTPService{
+			var service:HTTPService = new HTTPService();
+			service.contentType="application/xml"
+			service.method="DELETE";
+			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
+			service.showBusyCursor=true;
+			service.url = rootUrl+url;
+			service.headers = getAuthorizationHeaders(authentication,"DELETE");
+			
+			return service;
+		}
+		
+		private function getAuthorizationHeaders(authentication:Boolean, method:String):Array
 		{
 			var headers:Array = new Array();
-			var encoder:Base64Encoder=new Base64Encoder();
-			encoder.encode(this.email + ":" + this.password);
-			headers["Authorization"]="Basic " + encoder.toString();
+			
+			if(authentication){
+				var encoder:Base64Encoder=new Base64Encoder();
+				encoder.encode(this.email + ":" + this.password);
+				headers["Authorization"]="Basic " + encoder.toString();
+			}
+			if(method=="DELETE" || method=="PUT"){
+				headers["X-HTTP-Method-Override"]=method;
+			}
+				
 			return headers;
 		}
 	}

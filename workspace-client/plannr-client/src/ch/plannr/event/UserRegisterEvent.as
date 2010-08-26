@@ -6,11 +6,16 @@ package ch.plannr.event
 	
 	public class UserRegisterEvent extends Event
 	{
-		public var user:User;
+		private var _user:User;
 		
-		public function UserRegisterEvent()
+		public function UserRegisterEvent(user:User)
 		{
 			super(Events.REGISTRATION_ATTEMPT,true);
+			_user=user;
+		}
+		public function get user():User
+		{
+			return _user;
 		}
 		
 	}

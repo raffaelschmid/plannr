@@ -2,9 +2,9 @@ package ch.plannr.common.persistence
 
 import java.lang.reflect.Field
 import net.liftweb.json.Extraction
-import xml.{Text, Elem, Node}
 import net.liftweb.json.JsonAST.JString
 import ch.plannr.common.ToString
+import xml.{NodeSeq, Text, Elem, Node}
 
 /**
  * User: Raffael Schmid
@@ -19,5 +19,5 @@ trait Domain { // extends ToString {
 
 }
 trait MetaDomain[T] {
-  def fromXml(xml: Node): T
+  def fromXml(xml: NodeSeq): T
 }

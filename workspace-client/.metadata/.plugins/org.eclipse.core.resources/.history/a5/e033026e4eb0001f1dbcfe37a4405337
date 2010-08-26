@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent label="Teams" width="100%" height="100%"  
+					xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			import ch.plannr.model.Team;
+			
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			[Inject(source="context.selectedTeam", bind="true",twoWay="true")]
+			public var selectedTeam:Team = null;
+			
+			[Bindable]
+			[Inject(source="context.ownedTeams", bind="true")]
+			public var ownedTeams:ArrayCollection = null;
+		]]>
+	</fx:Script>
+	<mx:HDividedBox width="100%" height="100%">
+		<mx:VDividedBox width="30%" height="100%" borderColor="#E81818" minWidth="350">
+			<mx:Form width="100%" height="100%">
+				<mx:FormItem label="Choose Team">
+					<s:ComboBox dataProvider="{ownedTeams}" labelField="name"/>
+				</mx:FormItem>
+				<mx:Spacer height="30"/>
+				<mx:FormItem label="Team Name:" visible="{selectedTeam!=null}">
+					<s:TextInput text="Trivadis ZH-AD 1" width="190"/>
+				</mx:FormItem>
+				<mx:FormItem label="Team Description:" visible="{selectedTeam!=null}">
+					<s:TextArea text="Trivadis Application Development Zürich" width="190" height="100"/>
+				</mx:FormItem>
+				<mx:Spacer height="30" visible="{selectedTeam!=null}"/>
+				<mx:FormItem visible="{selectedTeam!=null}">
+					<mx:HBox>
+						<s:Button label="Edit Team"/>
+						<s:Button label="Delete Team"/>
+					</mx:HBox>
+				</mx:FormItem>
+			</mx:Form>
+		</mx:VDividedBox>
+		<mx:VDividedBox width="70%" height="100%" visible="{selectedTeam!=null}">
+			<mx:AdvancedDataGrid width="100%" height="40%" sortExpertMode="true">
+				<mx:columns>
+					<mx:AdvancedDataGridColumn dataField="name" headerText="Members"/>
+					<mx:AdvancedDataGridColumn dataField="email" headerText="E-Mail Address"/>
+					<mx:AdvancedDataGridColumn headerText="Delete">
+						<mx:itemRenderer>
+							<fx:Component>
+								<mx:Box horizontalAlign="center" width="100%" render="{false}	">
+									<mx:Button label="Delete" />
+								</mx:Box>
+							</fx:Component>
+						</mx:itemRenderer>
+					</mx:AdvancedDataGridColumn>
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+			<s:VGroup width="100%" height="60%">
+				
+			</s:VGroup>
+		</mx:VDividedBox>
+	</mx:HDividedBox>
+</s:NavigatorContent>

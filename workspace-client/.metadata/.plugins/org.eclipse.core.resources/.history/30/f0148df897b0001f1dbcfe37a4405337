@@ -1,0 +1,4 @@
+
+BorderContainer {
+	border-style:none;
+}

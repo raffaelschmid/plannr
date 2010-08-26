@@ -22,6 +22,7 @@
 			}
 		]]>
 	</fx:Script>
+	<fx:Style source="style.css"/>
 	<s:states>
 		<s:State name="NOT_LOGGED_IN" id="NOT_LOGGED_IN"/>
 		<s:State name="LOGGED_IN" id="LOGGED_IN"/>

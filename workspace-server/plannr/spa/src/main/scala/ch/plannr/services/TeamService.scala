@@ -4,13 +4,14 @@ import ch.plannr.common.mail.MailSupport
 import ch.plannr.model.{User, Team}
 import scala.collection.JavaConversions._
 import ch.plannr.common.persistence.DBModel
+import net.liftweb.common.Loggable
 
 /**
  * User: Raffael Schmid
  *
  * TODO
  */
-object TeamService extends MailSupport {
+object TeamService extends MailSupport with Loggable {
 
 
   /**
@@ -29,8 +30,12 @@ object TeamService extends MailSupport {
     }
   }
 
-  def delete(teamToDelete: Team) {
-    teamToDelete.remove
+  def delete(team: Team) {
+    team.members.foreach{
+      member:User=>member.memberOf.remove(team)
+      member.persist  
+    }
+    team.remove
   }
 
   def update(teamToUpdate: Team): Team = {
@@ -53,6 +58,7 @@ object TeamService extends MailSupport {
     for (user <- users) {
       val savedUser = attachUser(user)
       savedUser.memberOf.add(team)
+      team.members.add(savedUser)
     }
     team.flush
     List() ++ asSet(team.members)
@@ -68,10 +74,11 @@ object TeamService extends MailSupport {
   def deleteUserFromTeam(teamId: Long, memberId: Long): List[User] = {
 
     val user = User.findById(memberId).open_!
-    val team = (Set() ++ user.memberOf).find(t => t.id == teamId)
-    user.memberOf.remove(team.get)
+    val team = Team.findById(teamId).open_! //(Set() ++ user.memberOf).find(t => t.id == teamId)
+    team.members.remove(user)
+    user.memberOf.remove(team)
     user.flush
 
-    List() ++ asSet(Team.findById(teamId).get.members)
+    List() ++ asSet(team.members)
   }
 }

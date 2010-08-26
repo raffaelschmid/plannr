@@ -4,6 +4,7 @@ import xml.NodeSeq
 import java.text.SimpleDateFormat
 import java.util.Date
 import javax.persistence.Transient
+import collection.JavaConversions._
 
 /**
  * User: Raffael Schmid
@@ -46,5 +47,15 @@ trait Conversion {
   implicit def date2String(date: Date): String = {
     val retVal = if (date != null) new SimpleDateFormat(dateFormatString).format(date) else null
     retVal
+  }
+
+  implicit def juSet2List[T](input:_root_.java.util.Set[T]): List[T] = {
+    val set = List() ++ asSet(input)
+    List(set:_*)
+  }
+
+  implicit def juSet2Set[T](input:_root_.java.util.Set[T]): Set[T] = {
+    Set() ++ asSet(input)
+
   }
 }

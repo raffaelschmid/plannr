@@ -18,9 +18,7 @@ trait FullEquality {
           it.setAccessible(true);
           it.get(o1) != it.get(o2)
       }
-      val retval=unequalFields.size == 0
-      println(retval)
-      return retval 
+      return unequalFields.size == 0
     }
     else
       false

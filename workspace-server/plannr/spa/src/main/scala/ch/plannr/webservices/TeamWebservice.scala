@@ -2,17 +2,38 @@ package ch.plannr.webservices
 
 import net.liftweb.http.rest.RestHelper
 import ch.plannr.common.webservice.RESTSupport
-import collection.JavaConversions._
-import net.liftweb.util.Props
 import ch.plannr.model.{Team, User}
-import ch.plannr.services.{TeamService, UserService}
+import ch.plannr.services.TeamService
 import net.liftweb.http._
-import javax.validation.{ConstraintViolation, ConstraintViolationException}
+import javax.validation.ConstraintViolationException
 import xml.{NodeSeq, Node}
+import ch.plannr.common.Conversion
 
-object TeamWebservice extends RestHelper with RESTSupport {
+object TeamWebservice extends RestHelper with RESTSupport with Conversion {
   serve {
     // /webservices/team
+    case r@Req("webservices" :: "team" :: _, _, GetRequest) => {
+
+      try {
+        if (S.param("ownerId").isDefined) {
+          val ownerId = S.param("ownerId").open_!.toLong
+          val user = User.findById(ownerId).open_!
+          val list: List[Team] = user.ownerOf
+          val retVal = list2TeamsXml(list.toArray: _*)
+          xmlSuccess(retVal)
+        }
+        else {
+          xmlError("ownerId must be specified")
+        }
+      }
+      catch {
+        case ex: ConstraintViolationException =>
+          xmlViolation(ex.getConstraintViolations)
+        case ex: IllegalArgumentException =>
+          xmlError(ex.getMessage)
+      }
+    }
+
     case r@Req("webservices" :: "team" :: "add" :: _, _, PostRequest) => {
 
       try {
@@ -22,7 +43,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
           val team = Team.fromXml(r.xml.open_!)
           val savedTeam = TeamService.addTeamToOwner(team, ownerId)
 
-          savedTeam.toXml
+          xmlSuccess(savedTeam.toXml)
         }
         else {
           xmlError("ownerId must be specified")
@@ -30,30 +51,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
       }
       catch {
         case ex: ConstraintViolationException =>
-          val set = Set() ++ (asSet(ex.getConstraintViolations))
-          xmlViolation(set)
-        case ex: IllegalArgumentException =>
-          xmlError(ex.getMessage)
-      }
-    }
-
-    case r@Req("webservices" :: "team" :: _, _, GetRequest) => {
-
-      try {
-        if (S.param("ownerId").isDefined) {
-          val ownerId = S.param("ownerId").open_!.toLong
-          val user = User.findById(ownerId)
-          val set = asSet(user.open_!.ownerOf)
-          list2TeamsXml(set.toArray: _*)
-        }
-        else {
-          xmlError("ownerId must be specified")
-        }
-      }
-      catch {
-        case ex: ConstraintViolationException =>
-          val set: Set[ConstraintViolation[_]] = Set() ++ (ex.getConstraintViolations)
-          xmlViolation(set)
+          xmlViolation(ex.getConstraintViolations)
         case ex: IllegalArgumentException =>
           xmlError(ex.getMessage)
       }
@@ -66,7 +64,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
 
       val newMembers = TeamService.deleteUserFromTeam(teamId, memberId(0).toLong)
 
-      list2UsersXml(newMembers: _*)
+      xmlSuccess(list2UsersXml(newMembers: _*))
 
     }
 
@@ -90,7 +88,7 @@ object TeamWebservice extends RestHelper with RESTSupport {
 
         val newMembers = TeamService.addUsersToTeam(teamId, users)
 
-        list2UsersXml(newMembers: _*)
+        xmlSuccess(list2UsersXml(newMembers: _*))
       }
       catch {
         case ex: Exception => xmlError(ex.getMessage)
@@ -103,7 +101,11 @@ object TeamWebservice extends RestHelper with RESTSupport {
 
   def list2TeamsXml(list: Team*): Node = {
     <teams>
-      {list.map {it: Team => it.toXml}}
+      {list.map {
+      it: Team =>
+        println(it.members)
+        it.toXml
+    }}
     </teams>
   }
 

@@ -4,9 +4,8 @@ import javax.persistence._
 import javax.validation.constraints.NotNull
 import java.util.Date
 import ch.plannr.common.persistence.{MetaDomain, Domain, Persistent}
-import xml.Node
 import ch.plannr.common.Conversion
-import java.text.SimpleDateFormat
+import xml.NodeSeq
 
 /**
  * User: Raffael Schmid
@@ -70,7 +69,7 @@ class Vacation extends Domain with Persistent[Vacation] with Conversion {
 }
 
 object Vacation extends Vacation with MetaDomain[Vacation] with Conversion {
-  override def fromXml(xml: Node) = {
+  override def fromXml(xml: NodeSeq) = {
     val retVal = new Vacation
     retVal.id = xml \ "id"
     retVal.title = xml \ "title"

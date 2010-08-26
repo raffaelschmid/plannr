@@ -29,7 +29,10 @@ class TeamWebserviceSpec extends Specification with IntegrationTestPhase with Te
       val response: TestResponse = post("/webservices/team/add?ownerId=1", validTeam.toXml)
       response.!(200, "http response code must be 200")
 
-      val teams: List[Team] = get("/webservices/team?ownerId=1").xml.open_!
+      val xml = get("/webservices/team?ownerId=1").xml.open_!
+      println(xml)
+      val teams: List[Team] = xml
+
       teams(0).id must beEqual(1)
       teams(1).id must beEqual(2)
     }
@@ -57,15 +60,15 @@ class TeamWebserviceSpec extends Specification with IntegrationTestPhase with Te
       val addResponse: TestResponse = post("/webservices/team/member?teamId=1", listOfUsersToNode(List(userA, userB)))
       val users: List[User] = addResponse.xml.open_!
 
-      users(0).firstname must beEqual(userA.firstname)
-      users(1).firstname must beEqual(userB.firstname)
-      users.size must beEqual(2)
+      users(1).firstname must beEqual(userA.firstname)
+      users(2).firstname must beEqual(userB.firstname)
+      users.size must beEqual(3)
 
 
 
       val delResponse: TestResponse = delete("/webservices/team/member/" + users(1).id + "?teamId=1")
       val usersAfterDelete: List[User] = delResponse.xml.open_!
-      (usersAfterDelete.size) must beEqual(1)
+      (usersAfterDelete.size) must beEqual(2)
 
     }
 

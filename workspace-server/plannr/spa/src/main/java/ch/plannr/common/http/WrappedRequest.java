@@ -59,8 +59,23 @@ public class WrappedRequest implements HttpServletRequest {
         return delegate.getIntHeader(name);
     }
 
+    /**
+     * Because Browsers do not send PUT and Delete requests, in flex client i
+     * use an additional http-header which overrides the real http method.
+     *
+     * @return virtual http method based on the X-HTTP-Method-Override http header attribute.
+     */
     public String getMethod() {
-        return delegate.getMethod();
+        String retVal = delegate.getMethod();
+        if ("POST".equalsIgnoreCase(retVal)) {
+            String methodOverride = getHeader("X-HTTP-Method-Override");
+            if ("DELETE".equalsIgnoreCase(methodOverride))
+                retVal = "DELETE";
+            else if ("PUT".equalsIgnoreCase(methodOverride))
+                retVal = "PUT";
+        }
+
+        return retVal;
     }
 
     public String getPathInfo() {

@@ -3,8 +3,10 @@ package ch.plannr.model
 	import flash.xml.XMLDocument;
 	import flash.xml.XMLNode;
 	
+	import mx.controls.Alert;
 	import mx.rpc.xml.SimpleXMLEncoder;
 
+	[Bindable]
 	public class User
 	{
 		private var _id:int;
@@ -12,6 +14,7 @@ package ch.plannr.model
 		private var _lastname:String=null;
 		private var _email:String=null;
 		private var _password:String = null;
+		public var address:Address = new Address();
 		
 		public function User(firstname:String=null, lastname:String=null, email:String=null, password:String=null)
 		{
@@ -27,11 +30,29 @@ package ch.plannr.model
 			var simpleXMLEncoder:SimpleXMLEncoder = new SimpleXMLEncoder(xmlDocument);
 			var xmlNode:XMLNode = simpleXMLEncoder.encodeValue(this, qName, xmlDocument);
 			var xml:XML = new XML(xmlDocument.toString());
-			trace(xml.toXMLString());
 			return xml;
 		}
-
 		
+		public static function fromXml(xml:XML):User{
+			var user:User = new User();
+			
+			user.id=parseInt(xml.id);
+			user.firstname=xml.firstname;
+			user.lastname=xml.lastname;
+			user.email=xml.email;
+			user.address.street1=xml.address.street1[0];
+			user.address.street2=xml.address.street2[0];
+			user.address.city=xml.address.city[0];
+			user.address.countryCode=xml.address.countryCode[0];
+			user.address.zip=parseInt(xml.address.zip[0]);
+			
+			
+			return user;
+		}
+
+		public function toString():String{
+			return firstname + " " + lastname + " " + address.street1 + " " + address.city;
+		}
 		
 		public function set firstname(firstname:String):void
 		{
@@ -80,6 +101,22 @@ package ch.plannr.model
 		public function get id():int
 		{
 			return _id;
+		}
+		public function get address_zip():int
+		{
+			return address.zip;
+		}
+		public function get address_city():String
+		{
+			return address.city;
+		}
+		public function get address_street1():String
+		{
+			return address.street1;
+		}
+		public function get address_street2():String
+		{
+			return address.street2;
 		}
 	}
 }

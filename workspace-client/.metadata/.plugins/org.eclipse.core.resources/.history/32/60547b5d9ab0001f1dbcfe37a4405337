@@ -1,0 +1,9 @@
+package ch.plannr.model
+{
+	public class Address
+	{
+		public function Address()
+		{
+		}
+	}
+}

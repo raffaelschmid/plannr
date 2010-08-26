@@ -18,12 +18,13 @@ package model {
 
 import _root_.javax.persistence._
 import org.hibernate.validator.constraints.{NotEmpty, Email}
-import xml.{NodeSeq, Node}
+import xml.NodeSeq
 import javax.validation.constraints.{NotNull, Size}
 import util.Random
 import common.{Conversion, FullEquality}
-import reflect.BeanProperty
 import common.persistence.{MetaDomain, Domain, Persistent}
+import collection.JavaConversions._
+
 
 /**
  *
@@ -89,7 +90,6 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   @OneToMany(mappedBy = "owner")
   var ownerOf: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]
 
-
   @OneToMany(mappedBy = "user")
   var vacations: _root_.java.util.Set[Vacation] = new _root_.java.util.HashSet[Vacation]
 
@@ -97,7 +97,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   var comments: _root_.java.util.Set[Comment] = _
 
 
-  override def toXml =
+  override def toXml = {
     <user>
       <id>
         {id}
@@ -141,7 +141,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
         </countryCode>
       </address>
     </user>
-
+  }
 
   /**
    * persistence provider needs carefully selected properties for equality check
@@ -161,12 +161,12 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[User]
 
-  override def toString = "User [ id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", activationSalt=" + activationSalt + "]"
+  override def toString = "User [ id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", activationSalt=" + activationSalt +", street1=" + address.street1 + "]"
 }
 object User extends User with MetaDomain[User] with MetaMegaBasicUser[User] with FullEquality with Conversion {
   private var rand = new Random()
 
-  def fromXml(xml: Node): User = {
+  def fromXml(xml: NodeSeq): User = {
     val user = new User()
     user.id = xml \ "id"
     user.password = xml \ "password"

@@ -32,12 +32,8 @@ class UserSpec extends Specification with Dataloader {
 
   "fromXml" should {
     "return user as object" in {
-      println(UserSpec.testuser.toXml)
       val user = User.fromXml(UserSpec.testuser.toXml)
       val clone = UserSpec.testuser
-      println(user.address)
-      println(clone.address)
-
       User.fullEquality(user, clone) must beTrue
     }
   }

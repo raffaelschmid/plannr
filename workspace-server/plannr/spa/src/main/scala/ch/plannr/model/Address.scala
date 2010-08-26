@@ -1,7 +1,6 @@
 package ch.plannr.model
 
 import javax.persistence.{AccessType, Column, Embeddable, Access}
-import org.hibernate.validator.constraints.{Length, NotEmpty}
 import javax.validation.constraints.Size
 import ch.plannr.common.ToString
 

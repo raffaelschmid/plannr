@@ -2,18 +2,17 @@ package ch.plannr.webservices
 
 import net.liftweb.http.rest.RestHelper
 import ch.plannr.model.User
-import collection.JavaConversions._
 import ch.plannr.services.UserService
 import net.liftweb.http.{S, GetRequest, Req, PostRequest}
-import net.liftweb.util.Props
-import javax.validation.{ConstraintViolation, ConstraintViolationException}
-import net.liftweb.common.{Empty, Full}
-import ch.plannr.common.webservice.{RESTSupport}
+import javax.validation.ConstraintViolationException
+import net.liftweb.common.Full
+import ch.plannr.common.webservice.RESTSupport
+import ch.plannr.common.Conversion
 
-object UserWebservice extends RestHelper with RESTSupport {
+object UserWebservice extends RestHelper with RESTSupport with Conversion{
   serve {
     // /webservices/login
-    case "webservices" :: "login" :: _ Post _ => {
+    case r@Req("webservices" :: "login" :: _, _, PostRequest) => {
       val u = UserService.login
       if (u.isDefined)
         xmlSuccess(u.open_!.toXml)
@@ -32,8 +31,7 @@ object UserWebservice extends RestHelper with RESTSupport {
       }
       catch {
         case ex: ConstraintViolationException =>
-          val set = Set() ++ (asSet(ex.getConstraintViolations))
-          xmlViolation(set)
+          xmlViolation(ex.getConstraintViolations)
         case ex: Exception =>
           xmlError(ex.getMessage)
       }
@@ -63,8 +61,7 @@ object UserWebservice extends RestHelper with RESTSupport {
       }
       catch {
         case ex: ConstraintViolationException =>
-          val set = Set() ++ asSet(ex.getConstraintViolations)
-          xmlViolation(set)
+          xmlViolation(ex.getConstraintViolations)
         case ex: Exception =>
           xmlError(ex.getMessage)
       }

@@ -1,0 +1,35 @@
+package ch.plannr.controller
+{
+	import ch.plannr.event.CustomEvent;
+	import ch.plannr.event.Events;
+	
+	import flash.events.IEventDispatcher;
+	
+	import mx.controls.Alert;
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
+
+	public class TeamController
+	{
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
+		[Mediate( event="Events.LOGIN_SUCCESS")]
+		public function loadOwnedTeams() : void
+		{
+			function handleLoginResult( event : ResultEvent ) : void
+			{
+				var xml:XML = new XML(event.result);
+				dispatcher.dispatchEvent(new CustomEvent((xml.@success=='true')?Events.LOGIN_SUCCESS:Events.LOGIN_FAILURE));
+			}
+			
+			function handleLoginFault( event : FaultEvent ) : void
+			{
+				dispatcher.dispatchEvent(new CustomEvent(Events.LOGIN_FAILURE));
+			}
+			
+			Alert.show("loading teams");
+			//serviceHelper.executeServiceCall( httpServiceFactory.getService("/webservices/login","POST",true).send(<null/>), handleLoginResult,handleLoginFault );
+		}
+	}
+}

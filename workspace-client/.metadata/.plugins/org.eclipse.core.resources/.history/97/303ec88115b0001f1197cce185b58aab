@@ -1,0 +1,10 @@
+package ch.plannr.model
+{
+	public class Team
+	{
+		public function Team()
+		{
+			
+		}
+	}
+}

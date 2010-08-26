@@ -2,11 +2,11 @@ package ch.plannr.model
 
 import javax.validation.constraints.{Size, NotNull}
 import javax.persistence._
-import xml.Node
 import ch.plannr.common.{Conversion, FullEquality}
-import reflect.BeanProperty
 import ch.plannr.common.persistence.{DBModel, Persistent, Domain}
 import net.liftweb.common.Box
+import scala.collection.JavaConversions._
+import xml.NodeSeq
 
 /**
  * User: Raffael Schmid
@@ -36,7 +36,7 @@ class Team extends Domain with Persistent[Team] {
   @JoinColumn(name = "OWNER_ID", referencedColumnName = "ID")
   var owner: User = _
 
-  @ManyToMany(mappedBy = "memberOf")
+  @ManyToMany(mappedBy = "memberOf", fetch = FetchType.EAGER)
   var members: _root_.java.util.Set[User] = new _root_.java.util.HashSet[User]()
 
   @OneToMany(mappedBy = "team")
@@ -53,7 +53,18 @@ class Team extends Domain with Persistent[Team] {
       <description>
         {description}
       </description>
+      <members>
+        {for{m <- members; n = m.toXml} yield n}
+      </members>
     </team>
+
+  def example = {
+    <user>
+      <id>
+        1
+      </id>
+    </user>
+  }
 
   override def toString = "Team [ id=" + id + ", name=" + name + ", description=" + description + "]"
 }
@@ -66,7 +77,7 @@ object Team extends Team with FullEquality with Conversion {
     retVal
   }
 
-  def fromXml(xml: Node): Team = {
+  def fromXml(xml: NodeSeq): Team = {
     val team = new Team()
     team.id = xml \ "id"
     team.name = xml \ "name"
