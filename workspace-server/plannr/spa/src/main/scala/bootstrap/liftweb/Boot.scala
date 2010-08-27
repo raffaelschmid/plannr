@@ -58,6 +58,8 @@ class Boot {
     LiftRules.dispatch.append(UserWebservice)
     LiftRules.dispatch.append(TeamWebservice)
     LiftRules.dispatch.append(VacationWebservice)
+    LiftRules.dispatch.append(SearchWebservice)
+
 
     S.addAround(new TransactionalLoanWrapper())
 

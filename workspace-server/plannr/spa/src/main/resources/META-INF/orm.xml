@@ -19,6 +19,9 @@
         <named-query name="findById">
             <query><![CDATA[from User u where u.id=:id]]></query>
         </named-query>
+        <named-query name="fullTextUserSearch">
+            <query><![CDATA[FROM User u WHERE UPPER(u.firstname) LIKE UPPER(:keyword) OR UPPER(u.lastname) LIKE UPPER(:keyword) OR UPPER(u.email) LIKE UPPER(:keyword)]]></query>
+        </named-query>
     </entity>
     <entity class="Role"></entity>
     <entity class="Team"></entity>

@@ -1,9 +1,0 @@
-package ch.plannr.controller
-{
-	public class TeamController
-	{
-		public function TeamController()
-		{
-		}
-	}
-}

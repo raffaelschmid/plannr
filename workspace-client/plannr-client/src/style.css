@@ -4,7 +4,7 @@
 s|BorderContainer {
 	border-color:#000000;
 }
-s|BorderContainer.toolbox  {
+.nonborder  {
 	border-style:none;
 	border-visible:false;
 }

@@ -1,11 +1,21 @@
 package ch.plannr.model
 {
+	import flash.xml.XMLDocument;
+	import flash.xml.XMLNode;
+	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
+	import mx.rpc.xml.SimpleXMLEncoder;
 
 	[Bindable]
 	public class Team
 	{
+		
+		public function Team(name:String=null, description:String=null,id:int=0){
+			this._id=id;
+			this._name=name;
+			this._description=description;
+		}
 	
 		private var _id:int = 0;
 		private var _name:String=null;
@@ -54,6 +64,15 @@ package ch.plannr.model
 		public function get members():ArrayCollection
 		{
 			return _members;
+		}
+		
+		public function toXml():XML {
+			var qName:QName = new QName("team");
+			var xmlDocument:XMLDocument = new XMLDocument();
+			var simpleXMLEncoder:SimpleXMLEncoder = new SimpleXMLEncoder(xmlDocument);
+			var xmlNode:XMLNode = simpleXMLEncoder.encodeValue(this, qName, xmlDocument);
+			var xml:XML = new XML(xmlDocument.toString());
+			return xml;
 		}
 		
 		public static function fromXml(xml:XML):Team{

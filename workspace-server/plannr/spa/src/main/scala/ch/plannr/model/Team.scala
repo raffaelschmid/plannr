@@ -23,12 +23,11 @@ class Team extends Domain with Persistent[Team] {
 
   @Column(name = "NAME", nullable = false)
   @NotNull
-  @Size(min = 5, max = 50)
+  @Size(min = 1, max = 50)
   var name: String = _
 
-  @Column(name = "DESCRIPTION", nullable = false)
-  @NotNull
-  @Size(min = 20, max = 200)
+  @Column(name = "DESCRIPTION")
+  @Size(max = 200)
   var description: String = _
 
 

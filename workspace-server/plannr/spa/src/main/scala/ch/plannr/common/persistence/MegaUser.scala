@@ -105,4 +105,12 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     }
   }
 
+  def findFullTextLike(term: String): List[User] = {
+    if(term.size<3)
+      throw new IllegalArgumentException("term must contain at least 3 characters")
+    
+    val users = DBModel.createNamedQuery[User]("fullTextUserSearch", Pair("keyword", "%"+term+"%")).getResultList
+    List(users: _*)
+  }
+
 }

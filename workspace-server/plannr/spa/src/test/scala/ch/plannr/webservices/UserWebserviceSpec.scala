@@ -15,14 +15,8 @@ import ch.plannr.common.Conversion
 
 class UserWebserviceSpec extends Specification with IntegrationTestPhase with UserTestdata with Conversion{
 
-//  def doooo={
-//    val test:TestResponse = post("/webservices/login", buildBasicAuthClient("raffael.schmid@plannr.ch", "plannr"), Nil)
-//    println("df")
-//  }
-
   "POST to /webservices/login" should {
     "credentials match" in {
-//      doooo
       val response:TestResponse = post("/webservices/login", buildBasicAuthClient("raffael.schmid@plannr.ch", "plannr"), Nil)
       response.!(200, "valid credentials given -> 200 should be returned but wasn't")
       val user = User.fromXml(response.xml.open_! \\ "response" \\ "user")

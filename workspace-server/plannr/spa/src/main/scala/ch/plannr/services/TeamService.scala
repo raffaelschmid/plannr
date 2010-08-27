@@ -38,20 +38,18 @@ object TeamService extends MailSupport with Loggable {
     team.remove
   }
 
-  def update(teamToUpdate: Team): Team = {
-    val updateTeam = teamToUpdate.merge
+  def update(newValues: Team): Team = {
+    val team = Team.findById(newValues.id).open_!
+    team.name=newValues.name
+    team.description = newValues.description
+
+    val updateTeam = team.persist
     updateTeam
   }
 
   def addUsersToTeam(teamId: Long, users: List[User]): List[User] = {
     def attachUser(user: User): User = {
-      if (user.id != 0) {
-        user.merge
-      }
-      else {
-        user.persist
-        user
-      }
+      User.findById(user.id).open_!
     }
 
     var team: Team = Team.findById(teamId).get

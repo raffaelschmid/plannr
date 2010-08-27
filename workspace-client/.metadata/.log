@@ -2814,3 +2814,268 @@ org.eclipse.core.internal.resources.ResourceException: Marker id 1353 not found.
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
 !SUBENTRY 1 org.eclipse.core.resources 4 376 2010-08-26 01:03:59.931
 !MESSAGE Marker id 1353 not found.
+!SESSION 2010-08-26 09:07:15.077 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=carbon, NL=en_US
+Framework arguments:  -keyring /Users/rschmid/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws carbon -arch x86 -keyring /Users/rschmid/.eclipse_keyring -consoleLog -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2010-08-26 09:07:31.284
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2010-08-26 09:07:31.578
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-08-26 09:07:31.578
+!MESSAGE A conflict occurred for COMMAND+G:
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllDeclarationsAction@14141db)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllDeclarationsAction@14141db)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-08-26 09:07:31.579
+!MESSAGE A conflict occurred for COMMAND+SHIFT+G:
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllReferencesAction@14ac7e0)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllReferencesAction@14ac7e0)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+
+!ENTRY com.adobe.flexbuilder.project 4 43 2010-08-26 09:57:20.518
+!MESSAGE unexpected partitioning error
+!STACK 0
+java.lang.Exception
+	at com.adobe.flexbuilder.project.internal.FlexProjectCore.createErrorStatus(FlexProjectCore.java:975)
+	at com.adobe.flexbuilder.util.logging.GlobalLogImpl.log(GlobalLogImpl.java:66)
+	at com.adobe.flexbuilder.util.logging.GlobalLog.log(GlobalLog.java:50)
+	at com.adobe.flexide.mxml.core.editor.partitioner.fast.MXMLPartitionUpdater.partition(MXMLPartitionUpdater.java:570)
+	at com.adobe.flexide.mxml.core.editor.partitioner.fast.MXMLPartitionUpdater.repartition(MXMLPartitionUpdater.java:995)
+	at com.adobe.flexide.mxml.core.editor.partitioner.fast.MXMLFastPartitioner.documentChanged2(MXMLFastPartitioner.java:63)
+	at org.eclipse.jface.text.AbstractDocument.updateDocumentStructures(AbstractDocument.java:672)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentChanged(AbstractDocument.java:759)
+	at com.adobe.flexide.mxml.core.document.MXMLDocument.fireDocumentChanged(MXMLDocument.java:406)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1157)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1176)
+	at com.adobe.flexide.mxml.core.document.MXMLDocument.replace(MXMLDocument.java:632)
+	at org.eclipse.jface.text.projection.ProjectionTextStore.replace(ProjectionTextStore.java:111)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1150)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1176)
+	at org.eclipse.jface.text.projection.ProjectionDocument.replace(ProjectionDocument.java:630)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.replaceTextRange(DefaultDocumentAdapter.java:248)
+	at org.eclipse.swt.custom.StyledText.modifyContent(StyledText.java:6634)
+	at org.eclipse.swt.custom.StyledText.sendKeyEvent(StyledText.java:7442)
+	at org.eclipse.swt.custom.StyledText.paste(StyledText.java:6690)
+	at org.eclipse.jface.text.TextViewer.paste(TextViewer.java:4026)
+	at org.eclipse.jface.text.TextViewer.doOperation(TextViewer.java:3970)
+	at org.eclipse.jface.text.source.SourceViewer.doOperation(SourceViewer.java:921)
+	at org.eclipse.jface.text.source.projection.ProjectionViewer.doOperation(ProjectionViewer.java:1533)
+	at com.adobe.flexide.editorcore.editor.FlexSourceViewer.doOperation(FlexSourceViewer.java:190)
+	at org.eclipse.ui.texteditor.TextOperationAction$1.run(TextOperationAction.java:131)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.texteditor.TextOperationAction.run(TextOperationAction.java:129)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:498)
+	at org.eclipse.ui.commands.ActionHandler.execute(ActionHandler.java:185)
+	at org.eclipse.ui.internal.handlers.LegacyHandlerWrapper.execute(LegacyHandlerWrapper.java:109)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:476)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:508)
+	at org.eclipse.ui.internal.handlers.HandlerService.executeCommand(HandlerService.java:169)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.executeCommand(WorkbenchKeyboard.java:470)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.press(WorkbenchKeyboard.java:824)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.processKeyEvent(WorkbenchKeyboard.java:880)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.filterKeySequenceBindings(WorkbenchKeyboard.java:569)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.access$3(WorkbenchKeyboard.java:510)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard$KeyDownFilter.handleEvent(WorkbenchKeyboard.java:125)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.filterEvent(Display.java:1131)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1597)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1622)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1607)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1659)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1654)
+	at org.eclipse.swt.widgets.Control.kEventUnicodeKeyPressed(Control.java:2304)
+	at org.eclipse.swt.widgets.Composite.kEventUnicodeKeyPressed(Composite.java:605)
+	at org.eclipse.swt.widgets.Control.kEventTextInputUnicodeForKeyEvent(Control.java:2266)
+	at org.eclipse.swt.widgets.Canvas.kEventTextInputUnicodeForKeyEvent(Canvas.java:232)
+	at org.eclipse.swt.widgets.Widget.textInputProc(Widget.java:2054)
+	at org.eclipse.swt.widgets.Display.textInputProc(Display.java:3971)
+	at org.eclipse.swt.internal.carbon.OS.SendEventToEventTarget(Native Method)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3051)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2405)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2369)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2221)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:500)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:493)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.adobe.flexbuilder.standalone.FlexBuilderApplication.start(FlexBuilderApplication.java:109)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:194)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:368)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:559)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:514)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1311)
+
+!ENTRY com.adobe.flexbuilder.project 4 43 2010-08-26 09:57:20.522
+!MESSAGE unexpected partitioning error
+!STACK 0
+java.lang.Exception
+	at com.adobe.flexbuilder.project.internal.FlexProjectCore.createErrorStatus(FlexProjectCore.java:975)
+	at com.adobe.flexbuilder.util.logging.GlobalLogImpl.log(GlobalLogImpl.java:66)
+	at com.adobe.flexbuilder.util.logging.GlobalLog.log(GlobalLog.java:50)
+	at com.adobe.flexide.mxml.core.editor.partitioner.fast.MXMLPartitionUpdater.partition(MXMLPartitionUpdater.java:570)
+	at com.adobe.flexide.mxml.core.editor.partitioner.fast.MXMLPartitionUpdater.partition(MXMLPartitionUpdater.java:575)
+	at com.adobe.flexide.mxml.core.editor.partitioner.fast.MXMLPartitionUpdater.repartition(MXMLPartitionUpdater.java:995)
+	at com.adobe.flexide.mxml.core.editor.partitioner.fast.MXMLFastPartitioner.documentChanged2(MXMLFastPartitioner.java:63)
+	at org.eclipse.jface.text.AbstractDocument.updateDocumentStructures(AbstractDocument.java:672)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentChanged(AbstractDocument.java:759)
+	at com.adobe.flexide.mxml.core.document.MXMLDocument.fireDocumentChanged(MXMLDocument.java:406)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1157)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1176)
+	at com.adobe.flexide.mxml.core.document.MXMLDocument.replace(MXMLDocument.java:632)
+	at org.eclipse.jface.text.projection.ProjectionTextStore.replace(ProjectionTextStore.java:111)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1150)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1176)
+	at org.eclipse.jface.text.projection.ProjectionDocument.replace(ProjectionDocument.java:630)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.replaceTextRange(DefaultDocumentAdapter.java:248)
+	at org.eclipse.swt.custom.StyledText.modifyContent(StyledText.java:6634)
+	at org.eclipse.swt.custom.StyledText.sendKeyEvent(StyledText.java:7442)
+	at org.eclipse.swt.custom.StyledText.paste(StyledText.java:6690)
+	at org.eclipse.jface.text.TextViewer.paste(TextViewer.java:4026)
+	at org.eclipse.jface.text.TextViewer.doOperation(TextViewer.java:3970)
+	at org.eclipse.jface.text.source.SourceViewer.doOperation(SourceViewer.java:921)
+	at org.eclipse.jface.text.source.projection.ProjectionViewer.doOperation(ProjectionViewer.java:1533)
+	at com.adobe.flexide.editorcore.editor.FlexSourceViewer.doOperation(FlexSourceViewer.java:190)
+	at org.eclipse.ui.texteditor.TextOperationAction$1.run(TextOperationAction.java:131)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.texteditor.TextOperationAction.run(TextOperationAction.java:129)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:498)
+	at org.eclipse.ui.commands.ActionHandler.execute(ActionHandler.java:185)
+	at org.eclipse.ui.internal.handlers.LegacyHandlerWrapper.execute(LegacyHandlerWrapper.java:109)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:476)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:508)
+	at org.eclipse.ui.internal.handlers.HandlerService.executeCommand(HandlerService.java:169)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.executeCommand(WorkbenchKeyboard.java:470)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.press(WorkbenchKeyboard.java:824)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.processKeyEvent(WorkbenchKeyboard.java:880)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.filterKeySequenceBindings(WorkbenchKeyboard.java:569)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard.access$3(WorkbenchKeyboard.java:510)
+	at org.eclipse.ui.internal.keys.WorkbenchKeyboard$KeyDownFilter.handleEvent(WorkbenchKeyboard.java:125)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.filterEvent(Display.java:1131)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1597)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1622)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1607)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1659)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1654)
+	at org.eclipse.swt.widgets.Control.kEventUnicodeKeyPressed(Control.java:2304)
+	at org.eclipse.swt.widgets.Composite.kEventUnicodeKeyPressed(Composite.java:605)
+	at org.eclipse.swt.widgets.Control.kEventTextInputUnicodeForKeyEvent(Control.java:2266)
+	at org.eclipse.swt.widgets.Canvas.kEventTextInputUnicodeForKeyEvent(Canvas.java:232)
+	at org.eclipse.swt.widgets.Widget.textInputProc(Widget.java:2054)
+	at org.eclipse.swt.widgets.Display.textInputProc(Display.java:3971)
+	at org.eclipse.swt.internal.carbon.OS.SendEventToEventTarget(Native Method)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3051)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2405)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2369)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2221)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:500)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:493)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.adobe.flexbuilder.standalone.FlexBuilderApplication.start(FlexBuilderApplication.java:109)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:194)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:368)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:559)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:514)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1311)
+
+!ENTRY com.adobe.flexide.designitems 4 1 2010-08-26 15:36:25.948
+!MESSAGE Design view: Failed to load library.swf from /Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/libs/swiz-framework-1.0.0-RC1.swc, reason=DesignAssetLoader.CompleteTimeout
+
+!ENTRY com.adobe.flexide.designitems 4 1 2010-08-26 15:36:28.117
+!MESSAGE Design view: Failed to load library.swf from /Applications/Adobe Flash Builder 4/plugins/com.adobe.flexbuilder.dcrad_4.0.1.277662/dcradSwcs/4.0/locale/serializers_rb.swc, reason=DesignAssetLoader.CompleteTimeout
+!SESSION 2010-08-26 23:49:32.442 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_20
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=carbon, NL=en_US
+Framework arguments:  -keyring /Users/rschmid/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws carbon -arch x86 -keyring /Users/rschmid/.eclipse_keyring -consoleLog -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2010-08-26 23:49:47.679
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2010-08-27 00:34:39.133
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-08-27 00:34:39.133
+!MESSAGE A conflict occurred for COMMAND+G:
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllDeclarationsAction@1e2203c)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllDeclarationsAction@1e2203c)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-08-27 00:34:39.133
+!MESSAGE A conflict occurred for COMMAND+SHIFT+G:
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllReferencesAction@b25692)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllReferencesAction@b25692)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)

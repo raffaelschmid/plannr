@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="249" key="DIALOG_WIDTH"/>
-		<item value="297" key="DIALOG_Y_ORIGIN"/>
-		<item value="836" key="DIALOG_X_ORIGIN"/>
+		<item value="292" key="DIALOG_Y_ORIGIN"/>
+		<item value="1356" key="DIALOG_X_ORIGIN"/>
 		<item value="403" key="DIALOG_HEIGHT"/>
 		<item value="1|Lucida Grande|11.0|0|CARBON|1|Lucida Grande" key="DIALOG_FONT_NAME"/>
 	</section>
@@ -13,18 +13,20 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="method" key="selection"/>
+		<item value="Button" key="selection"/>
 		<list key="findhistory">
-			<item value="method"/>
-			<item value="get"/>
-			<item value="current"/>
-			<item value="U"/>
-			<item value="username"/>
-			<item value="lError"/>
-			<item value="serializationFilter"/>
-			<item value="serializer0"/>
+			<item value="button"/>
+			<item value="selectedUsers"/>
+			<item value="Alert"/>
+			<item value="A"/>
+			<item value="advanced"/>
+			<item value="search"/>
+			<item value="padding"/>
+			<item value="form"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="200"/>
 			<item value="email"/>
 			<item value="lMessage"/>
 			<item value="EventRegistry"/>

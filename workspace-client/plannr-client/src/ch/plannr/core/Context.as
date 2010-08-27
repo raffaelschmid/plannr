@@ -29,5 +29,11 @@ package ch.plannr.core
 		[Bindable]
 		public var ownedTeams:ArrayCollection = null;
 		
+		[Bindable]
+		public var searchedUsers:ArrayCollection = null;
+		
+		[Bindable]
+		public var selectUsers:ArrayCollection = null;
+		
 	}
 }

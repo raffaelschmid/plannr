@@ -15,27 +15,41 @@ import ch.plannr.common.Conversion
  */
 class TeamWebserviceSpec extends Specification with IntegrationTestPhase with TeamTestdata with Conversion {
   "POST to /webservices/team" should {
-    "return error xml if instance is not valid" in {
+    "return error -> invalid team" in {
 
-      val response: TestResponse = post("/webservices/team/add?ownerId=1", invalidTeam.toXml)
+      val response: TestResponse = post("/webservices/team?ownerId=1", invalidTeam.toXml)
       response.!(200, "http response code must be 200")
 
       val xml = response.xml.open_!
       val violations: NodeSeq = (xml \\ "response" \\ "violations" \\ "violation")
-      (violations(0) \ "@property").text.trim must beIn(List("name", "description"))
-      (violations(1) \ "@property").text.trim must beIn(List("name", "description"))
+      (violations(0) \ "@property").text.trim must beEqual("name")
     }
-    "return error xml if instance is not valid" in {
-      val response: TestResponse = post("/webservices/team/add?ownerId=1", validTeam.toXml)
-      response.!(200, "http response code must be 200")
+    "save valid instance and update afterwards" in {
 
-      val xml = get("/webservices/team?ownerId=1").xml.open_!
-      println(xml)
-      val teams: List[Team] = xml
+      //save new team
+      val postResponse: TestResponse = post("/webservices/team?ownerId=1", validTeam.toXml)
+      postResponse.!(200, "http response code must be 200")
+      val savedTeamXml = postResponse.xml.open_!
+      val savedTeam = Team.fromXml(savedTeamXml \\ "response" \\ "team")
 
+      //get all owned teams and test result
+      val getAllResponse = get("/webservices/team?ownerId=1")
+      getAllResponse.!(200, "http response code must be 200")
+      val teams: List[Team] = getAllResponse.xml.open_!
       teams(0).id must beEqual(1)
       teams(1).id must beEqual(2)
+
+      //update team and test result
+      savedTeam.name="changed"
+      val updatedTeamResponse = put("/webservices/team",savedTeam.toXml)
+      updatedTeamResponse.!(200, "http response code must be 200")
+      val updatedTeamXml = updatedTeamResponse.xml.open_!
+      val updatedTeam = Team.fromXml(updatedTeamXml \\ "response" \\ "team")
+      println(updatedTeamXml)
+      println(updatedTeam)
+
     }
+
     "delete team with id=2" in {
       val response: TestResponse = delete("/webservices/team/2")
       response.!(200, "http response code must be 200")
@@ -45,30 +59,33 @@ class TeamWebserviceSpec extends Specification with IntegrationTestPhase with Te
     }
     "add member to team, check, and delete afterwards" in {
       val userA = new User()
-      userA.firstname = "a" * 10
-      userA.lastname = "a" * 10
-      userA.email = "aa@aaa.aa"
-      userA.password = "a" * 10
+      userA.id=1
+//      userA.firstname = "a" * 10
+//      userA.lastname = "a" * 10
+//      userA.email = "aa@aaa.aa"
+//      userA.password = "a" * 10
 
       val userB = new User()
-      userB.firstname = "b" * 10
-      userB.lastname = "b" * 10
-      userB.email = "bb@bbb.bb"
-      userB.password = "b" * 10
+      userB.id=2
+//      userB.firstname = "b" * 10
+//      userB.lastname = "b" * 10
+//      userB.email = "bb@bbb.bb"
+//      userB.password = "b" * 10
 
 
       val addResponse: TestResponse = post("/webservices/team/member?teamId=1", listOfUsersToNode(List(userA, userB)))
       val users: List[User] = addResponse.xml.open_!
-
-      users(1).firstname must beEqual(userA.firstname)
-      users(2).firstname must beEqual(userB.firstname)
-      users.size must beEqual(3)
+      val sortedUsers = users.sortBy(it=>it.id)
+      sortedUsers(0).firstname must beEqual("Raffael")
+      sortedUsers(1).firstname must beEqual("Flavor")
+      
+      sortedUsers.size must beEqual(2)
 
 
 
       val delResponse: TestResponse = delete("/webservices/team/member/" + users(1).id + "?teamId=1")
       val usersAfterDelete: List[User] = delResponse.xml.open_!
-      (usersAfterDelete.size) must beEqual(2)
+      (usersAfterDelete.size) must beEqual(1)
 
     }
 
@@ -93,8 +110,8 @@ class TeamWebserviceSpec extends Specification with IntegrationTestPhase with Te
 trait TeamTestdata {
   def invalidTeam = {
     val team = new Team
-    team.name = "name" //insufficient characters (min:5)
-    team.description = "description" //insufficient characters(min:20)
+    team.name = "" //insufficient characters (min:1)
+    team.description = ""
     team
   }
 

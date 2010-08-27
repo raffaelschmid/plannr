@@ -30,6 +30,18 @@ package ch.plannr.service
 			return service;
 		}
 		
+		public function putService(url:String,authentication:Boolean=false):HTTPService{
+			var service:HTTPService = new HTTPService();
+			service.method="PUT";
+			service.contentType="application/xml";
+			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
+			service.showBusyCursor=true;
+			service.url = rootUrl+url;
+			service.headers = getAuthorizationHeaders(authentication,"PUT");
+			
+			return service;
+		}
+		
 		public function getService(url:String,authentication:Boolean=false):HTTPService{
 			var service:HTTPService = new HTTPService();
 			service.method="GET";

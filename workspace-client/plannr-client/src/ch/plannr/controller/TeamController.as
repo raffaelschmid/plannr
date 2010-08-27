@@ -39,6 +39,7 @@ package ch.plannr.controller
 		public var selectedTeam:Team = null;
 		
 		[Mediate( event="Events.LOGIN_SUCCESS")]
+		[Mediate( event="Events.OWNED_TEAMS_CREATE_SUCCESS")]
 		public function loadOwnedTeams() : void
 		{
 			function handleResult( event : ResultEvent ) : void
@@ -76,5 +77,79 @@ package ch.plannr.controller
 			serviceHelper.executeServiceCall( httpServiceFactory.deleteService("/webservices/team/"+team.id,true).send(), handleResult,handleFault );
 			
 		}
+		
+		[Mediate(event="Events.OWNED_TEAMS_CREATE",properties="team")]
+		public function saveOwnedTeam(team:Team):void{
+			function handleResult( event : ResultEvent ) : void
+			{
+				dispatcher.dispatchEvent(new CustomEvent(Events.OWNED_TEAMS_CREATE_SUCCESS));
+			}
+			
+			function handleFault( event : FaultEvent ) : void
+			{
+				dispatcher.dispatchEvent(new CustomEvent(Events.OWNED_TEAMS_CREATE_FAILURE));
+			}
+			
+			serviceHelper.executeServiceCall( httpServiceFactory.postService("/webservices/team/add?ownerId="+currentUser.id,true).send(team.toXml()), handleResult,handleFault );
+			
+		}
+		[Mediate(event="Events.OWNED_TEAMS_UPDATE",properties="team")]
+		public function updateOwnedTeam(team:Team):void{
+			function handleResult( event : ResultEvent ) : void
+			{
+				selectedTeam.name=team.name;
+				selectedTeam.description=team.description;
+				dispatcher.dispatchEvent(new CustomEvent(Events.OWNED_TEAMS_UPDATE_SUCCESS));
+			}
+			
+			function handleFault( event : FaultEvent ) : void
+			{
+				dispatcher.dispatchEvent(new CustomEvent(Events.OWNED_TEAMS_UPDATE_FAILURE));
+			}
+			
+			serviceHelper.executeServiceCall( httpServiceFactory.putService("/webservices/team",true).send(team.toXml()), handleResult,handleFault );
+			
+		}
+		
+		[Mediate(event="Events.MEMBERS_ADD_EVENT",properties="members")]
+		public function addMembersToTeam(members:ArrayCollection):void{
+			function handleResult( event : ResultEvent ) : void
+			{
+				selectedTeam.members.addAll(members);
+				dispatcher.dispatchEvent(new CustomEvent(Events.MEMBERS_ADD_EVENT_SUCCESS));
+			}
+			
+			function handleFault( event : FaultEvent ) : void
+			{
+				dispatcher.dispatchEvent(new CustomEvent(Events.MEMBERS_ADD_EVENT_FAILURE));
+			}
+			
+			//generate list of all users to add
+			var xml:XML = <users></users>;
+			for each(var member:User in members){
+				xml.appendChild(member.toXml());
+			}
+			serviceHelper.executeServiceCall( httpServiceFactory.postService("/webservices/team/member?teamId="+selectedTeam.id,true).send(xml), handleResult,handleFault );
+			
+		}
+		
+		[Mediate(event="Events.MEMBERS_REMOVE_EVENT",properties="member")]
+		public function removeMemberFromTeam(member:User):void{
+			function handleResult( event : ResultEvent ) : void
+			{
+				var index:int = selectedTeam.members.getItemIndex(member);				
+				selectedTeam.members.removeItemAt(index);
+				dispatcher.dispatchEvent(new CustomEvent(Events.MEMBERS_REMOVE_EVENT_SUCCESS));
+			}
+			
+			function handleFault( event : FaultEvent ) : void
+			{
+				dispatcher.dispatchEvent(new CustomEvent(Events.MEMBERS_REMOVE_EVENT_FAILURE));
+			}
+			
+			serviceHelper.executeServiceCall( httpServiceFactory.deleteService("/webservices/team/member/" + member.id + "?teamId=" + selectedTeam.id,true).send(), handleResult,handleFault );
+			
+		}
+		
 	}
 }

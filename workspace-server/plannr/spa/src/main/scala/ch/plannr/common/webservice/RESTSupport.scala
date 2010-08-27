@@ -2,13 +2,14 @@ package ch.plannr.common.webservice
 
 import scala.xml.Node
 import javax.validation.ConstraintViolation
+import net.liftweb.common.Loggable
 
 /**
  * User: Raffael Schmid
  *
  * TODO
  */
-trait RESTSupport {
+trait RESTSupport extends Loggable{
   private def stringValue(o: Any): String = if (o != null) o.toString else ""
 
   private def getMessage(msg: String): Node = <message>
@@ -48,6 +49,7 @@ trait RESTSupport {
   }
 
   def xmlViolation(violations: Set[ConstraintViolation[_]]) = {
+    violations.foreach(it=>logger.error("constraint violation: " + it))
     <response success="false">
       <violations>
         {violations.map {getViolation}}

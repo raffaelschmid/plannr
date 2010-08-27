@@ -11,7 +11,43 @@ import ch.plannr.common.Conversion
 
 object TeamWebservice extends RestHelper with RESTSupport with Conversion {
   serve {
-    // /webservices/team
+
+    /*
+   * CRUD MEMBERS
+   */
+    case r@Req("webservices" :: "team" :: "member" :: memberId, _, DeleteRequest) => {
+
+      val teamId: Long = S.param("teamId").open_!.toLong
+
+
+      val newMembers = TeamService.deleteUserFromTeam(teamId, memberId(0).toLong)
+
+      xmlSuccess(list2UsersXml(newMembers: _*))
+
+    }
+
+    case r@Req("webservices" :: "team" :: "member" :: _, _, PostRequest) => {
+
+
+      try {
+
+
+        val teamId = S.param("teamId").open_!.toLong
+        val users: List[User] = r.xml.open_!
+
+        val newMembers = TeamService.addUsersToTeam(teamId, users)
+
+        xmlSuccess(list2UsersXml(newMembers: _*))
+      }
+      catch {
+        case ex: Exception => xmlError(ex.getMessage)
+      }
+    }
+
+
+    /*
+    * CRUD TEAM
+    */
     case r@Req("webservices" :: "team" :: _, _, GetRequest) => {
 
       try {
@@ -34,7 +70,7 @@ object TeamWebservice extends RestHelper with RESTSupport with Conversion {
       }
     }
 
-    case r@Req("webservices" :: "team" :: "add" :: _, _, PostRequest) => {
+    case r@Req("webservices" :: "team" :: _, _, PostRequest) => {
 
       try {
         if (S.param("ownerId").isDefined) {
@@ -57,17 +93,20 @@ object TeamWebservice extends RestHelper with RESTSupport with Conversion {
       }
     }
 
-    case r@Req("webservices" :: "team" :: "member" :: memberId, _, DeleteRequest) => {
+    // TODO test that user is owner of team
+    case r@Req("webservices" :: "team" :: _, _, PutRequest) => {
 
-      val teamId: Long = S.param("teamId").open_!.toLong
-
-
-      val newMembers = TeamService.deleteUserFromTeam(teamId, memberId(0).toLong)
-
-      xmlSuccess(list2UsersXml(newMembers: _*))
-
+      try {
+        val team = Team.fromXml(r.xml.open_!)
+        TeamService.update(team)
+        xmlSuccess
+      } catch {
+        case ex: Exception => xmlError(ex.getMessage)
+      }
     }
 
+
+    // TODO test that user is owner of team
     case r@Req("webservices" :: "team" :: teamId, _, DeleteRequest) => {
 
       try {
@@ -77,23 +116,7 @@ object TeamWebservice extends RestHelper with RESTSupport with Conversion {
         case ex: Exception => xmlError(ex.getMessage)
       }
     }
-    case r@Req("webservices" :: "team" :: "member" :: _, _, PostRequest) => {
 
-
-      try {
-
-
-        val teamId = S.param("teamId").open_!.toLong
-        val users: List[User] = r.xml.open_!
-
-        val newMembers = TeamService.addUsersToTeam(teamId, users)
-
-        xmlSuccess(list2UsersXml(newMembers: _*))
-      }
-      catch {
-        case ex: Exception => xmlError(ex.getMessage)
-      }
-    }
   }
   implicit def node2ListOfUsers(xml: NodeSeq): List[User] = {
     List((xml \\ "users" \\ "user").map {User.fromXml}: _*).sortWith((a, b) => a.id < b.id)
