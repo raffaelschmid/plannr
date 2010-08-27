@@ -2,4 +2,5 @@
 <projectMetadata>
   <swf bgcolor="ffffff" fullPath="/plannr-client/bin-debug/Main.swf" height="100%" pageTitle="" width="100%"/>
   <generatedHTMLResources/>
+<swf bgcolor="ffffff" fullPath="/plannr-client/bin-release/Main.swf" height="100%" pageTitle="" width="100%"/>
 </projectMetadata>

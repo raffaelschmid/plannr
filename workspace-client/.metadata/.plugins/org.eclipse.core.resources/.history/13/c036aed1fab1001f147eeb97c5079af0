@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>RecurrencePanel.mxml</title><link rel="stylesheet" type="text/css" href="../SourceStyles.css"/></head><body><pre>&lt;?<span class="MXMLComponent_Tag">xml</span> version=<span class="ActionScriptString">"1.0"</span> encoding=<span class="ActionScriptString">"utf-8"</span>?&gt;
+<span class="ActionScriptComment">&lt;!--</span>
+<span class="ActionScriptComment">///////////////////////////////////////////////////////////////////////////////</span>
+<span class="ActionScriptComment">// Licensed Materials - Property of IBM</span>
+<span class="ActionScriptComment">// 5724-Y31,5724-Z78</span>
+<span class="ActionScriptComment">// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.</span>
+<span class="ActionScriptComment">//</span>
+<span class="ActionScriptComment">// Note to U.S. Government Users Restricted Rights:</span>
+<span class="ActionScriptComment">// Use, duplication or disclosure restricted by GSA ADP Schedule</span>
+<span class="ActionScriptComment">// Contract with IBM Corp.</span>
+<span class="ActionScriptComment">///////////////////////////////////////////////////////////////////////////////</span>
+<span class="ActionScriptComment">--&gt;</span>
+
+&lt;<span class="MXMLComponent_Tag">mx:TitleWindow</span> xmlns:mx=<span class="ActionScriptString">"http://www.adobe.com/2006/mxml"</span> xmlns:local=<span class="ActionScriptString">"recurrence.*"</span> xmlns:local1=<span class="ActionScriptString">"*"</span>   
+          layout=<span class="ActionScriptString">"vertical"</span> title=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.title')"</span>  
+          paddingBottom=<span class="ActionScriptString">"10"</span> paddingLeft=<span class="ActionScriptString">"10"</span> paddingRight=<span class="ActionScriptString">"10"</span> paddingTop=<span class="ActionScriptString">"5"</span> verticalGap=<span class="ActionScriptString">"0"</span>
+          implements=<span class="ActionScriptString">"recurrence.IRecurrenceRuleEditor"</span>
+          showCloseButton=<span class="ActionScriptString">"true"</span>
+          creationComplete=<span class="ActionScriptString">"init()"</span> &gt;
+
+  &lt;<span class="MXMLSpecial_Tag">mx:Script</span>&gt;
+    &lt;![<span class="MXMLComponent_Tag">CDATA</span><span class="ActionScriptBracket/Brace">[</span>
+      <span class="ActionScriptReserved">import</span> mx.core.UIComponent;
+      <span class="ActionScriptReserved">import</span> mx.controls.Alert;
+      <span class="ActionScriptReserved">import</span> mx.events.CloseEvent;
+      <span class="ActionScriptReserved">import</span> mx.formatters.DateFormatter;
+      <span class="ActionScriptReserved">import</span> ilog.calendar.recurrence.RRule;
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> _rrule:RRule;
+      
+            
+      <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptMetadata">Bindable</span><span class="ActionScriptBracket/Brace">]</span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> _date:Date; <span class="ActionScriptComment">//dtStart</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> init():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        untilDate.addEventListener(<span class="ActionScriptString">"change"</span>, <span class="ActionScriptfunction">function</span> (e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+          moveRadio(3);
+          dispatch();
+          updateICalendarRule();
+          
+        <span class="ActionScriptBracket/Brace">}</span>);
+        
+        <span class="ActionScriptReserved">if</span> (_date != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          dtStartLabel.text = _dateFormatter.format(_date);        
+          WeeklyRulePanel(nav.getChildAt(1)).startTime = _date;
+        <span class="ActionScriptBracket/Brace">}</span>
+                        
+        _textRulePanel = <span class="ActionScriptReserved">new</span> TextRulePanel();
+        _textRulePanel.percentWidth = 100;
+        
+        <span class="ActionScriptComment">//to call create children...</span>
+        addChild(_textRulePanel);
+        removeChild(_textRulePanel);        
+        
+        _textRulePanel.editButton.addEventListener(MouseEvent.CLICK, showTextEditor);
+        
+        _textRulePanel.textEditor.addEventListener(<span class="ActionScriptString">"OK"</span>, textEditorHandler);
+        
+        <span class="ActionScriptReserved">if</span> (_rrule != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          setRecurrenceRuleImpl();
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        removeButton.enabled = _rrule != <span class="ActionScriptReserved">null</span>;
+        
+        addEventListener(<span class="ActionScriptString">"ruleChanged"</span>, <span class="ActionScriptfunction">function</span>(e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+          updateICalendarRule();
+        <span class="ActionScriptBracket/Brace">}</span>);               
+        
+        updateICalendarRule();
+        
+        addEventListener(CloseEvent.CLOSE, <span class="ActionScriptfunction">function</span> (e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptReserved">if</span> (e.target != cancelButton) <span class="ActionScriptBracket/Brace">{</span>           
+            cancelHandler();
+          <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace">}</span>);
+        
+        buildUI();
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> buildUI():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+
+        <span class="ActionScriptvar">var</span> format:String = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.recurrence.ruleeditor.count"</span>, <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptString">"|$count|"</span><span class="ActionScriptBracket/Brace">]</span>);        
+        Util.buildUI(<span class="ActionScriptReserved">this</span>, choice2, format, handlerChoice2);
+        
+        format = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.recurrence.ruleeditor.until"</span>, <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptString">"|$untilDate|"</span><span class="ActionScriptBracket/Brace">]</span>);        
+        Util.buildUI(<span class="ActionScriptReserved">this</span>, choice3, format, handlerChoice3);
+                        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> handlerChoice2(e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        moveRadio(2);
+        dispatch();
+      <span class="ActionScriptBracket/Brace">}</span>  
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> handlerChoice3(e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        moveRadio(3);
+        dispatch();
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptReserved">set</span> date(value:Date):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        _date = value;
+        
+        <span class="ActionScriptReserved">if</span> (_dateFormatter == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          _dateFormatter = <span class="ActionScriptReserved">new</span> DateFormatter();
+          _dateFormatter.formatString = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.recurrence.ruleeditor.startTime.format"</span>);
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptReserved">if</span>(dtStartLabel) <span class="ActionScriptBracket/Brace">{</span>         
+          dtStartLabel.text = _dateFormatter.format(_date);        
+          WeeklyRulePanel(nav.getChildAt(1)).startTime = date;
+        <span class="ActionScriptBracket/Brace">}</span>        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptReserved">get</span> date():Date <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptReserved">return</span> _date;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> _dateFormatter:DateFormatter;
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptReserved">get</span> recurrenceRule():RRule <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> rEditor:IRecurrenceRuleEditor = IRecurrenceRuleEditor(nav.selectedChild);
+        
+        <span class="ActionScriptReserved">if</span> (rEditor.isValid()) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptvar">var</span> rrule:RRule = rEditor.recurrenceRule;
+          
+          switch(radioGroup.selectedValue) <span class="ActionScriptBracket/Brace">{</span>
+            
+            case <span class="ActionScriptString">"radio2"</span>:
+              <span class="ActionScriptvar">var</span> c:int = parseInt(count.text);
+              <span class="ActionScriptReserved">if</span> (c &lt; 1) {
+                <span class="MXMLComponent_Tag">c</span> = 1;
+              <span class="ActionScriptBracket/Brace">}</span>
+                         
+              rrule.count = c;
+              break
+            
+            case <span class="ActionScriptString">"radio3"</span>:
+              rrule.until = untilDate.selectedDate;
+              break;
+              
+            default:
+              <span class="ActionScriptComment">//forever</span>
+              
+          <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptReserved">return</span> _textRulePanel.textEditor.recurrenceRule;
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptReserved">return</span> rrule;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptReserved">set</span> recurrenceRule(value:RRule):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        _rrule = value;
+        <span class="ActionScriptReserved">if</span> (nav) <span class="ActionScriptBracket/Brace">{</span>
+          setRecurrenceRuleImpl();
+          removeButton.enabled = value != <span class="ActionScriptReserved">null</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+      <span class="ActionScriptBracket/Brace">}</span>
+        
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> setRecurrenceRuleImpl():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> r:RRule = _rrule;
+        
+        <span class="ActionScriptReserved">if</span> (r == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          reset();
+          <span class="ActionScriptReserved">return</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptvar">var</span> rEditor:IRecurrenceRuleEditor;
+        
+        switch(r.freq) <span class="ActionScriptBracket/Brace">{</span>
+                             
+          case RRule.WEEKLY:            
+            nav.selectedIndex = 1;
+            rEditor = IRecurrenceRuleEditor(nav.getChildAt(1));            
+            break;          
+              
+          case RRule.DAILY:
+            nav.selectedIndex = 0;
+            rEditor = IRecurrenceRuleEditor(nav.getChildAt(0));
+            break;
+          
+          case RRule.MONTHLY:
+            nav.selectedIndex = 2;
+            rEditor = IRecurrenceRuleEditor(nav.getChildAt(2));
+            break;
+            
+          case RRule.YEARLY:
+            nav.selectedIndex = 3;
+            rEditor = IRecurrenceRuleEditor(nav.getChildAt(3));
+            break;             
+        <span class="ActionScriptBracket/Brace">}</span> 
+        
+        rEditor.recurrenceRule = r;
+        _textRulePanel.textEditor.recurrenceRule = r;
+        
+        nav.enabled = rEditor.isValid();              
+        
+        <span class="ActionScriptReserved">if</span> (r.count != 0) <span class="ActionScriptBracket/Brace">{</span>
+          
+          radioGroup.selectedValue = <span class="ActionScriptString">"radio2"</span>;
+          count.text = r.count.toString();
+           
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptReserved">if</span> (r.until != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          
+          radioGroup.selectedValue = <span class="ActionScriptString">"radio3"</span>;        
+          untilDate.selectedDate = r.until;   
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        updateICalendarRule();
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> dispatch():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        dispatchEvent(<span class="ActionScriptReserved">new</span> <span class="ActionScriptMetadata">Event</span>(<span class="ActionScriptString">"ruleChanged"</span>));
+        
+        updateICalendarRule();        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> reset():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptReserved">if</span> (nav != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          IRecurrenceRuleEditor(nav.getChildAt(0)).reset(); 
+          IRecurrenceRuleEditor(nav.getChildAt(1)).reset();
+          IRecurrenceRuleEditor(nav.getChildAt(2)).reset();
+          IRecurrenceRuleEditor(nav.getChildAt(3)).reset();
+          
+          nav.selectedIndex = 0;  
+          
+          nav.enabled = <span class="ActionScriptReserved">true</span>;         
+          
+          radioGroup.selectedValue = <span class="ActionScriptString">"radio1"</span>;
+          untilDate.selectedDate = <span class="ActionScriptReserved">new</span> Date();
+          count.text = <span class="ActionScriptString">"1"</span>;
+          
+          _textRulePanel.textEditor.recurrenceRule = <span class="ActionScriptReserved">null</span>;          
+          
+          updateICalendarRule();         
+        <span class="ActionScriptBracket/Brace">}</span>                                                                             
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> updateICalendarRule():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        _textRulePanel.ical.text = recurrenceRule.toString();
+        
+        _textRulePanel.textEditor.recurrenceRule = recurrenceRule;
+      <span class="ActionScriptBracket/Brace">}</span>           
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> moveRadio(id:int):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        radioGroup.selectedValue = <span class="ActionScriptString">"radio"</span>+id;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> isValid():Boolean <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptReserved">return</span> <span class="ActionScriptReserved">true</span>;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> showTextEditor(e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        _textRulePanel.textEditor.recurrenceRule = recurrenceRule;
+        nav.enabled = <span class="ActionScriptReserved">false</span>;
+        _textRulePanel.textEditor.visible = <span class="ActionScriptReserved">true</span>;
+        _textRulePanel.iCalPane.visible = <span class="ActionScriptReserved">false</span>;
+        okButton.enabled = <span class="ActionScriptReserved">false</span>;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> textEditorHandler(e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        _textRulePanel.textEditor.visible = <span class="ActionScriptReserved">false</span>;
+        _textRulePanel.iCalPane.visible = <span class="ActionScriptReserved">true</span>;
+        recurrenceRule = _textRulePanel.textEditor.recurrenceRule;
+        okButton.enabled = <span class="ActionScriptReserved">true</span>;
+        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> okHandler():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>         
+        dispatchEvent(<span class="ActionScriptReserved">new</span> CloseEvent(CloseEvent.CLOSE, <span class="ActionScriptReserved">false</span>, <span class="ActionScriptReserved">false</span>, Alert.OK));
+      <span class="ActionScriptBracket/Brace">}</span> 
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> cancelHandler():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>         
+        cancelButton.dispatchEvent(<span class="ActionScriptReserved">new</span> CloseEvent(CloseEvent.CLOSE, <span class="ActionScriptReserved">true</span>, <span class="ActionScriptReserved">false</span>, Alert.CANCEL));
+      <span class="ActionScriptBracket/Brace">}</span> 
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptReserved">static</span> const REMOVE:int = 1; 
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> removeHandler():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>         
+        removeButton.dispatchEvent(<span class="ActionScriptReserved">new</span> CloseEvent(CloseEvent.CLOSE, <span class="ActionScriptReserved">true</span>, <span class="ActionScriptReserved">false</span>, REMOVE));
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> _textRulePanel:TextRulePanel;     
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> changeExpertMode():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> modeOn:Boolean = expertMode.selected;
+        
+        <span class="ActionScriptReserved">if</span> (modeOn) <span class="ActionScriptBracket/Brace">{</span>
+                  
+          <span class="ActionScriptReserved">if</span> (_textRulePanel.parent != <span class="ActionScriptReserved">this</span>) <span class="ActionScriptBracket/Brace">{</span>
+            addChildAt(_textRulePanel, 1);
+          <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptReserved">if</span> (_textRulePanel != <span class="ActionScriptReserved">null</span> && _textRulePanel.parent == <span class="ActionScriptReserved">this</span>) <span class="ActionScriptBracket/Brace">{</span>
+            removeChild(_textRulePanel);
+          <span class="ActionScriptBracket/Brace">}</span>
+          
+        <span class="ActionScriptBracket/Brace">}</span>
+                       
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> initSize():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptvar">var</span> maxW:Number = 0;
+        
+        
+        <span class="ActionScriptReserved">for</span> (<span class="ActionScriptvar">var</span> i:uint=0; i&lt;<span class="MXMLComponent_Tag">nav</span>.numChildren; i++) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptvar">var</span> c:UIComponent = nav.getChildAt(i) as UIComponent;
+          <span class="ActionScriptReserved">if</span> (maxW &lt; <span class="MXMLComponent_Tag">c</span>.measuredWidth) <span class="ActionScriptBracket/Brace">{</span>
+            maxW = c.measuredWidth;
+          <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        nav.width = maxW;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">override</span> protected <span class="ActionScriptfunction">function</span> measure():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        super.measure();
+        
+        <span class="ActionScriptvar">var</span> maxW:Number = 0;
+                
+        <span class="ActionScriptReserved">for</span> (<span class="ActionScriptvar">var</span> i:uint=0; i&lt;<span class="MXMLComponent_Tag">nav</span>.numChildren; i++) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptvar">var</span> c:UIComponent = nav.getChildAt(i) as UIComponent;
+          <span class="ActionScriptReserved">if</span> (maxW &lt; <span class="MXMLComponent_Tag">c</span>.measuredWidth) <span class="ActionScriptBracket/Brace">{</span>
+            maxW = c.measuredWidth;
+          <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace">}</span>
+                
+        nav.width = maxW + 10;
+        
+        <span class="ActionScriptReserved">for</span> (i=0; i&lt;<span class="MXMLComponent_Tag">numChildren</span>; i++) <span class="ActionScriptBracket/Brace">{</span>
+          c = getChildAt(i) as UIComponent;
+          <span class="ActionScriptReserved">if</span> (maxW &lt; <span class="MXMLComponent_Tag">c</span>.measuredWidth) <span class="ActionScriptBracket/Brace">{</span>
+            maxW = c.measuredWidth;
+          <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        measuredWidth = Math.max(nav.width, maxW) + 30;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      
+    <span class="ActionScriptBracket/Brace">]</span><span class="ActionScriptBracket/Brace">]</span>&gt;
+  &lt;/<span class="MXMLSpecial_Tag">mx:Script</span>&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> height=<span class="ActionScriptString">"2"</span>/&gt;
+  
+  
+    
+  &lt;<span class="MXMLComponent_Tag">mx:Label</span> text=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.ruleeditor.title.recurrencePattern')"</span> 
+            textAlign=<span class="ActionScriptString">"left"</span> width=<span class="ActionScriptString">"100%"</span> fontWeight=<span class="ActionScriptString">"bold"</span> fontSize=<span class="ActionScriptString">"11"</span>/&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:HRule</span> width=<span class="ActionScriptString">"100%"</span>/&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> height=<span class="ActionScriptString">"10"</span> width=<span class="ActionScriptString">"100%"</span>/&gt;
+      
+  &lt;<span class="MXMLComponent_Tag">mx:TabNavigator</span> id=<span class="ActionScriptString">"nav"</span> creationPolicy=<span class="ActionScriptString">"all"</span> height=<span class="ActionScriptString">"170"</span> change=<span class="ActionScriptString">"dispatch()"</span> creationComplete=<span class="ActionScriptString">"initSize()"</span>&gt;
+    
+    &lt;<span class="MXMLComponent_Tag">local:DailyRulePanel</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.tab.title.daily')"</span> 
+                          paddingBottom=<span class="ActionScriptString">"5"</span> paddingLeft=<span class="ActionScriptString">"5"</span> paddingRight=<span class="ActionScriptString">"5"</span> paddingTop=<span class="ActionScriptString">"5"</span> /&gt;
+  
+    &lt;<span class="MXMLComponent_Tag">local:WeeklyRulePanel</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.tab.title.weekly')"</span> 
+                           paddingBottom=<span class="ActionScriptString">"5"</span> paddingLeft=<span class="ActionScriptString">"5"</span> paddingRight=<span class="ActionScriptString">"5"</span> paddingTop=<span class="ActionScriptString">"5"</span>  /&gt;
+    
+    &lt;<span class="MXMLComponent_Tag">local:MonthlyRulePanel</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.tab.title.monthly')"</span> 
+                            paddingBottom=<span class="ActionScriptString">"5"</span> paddingLeft=<span class="ActionScriptString">"5"</span> paddingRight=<span class="ActionScriptString">"5"</span> paddingTop=<span class="ActionScriptString">"5"</span>  /&gt;
+    
+    &lt;<span class="MXMLComponent_Tag">local:YearlyRulePanel</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.tab.title.yearly')"</span> 
+                           paddingBottom=<span class="ActionScriptString">"5"</span> paddingLeft=<span class="ActionScriptString">"5"</span> paddingRight=<span class="ActionScriptString">"5"</span> paddingTop=<span class="ActionScriptString">"5"</span>  /&gt;
+    
+  &lt;/<span class="MXMLComponent_Tag">mx:TabNavigator</span>&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> height=<span class="ActionScriptString">"10"</span> width=<span class="ActionScriptString">"100%"</span>/&gt;
+     
+  &lt;<span class="MXMLComponent_Tag">mx:Label</span> text=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.ruleeditor.title.recurrenceRange')"</span> 
+            textAlign=<span class="ActionScriptString">"left"</span> width=<span class="ActionScriptString">"100%"</span> fontWeight=<span class="ActionScriptString">"bold"</span> fontSize=<span class="ActionScriptString">"11"</span>/&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:HRule</span> width=<span class="ActionScriptString">"100%"</span>/&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> height=<span class="ActionScriptString">"10"</span> width=<span class="ActionScriptString">"100%"</span>/&gt;   
+  
+  &lt;<span class="MXMLComponent_Tag">mx:VBox</span>&gt;
+  
+    &lt;<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+      &lt;<span class="MXMLComponent_Tag">mx:Label</span> text=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.ruleeditor.label.start')"</span> 
+                fontWeight=<span class="ActionScriptString">"bold"</span> /&gt;
+      &lt;<span class="MXMLComponent_Tag">mx:Label</span> id=<span class="ActionScriptString">"dtStartLabel"</span> /&gt;
+    &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+    
+    &lt;<span class="MXMLComponent_Tag">mx:VBox</span>&gt;
+            
+      &lt;<span class="MXMLComponent_Tag">mx:Label</span> text=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.ruleeditor.label.end')"</span> 
+                fontWeight=<span class="ActionScriptString">"bold"</span> /&gt;
+      
+      &lt;<span class="MXMLComponent_Tag">mx:RadioButtonGroup</span> id=<span class="ActionScriptString">"radioGroup"</span> change=<span class="ActionScriptString">"dispatch()"</span> /&gt;
+      
+      &lt;<span class="MXMLComponent_Tag">mx:HBox</span> paddingLeft=<span class="ActionScriptString">"30"</span>&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:RadioButton</span> id=<span class="ActionScriptString">"radio1"</span> value=<span class="ActionScriptString">"radio1"</span> selected=<span class="ActionScriptString">"true"</span> /&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:Label</span> text=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.ruleeditor.end.never.label')"</span> 
+                  click=<span class="ActionScriptString">"dispatch(); moveRadio(1)"</span> /&gt;                  
+      &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+      
+      &lt;<span class="MXMLComponent_Tag">mx:HBox</span> paddingLeft=<span class="ActionScriptString">"30"</span>&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:RadioButton</span> id=<span class="ActionScriptString">"radio2"</span> value=<span class="ActionScriptString">"radio2"</span> /&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:HBox</span> id=<span class="ActionScriptString">"choice2"</span> horizontalGap=<span class="ActionScriptString">"0"</span>&gt;
+          &lt;<span class="MXMLComponent_Tag">mx:TextInput</span> id=<span class="ActionScriptString">"count"</span> width=<span class="ActionScriptString">"37"</span> text=<span class="ActionScriptString">"1"</span> change=<span class="ActionScriptString">"dispatch(); moveRadio(2)"</span> /&gt;  
+        &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;        
+      &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+      
+      &lt;<span class="MXMLComponent_Tag">mx:HBox</span> paddingLeft=<span class="ActionScriptString">"30"</span>&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:RadioButton</span> id=<span class="ActionScriptString">"radio3"</span> value=<span class="ActionScriptString">"radio3"</span> /&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:HBox</span> id=<span class="ActionScriptString">"choice3"</span> horizontalGap=<span class="ActionScriptString">"0"</span>&gt;                   
+          &lt;<span class="MXMLComponent_Tag">mx:DateField</span> id=<span class="ActionScriptString">"untilDate"</span>/&gt;
+        &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+                        
+      &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;      
+      
+    &lt;/<span class="MXMLComponent_Tag">mx:VBox</span>&gt;
+  &lt;/<span class="MXMLComponent_Tag">mx:VBox</span>&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> height=<span class="ActionScriptString">"20"</span> width=<span class="ActionScriptString">"100%"</span>/&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:CheckBox</span> id=<span class="ActionScriptString">"expertMode"</span> selected=<span class="ActionScriptString">"false"</span> 
+               label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.ruleeditor.expertMode')"</span>
+               change=<span class="ActionScriptString">"changeExpertMode()"</span> /&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> height=<span class="ActionScriptString">"20"</span> width=<span class="ActionScriptString">"100%"</span>/&gt;  
+  
+  &lt;<span class="MXMLComponent_Tag">mx:HBox</span> horizontalAlign=<span class="ActionScriptString">"center"</span> width=<span class="ActionScriptString">"100%"</span>&gt; 
+    &lt;<span class="MXMLComponent_Tag">mx:Button</span> id=<span class="ActionScriptString">"okButton"</span> 
+             label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.dialog.button.ok')"</span> 
+             click=<span class="ActionScriptString">"okHandler()"</span>/&gt;
+  &lt;<span class="MXMLComponent_Tag">mx:Button</span> id=<span class="ActionScriptString">"cancelButton"</span> 
+             label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.dialog.button.cancel')"</span> 
+             click=<span class="ActionScriptString">"cancelHandler()"</span>/&gt;
+  &lt;<span class="MXMLComponent_Tag">mx:Button</span> id=<span class="ActionScriptString">"removeButton"</span> 
+             label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.properties.button.remove')"</span> 
+             click=<span class="ActionScriptString">"removeHandler()"</span>/&gt;         
+                      
+  &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;    
+  
+ 
+&lt;/<span class="MXMLComponent_Tag">mx:TitleWindow</span>&gt;
+</pre></body></html>

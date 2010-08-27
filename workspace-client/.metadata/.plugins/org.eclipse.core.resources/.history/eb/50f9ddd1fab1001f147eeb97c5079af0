@@ -1,0 +1,1087 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>calendar.mxml</title><link rel="stylesheet" type="text/css" href="../SourceStyles.css"/></head><body><pre>&lt;?<span class="MXMLComponent_Tag">xml</span> version=<span class="ActionScriptString">"1.0"</span> encoding=<span class="ActionScriptString">"utf-8"</span>?&gt;
+<span class="ActionScriptComment">&lt;!--</span>
+<span class="ActionScriptComment">///////////////////////////////////////////////////////////////////////////////</span>
+<span class="ActionScriptComment">// Licensed Materials - Property of IBM</span>
+<span class="ActionScriptComment">// 5724-Y31,5724-Z78</span>
+<span class="ActionScriptComment">// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.</span>
+<span class="ActionScriptComment">//</span>
+<span class="ActionScriptComment">// Note to U.S. Government Users Restricted Rights:</span>
+<span class="ActionScriptComment">// Use, duplication or disclosure restricted by GSA ADP Schedule</span>
+<span class="ActionScriptComment">// Contract with IBM Corp.</span>
+<span class="ActionScriptComment">///////////////////////////////////////////////////////////////////////////////</span>
+<span class="ActionScriptComment">--&gt;</span>
+
+&lt;<span class="MXMLComponent_Tag">mx:Application</span> xmlns:mx=<span class="ActionScriptString">"http://www.adobe.com/2006/mxml"</span>
+                xmlns:ilog=<span class="ActionScriptString">"http://www.ilog.com/2007/ilog/flex"</span>                 
+                xmlns:local=<span class="ActionScriptString">"*"</span>
+                layout=<span class="ActionScriptString">"absolute"</span> 
+                horizontalAlign=<span class="ActionScriptString">"center"</span> 
+                backgroundColor=<span class="ActionScriptString">"#FFFFFF"</span>                
+                creationComplete=<span class="ActionScriptString">"init()"</span> 
+                viewSourceURL=<span class="ActionScriptString">"srcview/index.html"</span>
+                modalTransparencyDuration=<span class="ActionScriptString">"500"</span>&gt;
+
+  &lt;<span class="MXMLSpecial_Tag">mx:Script</span>&gt;
+    &lt;![<span class="MXMLComponent_Tag">CDATA</span><span class="ActionScriptBracket/Brace">[</span>
+      <span class="ActionScriptReserved">import</span> ilog.calendar.Calendar;
+      <span class="ActionScriptReserved">import</span> ilog.calendar.CalendarArea;
+      <span class="ActionScriptReserved">import</span> ilog.calendar.CalendarEvent;
+      <span class="ActionScriptReserved">import</span> ilog.calendar.CalendarEventReason;
+      <span class="ActionScriptReserved">import</span> ilog.calendar.CalendarItem;
+      <span class="ActionScriptReserved">import</span> ilog.calendar.recurrence.IRecurrenceInstance;
+      <span class="ActionScriptReserved">import</span> ilog.calendar.recurrence.RecurrenceView;
+      <span class="ActionScriptReserved">import</span> ilog.utils.GregorianCalendar;
+      <span class="ActionScriptReserved">import</span> ilog.utils.TimeUnit;
+      
+      <span class="ActionScriptReserved">import</span> mx.collections.ICollectionView;
+      <span class="ActionScriptReserved">import</span> mx.collections.IViewCursor;
+      <span class="ActionScriptReserved">import</span> mx.collections.ListCollectionView;
+      <span class="ActionScriptReserved">import</span> mx.collections.XMLListCollection;
+      <span class="ActionScriptReserved">import</span> mx.containers.Panel;
+      <span class="ActionScriptReserved">import</span> mx.controls.Alert;
+      <span class="ActionScriptReserved">import</span> mx.core.FlexGlobals;
+      <span class="ActionScriptReserved">import</span> mx.events.CloseEvent;
+      <span class="ActionScriptReserved">import</span> mx.events.ItemClickEvent;
+      <span class="ActionScriptReserved">import</span> mx.managers.PopUpManager;                                                            
+                 
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * The notification panel, displayed when an event</span>
+<span class="ActionScriptASDoc">       * is about to start.</span>
+<span class="ActionScriptASDoc">       */         </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> notifPanel:NotificationPanel;
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * The item being created.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> addedItem:XML;
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * A counter to create unique data items.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> idCount:int = 0; 
+           
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * List of calendar modes. </span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> modes:Array = <span class="ActionScriptBracket/Brace">[</span>
+        Calendar.DAY_MODE,
+        Calendar.WORK_WEEK_MODE,
+        Calendar.WEEK_MODE,
+        Calendar.MONTH_MODE
+      <span class="ActionScriptBracket/Brace">]</span>;        
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * List of calendars </span>
+<span class="ActionScriptASDoc">       */ </span>
+      <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptMetadata">Bindable</span><span class="ActionScriptBracket/Brace">]</span>  
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> calendars:Array = <span class="ActionScriptBracket/Brace">[</span>
+        <span class="ActionScriptBracket/Brace">{</span> id: <span class="ActionScriptString">"0"</span>, label: <span class="ActionScriptString">"professional"</span>, color:0x6B56BB<span class="ActionScriptBracket/Brace">}</span>,
+        <span class="ActionScriptBracket/Brace">{</span> id: <span class="ActionScriptString">"1"</span>, label: <span class="ActionScriptString">"personal"</span>, color:0x2B8F40<span class="ActionScriptBracket/Brace">}</span>,        
+      <span class="ActionScriptBracket/Brace">]</span>;        
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * The data chooser manager will manage the synchronization </span>
+<span class="ActionScriptASDoc">       * between the calendar and the date choosers.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> dateChooserMgr:DateChooserManager;
+      
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> initBackground():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        setStyle(<span class="ActionScriptString">"backgroundGradientColors"</span>, <span class="ActionScriptBracket/Brace">[</span>0xFAFAFA, 0xF0F0F0<span class="ActionScriptBracket/Brace">]</span>);
+        setStyle(<span class="ActionScriptString">"backgroundColor"</span>, 0xFFFFFF);    
+      <span class="ActionScriptBracket/Brace">}</span>   
+                                
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> init():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        updateDisplayedTimeRangeLabel();
+        
+        dateChooserMgr = <span class="ActionScriptReserved">new</span> DateChooserManager(cal, dc, dc2);
+                               
+        cal.addEventListener(CalendarEvent.VISIBLE_TIME_RANGE_CHANGE, visibleTimeRangeChanged);
+               
+        cal.addEventListener(CalendarEvent.TIME_RANGE_SELECTION_BEGIN, timeRangeSelectionBegin);               
+        cal.addEventListener(CalendarEvent.TIME_RANGE_SELECTION_END, timeRangeSelectionEnd);
+        
+        cal.addEventListener(CalendarEvent.ITEM_EDIT_END, itemEditEnd, <span class="ActionScriptReserved">false</span>);        
+        cal.addEventListener(CalendarEvent.ITEM_EDIT_BEGIN, itemEditBegin, <span class="ActionScriptReserved">false</span>);
+        
+        cal.addEventListener(CalendarEvent.CHANGE, selectionChanged);        
+        
+        cal.addEventListener(CalendarEvent.SHEET_CLICK, sheetClickHandler);        
+        cal.addEventListener(CalendarEvent.SHEET_DOUBLE_CLICK, sheetDoubleClickHandler);    
+        
+        cal.addEventListener(CalendarEvent.LEFT_ARROW_CLICK, horizontalItemRendererArrowClicked);
+        cal.addEventListener(CalendarEvent.RIGHT_ARROW_CLICK, horizontalItemRendererArrowClicked);
+        cal.addEventListener(KeyboardEvent.KEY_UP, myKeyboardEventHandler);
+        
+        cal.addEventListener(CalendarEvent.EVENT_NOTIFICATION, notificationHandler);
+        
+        calendarColor1.setStyle(<span class="ActionScriptString">"backgroundColor"</span>, calendars<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>.color);
+        calendarColor2.setStyle(<span class="ActionScriptString">"backgroundColor"</span>, calendars<span class="ActionScriptBracket/Brace">[</span>1<span class="ActionScriptBracket/Brace">]</span>.color);
+        
+        eventPanel.addEventListener(<span class="ActionScriptString">"createEvent"</span>, eventPanelCreateHandler);
+        eventPanel.addEventListener(<span class="ActionScriptString">"deleteEvent"</span>, eventPanelDeleteHandler);
+        
+        eventPanel.summaryTextInput.addEventListener(KeyboardEvent.KEY_UP, <span class="ActionScriptfunction">function</span>(e:KeyboardEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptReserved">if</span> (e.keyCode == Keyboard.ENTER) <span class="ActionScriptBracket/Brace">{</span>
+            e.preventDefault();
+            cal.setFocus();            
+          <span class="ActionScriptBracket/Brace">}</span> 
+        <span class="ActionScriptBracket/Brace">}</span>);
+                             
+        toggleModeBar.dataProvider = <span class="ActionScriptBracket/Brace">[</span>
+          resourceManager.getString(<span class="ActionScriptString">'calendarsample'</span>, <span class="ActionScriptString">'calendarsample.button.Day'</span>),
+          resourceManager.getString(<span class="ActionScriptString">'calendarsample'</span>, <span class="ActionScriptString">'calendarsample.button.WorkWeek'</span>),
+          resourceManager.getString(<span class="ActionScriptString">'calendarsample'</span>, <span class="ActionScriptString">'calendarsample.button.Week'</span>),     
+          resourceManager.getString(<span class="ActionScriptString">'calendarsample'</span>, <span class="ActionScriptString">'calendarsample.button.Month'</span>)
+        <span class="ActionScriptBracket/Brace">]</span>;
+        
+        toggleModeBar.selectedIndex = 2;        
+        
+        cal.dataProvider = createDefaultModel();
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> baseModel:XML = 
+        &lt;<span class="MXMLComponent_Tag">list</span>&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"1"</span> s=<span class="ActionScriptString">"8"</span>  e=<span class="ActionScriptString">"3"</span>  key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"1"</span> s=<span class="ActionScriptString">"12"</span> e=<span class="ActionScriptString">"2"</span>  key=<span class="ActionScriptString">"misc"</span>     calendar=<span class="ActionScriptString">"1"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"1"</span> s=<span class="ActionScriptString">"14"</span> e=<span class="ActionScriptString">"2"</span>  key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"1"</span> s=<span class="ActionScriptString">"15"</span> e=<span class="ActionScriptString">"3"</span>  key=<span class="ActionScriptString">"training"</span> calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"1"</span> s=<span class="ActionScriptString">"20"</span> e=<span class="ActionScriptString">"2"</span>  key=<span class="ActionScriptString">"misc"</span>     calendar=<span class="ActionScriptString">"1"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"2"</span> s=<span class="ActionScriptString">"8"</span>  e=<span class="ActionScriptString">"1"</span>  key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"2"</span> s=<span class="ActionScriptString">"9"</span>  e=<span class="ActionScriptString">"1"</span>  key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"2"</span> s=<span class="ActionScriptString">"10"</span> e=<span class="ActionScriptString">"2"</span>  key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"1"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"2"</span> s=<span class="ActionScriptString">"12"</span> e=<span class="ActionScriptString">"2"</span>  key=<span class="ActionScriptString">"misc"</span>     calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"2"</span> s=<span class="ActionScriptString">"14"</span> e=<span class="ActionScriptString">"4"</span>  key=<span class="ActionScriptString">"training"</span> calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"3"</span> s=<span class="ActionScriptString">"0"</span>  e=<span class="ActionScriptString">"24"</span> key=<span class="ActionScriptString">"misc"</span>     calendar=<span class="ActionScriptString">"1"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"3"</span> s=<span class="ActionScriptString">"8"</span> e=<span class="ActionScriptString">"3"</span>   key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"3"</span> s=<span class="ActionScriptString">"13"</span> e=<span class="ActionScriptString">"3"</span>  key=<span class="ActionScriptString">"training"</span> calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"4"</span> s=<span class="ActionScriptString">"7"</span>  e=<span class="ActionScriptString">"3"</span>  key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"4"</span> s=<span class="ActionScriptString">"12"</span> e=<span class="ActionScriptString">"2"</span>  key=<span class="ActionScriptString">"misc"</span>     calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"4"</span> s=<span class="ActionScriptString">"13"</span> e=<span class="ActionScriptString">"3"</span>  key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"1"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"4"</span> s=<span class="ActionScriptString">"14"</span> e=<span class="ActionScriptString">"3"</span>  key=<span class="ActionScriptString">"training"</span> calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"4"</span> s=<span class="ActionScriptString">"19"</span> e=<span class="ActionScriptString">"2"</span>  key=<span class="ActionScriptString">"misc"</span>     calendar=<span class="ActionScriptString">"0"</span> /&gt;          
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"5"</span> s=<span class="ActionScriptString">"9"</span>  e=<span class="ActionScriptString">"3"</span>  key=<span class="ActionScriptString">"meeting"</span>  calendar=<span class="ActionScriptString">"1"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"5"</span> s=<span class="ActionScriptString">"12"</span> e=<span class="ActionScriptString">"2"</span>  key=<span class="ActionScriptString">"misc"</span>     calendar=<span class="ActionScriptString">"0"</span> /&gt;          
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"5"</span> s=<span class="ActionScriptString">"15"</span> e=<span class="ActionScriptString">"3"</span>  key=<span class="ActionScriptString">"training"</span> calendar=<span class="ActionScriptString">"0"</span> /&gt;
+          &lt;<span class="MXMLComponent_Tag">event</span> d=<span class="ActionScriptString">"5"</span> s=<span class="ActionScriptString">"20"</span> e=<span class="ActionScriptString">"4"</span>  key=<span class="ActionScriptString">"misc"</span>     calendar=<span class="ActionScriptString">"0"</span> /&gt;          
+        &lt;/<span class="MXMLComponent_Tag">list</span>&gt;;
+                 
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> createDefaultModel():XMLList <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> gCal:GregorianCalendar = <span class="ActionScriptReserved">new</span> GregorianCalendar();
+        <span class="ActionScriptvar">var</span> startOfWeek:Date = gCal.floor(<span class="ActionScriptReserved">new</span> Date(), TimeUnit.WEEK, 1);               
+                                            
+        <span class="ActionScriptReserved">for</span> <span class="ActionScriptReserved">each</span> (<span class="ActionScriptvar">var</span> evt:XML <span class="ActionScriptReserved">in</span> baseModel.children()) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptvar">var</span> dayOfWeek:int = parseInt(evt.@d);          
+          
+          <span class="ActionScriptvar">var</span> startHour:int = parseInt(evt.@s);
+          <span class="ActionScriptvar">var</span> duration:int = parseInt(evt.@e);
+          
+          <span class="ActionScriptvar">var</span> s:Date = gCal.addUnits(startOfWeek, TimeUnit.DAY, dayOfWeek);                   
+          s = gCal.addUnits(s, TimeUnit.HOUR, startHour, <span class="ActionScriptReserved">true</span>);
+          
+          <span class="ActionScriptvar">var</span> e:Date = gCal.addUnits(s, TimeUnit.HOUR, duration);
+          
+          evt.@startTime = s.toString();
+          evt.@endTime = e.toString();
+          
+          evt.@summary = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"model.summary."</span> + evt.@key);          
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptReserved">return</span> baseModel.children();
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> updateDisplayedTimeRangeLabel():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptvar">var</span> e:Date = cal.calendar.addUnits(cal.endDisplayedDate, TimeUnit.DAY, 1);
+        rangeLabel.text = cal.getTimeRangeLabel(<span class="ActionScriptReserved">null</span>, cal.startDisplayedDate, e);
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> ctrlKey:Boolean;
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> timeRangeSelectionBegin(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptvar">var</span> triggerEvent:MouseEvent = event.triggerEvent as MouseEvent;
+        
+        ctrlKey = triggerEvent.ctrlKey;                
+      <span class="ActionScriptBracket/Brace">}</span>
+                 
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Listener on a time range selection.       </span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> timeRangeSelectionEnd(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+          
+        <span class="ActionScriptvar">var</span> triggerEvent:MouseEvent = event.triggerEvent as MouseEvent;
+               
+        <span class="ActionScriptReserved">if</span> (event.reason == CalendarEventReason.COMPLETED && (ctrlKey || triggerEvent.ctrlKey)) <span class="ActionScriptBracket/Brace">{</span>                   
+                      
+          <span class="ActionScriptComment">//The view is already zoomed to the day so zoom to the selected hours.</span>
+          <span class="ActionScriptReserved">if</span> (cal.mode == Calendar.DAY_MODE && event.startDate.date == event.endDate.date) <span class="ActionScriptBracket/Brace">{</span>
+                                      
+            cal.startDisplayedTime = <span class="ActionScriptBracket/Brace">[</span>event.startDate.hours, event.startDate.minutes<span class="ActionScriptBracket/Brace">]</span>; 
+            cal.endDisplayedTime = <span class="ActionScriptBracket/Brace">[</span>event.endDate.hours, event.endDate.minutes<span class="ActionScriptBracket/Brace">]</span>;
+                              
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptComment">//zoom to the selection (time unit is day)</span>
+            <span class="ActionScriptComment">//caution: startDate & endDate of the calendar are in complete day</span>
+            <span class="ActionScriptComment">//whereas the range is in time.</span>
+            cal.startDate = event.startDate;
+            <span class="ActionScriptvar">var</span> e:Date = <span class="ActionScriptReserved">new</span> Date(event.endDate.time);
+            <span class="ActionScriptReserved">if</span> (e.hours == 0 && e.minutes == 0 && e.milliseconds == 0) <span class="ActionScriptBracket/Brace">{</span>
+              e = cal.calendar.addUnits(e, TimeUnit.DAY, -1, <span class="ActionScriptReserved">true</span>);
+            <span class="ActionScriptBracket/Brace">}</span> 
+            cal.endDate = e;
+            cal.date = <span class="ActionScriptReserved">null</span>;
+          <span class="ActionScriptBracket/Brace">}</span>
+          
+          cal.timeRangeSelection = <span class="ActionScriptReserved">null</span>;                       
+                                      
+        <span class="ActionScriptBracket/Brace">}</span>                       
+      <span class="ActionScriptBracket/Brace">}</span>
+           
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> eventPanelCreateHandler(event:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> e:Date; 
+        <span class="ActionScriptReserved">if</span> (cal.timeRangeSelection != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          e = cal.calendar.addUnits(cal.endDisplayedDate, TimeUnit.DAY, 1);
+        <span class="ActionScriptBracket/Brace">}</span> 
+        
+        <span class="ActionScriptReserved">if</span> (cal.timeRangeSelection == <span class="ActionScriptReserved">null</span> || (
+            cal.timeRangeSelection != <span class="ActionScriptReserved">null</span> && 
+            (cal.timeRangeSelection<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span> &gt; e || 
+             cal.startDisplayedDate &gt; cal.timeRangeSelection<span class="ActionScriptBracket/Brace">[</span>1<span class="ActionScriptBracket/Brace">]</span>))) <span class="ActionScriptBracket/Brace">{</span>             
+          
+          <span class="ActionScriptComment">// create an event at the fist displayed date, at 8:00 am</span>
+          <span class="ActionScriptvar">var</span> startTime:Date = cal.startDisplayedDate;
+          startTime.hours = 8;
+          
+          <span class="ActionScriptComment">// that lasts 1 hour</span>
+          <span class="ActionScriptvar">var</span> endTime:Date = cal.calendar.addUnits(startTime, TimeUnit.HOUR, 1);
+          
+          createNewEvent(startTime, endTime);
+          
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          
+          createNewEventFromSelection(cal.timeRangeSelection);
+          cal.timeRangeSelection = <span class="ActionScriptReserved">null</span>;          
+        <span class="ActionScriptBracket/Brace">}</span>                               
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> eventPanelDeleteHandler(event:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptComment">//if this option is available only one event is selected.</span>
+        deleteItem(cal.selectedItems);        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Listener on a double click on the Calendar sheet</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> sheetDoubleClickHandler(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> s:Date;
+        <span class="ActionScriptvar">var</span> e:Date;
+        
+        <span class="ActionScriptComment">// an alternative implementation is to use the current time range selection.        </span>
+                       
+        <span class="ActionScriptReserved">if</span> (cal.mode == Calendar.MONTH_MODE) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptReserved">if</span> (event.calendarArea == CalendarArea.CELL_HEADER) <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptComment">// zoom to the day if we double click on the header</span>
+            cal.date = event.startDate;
+            cal.mode = Calendar.DAY_MODE;
+            <span class="ActionScriptReserved">return</span>;
+            
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptReserved">if</span> (event.calendarArea == CalendarArea.ROW_HEADER) <span class="ActionScriptBracket/Brace">{</span>
+            
+            s = event.startDate;
+            e = event.endDate;
+            
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+            
+            <span class="ActionScriptComment">// create an all day event, when double click on a cell</span>
+            s = cal.calendar.floor(event.startDate, TimeUnit.DAY, 1);
+            e = cal.calendar.addUnits(s, TimeUnit.DAY, 1);
+          <span class="ActionScriptBracket/Brace">}</span>    
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptReserved">if</span> (event.calendarArea == CalendarArea.SHEET) <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptComment">//create an event that starts at the beginning of the time slot and that lasts a time slot duration</span>
+            s = cal.calendar.floor(event.startDate, TimeUnit.MINUTE, cal.getTimeSlotDuration());
+            e = cal.calendar.addUnits(s, TimeUnit.MINUTE, cal.getTimeSlotDuration());
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptComment">// create an all day event when double click on the secondary sheet or the column header</span>
+            s = cal.calendar.floor(event.startDate, TimeUnit.DAY, 1);
+            e = cal.calendar.addUnits(s, TimeUnit.DAY, 1);
+          <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        createNewEvent(s, e);
+        
+        cal.timeRangeSelection = <span class="ActionScriptReserved">null</span>;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Selects a time range when clicking on the column header or the row header.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> sheetClickHandler(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptReserved">if</span> (event.calendarArea == CalendarArea.ROW_HEADER ||             
+            event.calendarArea == CalendarArea.COLUMN_HEADER) <span class="ActionScriptBracket/Brace">{</span>
+          cal.timeRangeSelection = <span class="ActionScriptBracket/Brace">[</span>event.startDate, event.endDate<span class="ActionScriptBracket/Brace">]</span>;               
+        <span class="ActionScriptBracket/Brace">}</span> 
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> editingValues:Object;
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Listener on the begginning of the editing of an item. </span>
+<span class="ActionScriptASDoc">       */</span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> itemEditBegin(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> calItem:CalendarItem = cal.itemToCalendarItem(event.item);
+        
+        editingValues = <span class="ActionScriptBracket/Brace">{</span>
+          oldStartTime: <span class="ActionScriptReserved">new</span> Date(calItem.startTime.time),
+          oldEndTime: <span class="ActionScriptReserved">new</span> Date(calItem.endTime.time)
+        <span class="ActionScriptBracket/Brace">}</span>;
+        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> editingConfirmationPanel:EditingConfirmationPanel;
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Listener on the end of the editing to update event properties panel. </span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> itemEditEnd(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptReserved">if</span> (event.reason == CalendarEventReason.COMPLETED) <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptvar">var</span> calItem:CalendarItem = cal.itemToCalendarItem(event.item);
+          
+          <span class="ActionScriptReserved">if</span> (event.item is IRecurrenceInstance) <span class="ActionScriptBracket/Brace">{</span>
+                                  
+            event.preventDefault();                      
+                       
+            editingValues.kind = cal.editKind;
+            editingValues.item = event.item;
+            editingValues.newStartTime = <span class="ActionScriptReserved">new</span> Date(calItem.startTime.time);
+            editingValues.newEndTime = <span class="ActionScriptReserved">new</span> Date(calItem.endTime.time);
+            
+            <span class="ActionScriptReserved">if</span> (editingConfirmationPanel == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+              editingConfirmationPanel = <span class="ActionScriptReserved">new</span> EditingConfirmationPanel();
+              editingConfirmationPanel.addEventListener(CloseEvent.CLOSE, confirmationEditHandler);              
+            <span class="ActionScriptBracket/Brace">}</span>
+            
+            cal.suspendEditing();
+            editingConfirmationPanel.reset();
+            PopUpManager.addPopUp(editingConfirmationPanel, DisplayObject(FlexGlobals.topLevelApplication), <span class="ActionScriptReserved">true</span>);            
+            PopUpManager.centerPopUp(editingConfirmationPanel);
+            editingConfirmationPanel.defaultButton = editingConfirmationPanel.okButton;
+            editingConfirmationPanel.okButton.setFocus();
+              
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+                    
+            eventPanel.calendarItem = cal.itemToCalendarItem(event.item);
+          <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace">}</span>       
+      <span class="ActionScriptBracket/Brace">}</span>           
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> confirmationEditHandler(event:CloseEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        PopUpManager.removePopUp(editingConfirmationPanel);
+        
+        <span class="ActionScriptvar">var</span> calItem:CalendarItem = cal.itemToCalendarItem(editingValues.item);
+        <span class="ActionScriptvar">var</span> baseItem:XML = IRecurrenceInstance(editingValues.item).item as XML;
+        
+        <span class="ActionScriptvar">var</span> collection:ICollectionView = cal.dataProvider as ICollectionView;
+                               
+        <span class="ActionScriptReserved">if</span> (event.detail == Alert.CANCEL) <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptComment">// by default the cancel would have been managed by the calendar</span>
+          <span class="ActionScriptComment">// but we disabled the setting of the event</span>
+          <span class="ActionScriptComment">// So let's call an update on this occurrence.</span>
+          <span class="ActionScriptComment">// As the occurrences are not in the data provider itself but in the recurrence view,</span>
+          <span class="ActionScriptComment">// let's call the update on the recurrence view.</span>
+          <span class="ActionScriptvar">var</span> occ:IRecurrenceInstance = IRecurrenceInstance(calItem.data);
+                    
+          <span class="ActionScriptvar">var</span> recurrenceView:RecurrenceView = cal.recurrenceView;
+          recurrenceView.itemUpdated(occ);
+                             
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          
+          collection.disableAutoUpdate();
+                                     
+          <span class="ActionScriptReserved">if</span> (editingConfirmationPanel.editSerie) <span class="ActionScriptBracket/Brace">{</span>                   
+                                 
+            <span class="ActionScriptComment">// apply changes on the recurring event                                                                                        </span>
+            cal.applyItemEditEnd(editingValues.item, editingValues.kind, 
+                                 editingValues.oldStartTime, editingValues.newStartTime,
+                                 editingValues.oldEndTime, editingValues.newEndTime);                   
+                      
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+            
+            <span class="ActionScriptComment">// create an item in the data provider for this particular instance</span>
+            <span class="ActionScriptvar">var</span> newItem:XML = &lt;<span class="MXMLComponent_Tag">event</span> /&gt;
+            newItem.@startTime = editingValues.newStartTime;
+            newItem.@endTime = editingValues.newEndTime;
+            newItem.@summary = calItem.summary;
+            
+            newItem.@description = calItem.description == <span class="ActionScriptReserved">null</span> ? <span class="ActionScriptString">""</span> : calItem.description;
+            newItem.@calendar = calItem.calendar;
+            
+            <span class="ActionScriptComment">// exception event has the id than the recurring event</span>
+            newItem.@id = baseItem.@id;
+             
+            <span class="ActionScriptComment">// the time of the occurrence to replace by this exception event.</span>
+            newItem.@exdate = editingValues.oldStartTime.toString();
+                      
+            collection.createCursor().insert(newItem); 
+            
+            eventPanel.calendarItem = cal.itemToCalendarItem(newItem);
+            cal.selectedItems = <span class="ActionScriptBracket/Brace">[</span>newItem<span class="ActionScriptBracket/Brace">]</span>;
+            
+            <span class="ActionScriptComment">// an exception event has been added. We must update the </span>
+            <span class="ActionScriptComment">// association recurring event / exception events</span>
+            <span class="ActionScriptComment">// to take this new exception event into account.   </span>
+            cal.recurrenceDescriptor.invalidateExceptionEvents(baseItem);
+                                                             
+          <span class="ActionScriptBracket/Brace">}</span>
+          
+          collection.itemUpdated(baseItem);
+          collection.enableAutoUpdate();
+        <span class="ActionScriptBracket/Brace">}</span>                                    
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Listener of date range changes to update the buttons and the visible time range label.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> visibleTimeRangeChanged(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+                                                 
+        updateDisplayedTimeRangeLabel();
+        
+        <span class="ActionScriptvar">var</span> buttonEnabled:Boolean = cal.mode != Calendar.MONTH_MODE;
+        zoomInButton.enabled = buttonEnabled;
+        zoomOutButton.enabled = buttonEnabled;
+        
+        toggleModeBar.selectedIndex = modes.indexOf(cal.mode);                               
+      <span class="ActionScriptBracket/Brace">}</span>
+                      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Handler of event notification events.</span>
+<span class="ActionScriptASDoc">       */   </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> notificationHandler(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span> 
+        showNotificationPanel(cal.itemToCalendarItem(event.item));
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Shows a notification panel.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> showNotificationPanel(item:CalendarItem):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptReserved">if</span> (notifPanel == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          
+          notifPanel = <span class="ActionScriptReserved">new</span> NotificationPanel();
+          
+          notifPanel.addEventListener(CloseEvent.CLOSE, <span class="ActionScriptfunction">function</span> (e:CloseEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+            PopUpManager.removePopUp(notifPanel);
+          <span class="ActionScriptBracket/Brace">}</span>);
+          
+          notifPanel.addEventListener(SnoozeEvent.SNOOZE, <span class="ActionScriptfunction">function</span> (e:SnoozeEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>            
+            PopUpManager.removePopUp(notifPanel);
+            <span class="ActionScriptvar">var</span> t:Timer = <span class="ActionScriptReserved">new</span> Timer(300000, 1); <span class="ActionScriptComment">//5min</span>
+            t.addEventListener(TimerEvent.TIMER_COMPLETE, <span class="ActionScriptfunction">function</span> (e2:TimerEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>              
+              showNotificationPanel(e.item as CalendarItem);
+            <span class="ActionScriptBracket/Brace">}</span>);
+            t.start();            
+          <span class="ActionScriptBracket/Brace">}</span>);                
+           
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          
+          PopUpManager.removePopUp(notifPanel);          
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        notifPanel.item = item;
+        
+        PopUpManager.addPopUp(notifPanel, DisplayObject(FlexGlobals.topLevelApplication), <span class="ActionScriptReserved">true</span>);            
+        PopUpManager.centerPopUp(notifPanel);
+        notifPanel.defaultButton = notifPanel.okButton;      
+        notifPanel.okButton.setFocus();                   
+      <span class="ActionScriptBracket/Brace">}</span>           
+                 
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> selectionChanged(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> item:CalendarItem = <span class="ActionScriptReserved">null</span>;
+        <span class="ActionScriptReserved">if</span> (cal.selectedItems.length == 1) <span class="ActionScriptBracket/Brace">{</span>
+          item = cal.itemToCalendarItem(cal.selectedItems<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>);
+        <span class="ActionScriptBracket/Brace">}</span> 
+        
+        eventPanel.calendarItem = item;
+      <span class="ActionScriptBracket/Brace">}</span>     
+                         
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Listener on click on arrows of horizontal item renderers.       </span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> horizontalItemRendererArrowClicked(event:CalendarEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptvar">var</span> item:XML = event.item as XML;
+        
+        <span class="ActionScriptReserved">if</span> (cal.mode == Calendar.MONTH_MODE) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptReserved">return</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptvar">var</span> calendar:GregorianCalendar = cal.calendar;
+        <span class="ActionScriptvar">var</span> viewDuration:int = calendar.getDays(cal.startDisplayedDate, cal.endDisplayedDate);        
+        
+        <span class="ActionScriptReserved">if</span> (event.type == CalendarEvent.LEFT_ARROW_CLICK) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptComment">//go the beginning of the event</span>
+          <span class="ActionScriptvar">var</span> s:Date = cal.itemToCalendarItem(item).startTime;
+          cal.startDate = s;
+          cal.endDate = calendar.addUnits(s, TimeUnit.DAY, viewDuration);
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptComment">//right arrow</span>
+          <span class="ActionScriptComment">//go the end of the event</span>
+          <span class="ActionScriptvar">var</span> e:Date = cal.itemToCalendarItem(item).endTime;
+          cal.endDate = e;
+          cal.startDate = calendar.addUnits(e, TimeUnit.DAY, -viewDuration);
+        <span class="ActionScriptBracket/Brace">}</span>        
+      <span class="ActionScriptBracket/Brace">}</span>        
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Zooms in the calendar.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> zoomInCalendar():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptReserved">if</span> (cal.mode != Calendar.MONTH_MODE) <span class="ActionScriptBracket/Brace">{</span>                   
+          zoomInButton.enabled = cal.zoom(2, <span class="ActionScriptReserved">true</span>);
+          zoomOutButton.enabled = <span class="ActionScriptReserved">true</span>;                    
+        <span class="ActionScriptBracket/Brace">}</span>
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Zooms out the calendar.</span>
+<span class="ActionScriptASDoc">       */           </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> zoomOutCalendar():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptReserved">if</span> (cal.mode != Calendar.MONTH_MODE) <span class="ActionScriptBracket/Brace">{</span>          
+          zoomOutButton.enabled = cal.zoom(0.5, <span class="ActionScriptReserved">true</span>);
+          zoomInButton.enabled = <span class="ActionScriptReserved">true</span>;          
+        <span class="ActionScriptBracket/Brace">}</span>        
+      <span class="ActionScriptBracket/Brace">}</span>
+                             
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> moveToCurrentDay():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        cal.date = <span class="ActionScriptReserved">new</span> Date();
+        cal.mode = Calendar.DAY_MODE;                                   
+      <span class="ActionScriptBracket/Brace">}</span>
+          
+     
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> removeRecurrencePanel:RemoveConfirmationPanel;
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Shows a panel to confirm the deletion of the selected event(s). </span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> deleteItem(items:Array):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+                  
+        <span class="ActionScriptReserved">if</span> (items != <span class="ActionScriptReserved">null</span> && items.length == 1) <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptvar">var</span> theText:String;
+          <span class="ActionScriptvar">var</span> theTitle:String;
+                    
+          <span class="ActionScriptvar">var</span> item:Object = items<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>;
+          
+          <span class="ActionScriptReserved">if</span> (item is IRecurrenceInstance) <span class="ActionScriptBracket/Brace">{</span>
+            
+            <span class="ActionScriptReserved">if</span> (removeRecurrencePanel == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+              removeRecurrencePanel = <span class="ActionScriptReserved">new</span> RemoveConfirmationPanel();
+              removeRecurrencePanel.addEventListener(CloseEvent.CLOSE, confirmationRemoveHandler2);              
+            <span class="ActionScriptBracket/Brace">}</span>
+            
+            removeRecurrencePanel.reset()
+            
+            PopUpManager.addPopUp(removeRecurrencePanel, DisplayObject(FlexGlobals.topLevelApplication), <span class="ActionScriptReserved">true</span>);            
+            PopUpManager.centerPopUp(removeRecurrencePanel);
+            
+            removeRecurrencePanel.defaultButton = removeRecurrencePanel.okButton;
+            removeRecurrencePanel.okButton.setFocus();
+                                   
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+                      
+            <span class="ActionScriptvar">var</span> itemToDelete:CalendarItem = cal.itemToCalendarItem(items<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>);
+            <span class="ActionScriptvar">var</span> s:String = itemToDelete.summary;
+            <span class="ActionScriptReserved">if</span> (s == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+              s = <span class="ActionScriptString">""</span>;
+            <span class="ActionScriptBracket/Brace">}</span>
+            theText = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.delete.warning"</span>, <span class="ActionScriptBracket/Brace">[</span>s<span class="ActionScriptBracket/Brace">]</span>);
+            theTitle = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.delete.title"</span>);          
+          
+            Alert.show(theText, theTitle, Alert.YES | Alert.NO, <span class="ActionScriptReserved">null</span>, confirmationRemoveHandler, <span class="ActionScriptReserved">null</span>, Alert.YES);
+            
+          <span class="ActionScriptBracket/Brace">}</span>                                         
+        <span class="ActionScriptBracket/Brace">}</span>                            
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> confirmationRemoveHandler2(event:CloseEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        PopUpManager.removePopUp(removeRecurrencePanel);
+                
+        <span class="ActionScriptReserved">if</span> (event.detail == Alert.CANCEL) <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptReserved">return</span>;
+        <span class="ActionScriptBracket/Brace">}</span>                        
+        
+        <span class="ActionScriptvar">var</span> item:Object = cal.selectedItems<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>;
+        <span class="ActionScriptvar">var</span> baseItem:XML = IRecurrenceInstance(item).item as XML; 
+        
+        <span class="ActionScriptReserved">if</span> (removeRecurrencePanel.editSerie) <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptComment">// to remove the entire serie, we just have to remove the recurring item</span>
+          <span class="ActionScriptComment">// of the data provider.</span>
+          
+          <span class="ActionScriptvar">var</span> col:ListCollectionView = cal.dataProvider as ListCollectionView;
+                                                        
+          <span class="ActionScriptvar">var</span> index:int = col.getItemIndex(baseItem);
+          <span class="ActionScriptReserved">if</span> (index != -1) <span class="ActionScriptBracket/Brace">{</span>            
+            col.removeItemAt(index);
+          <span class="ActionScriptBracket/Brace">}</span>
+          
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptComment">// No need to remove a real item from the data provider</span>
+          <span class="ActionScriptComment">// we just have to add a exception for this particular date.</span>
+          
+          <span class="ActionScriptvar">var</span> calItem:CalendarItem = cal.itemToCalendarItem(item);                    
+          addExceptionDate(baseItem, calItem.startTime);
+          
+        <span class="ActionScriptBracket/Brace">}</span>            
+                
+        eventPanel.calendarItem = <span class="ActionScriptReserved">null</span>;                      
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Deletion confirmation panel close hanlder.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> confirmationRemoveHandler(event:CloseEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptReserved">if</span> (event.detail == Alert.YES) <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptvar">var</span> col:ListCollectionView = cal.dataProvider as ListCollectionView;
+          
+          <span class="ActionScriptvar">var</span> item:Object = cal.selectedItems<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>;
+                                    
+          <span class="ActionScriptvar">var</span> index:int = col.getItemIndex(item);
+          <span class="ActionScriptReserved">if</span> (index != -1) <span class="ActionScriptBracket/Brace">{</span>            
+            col.removeItemAt(index);
+          <span class="ActionScriptBracket/Brace">}</span>            
+          
+          <span class="ActionScriptComment">// we manipulate XML so use the '@' notation </span>
+          <span class="ActionScriptReserved">if</span> (item.hasOwnProperty(<span class="ActionScriptString">"@exdate"</span>)) <span class="ActionScriptBracket/Brace">{</span> <span class="ActionScriptComment">// is an exception event</span>
+            <span class="ActionScriptvar">var</span> recItem:XML = findRecurringEvent(item.@id);
+            <span class="ActionScriptReserved">if</span> (recItem != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+              cal.recurrenceDescriptor.invalidateExceptionEvents(recItem);
+            <span class="ActionScriptBracket/Brace">}</span>
+          <span class="ActionScriptBracket/Brace">}</span>                   
+          
+          eventPanel.calendarItem = <span class="ActionScriptReserved">null</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+      <span class="ActionScriptBracket/Brace">}</span>      
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> findRecurringEvent(id:String):XML <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptComment">// the recurring event is in the data provider. </span>
+        <span class="ActionScriptvar">var</span> col:ListCollectionView = cal.dataProvider as ListCollectionView;
+        
+        <span class="ActionScriptvar">var</span> it:IViewCursor = col.createCursor();
+        
+        while(!it.afterLast) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptvar">var</span> cId:String = it.current.@id.toString();
+          <span class="ActionScriptReserved">if</span> (cId == id && !cal.hasOwnProperty(<span class="ActionScriptString">"@exdate"</span>)) <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptReserved">return</span> it.current as XML;
+          <span class="ActionScriptBracket/Brace">}</span>
+          it.moveNext();
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptReserved">return</span> <span class="ActionScriptReserved">null</span>;
+      <span class="ActionScriptBracket/Brace">}</span>  
+                     
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Keyboard handler. </span>
+<span class="ActionScriptASDoc">       *   - Delete the selection when the delete key is pressed.</span>
+<span class="ActionScriptASDoc">       *   - Create an event by selecting a time range and pressed 'enter' or typing text.</span>
+<span class="ActionScriptASDoc">       *   - Shift + Home is tracing the model</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> myKeyboardEventHandler(event:KeyboardEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        switch(event.keyCode) <span class="ActionScriptBracket/Brace">{</span>
+          
+          case Keyboard.DELETE:
+            deleteItem(cal.selectedItems);
+            break;
+            
+          case Keyboard.ENTER:
+            createNewEventFromSelection(cal.timeRangeSelection);
+            cal.timeRangeSelection = <span class="ActionScriptReserved">null</span>;
+            eventPanel.setFocusOnSummary();
+            break;
+            
+          case Keyboard.HOME:
+            <span class="ActionScriptReserved">if</span> (event.shiftKey) <span class="ActionScriptBracket/Brace">{</span>
+              <span class="ActionScriptvar">var</span> col:XMLListCollection = cal.dataProvider as XMLListCollection;
+              trace(col.source);
+            <span class="ActionScriptBracket/Brace">}</span> 
+            break;
+             
+          case Keyboard.BACKSPACE:
+          case Keyboard.CONTROL:
+          case Keyboard.DELETE:
+          case Keyboard.DOWN:
+          case Keyboard.END:
+          case Keyboard.ESCAPE:
+          case Keyboard.INSERT:
+          case Keyboard.LEFT:
+          case Keyboard.UP:
+          case Keyboard.RIGHT:
+          case Keyboard.TAB:
+            <span class="ActionScriptReserved">return</span> ;
+            
+          default:
+            
+            <span class="ActionScriptReserved">if</span> (event.shiftKey || event.ctrlKey || event.charCode == 0) <span class="ActionScriptBracket/Brace">{</span>
+              <span class="ActionScriptReserved">return</span>;
+            <span class="ActionScriptBracket/Brace">}</span>
+                                               
+            <span class="ActionScriptvar">var</span> e:Date = cal.calendar.addUnits(cal.endDisplayedDate, TimeUnit.DAY, 1);
+              
+            <span class="ActionScriptReserved">if</span> (cal.timeRangeSelection != <span class="ActionScriptReserved">null</span> && 
+               (cal.timeRangeSelection<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span> &gt; e || 
+                cal.startDisplayedDate &gt; cal.timeRangeSelection<span class="ActionScriptBracket/Brace">[</span>1<span class="ActionScriptBracket/Brace">]</span>)) <span class="ActionScriptBracket/Brace">{</span>
+               <span class="ActionScriptReserved">return</span>;        
+            <span class="ActionScriptBracket/Brace">}</span>             
+            
+            <span class="ActionScriptComment">// simple implementation of IME.</span>
+            <span class="ActionScriptReserved">if</span> (Capabilities.hasIME && IME.enabled) <span class="ActionScriptBracket/Brace">{</span>
+              
+              createNewEventFromSelection(cal.timeRangeSelection, <span class="ActionScriptString">""</span>);
+              
+              <span class="ActionScriptReserved">if</span> (cal.timeRangeSelection != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+                eventPanel.summaryTextInput.text = <span class="ActionScriptString">""</span>;
+              <span class="ActionScriptBracket/Brace">}</span>
+              eventPanel.summaryTextInput.setSelection(0,0);
+                                              
+            <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+              
+              <span class="ActionScriptvar">var</span> s:String = String.fromCharCode(event.charCode);
+              
+              createNewEventFromSelection(cal.timeRangeSelection, s);
+                                          
+              <span class="ActionScriptReserved">if</span> (cal.timeRangeSelection != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+                eventPanel.summaryTextInput.text = s;
+              <span class="ActionScriptBracket/Brace">}</span>
+              eventPanel.summaryTextInput.setSelection(1,1);
+            <span class="ActionScriptBracket/Brace">}</span>
+            
+            eventPanel.setFocusOnSummary(<span class="ActionScriptReserved">false</span>);
+            
+            cal.timeRangeSelection = <span class="ActionScriptReserved">null</span>;              
+        <span class="ActionScriptBracket/Brace">}</span>                       
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> createNewEventFromSelection(selection:Array, summary:String=<span class="ActionScriptReserved">null</span>, minimalDuration:Boolean=<span class="ActionScriptReserved">false</span>):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>                
+        
+         <span class="ActionScriptReserved">if</span> (selection != <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+           <span class="ActionScriptvar">var</span> startTime:Date = selection<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span> as Date;
+           <span class="ActionScriptvar">var</span> endTime:Date = selection<span class="ActionScriptBracket/Brace">[</span>1<span class="ActionScriptBracket/Brace">]</span> as Date;
+            
+           <span class="ActionScriptReserved">if</span> (minimalDuration) <span class="ActionScriptBracket/Brace">{</span>                                    
+             <span class="ActionScriptvar">var</span> endTime2:Date = cal.calendar.addUnits(startTime, TimeUnit.HOUR, 1);
+            
+             <span class="ActionScriptReserved">if</span> (endTime &lt; <span class="MXMLComponent_Tag">endTime2</span>) <span class="ActionScriptBracket/Brace">{</span>
+               endTime = endTime2;
+             <span class="ActionScriptBracket/Brace">}</span>
+           <span class="ActionScriptBracket/Brace">}</span>
+             
+           createNewEvent(startTime, endTime, summary);
+        <span class="ActionScriptBracket/Brace">}</span> 
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> addExceptionDate(item:XML, date:Date):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> exdates:String = item.@exdates;
+        <span class="ActionScriptvar">var</span> dates:Array = exdates == <span class="ActionScriptString">""</span> ? <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptBracket/Brace">]</span> : exdates.split(<span class="ActionScriptString">","</span>);      
+        dates.push(date.toString());
+          
+        item.@exdates = dates.join(<span class="ActionScriptString">","</span>);        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> createNewEvent(startTime:Date, endTime:Date, summary:String=<span class="ActionScriptReserved">null</span>):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptReserved">if</span> (summary == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          summary = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.default.summary"</span>);
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        addedItem = &lt;<span class="MXMLComponent_Tag">event</span>/&gt;;                                                             
+        addedItem.@startTime = startTime;              
+        addedItem.@endTime = endTime;
+        addedItem.@summary = summary;
+        addedItem.@description = <span class="ActionScriptString">""</span>;
+        addedItem.@calendar = calendarCheckbox1.selected ? calendars<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>.id : calendars<span class="ActionScriptBracket/Brace">[</span>1<span class="ActionScriptBracket/Brace">]</span>.id;
+        <span class="ActionScriptComment">//unique ID to avoid having the same item at the '==' sense.</span>
+        addedItem.@id = idCount++;
+        
+        <span class="ActionScriptvar">var</span> col:ListCollectionView = cal.dataProvider as ListCollectionView;                                          
+        col.addItem(addedItem);
+        
+        cal.selectedItems = <span class="ActionScriptBracket/Brace">[</span>addedItem<span class="ActionScriptBracket/Brace">]</span>;
+        
+        eventPanel.calendarItem = cal.itemToCalendarItem(addedItem);            
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> calendarCheckboxHandler(event:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptComment">//make sure that at least one calendar is selected</span>
+        <span class="ActionScriptReserved">if</span> (event.target == calendarCheckbox1 && 
+            !calendarCheckbox2.selected) <span class="ActionScriptBracket/Brace">{</span>
+           calendarCheckbox2.selected = <span class="ActionScriptReserved">true</span>;     
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptReserved">if</span> (event.target == calendarCheckbox2 && 
+                   !calendarCheckbox1.selected) <span class="ActionScriptBracket/Brace">{</span>
+           calendarCheckbox1.selected = <span class="ActionScriptReserved">true</span>;     
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        eventPanel.calendarRadioEnabled = calendarCheckbox2.selected && calendarCheckbox1.selected;
+        
+        <span class="ActionScriptvar">var</span> sel:Array = cal.selectedItems;
+         
+        <span class="ActionScriptReserved">if</span> (sel != <span class="ActionScriptReserved">null</span> && sel.length &gt; 0) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptReserved">if</span> ((event.target == calendarCheckbox1 && 
+               sel<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>.@calendar == calendars<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>.id) ||
+              (event.target == calendarCheckbox2 && 
+               sel<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>.@calendar == calendars<span class="ActionScriptBracket/Brace">[</span>1<span class="ActionScriptBracket/Brace">]</span>.id)) <span class="ActionScriptBracket/Brace">{</span>
+            cal.selectedItems = <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptBracket/Brace">]</span>;
+            eventPanel.calendarItem = <span class="ActionScriptReserved">null</span>;
+          <span class="ActionScriptBracket/Brace">}</span> 
+        <span class="ActionScriptBracket/Brace">}</span>
+                              
+        updateCollectionFilter();
+      <span class="ActionScriptBracket/Brace">}</span>
+           
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Refreshes the collection view. </span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> updateCollectionFilter():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+                    
+        <span class="ActionScriptvar">var</span> collection:ICollectionView = cal.dataProvider as ICollectionView;
+        <span class="ActionScriptReserved">if</span> (collection.filterFunction == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>
+          collection.filterFunction = collectionFilter;
+        <span class="ActionScriptBracket/Brace">}</span>
+        collection.refresh();
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * The collection view filter that displays the checked calendars.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> collectionFilter(item:Object):Boolean <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptvar">var</span> calendarItem:CalendarItem = cal.itemToCalendarItem(item);
+       
+        <span class="ActionScriptReserved">if</span> (calendarItem.calendar == calendars<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>.id && 
+            !calendarCheckbox1.selected) <span class="ActionScriptBracket/Brace">{</span>          
+          <span class="ActionScriptReserved">return</span> <span class="ActionScriptReserved">false</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptReserved">if</span> (calendarItem.calendar == calendars<span class="ActionScriptBracket/Brace">[</span>1<span class="ActionScriptBracket/Brace">]</span>.id && 
+            !calendarCheckbox2.selected) <span class="ActionScriptBracket/Brace">{</span>          
+          <span class="ActionScriptReserved">return</span> <span class="ActionScriptReserved">false</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptReserved">return</span> <span class="ActionScriptReserved">true</span>;               
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * This function is called by the calendar to give a color to the </span>
+<span class="ActionScriptASDoc">       * item renderers.       </span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> itemColorFunction(calItem:CalendarItem):Object <span class="ActionScriptBracket/Brace">{</span>
+                
+        <span class="ActionScriptvar">var</span> now:Date = <span class="ActionScriptReserved">new</span> Date();
+                
+        <span class="ActionScriptComment">//if the item is in the past, return gray. </span>
+        <span class="ActionScriptReserved">if</span> (calItem.endTime &lt; <span class="MXMLComponent_Tag">now</span>) <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptReserved">return</span> 0x555555;
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+          <span class="ActionScriptComment">// use the calendar color.</span>
+          <span class="ActionScriptvar">var</span> index:int = parseInt(calItem.calendar as String);
+          <span class="ActionScriptReserved">return</span> calendars<span class="ActionScriptBracket/Brace">[</span>index<span class="ActionScriptBracket/Brace">]</span>.color;        
+        <span class="ActionScriptBracket/Brace">}</span>
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptASDoc">/**</span>
+<span class="ActionScriptASDoc">       * Changes the mode of the calendar when the mode toggle button bar is clicked.</span>
+<span class="ActionScriptASDoc">       */  </span>
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> toggleMode(event:ItemClickEvent):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptReserved">if</span> (cal.date == <span class="ActionScriptReserved">null</span>) <span class="ActionScriptBracket/Brace">{</span>          
+          cal.date = cal.endDate;              
+        <span class="ActionScriptBracket/Brace">}</span>
+        cal.mode = modes<span class="ActionScriptBracket/Brace">[</span>event.index<span class="ActionScriptBracket/Brace">]</span>;
+        
+        cal.rowHeaderEnabled = cal.mode == Calendar.MONTH_MODE;
+        cal.columnHeaderEnabled = cal.mode != Calendar.MONTH_MODE;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+
+    <span class="ActionScriptBracket/Brace">]</span><span class="ActionScriptBracket/Brace">]</span>&gt;
+  &lt;/<span class="MXMLSpecial_Tag">mx:Script</span>&gt;
+  
+  &lt;<span class="MXMLSpecial_Tag">mx:Metadata</span>&gt;
+    <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptMetadata">ResourceBundle</span>(<span class="ActionScriptString">"calendarsample"</span>)<span class="ActionScriptBracket/Brace">]</span>
+  &lt;/<span class="MXMLSpecial_Tag">mx:Metadata</span>&gt;    
+  
+  &lt;<span class="MXMLSpecial_Tag">mx:Style</span> source=<span class="ActionScriptString">"../resources/elixirsample.css"</span>/&gt;
+  
+  &lt;<span class="MXMLSpecial_Tag">mx:Style</span>&gt;
+    @namespace ilog <span class="ActionScriptString">"http://www.ilog.com/2007/ilog/flex"</span>;
+    @namespace local <span class="ActionScriptString">"*"</span>;
+    
+    local|CustomVerticalRenderer <span class="ActionScriptBracket/Brace">{</span>
+      color: #FFFFFF;
+      recurrence-icon: Embed(source=<span class="ActionScriptString">"../resources/recurringItem.png"</span>);
+      exception-icon: Embed(source=<span class="ActionScriptString">"../resources/recurringItemException.png"</span>);
+      start-time-font-size: 8;
+      end-time-font-size: 8;
+      border-skin: ClassReference(<span class="ActionScriptString">"GradientBorder"</span>);
+
+    <span class="ActionScriptBracket/Brace">}</span>
+           
+    ilog|CalendarItemHorizontalRenderer <span class="ActionScriptBracket/Brace">{</span>
+      color: #FFFFFF;
+      recurrence-icon: Embed(source=<span class="ActionScriptString">"../resources/recurringItem.png"</span>);
+      exception-icon: Embed(source=<span class="ActionScriptString">"../resources/recurringItemException.png"</span>);
+      border-skin: ClassReference(<span class="ActionScriptString">"GradientBorder"</span>);
+    <span class="ActionScriptBracket/Brace">}</span>
+    
+    .todayDateChooserFont <span class="ActionScriptBracket/Brace">{</span>
+      color: #000000;
+      font-weight: bold;      
+    <span class="ActionScriptBracket/Brace">}</span>
+    
+    @namespace mx <span class="ActionScriptString">"library://ns.adobe.com/flex/mx"</span>;    
+    mx|DateChooser <span class="ActionScriptBracket/Brace">{</span>
+      today-style-name: todayDateChooserFont;
+      today-color: #FFFF73;
+    <span class="ActionScriptBracket/Brace">}</span>
+    
+    mx|Alert <span class="ActionScriptBracket/Brace">{</span>
+      color: #000000;
+      background-color: #FFFFFF;
+      background-alpha: 1;
+    <span class="ActionScriptBracket/Brace">}</span>
+      
+  &lt;/<span class="MXMLSpecial_Tag">mx:Style</span>&gt;   
+  
+  &lt;<span class="MXMLComponent_Tag">mx:VBox</span> width=<span class="ActionScriptString">"100%"</span> height=<span class="ActionScriptString">"100%"</span> left=<span class="ActionScriptString">"5"</span> right=<span class="ActionScriptString">"5"</span> top=<span class="ActionScriptString">"5"</span> bottom=<span class="ActionScriptString">"5"</span> horizontalAlign=<span class="ActionScriptString">"center"</span>&gt;
+       
+    &lt;<span class="MXMLComponent_Tag">local:ElixirSampleBar</span> id=<span class="ActionScriptString">"bar"</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.application.title')"</span> creationComplete=<span class="ActionScriptString">"initBackground()"</span>/&gt;
+  
+    &lt;<span class="MXMLComponent_Tag">mx:HBox</span> height=<span class="ActionScriptString">"100%"</span> width=<span class="ActionScriptString">"100%"</span>&gt;
+      
+      &lt;<span class="MXMLComponent_Tag">mx:VBox</span> height=<span class="ActionScriptString">"100%"</span> width=<span class="ActionScriptString">"100%"</span>&gt;  
+                        
+        &lt;<span class="MXMLComponent_Tag">mx:Canvas</span> width=<span class="ActionScriptString">"100%"</span>&gt;
+              
+          &lt;<span class="MXMLComponent_Tag">mx:HBox</span> left=<span class="ActionScriptString">"0"</span> bottom=<span class="ActionScriptString">"0"</span>&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Label</span> id=<span class="ActionScriptString">"rangeLabel"</span> fontWeight=<span class="ActionScriptString">"bold"</span> fontSize=<span class="ActionScriptString">"18"</span> /&gt;                                           
+          &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+        
+          &lt;<span class="MXMLComponent_Tag">mx:HBox</span> id=<span class="ActionScriptString">"box"</span> right=<span class="ActionScriptString">"0"</span> bottom=<span class="ActionScriptString">"0"</span>&gt;
+            
+            &lt;<span class="MXMLComponent_Tag">mx:Button</span> id=<span class="ActionScriptString">"zoomInButton"</span> width=<span class="ActionScriptString">"36"</span> icon=<span class="ActionScriptString">"@Embed(source='../resources/zoom.png')"</span> click=<span class="ActionScriptString">"zoomInCalendar()"</span> /&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Button</span> id=<span class="ActionScriptString">"zoomOutButton"</span> width=<span class="ActionScriptString">"36"</span> icon=<span class="ActionScriptString">"@Embed(source='../resources/unzoom.png')"</span> click=<span class="ActionScriptString">"zoomOutCalendar()"</span> /&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Box</span> width=<span class="ActionScriptString">"20"</span> height=<span class="ActionScriptString">"10"</span> /&gt;
+            
+            &lt;<span class="MXMLComponent_Tag">mx:Button</span> id=<span class="ActionScriptString">"prevButton"</span> height=<span class="ActionScriptString">"22"</span> skin=<span class="ActionScriptString">"ilog.skins.PreviousArrowSkin"</span> click=<span class="ActionScriptString">"cal.previousRange()"</span>  /&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Button</span> id=<span class="ActionScriptString">"nextButton"</span> height=<span class="ActionScriptString">"22"</span> skin=<span class="ActionScriptString">"ilog.skins.NextArrowSkin"</span> click=<span class="ActionScriptString">"cal.nextRange()"</span>  /&gt; 
+            &lt;<span class="MXMLComponent_Tag">mx:Button</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.button.Today')"</span> click=<span class="ActionScriptString">"moveToCurrentDay()"</span> /&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Box</span> width=<span class="ActionScriptString">"5"</span> height=<span class="ActionScriptString">"10"</span> /&gt;
+            
+            &lt;<span class="MXMLComponent_Tag">mx:ToggleButtonBar</span> id=<span class="ActionScriptString">"toggleModeBar"</span> itemClick=<span class="ActionScriptString">"toggleMode(event)"</span>/&gt;            
+            
+          &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+             
+        &lt;/<span class="MXMLComponent_Tag">mx:Canvas</span>&gt;     
+               
+        &lt;<span class="MXMLComponent_Tag">mx:HBox</span> height=<span class="ActionScriptString">"100%"</span> width=<span class="ActionScriptString">"100%"</span> paddingBottom=<span class="ActionScriptString">"20"</span>&gt;
+                                   
+          &lt;<span class="MXMLComponent_Tag">mx:VBox</span> id=<span class="ActionScriptString">"leftContainer"</span> height=<span class="ActionScriptString">"100%"</span>&gt; 
+               
+            &lt;<span class="MXMLComponent_Tag">mx:DateChooser</span> id=<span class="ActionScriptString">"dc"</span> width=<span class="ActionScriptString">"100%"</span> allowMultipleSelection=<span class="ActionScriptString">"true"</span> allowDisjointSelection=<span class="ActionScriptString">"false"</span> /&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:DateChooser</span> id=<span class="ActionScriptString">"dc2"</span> width=<span class="ActionScriptString">"100%"</span> allowMultipleSelection=<span class="ActionScriptString">"true"</span> allowDisjointSelection=<span class="ActionScriptString">"false"</span> /&gt;                                                                                                            
+                       
+            &lt;<span class="MXMLComponent_Tag">mx:Panel</span> id=<span class="ActionScriptString">"help"</span> width=<span class="ActionScriptString">"100%"</span> height=<span class="ActionScriptString">"100%"</span> title=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.title.help')"</span> 
+                      paddingLeft=<span class="ActionScriptString">"5"</span> paddingRight=<span class="ActionScriptString">"0"</span> paddingTop=<span class="ActionScriptString">"5"</span> paddingBottom=<span class="ActionScriptString">"5"</span> 
+                      borderStyle=<span class="ActionScriptString">"solid"</span> borderColor=<span class="ActionScriptString">"#CCCCCC"</span>&gt;
+              &lt;<span class="MXMLComponent_Tag">mx:TextArea</span> editable=<span class="ActionScriptString">"false"</span> htmlText=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.help.content')"</span>
+                           borderStyle=<span class="ActionScriptString">"none"</span> width=<span class="ActionScriptString">"100%"</span> height=<span class="ActionScriptString">"100%"</span> selectable=<span class="ActionScriptString">"false"</span>/&gt;
+                
+              
+            &lt;/<span class="MXMLComponent_Tag">mx:Panel</span>&gt;         
+            
+          &lt;/<span class="MXMLComponent_Tag">mx:VBox</span>&gt;       
+           
+          &lt;<span class="MXMLComponent_Tag">ilog:Calendar</span> id=<span class="ActionScriptString">"cal"</span> width=<span class="ActionScriptString">"100%"</span> height=<span class="ActionScriptString">"100%"</span>                                           
+                         animationDuration=<span class="ActionScriptString">"1000"</span>                     
+                         doubleClickEnabled=<span class="ActionScriptString">"true"</span>
+                         itemColorFunction=<span class="ActionScriptBracket/Brace">"{</span>itemColorFunction<span class="ActionScriptBracket/Brace">}"</span>                      
+                         allowMultipleSelection=<span class="ActionScriptString">"false"</span>                                                 
+                         startDisplayedTime=<span class="ActionScriptString">"[8,0]"</span>
+                         endDisplayedTime=<span class="ActionScriptString">"[18,0]"</span>
+                         showItemIndicators=<span class="ActionScriptString">"true"</span>
+                         columnHeaderEnabled=<span class="ActionScriptString">"true"</span>&gt;                                     
+                          
+            &lt;<span class="MXMLComponent_Tag">ilog:currentTimeIndicatorStroke</span> &gt;
+              &lt;<span class="MXMLComponent_Tag">mx:SolidColorStroke</span> alpha=<span class="ActionScriptString">"0.8"</span> color=<span class="ActionScriptString">"#9C35BE"</span> weight=<span class="ActionScriptString">"2"</span> caps=<span class="ActionScriptString">"none"</span> /&gt;
+            &lt;/<span class="MXMLComponent_Tag">ilog:currentTimeIndicatorStroke</span>&gt;
+            
+            &lt;<span class="MXMLComponent_Tag">ilog:workingTimes</span>&gt;
+              &lt;<span class="MXMLComponent_Tag">mx:Object</span> rangeStart=<span class="ActionScriptString">"8:00"</span> rangeEnd=<span class="ActionScriptString">"18:00"</span>/&gt;
+            &lt;/<span class="MXMLComponent_Tag">ilog:workingTimes</span>&gt;  
+            
+            &lt;<span class="MXMLComponent_Tag">ilog:itemVerticalRenderer</span>&gt;
+              &lt;<span class="MXMLComponent_Tag">mx:Component</span>&gt;
+                &lt;<span class="MXMLComponent_Tag">local:CustomVerticalRenderer</span>/&gt;                  
+              &lt;/<span class="MXMLComponent_Tag">mx:Component</span>&gt;
+            &lt;/<span class="MXMLComponent_Tag">ilog:itemVerticalRenderer</span>&gt;                       
+                                        
+          &lt;/<span class="MXMLComponent_Tag">ilog:Calendar</span>&gt;           
+                   
+        &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;         
+                                          
+      &lt;/<span class="MXMLComponent_Tag">mx:VBox</span>&gt;
+      
+      &lt;<span class="MXMLComponent_Tag">mx:VBox</span> height=<span class="ActionScriptString">"100%"</span>  paddingBottom=<span class="ActionScriptString">"20"</span>&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> width=<span class="ActionScriptString">"100%"</span> height=<span class="ActionScriptString">"23"</span> /&gt;         
+        
+        &lt;<span class="MXMLComponent_Tag">mx:Panel</span> width=<span class="ActionScriptString">"100%"</span> title=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.title.Legend')"</span> 
+                  paddingLeft=<span class="ActionScriptString">"10"</span> paddingRight=<span class="ActionScriptString">"10"</span> paddingTop=<span class="ActionScriptString">"5"</span> paddingBottom=<span class="ActionScriptString">"5"</span> 
+                  borderStyle=<span class="ActionScriptString">"solid"</span> borderColor=<span class="ActionScriptString">"#CCCCCC"</span>&gt;
+                  
+          &lt;<span class="MXMLComponent_Tag">mx:HBox</span> verticalAlign=<span class="ActionScriptString">"middle"</span>&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Box</span> id=<span class="ActionScriptString">"calendarColor1"</span> width=<span class="ActionScriptString">"20"</span> height=<span class="ActionScriptString">"20"</span> borderColor=<span class="ActionScriptString">"#CCCCCC"</span> borderStyle=<span class="ActionScriptString">"solid"</span> /&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:CheckBox</span> id=<span class="ActionScriptString">"calendarCheckbox1"</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.calendar.Professional')"</span> 
+                         selected=<span class="ActionScriptString">"true"</span> change=<span class="ActionScriptString">"calendarCheckboxHandler(event)"</span> /&gt;
+          &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+          
+          &lt;<span class="MXMLComponent_Tag">mx:HBox</span> verticalAlign=<span class="ActionScriptString">"middle"</span>&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Box</span> id=<span class="ActionScriptString">"calendarColor2"</span> width=<span class="ActionScriptString">"20"</span> height=<span class="ActionScriptString">"20"</span> borderColor=<span class="ActionScriptString">"#CCCCCC"</span> borderStyle=<span class="ActionScriptString">"solid"</span> /&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:CheckBox</span> id=<span class="ActionScriptString">"calendarCheckbox2"</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.calendar.Personal')"</span> 
+                         selected=<span class="ActionScriptString">"true"</span> change=<span class="ActionScriptString">"calendarCheckboxHandler(event)"</span> /&gt;
+          &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+          
+          &lt;<span class="MXMLComponent_Tag">mx:HBox</span> verticalAlign=<span class="ActionScriptString">"middle"</span>&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Box</span> id=<span class="ActionScriptString">"calendarColor3"</span> width=<span class="ActionScriptString">"20"</span> height=<span class="ActionScriptString">"20"</span> borderColor=<span class="ActionScriptString">"#CCCCCC"</span> borderStyle=<span class="ActionScriptString">"solid"</span> backgroundColor=<span class="ActionScriptString">"#CCCCCC"</span> /&gt;
+            &lt;<span class="MXMLComponent_Tag">mx:Label</span> text=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.legend.PastEvents')"</span> /&gt;
+          &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+          
+        &lt;/<span class="MXMLComponent_Tag">mx:Panel</span>&gt; 
+        
+        &lt;<span class="MXMLComponent_Tag">local:EventPanel</span> id=<span class="ActionScriptString">"eventPanel"</span> width=<span class="ActionScriptString">"100%"</span> height=<span class="ActionScriptString">"100%"</span>
+                          title=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.title.EventPanel')"</span>  
+                          calendars=<span class="ActionScriptBracket/Brace">"{</span>calendars<span class="ActionScriptBracket/Brace">}"</span> calendar=<span class="ActionScriptBracket/Brace">"{</span>cal<span class="ActionScriptBracket/Brace">}"</span> /&gt;
+                            
+      &lt;/<span class="MXMLComponent_Tag">mx:VBox</span>&gt;  
+    
+    
+    &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+  
+  &lt;/<span class="MXMLComponent_Tag">mx:VBox</span>&gt;
+              
+&lt;/<span class="MXMLComponent_Tag">mx:Application</span>&gt;
+</pre></body></html>

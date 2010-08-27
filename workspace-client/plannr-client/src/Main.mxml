@@ -16,10 +16,18 @@
 		<![CDATA[
 			import ch.plannr.view.component.BoxRegister;
 			
+			import mx.controls.Alert;
+			import mx.events.BrowserChangeEvent;
+			import mx.events.FlexEvent;
+			import mx.managers.BrowserManager;
+			import mx.managers.IBrowserManager;
+			import mx.utils.URLUtil;
+			
 			[Mediate( event="Events.LOGIN_SUCCESS")]
 			public function handle_registration_success():void{
 				currentState="LOGGED_IN"
 			}
+
 		]]>
 	</fx:Script>
 	<fx:Style source="style.css"/>

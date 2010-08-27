@@ -1,0 +1,1086 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+///////////////////////////////////////////////////////////////////////////////
+// Licensed Materials - Property of IBM
+// 5724-Y31,5724-Z78
+// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.
+//
+// Note to U.S. Government Users Restricted Rights:
+// Use, duplication or disclosure restricted by GSA ADP Schedule
+// Contract with IBM Corp.
+///////////////////////////////////////////////////////////////////////////////
+-->
+
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+                xmlns:ilog="http://www.ilog.com/2007/ilog/flex"                 
+                xmlns:local="*"
+                layout="absolute" 
+                horizontalAlign="center" 
+                backgroundColor="#FFFFFF"                
+                creationComplete="init()" 
+                
+                modalTransparencyDuration="500">
+
+  <mx:Script>
+    <![CDATA[
+      import ilog.calendar.Calendar;
+      import ilog.calendar.CalendarArea;
+      import ilog.calendar.CalendarEvent;
+      import ilog.calendar.CalendarEventReason;
+      import ilog.calendar.CalendarItem;
+      import ilog.calendar.recurrence.IRecurrenceInstance;
+      import ilog.calendar.recurrence.RecurrenceView;
+      import ilog.utils.GregorianCalendar;
+      import ilog.utils.TimeUnit;
+      
+      import mx.collections.ICollectionView;
+      import mx.collections.IViewCursor;
+      import mx.collections.ListCollectionView;
+      import mx.collections.XMLListCollection;
+      import mx.containers.Panel;
+      import mx.controls.Alert;
+      import mx.core.FlexGlobals;
+      import mx.events.CloseEvent;
+      import mx.events.ItemClickEvent;
+      import mx.managers.PopUpManager;                                                            
+                 
+      /**
+       * The notification panel, displayed when an event
+       * is about to start.
+       */         
+      private var notifPanel:NotificationPanel;
+      
+      /**
+       * The item being created.
+       */  
+      private var addedItem:XML;
+      
+      /**
+       * A counter to create unique data items.
+       */  
+      private var idCount:int = 0; 
+           
+      /**
+       * List of calendar modes. 
+       */  
+      private var modes:Array = [
+        Calendar.DAY_MODE,
+        Calendar.WORK_WEEK_MODE,
+        Calendar.WEEK_MODE,
+        Calendar.MONTH_MODE
+      ];        
+      
+      /**
+       * List of calendars 
+       */ 
+      [Bindable]  
+      private var calendars:Array = [
+        { id: "0", label: "professional", color:0x6B56BB},
+        { id: "1", label: "personal", color:0x2B8F40},        
+      ];        
+      
+      /**
+       * The data chooser manager will manage the synchronization 
+       * between the calendar and the date choosers.
+       */  
+      private var dateChooserMgr:DateChooserManager;
+      
+      
+      private function initBackground():void {
+        setStyle("backgroundGradientColors", [0xFAFAFA, 0xF0F0F0]);
+        setStyle("backgroundColor", 0xFFFFFF);    
+      }   
+                                
+      private function init():void {
+        
+        updateDisplayedTimeRangeLabel();
+        
+        dateChooserMgr = new DateChooserManager(cal, dc, dc2);
+                               
+        cal.addEventListener(CalendarEvent.VISIBLE_TIME_RANGE_CHANGE, visibleTimeRangeChanged);
+               
+        cal.addEventListener(CalendarEvent.TIME_RANGE_SELECTION_BEGIN, timeRangeSelectionBegin);               
+        cal.addEventListener(CalendarEvent.TIME_RANGE_SELECTION_END, timeRangeSelectionEnd);
+        
+        cal.addEventListener(CalendarEvent.ITEM_EDIT_END, itemEditEnd, false);        
+        cal.addEventListener(CalendarEvent.ITEM_EDIT_BEGIN, itemEditBegin, false);
+        
+        cal.addEventListener(CalendarEvent.CHANGE, selectionChanged);        
+        
+        cal.addEventListener(CalendarEvent.SHEET_CLICK, sheetClickHandler);        
+        cal.addEventListener(CalendarEvent.SHEET_DOUBLE_CLICK, sheetDoubleClickHandler);    
+        
+        cal.addEventListener(CalendarEvent.LEFT_ARROW_CLICK, horizontalItemRendererArrowClicked);
+        cal.addEventListener(CalendarEvent.RIGHT_ARROW_CLICK, horizontalItemRendererArrowClicked);
+        cal.addEventListener(KeyboardEvent.KEY_UP, myKeyboardEventHandler);
+        
+        cal.addEventListener(CalendarEvent.EVENT_NOTIFICATION, notificationHandler);
+        
+        calendarColor1.setStyle("backgroundColor", calendars[0].color);
+        calendarColor2.setStyle("backgroundColor", calendars[1].color);
+        
+        eventPanel.addEventListener("createEvent", eventPanelCreateHandler);
+        eventPanel.addEventListener("deleteEvent", eventPanelDeleteHandler);
+        
+        eventPanel.summaryTextInput.addEventListener(KeyboardEvent.KEY_UP, function(e:KeyboardEvent):void {
+          if (e.keyCode == Keyboard.ENTER) {
+            e.preventDefault();
+            cal.setFocus();            
+          } 
+        });
+                             
+        toggleModeBar.dataProvider = [
+          resourceManager.getString('calendarsample', 'calendarsample.button.Day'),
+          resourceManager.getString('calendarsample', 'calendarsample.button.WorkWeek'),
+          resourceManager.getString('calendarsample', 'calendarsample.button.Week'),     
+          resourceManager.getString('calendarsample', 'calendarsample.button.Month')
+        ];
+        
+        toggleModeBar.selectedIndex = 2;        
+        
+        cal.dataProvider = createDefaultModel();
+      }
+      
+      private var baseModel:XML = 
+        <list>
+          <event d="1" s="8"  e="3"  key="meeting"  calendar="0" />
+          <event d="1" s="12" e="2"  key="misc"     calendar="1" />
+          <event d="1" s="14" e="2"  key="meeting"  calendar="0" />
+          <event d="1" s="15" e="3"  key="training" calendar="0" />
+          <event d="1" s="20" e="2"  key="misc"     calendar="1" />
+          <event d="2" s="8"  e="1"  key="meeting"  calendar="0" />
+          <event d="2" s="9"  e="1"  key="meeting"  calendar="0" />
+          <event d="2" s="10" e="2"  key="meeting"  calendar="1" />
+          <event d="2" s="12" e="2"  key="misc"     calendar="0" />
+          <event d="2" s="14" e="4"  key="training" calendar="0" />
+          <event d="3" s="0"  e="24" key="misc"     calendar="1" />
+          <event d="3" s="8" e="3"   key="meeting"  calendar="0" />
+          <event d="3" s="13" e="3"  key="training" calendar="0" />
+          <event d="4" s="7"  e="3"  key="meeting"  calendar="0" />
+          <event d="4" s="12" e="2"  key="misc"     calendar="0" />
+          <event d="4" s="13" e="3"  key="meeting"  calendar="1" />
+          <event d="4" s="14" e="3"  key="training" calendar="0" />
+          <event d="4" s="19" e="2"  key="misc"     calendar="0" />          
+          <event d="5" s="9"  e="3"  key="meeting"  calendar="1" />
+          <event d="5" s="12" e="2"  key="misc"     calendar="0" />          
+          <event d="5" s="15" e="3"  key="training" calendar="0" />
+          <event d="5" s="20" e="4"  key="misc"     calendar="0" />          
+        </list>;
+                 
+      private function createDefaultModel():XMLList {
+        
+        var gCal:GregorianCalendar = new GregorianCalendar();
+        var startOfWeek:Date = gCal.floor(new Date(), TimeUnit.WEEK, 1);               
+                                            
+        for each (var evt:XML in baseModel.children()) {
+          var dayOfWeek:int = parseInt(evt.@d);          
+          
+          var startHour:int = parseInt(evt.@s);
+          var duration:int = parseInt(evt.@e);
+          
+          var s:Date = gCal.addUnits(startOfWeek, TimeUnit.DAY, dayOfWeek);                   
+          s = gCal.addUnits(s, TimeUnit.HOUR, startHour, true);
+          
+          var e:Date = gCal.addUnits(s, TimeUnit.HOUR, duration);
+          
+          evt.@startTime = s.toString();
+          evt.@endTime = e.toString();
+          
+          evt.@summary = resourceManager.getString("calendarsample", "model.summary." + evt.@key);          
+        }
+        
+        return baseModel.children();
+      }
+      
+      private function updateDisplayedTimeRangeLabel():void {
+        var e:Date = cal.calendar.addUnits(cal.endDisplayedDate, TimeUnit.DAY, 1);
+        rangeLabel.text = cal.getTimeRangeLabel(null, cal.startDisplayedDate, e);
+      }
+      
+      private var ctrlKey:Boolean;
+      
+      private function timeRangeSelectionBegin(event:CalendarEvent):void {
+        var triggerEvent:MouseEvent = event.triggerEvent as MouseEvent;
+        
+        ctrlKey = triggerEvent.ctrlKey;                
+      }
+                 
+      /**
+       * Listener on a time range selection.       
+       */  
+      private function timeRangeSelectionEnd(event:CalendarEvent):void {
+          
+        var triggerEvent:MouseEvent = event.triggerEvent as MouseEvent;
+               
+        if (event.reason == CalendarEventReason.COMPLETED && (ctrlKey || triggerEvent.ctrlKey)) {                   
+                      
+          //The view is already zoomed to the day so zoom to the selected hours.
+          if (cal.mode == Calendar.DAY_MODE && event.startDate.date == event.endDate.date) {
+                                      
+            cal.startDisplayedTime = [event.startDate.hours, event.startDate.minutes]; 
+            cal.endDisplayedTime = [event.endDate.hours, event.endDate.minutes];
+                              
+          } else {
+            //zoom to the selection (time unit is day)
+            //caution: startDate & endDate of the calendar are in complete day
+            //whereas the range is in time.
+            cal.startDate = event.startDate;
+            var e:Date = new Date(event.endDate.time);
+            if (e.hours == 0 && e.minutes == 0 && e.milliseconds == 0) {
+              e = cal.calendar.addUnits(e, TimeUnit.DAY, -1, true);
+            } 
+            cal.endDate = e;
+            cal.date = null;
+          }
+          
+          cal.timeRangeSelection = null;                       
+                                      
+        }                       
+      }
+           
+      private function eventPanelCreateHandler(event:Event):void {
+        
+        var e:Date; 
+        if (cal.timeRangeSelection != null) {
+          e = cal.calendar.addUnits(cal.endDisplayedDate, TimeUnit.DAY, 1);
+        } 
+        
+        if (cal.timeRangeSelection == null || (
+            cal.timeRangeSelection != null && 
+            (cal.timeRangeSelection[0] > e || 
+             cal.startDisplayedDate > cal.timeRangeSelection[1]))) {             
+          
+          // create an event at the fist displayed date, at 8:00 am
+          var startTime:Date = cal.startDisplayedDate;
+          startTime.hours = 8;
+          
+          // that lasts 1 hour
+          var endTime:Date = cal.calendar.addUnits(startTime, TimeUnit.HOUR, 1);
+          
+          createNewEvent(startTime, endTime);
+          
+        } else {
+          
+          createNewEventFromSelection(cal.timeRangeSelection);
+          cal.timeRangeSelection = null;          
+        }                               
+      }
+      
+      private function eventPanelDeleteHandler(event:Event):void {
+        //if this option is available only one event is selected.
+        deleteItem(cal.selectedItems);        
+      }
+      
+      /**
+       * Listener on a double click on the Calendar sheet
+       */  
+      private function sheetDoubleClickHandler(event:CalendarEvent):void {
+        
+        var s:Date;
+        var e:Date;
+        
+        // an alternative implementation is to use the current time range selection.        
+                       
+        if (cal.mode == Calendar.MONTH_MODE) {
+          if (event.calendarArea == CalendarArea.CELL_HEADER) {
+            // zoom to the day if we double click on the header
+            cal.date = event.startDate;
+            cal.mode = Calendar.DAY_MODE;
+            return;
+            
+          } else if (event.calendarArea == CalendarArea.ROW_HEADER) {
+            
+            s = event.startDate;
+            e = event.endDate;
+            
+          } else {
+            
+            // create an all day event, when double click on a cell
+            s = cal.calendar.floor(event.startDate, TimeUnit.DAY, 1);
+            e = cal.calendar.addUnits(s, TimeUnit.DAY, 1);
+          }    
+        } else {
+          
+          if (event.calendarArea == CalendarArea.SHEET) {
+            //create an event that starts at the beginning of the time slot and that lasts a time slot duration
+            s = cal.calendar.floor(event.startDate, TimeUnit.MINUTE, cal.getTimeSlotDuration());
+            e = cal.calendar.addUnits(s, TimeUnit.MINUTE, cal.getTimeSlotDuration());
+          } else {
+            // create an all day event when double click on the secondary sheet or the column header
+            s = cal.calendar.floor(event.startDate, TimeUnit.DAY, 1);
+            e = cal.calendar.addUnits(s, TimeUnit.DAY, 1);
+          }
+        }
+        
+        createNewEvent(s, e);
+        
+        cal.timeRangeSelection = null;
+      }
+      
+      /**
+       * Selects a time range when clicking on the column header or the row header.
+       */  
+      private function sheetClickHandler(event:CalendarEvent):void {
+        if (event.calendarArea == CalendarArea.ROW_HEADER ||             
+            event.calendarArea == CalendarArea.COLUMN_HEADER) {
+          cal.timeRangeSelection = [event.startDate, event.endDate];               
+        } 
+      }
+      
+      
+      private var editingValues:Object;
+      
+      /**
+       * Listener on the begginning of the editing of an item. 
+       */
+      private function itemEditBegin(event:CalendarEvent):void {
+        
+        var calItem:CalendarItem = cal.itemToCalendarItem(event.item);
+        
+        editingValues = {
+          oldStartTime: new Date(calItem.startTime.time),
+          oldEndTime: new Date(calItem.endTime.time)
+        };
+        
+      }
+      
+      private var editingConfirmationPanel:EditingConfirmationPanel;
+      
+      /**
+       * Listener on the end of the editing to update event properties panel. 
+       */  
+      private function itemEditEnd(event:CalendarEvent):void {
+        
+        if (event.reason == CalendarEventReason.COMPLETED) {
+          
+          var calItem:CalendarItem = cal.itemToCalendarItem(event.item);
+          
+          if (event.item is IRecurrenceInstance) {
+                                  
+            event.preventDefault();                      
+                       
+            editingValues.kind = cal.editKind;
+            editingValues.item = event.item;
+            editingValues.newStartTime = new Date(calItem.startTime.time);
+            editingValues.newEndTime = new Date(calItem.endTime.time);
+            
+            if (editingConfirmationPanel == null) {
+              editingConfirmationPanel = new EditingConfirmationPanel();
+              editingConfirmationPanel.addEventListener(CloseEvent.CLOSE, confirmationEditHandler);              
+            }
+            
+            cal.suspendEditing();
+            editingConfirmationPanel.reset();
+            PopUpManager.addPopUp(editingConfirmationPanel, DisplayObject(FlexGlobals.topLevelApplication), true);            
+            PopUpManager.centerPopUp(editingConfirmationPanel);
+            editingConfirmationPanel.defaultButton = editingConfirmationPanel.okButton;
+            editingConfirmationPanel.okButton.setFocus();
+              
+          } else {
+                    
+            eventPanel.calendarItem = cal.itemToCalendarItem(event.item);
+          }
+        }       
+      }           
+      
+      private function confirmationEditHandler(event:CloseEvent):void {
+        
+        PopUpManager.removePopUp(editingConfirmationPanel);
+        
+        var calItem:CalendarItem = cal.itemToCalendarItem(editingValues.item);
+        var baseItem:XML = IRecurrenceInstance(editingValues.item).item as XML;
+        
+        var collection:ICollectionView = cal.dataProvider as ICollectionView;
+                               
+        if (event.detail == Alert.CANCEL) {
+          
+          // by default the cancel would have been managed by the calendar
+          // but we disabled the setting of the event
+          // So let's call an update on this occurrence.
+          // As the occurrences are not in the data provider itself but in the recurrence view,
+          // let's call the update on the recurrence view.
+          var occ:IRecurrenceInstance = IRecurrenceInstance(calItem.data);
+                    
+          var recurrenceView:RecurrenceView = cal.recurrenceView;
+          recurrenceView.itemUpdated(occ);
+                             
+        } else {
+          
+          collection.disableAutoUpdate();
+                                     
+          if (editingConfirmationPanel.editSerie) {                   
+                                 
+            // apply changes on the recurring event                                                                                        
+            cal.applyItemEditEnd(editingValues.item, editingValues.kind, 
+                                 editingValues.oldStartTime, editingValues.newStartTime,
+                                 editingValues.oldEndTime, editingValues.newEndTime);                   
+                      
+          } else {
+            
+            // create an item in the data provider for this particular instance
+            var newItem:XML = <event />
+            newItem.@startTime = editingValues.newStartTime;
+            newItem.@endTime = editingValues.newEndTime;
+            newItem.@summary = calItem.summary;
+            
+            newItem.@description = calItem.description == null ? "" : calItem.description;
+            newItem.@calendar = calItem.calendar;
+            
+            // exception event has the id than the recurring event
+            newItem.@id = baseItem.@id;
+             
+            // the time of the occurrence to replace by this exception event.
+            newItem.@exdate = editingValues.oldStartTime.toString();
+                      
+            collection.createCursor().insert(newItem); 
+            
+            eventPanel.calendarItem = cal.itemToCalendarItem(newItem);
+            cal.selectedItems = [newItem];
+            
+            // an exception event has been added. We must update the 
+            // association recurring event / exception events
+            // to take this new exception event into account.   
+            cal.recurrenceDescriptor.invalidateExceptionEvents(baseItem);
+                                                             
+          }
+          
+          collection.itemUpdated(baseItem);
+          collection.enableAutoUpdate();
+        }                                    
+      }
+      
+      /**
+       * Listener of date range changes to update the buttons and the visible time range label.
+       */  
+      private function visibleTimeRangeChanged(event:CalendarEvent):void {
+                                                 
+        updateDisplayedTimeRangeLabel();
+        
+        var buttonEnabled:Boolean = cal.mode != Calendar.MONTH_MODE;
+        zoomInButton.enabled = buttonEnabled;
+        zoomOutButton.enabled = buttonEnabled;
+        
+        toggleModeBar.selectedIndex = modes.indexOf(cal.mode);                               
+      }
+                      
+      /**
+       * Handler of event notification events.
+       */   
+      private function notificationHandler(event:CalendarEvent):void { 
+        showNotificationPanel(cal.itemToCalendarItem(event.item));
+      }
+      
+      /**
+       * Shows a notification panel.
+       */  
+      private function showNotificationPanel(item:CalendarItem):void {
+        
+        if (notifPanel == null) {
+          
+          notifPanel = new NotificationPanel();
+          
+          notifPanel.addEventListener(CloseEvent.CLOSE, function (e:CloseEvent):void {
+            PopUpManager.removePopUp(notifPanel);
+          });
+          
+          notifPanel.addEventListener(SnoozeEvent.SNOOZE, function (e:SnoozeEvent):void {            
+            PopUpManager.removePopUp(notifPanel);
+            var t:Timer = new Timer(300000, 1); //5min
+            t.addEventListener(TimerEvent.TIMER_COMPLETE, function (e2:TimerEvent):void {              
+              showNotificationPanel(e.item as CalendarItem);
+            });
+            t.start();            
+          });                
+           
+        } else {
+          
+          PopUpManager.removePopUp(notifPanel);          
+        }
+        
+        notifPanel.item = item;
+        
+        PopUpManager.addPopUp(notifPanel, DisplayObject(FlexGlobals.topLevelApplication), true);            
+        PopUpManager.centerPopUp(notifPanel);
+        notifPanel.defaultButton = notifPanel.okButton;      
+        notifPanel.okButton.setFocus();                   
+      }           
+                 
+      private function selectionChanged(event:CalendarEvent):void {
+        
+        var item:CalendarItem = null;
+        if (cal.selectedItems.length == 1) {
+          item = cal.itemToCalendarItem(cal.selectedItems[0]);
+        } 
+        
+        eventPanel.calendarItem = item;
+      }     
+                         
+      /**
+       * Listener on click on arrows of horizontal item renderers.       
+       */  
+      private function horizontalItemRendererArrowClicked(event:CalendarEvent):void {
+        var item:XML = event.item as XML;
+        
+        if (cal.mode == Calendar.MONTH_MODE) {
+          return;
+        }
+        
+        var calendar:GregorianCalendar = cal.calendar;
+        var viewDuration:int = calendar.getDays(cal.startDisplayedDate, cal.endDisplayedDate);        
+        
+        if (event.type == CalendarEvent.LEFT_ARROW_CLICK) {
+          //go the beginning of the event
+          var s:Date = cal.itemToCalendarItem(item).startTime;
+          cal.startDate = s;
+          cal.endDate = calendar.addUnits(s, TimeUnit.DAY, viewDuration);
+        } else {
+          //right arrow
+          //go the end of the event
+          var e:Date = cal.itemToCalendarItem(item).endTime;
+          cal.endDate = e;
+          cal.startDate = calendar.addUnits(e, TimeUnit.DAY, -viewDuration);
+        }        
+      }        
+      
+      /**
+       * Zooms in the calendar.
+       */  
+      private function zoomInCalendar():void {
+        if (cal.mode != Calendar.MONTH_MODE) {                   
+          zoomInButton.enabled = cal.zoom(2, true);
+          zoomOutButton.enabled = true;                    
+        }
+      }
+      
+      /**
+       * Zooms out the calendar.
+       */           
+      private function zoomOutCalendar():void {
+        if (cal.mode != Calendar.MONTH_MODE) {          
+          zoomOutButton.enabled = cal.zoom(0.5, true);
+          zoomInButton.enabled = true;          
+        }        
+      }
+                             
+      private function moveToCurrentDay():void {
+        
+        cal.date = new Date();
+        cal.mode = Calendar.DAY_MODE;                                   
+      }
+          
+     
+      private var removeRecurrencePanel:RemoveConfirmationPanel;
+      
+      /**
+       * Shows a panel to confirm the deletion of the selected event(s). 
+       */  
+      private function deleteItem(items:Array):void {
+                  
+        if (items != null && items.length == 1) {
+          
+          var theText:String;
+          var theTitle:String;
+                    
+          var item:Object = items[0];
+          
+          if (item is IRecurrenceInstance) {
+            
+            if (removeRecurrencePanel == null) {
+              removeRecurrencePanel = new RemoveConfirmationPanel();
+              removeRecurrencePanel.addEventListener(CloseEvent.CLOSE, confirmationRemoveHandler2);              
+            }
+            
+            removeRecurrencePanel.reset()
+            
+            PopUpManager.addPopUp(removeRecurrencePanel, DisplayObject(FlexGlobals.topLevelApplication), true);            
+            PopUpManager.centerPopUp(removeRecurrencePanel);
+            
+            removeRecurrencePanel.defaultButton = removeRecurrencePanel.okButton;
+            removeRecurrencePanel.okButton.setFocus();
+                                   
+          } else {
+                      
+            var itemToDelete:CalendarItem = cal.itemToCalendarItem(items[0]);
+            var s:String = itemToDelete.summary;
+            if (s == null) {
+              s = "";
+            }
+            theText = resourceManager.getString("calendarsample", "calendarsample.delete.warning", [s]);
+            theTitle = resourceManager.getString("calendarsample", "calendarsample.delete.title");          
+          
+            Alert.show(theText, theTitle, Alert.YES | Alert.NO, null, confirmationRemoveHandler, null, Alert.YES);
+            
+          }                                         
+        }                            
+      }
+      
+      private function confirmationRemoveHandler2(event:CloseEvent):void {
+        
+        PopUpManager.removePopUp(removeRecurrencePanel);
+                
+        if (event.detail == Alert.CANCEL) {
+          
+          return;
+        }                        
+        
+        var item:Object = cal.selectedItems[0];
+        var baseItem:XML = IRecurrenceInstance(item).item as XML; 
+        
+        if (removeRecurrencePanel.editSerie) {
+          
+          // to remove the entire serie, we just have to remove the recurring item
+          // of the data provider.
+          
+          var col:ListCollectionView = cal.dataProvider as ListCollectionView;
+                                                        
+          var index:int = col.getItemIndex(baseItem);
+          if (index != -1) {            
+            col.removeItemAt(index);
+          }
+          
+        } else {
+          
+          // No need to remove a real item from the data provider
+          // we just have to add a exception for this particular date.
+          
+          var calItem:CalendarItem = cal.itemToCalendarItem(item);                    
+          addExceptionDate(baseItem, calItem.startTime);
+          
+        }            
+                
+        eventPanel.calendarItem = null;                      
+      }
+      
+      /**
+       * Deletion confirmation panel close hanlder.
+       */  
+      private function confirmationRemoveHandler(event:CloseEvent):void {
+        
+        if (event.detail == Alert.YES) {
+          
+          var col:ListCollectionView = cal.dataProvider as ListCollectionView;
+          
+          var item:Object = cal.selectedItems[0];
+                                    
+          var index:int = col.getItemIndex(item);
+          if (index != -1) {            
+            col.removeItemAt(index);
+          }            
+          
+          // we manipulate XML so use the '@' notation 
+          if (item.hasOwnProperty("@exdate")) { // is an exception event
+            var recItem:XML = findRecurringEvent(item.@id);
+            if (recItem != null) {
+              cal.recurrenceDescriptor.invalidateExceptionEvents(recItem);
+            }
+          }                   
+          
+          eventPanel.calendarItem = null;
+        }
+      }      
+      
+      private function findRecurringEvent(id:String):XML {
+        
+        // the recurring event is in the data provider. 
+        var col:ListCollectionView = cal.dataProvider as ListCollectionView;
+        
+        var it:IViewCursor = col.createCursor();
+        
+        while(!it.afterLast) {
+          var cId:String = it.current.@id.toString();
+          if (cId == id && !cal.hasOwnProperty("@exdate")) {
+            return it.current as XML;
+          }
+          it.moveNext();
+        }
+        
+        return null;
+      }  
+                     
+      /**
+       * Keyboard handler. 
+       *   - Delete the selection when the delete key is pressed.
+       *   - Create an event by selecting a time range and pressed 'enter' or typing text.
+       *   - Shift + Home is tracing the model
+       */  
+      private function myKeyboardEventHandler(event:KeyboardEvent):void {
+        
+        switch(event.keyCode) {
+          
+          case Keyboard.DELETE:
+            deleteItem(cal.selectedItems);
+            break;
+            
+          case Keyboard.ENTER:
+            createNewEventFromSelection(cal.timeRangeSelection);
+            cal.timeRangeSelection = null;
+            eventPanel.setFocusOnSummary();
+            break;
+            
+          case Keyboard.HOME:
+            if (event.shiftKey) {
+              var col:XMLListCollection = cal.dataProvider as XMLListCollection;
+              trace(col.source);
+            } 
+            break;
+             
+          case Keyboard.BACKSPACE:
+          case Keyboard.CONTROL:
+          case Keyboard.DELETE:
+          case Keyboard.DOWN:
+          case Keyboard.END:
+          case Keyboard.ESCAPE:
+          case Keyboard.INSERT:
+          case Keyboard.LEFT:
+          case Keyboard.UP:
+          case Keyboard.RIGHT:
+          case Keyboard.TAB:
+            return ;
+            
+          default:
+            
+            if (event.shiftKey || event.ctrlKey || event.charCode == 0) {
+              return;
+            }
+                                               
+            var e:Date = cal.calendar.addUnits(cal.endDisplayedDate, TimeUnit.DAY, 1);
+              
+            if (cal.timeRangeSelection != null && 
+               (cal.timeRangeSelection[0] > e || 
+                cal.startDisplayedDate > cal.timeRangeSelection[1])) {
+               return;        
+            }             
+            
+            // simple implementation of IME.
+            if (Capabilities.hasIME && IME.enabled) {
+              
+              createNewEventFromSelection(cal.timeRangeSelection, "");
+              
+              if (cal.timeRangeSelection != null) {
+                eventPanel.summaryTextInput.text = "";
+              }
+              eventPanel.summaryTextInput.setSelection(0,0);
+                                              
+            } else {
+              
+              var s:String = String.fromCharCode(event.charCode);
+              
+              createNewEventFromSelection(cal.timeRangeSelection, s);
+                                          
+              if (cal.timeRangeSelection != null) {
+                eventPanel.summaryTextInput.text = s;
+              }
+              eventPanel.summaryTextInput.setSelection(1,1);
+            }
+            
+            eventPanel.setFocusOnSummary(false);
+            
+            cal.timeRangeSelection = null;              
+        }                       
+      }
+      
+      private function createNewEventFromSelection(selection:Array, summary:String=null, minimalDuration:Boolean=false):void {                
+        
+         if (selection != null) {
+           var startTime:Date = selection[0] as Date;
+           var endTime:Date = selection[1] as Date;
+            
+           if (minimalDuration) {                                    
+             var endTime2:Date = cal.calendar.addUnits(startTime, TimeUnit.HOUR, 1);
+            
+             if (endTime < endTime2) {
+               endTime = endTime2;
+             }
+           }
+             
+           createNewEvent(startTime, endTime, summary);
+        } 
+      }
+      
+      private function addExceptionDate(item:XML, date:Date):void {
+        
+        var exdates:String = item.@exdates;
+        var dates:Array = exdates == "" ? [] : exdates.split(",");      
+        dates.push(date.toString());
+          
+        item.@exdates = dates.join(",");        
+      }
+      
+      private function createNewEvent(startTime:Date, endTime:Date, summary:String=null):void {
+        
+        if (summary == null) {
+          summary = resourceManager.getString("calendarsample", "calendarsample.default.summary");
+        }
+        
+        addedItem = <event/>;                                                             
+        addedItem.@startTime = startTime;              
+        addedItem.@endTime = endTime;
+        addedItem.@summary = summary;
+        addedItem.@description = "";
+        addedItem.@calendar = calendarCheckbox1.selected ? calendars[0].id : calendars[1].id;
+        //unique ID to avoid having the same item at the '==' sense.
+        addedItem.@id = idCount++;
+        
+        var col:ListCollectionView = cal.dataProvider as ListCollectionView;                                          
+        col.addItem(addedItem);
+        
+        cal.selectedItems = [addedItem];
+        
+        eventPanel.calendarItem = cal.itemToCalendarItem(addedItem);            
+      }
+      
+      private function calendarCheckboxHandler(event:Event):void {
+        
+        //make sure that at least one calendar is selected
+        if (event.target == calendarCheckbox1 && 
+            !calendarCheckbox2.selected) {
+           calendarCheckbox2.selected = true;     
+        } else if (event.target == calendarCheckbox2 && 
+                   !calendarCheckbox1.selected) {
+           calendarCheckbox1.selected = true;     
+        }
+        
+        eventPanel.calendarRadioEnabled = calendarCheckbox2.selected && calendarCheckbox1.selected;
+        
+        var sel:Array = cal.selectedItems;
+         
+        if (sel != null && sel.length > 0) {
+          if ((event.target == calendarCheckbox1 && 
+               sel[0].@calendar == calendars[0].id) ||
+              (event.target == calendarCheckbox2 && 
+               sel[0].@calendar == calendars[1].id)) {
+            cal.selectedItems = [];
+            eventPanel.calendarItem = null;
+          } 
+        }
+                              
+        updateCollectionFilter();
+      }
+           
+      /**
+       * Refreshes the collection view. 
+       */  
+      private function updateCollectionFilter():void {
+                    
+        var collection:ICollectionView = cal.dataProvider as ICollectionView;
+        if (collection.filterFunction == null) {
+          collection.filterFunction = collectionFilter;
+        }
+        collection.refresh();
+      }
+      
+      /**
+       * The collection view filter that displays the checked calendars.
+       */  
+      private function collectionFilter(item:Object):Boolean {
+        var calendarItem:CalendarItem = cal.itemToCalendarItem(item);
+       
+        if (calendarItem.calendar == calendars[0].id && 
+            !calendarCheckbox1.selected) {          
+          return false;
+        }
+        if (calendarItem.calendar == calendars[1].id && 
+            !calendarCheckbox2.selected) {          
+          return false;
+        }
+        return true;               
+      }
+      
+      /**
+       * This function is called by the calendar to give a color to the 
+       * item renderers.       
+       */  
+      private function itemColorFunction(calItem:CalendarItem):Object {
+                
+        var now:Date = new Date();
+                
+        //if the item is in the past, return gray. 
+        if (calItem.endTime < now) {
+          return 0x555555;
+        } else {
+          // use the calendar color.
+          var index:int = parseInt(calItem.calendar as String);
+          return calendars[index].color;        
+        }
+      }
+      
+      /**
+       * Changes the mode of the calendar when the mode toggle button bar is clicked.
+       */  
+      private function toggleMode(event:ItemClickEvent):void {
+        if (cal.date == null) {          
+          cal.date = cal.endDate;              
+        }
+        cal.mode = modes[event.index];
+        
+        cal.rowHeaderEnabled = cal.mode == Calendar.MONTH_MODE;
+        cal.columnHeaderEnabled = cal.mode != Calendar.MONTH_MODE;
+      }
+      
+
+    ]]>
+  </mx:Script>
+  
+  <mx:Metadata>
+    [ResourceBundle("calendarsample")]
+  </mx:Metadata>    
+  
+  <mx:Style source="../resources/elixirsample.css"/>
+  
+  <mx:Style>
+    @namespace ilog "http://www.ilog.com/2007/ilog/flex";
+    @namespace local "*";
+    
+    local|CustomVerticalRenderer {
+      color: #FFFFFF;
+      recurrence-icon: Embed(source="../resources/recurringItem.png");
+      exception-icon: Embed(source="../resources/recurringItemException.png");
+      start-time-font-size: 8;
+      end-time-font-size: 8;
+      border-skin: ClassReference("GradientBorder");
+
+    }
+           
+    ilog|CalendarItemHorizontalRenderer {
+      color: #FFFFFF;
+      recurrence-icon: Embed(source="../resources/recurringItem.png");
+      exception-icon: Embed(source="../resources/recurringItemException.png");
+      border-skin: ClassReference("GradientBorder");
+    }
+    
+    .todayDateChooserFont {
+      color: #000000;
+      font-weight: bold;      
+    }
+    
+    @namespace mx "library://ns.adobe.com/flex/mx";    
+    mx|DateChooser {
+      today-style-name: todayDateChooserFont;
+      today-color: #FFFF73;
+    }
+    
+    mx|Alert {
+      color: #000000;
+      background-color: #FFFFFF;
+      background-alpha: 1;
+    }
+      
+  </mx:Style>   
+  
+  <mx:VBox width="100%" height="100%" left="5" right="5" top="5" bottom="5" horizontalAlign="center">
+       
+    <local:ElixirSampleBar id="bar" label="@Resource(bundle='calendarsample', key='calendarsample.application.title')" creationComplete="initBackground()"/>
+  
+    <mx:HBox height="100%" width="100%">
+      
+      <mx:VBox height="100%" width="100%">  
+                        
+        <mx:Canvas width="100%">
+              
+          <mx:HBox left="0" bottom="0">
+            <mx:Label id="rangeLabel" fontWeight="bold" fontSize="18" />                                           
+          </mx:HBox>
+        
+          <mx:HBox id="box" right="0" bottom="0">
+            
+            <mx:Button id="zoomInButton" width="36" icon="@Embed(source='../resources/zoom.png')" click="zoomInCalendar()" />
+            <mx:Button id="zoomOutButton" width="36" icon="@Embed(source='../resources/unzoom.png')" click="zoomOutCalendar()" />
+            <mx:Box width="20" height="10" />
+            
+            <mx:Button id="prevButton" height="22" skin="ilog.skins.PreviousArrowSkin" click="cal.previousRange()"  />
+            <mx:Button id="nextButton" height="22" skin="ilog.skins.NextArrowSkin" click="cal.nextRange()"  /> 
+            <mx:Button label="@Resource(bundle='calendarsample', key='calendarsample.button.Today')" click="moveToCurrentDay()" />
+            <mx:Box width="5" height="10" />
+            
+            <mx:ToggleButtonBar id="toggleModeBar" itemClick="toggleMode(event)"/>            
+            
+          </mx:HBox>
+             
+        </mx:Canvas>     
+               
+        <mx:HBox height="100%" width="100%" paddingBottom="20">
+                                   
+          <mx:VBox id="leftContainer" height="100%"> 
+               
+            <mx:DateChooser id="dc" width="100%" allowMultipleSelection="true" allowDisjointSelection="false" />
+            <mx:DateChooser id="dc2" width="100%" allowMultipleSelection="true" allowDisjointSelection="false" />                                                                                                            
+                       
+            <mx:Panel id="help" width="100%" height="100%" title="@Resource(bundle='calendarsample', key='calendarsample.title.help')" 
+                      paddingLeft="5" paddingRight="0" paddingTop="5" paddingBottom="5" 
+                      borderStyle="solid" borderColor="#CCCCCC">
+              <mx:TextArea editable="false" htmlText="@Resource(bundle='calendarsample', key='calendarsample.help.content')"
+                           borderStyle="none" width="100%" height="100%" selectable="false"/>
+                
+              
+            </mx:Panel>         
+            
+          </mx:VBox>       
+           
+          <ilog:Calendar id="cal" width="100%" height="100%"                                           
+                         animationDuration="1000"                     
+                         doubleClickEnabled="true"
+                         itemColorFunction="{itemColorFunction}"                      
+                         allowMultipleSelection="false"                                                 
+                         startDisplayedTime="[8,0]"
+                         endDisplayedTime="[18,0]"
+                         showItemIndicators="true"
+                         columnHeaderEnabled="true">                                     
+
+			  <ilog:currentTimeIndicatorStroke >
+              <mx:SolidColorStroke alpha="0.8" color="#9C35BE" weight="2" caps="none" />
+            </ilog:currentTimeIndicatorStroke>
+            
+            <ilog:workingTimes>
+              <mx:Object rangeStart="8:00" rangeEnd="18:00"/>
+            </ilog:workingTimes>  
+            
+            <ilog:itemVerticalRenderer>
+              <mx:Component>
+                <local:CustomVerticalRenderer/>                  
+              </mx:Component>
+            </ilog:itemVerticalRenderer>                       
+                                        
+          </ilog:Calendar>           
+                   
+        </mx:HBox>         
+                                          
+      </mx:VBox>
+      
+      <mx:VBox height="100%"  paddingBottom="20">
+        <mx:Spacer width="100%" height="23" />         
+        
+        <mx:Panel width="100%" title="@Resource(bundle='calendarsample', key='calendarsample.title.Legend')" 
+                  paddingLeft="10" paddingRight="10" paddingTop="5" paddingBottom="5" 
+                  borderStyle="solid" borderColor="#CCCCCC">
+                  
+          <mx:HBox verticalAlign="middle">
+            <mx:Box id="calendarColor1" width="20" height="20" borderColor="#CCCCCC" borderStyle="solid" />
+            <mx:CheckBox id="calendarCheckbox1" label="@Resource(bundle='calendarsample', key='calendarsample.calendar.Professional')" 
+                         selected="true" change="calendarCheckboxHandler(event)" />
+          </mx:HBox>
+          
+          <mx:HBox verticalAlign="middle">
+            <mx:Box id="calendarColor2" width="20" height="20" borderColor="#CCCCCC" borderStyle="solid" />
+            <mx:CheckBox id="calendarCheckbox2" label="@Resource(bundle='calendarsample', key='calendarsample.calendar.Personal')" 
+                         selected="true" change="calendarCheckboxHandler(event)" />
+          </mx:HBox>
+          
+          <mx:HBox verticalAlign="middle">
+            <mx:Box id="calendarColor3" width="20" height="20" borderColor="#CCCCCC" borderStyle="solid" backgroundColor="#CCCCCC" />
+            <mx:Label text="@Resource(bundle='calendarsample', key='calendarsample.legend.PastEvents')" />
+          </mx:HBox>
+          
+        </mx:Panel> 
+        
+        <local:EventPanel id="eventPanel" width="100%" height="100%"
+                          title="@Resource(bundle='calendarsample', key='calendarsample.title.EventPanel')"  
+                          calendars="{calendars}" calendar="{cal}" />
+                            
+      </mx:VBox>  
+    
+    
+    </mx:HBox>
+  
+  </mx:VBox>
+              
+</mx:Application>

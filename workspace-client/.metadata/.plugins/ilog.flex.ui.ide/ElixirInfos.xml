@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="/Applications/IBM/ILOG/Elixir 3.0">
+<swcLibs>
+<entry path="/Applications/IBM/ILOG/Elixir 3.0/frameworks/libs/ilog-elixir-deprecated.swc"/>
+<entry path="/Applications/IBM/ILOG/Elixir 3.0/frameworks/libs/ilog-elixir.swc"/>
+</swcLibs>
+<swcUSLibs>
+<entry path="/Applications/IBM/ILOG/Elixir 3.0/frameworks/locale/en_US/ilog-elixir-deprecated_rb.swc"/>
+<entry path="/Applications/IBM/ILOG/Elixir 3.0/frameworks/locale/en_US/ilog-elixir_rb.swc"/>
+</swcUSLibs>
+<swcJPLibs>
+<entry path="/Applications/IBM/ILOG/Elixir 3.0/frameworks/locale/ja_JP/ilog-elixir-deprecated_rb.swc"/>
+<entry path="/Applications/IBM/ILOG/Elixir 3.0/frameworks/locale/ja_JP/ilog-elixir_rb.swc"/>
+</swcJPLibs>
+<sourcePath>
+<entry path="/Applications/IBM/ILOG/Elixir 3.0/frameworks/projects/ilog-elixir/src"/>
+</sourcePath>
+</libraryInfo>
+</libraryInfos>

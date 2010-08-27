@@ -1,0 +1,358 @@
+@namespace "http://www.ibm.com/xmlns/prod/ilog/elixir/2010";
+
+Scroller {
+  skinClass : ClassReference("com.ibm.ilog.elixir.skins.spark.ScrollerSkin");
+  panCursor : Embed("com/ibm/ilog/elixir/components/pan-cursor.png");
+  zoomDuration : 300;
+  translationDuration : 300;
+  reticleColor : blue;
+  horizontalScrollPolicy : auto;
+  verticalScrollPolicy : auto;
+}
+
+@namespace ilog "http://www.ilog.com/2007/ilog/flex";
+
+ilog|OLAPChart {
+  borderStyle: "none";
+  cornerRadius : 0;
+  dropShadowEnabled : false;
+}
+
+ilog|PivotChart {
+  dropIndicatorSkin : ClassReference("mx.skins.halo.ListDropIndicator");
+  dropAreaBorderSkin : ClassReference("ilog.charts.skins.spark.PivotDropAreaBorderSkin");
+  showLegend : true;
+  dropAreaBorderColors: #E7E7E7, #D9D9D9;
+  dropAreaBorderAlpha: 0.4;
+  dropAreaCornerRadius: 0;
+  dropAreaHighlightAlphas: 0.3, 0;
+  dropAreaDropShadowEnabled: true;
+  dropAreaDropShadowVisible: true;
+  dropAreaDropShadowDirection: center;
+  dropAreaDropShadowDistance: 2;
+  horizontalGap: 6;
+  verticalGap: 6;
+  nextPageSkin: ClassReference("ilog.skins.NextArrowSkin");
+  prevPageSkin: ClassReference("ilog.skins.PreviousArrowSkin");
+}
+
+ilog|PivotCombo {
+  arrowButtonWidth: 18;
+  cornerRadius: 5;
+  disabledIconColor: #919999;
+  dropdownStyleName: "comboDropdown";
+  editableSkin: ClassReference("mx.skins.spark.EditableComboBoxSkin");
+  leading: 0;
+  paddingBottom: -2;
+  paddingLeft: 5;
+  paddingRight: 5;
+  paddingTop: -1;
+  skin: ClassReference("mx.skins.spark.ComboBoxSkin");
+}
+
+@namespace "http://www.ilog.com/2007/ilog/flex";
+
+PivotChart3D {
+  dropIndicatorSkin : ClassReference("mx.skins.halo.ListDropIndicator");
+  dropAreaBorderSkin : ClassReference("ilog.charts.PivotDropAreaBorder");
+  showLegend : true;
+  dropAreaBorderColors: #E7E7E7, #D9D9D9;
+  dropAreaBorderAlpha: 0.4;
+  dropAreaCornerRadius: 0;
+  dropAreaHighlightAlphas: 0.3, 0;
+  dropAreaDropShadowEnabled: true;
+  dropAreaDropShadowDirection: center;
+  dropAreaDropShadowDistance: 2;
+  horizontalGap: 6;
+  verticalGap: 6;
+  nextPageSkin: ClassReference("ilog.skins.NextArrowSkin");
+  prevPageSkin: ClassReference("ilog.skins.PreviousArrowSkin");
+}
+
+@namespace "http://www.ibm.com/xmlns/prod/ilog/elixir/2010";
+
+GlossySkin {
+  color: #FFFFFF;
+  chrome-color: #000000;
+}
+
+HLinearGauge, HMultiLinearGauge, HCategoryGauge {
+  skinClass : ClassReference("com.ibm.ilog.elixir.gauges.skins.glossy.HorizontalGaugeSkin");
+}
+
+VLinearGauge, VMultiLinearGauge, VCategoryGauge {
+  skinClass : ClassReference("com.ibm.ilog.elixir.gauges.skins.glossy.VerticalGaugeSkin");
+}
+
+CircularLinearGauge, CircularMultiLinearGauge, CircularCategoryGauge
+{
+  skinClass: ClassReference("com.ibm.ilog.elixir.gauges.skins.glossy.CircularGaugeSkin");
+  layout-direction: ltr;
+}
+
+SemiCircularLinearGauge, SemiCircularMultiLinearGauge, SemiCircularCategoryGauge
+{
+  skinClass: ClassReference("com.ibm.ilog.elixir.gauges.skins.glossy.SemiCircularGaugeSkin");
+  layout-direction: ltr;
+}
+
+@namespace "http://www.ibm.com/xmlns/prod/ilog/elixir/2010";
+@namespace mapBase "com.ibm.ilog.elixir.maps.supportClasses.*";
+
+mapBase|MapBase {  
+  skinClass : ClassReference("com.ibm.ilog.elixir.maps.skins.spark.MapSkin");
+  
+  contentBackgroundColor:#BAC1CB;
+  
+  contentBorderColor:#6192d4;
+  
+  selectionAlpha:1;
+  
+  rollOverAlpha:1;
+  
+  selectionAndRollOverAlpha:1;
+  selectionAndRollOverColor:#7788a4;
+  
+  backgroundColor:#FFFFFF;
+  backgroundAlpha:1;
+  
+  borderWeight:1;
+}
+
+MapGroup {
+  layoutDirection : "ltr";
+}
+
+@namespace "http://www.ibm.com/xmlns/prod/ilog/elixir/2010";
+@namespace s "library://ns.adobe.com/flex/spark";
+
+/* Styling of horizontal timelines */
+
+HTimeline {
+  overviewBandVisible : true;
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HTimelineSkin");
+  backgroundAlpha : 1;
+  backgroundColor : #FFFFFF;
+  borderWeight : 1;
+  contentBorderColor : #111111;
+  selectionAlpha: 1.0;
+  rollOverAlpha : 1.0;
+  selectionAndRollOverColor : #A8C6EE;
+  selectionAndRollOverAlpha : 1.0;
+}
+
+TimeAxis {
+  skinClass : ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HTimelineAxisSkin");
+  animationDuration : 500;
+  majorTicksVisible : true;
+  minorTicksVisible : true;
+  majorLabelsVisible : true;
+  minorLabelsVisible : false;
+}
+
+TimelineGrid {
+  skinClass : ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HTimelineGridSkin");
+  alternatingCellColors: #CCCCCC, #FFFFFF;
+  majorLinesVisible : true;
+  minorLinesVisible : true;
+}
+
+TimelineBand {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HTimelineBandSkin");
+  backgroundAlpha : 1;
+  backgroundColor : #FFFFFF;   
+}
+
+TimelineBand.standalone {
+  contentBorderColor : #111111;
+  selectionAlpha: 1.0;
+  rollOverAlpha : 1.0;
+  selectionAndRollOverColor : #A8C6EE;
+  selectionAndRollOverAlpha : 1.0;
+}
+
+TimelineRangeSelector s|Button#visibleArea {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.OverviewVisibleAreaSkin");
+}
+
+TimelineRangeSelector s|Button#startValueHandle, TimelineRangeSelector s|Button#endValueHandle {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.OverviewHandleSkin");
+}
+
+/* A TimelineBand in a Timeline must not get a background */
+HTimeline TimelineBand {
+  backgroundColor : undefined;  
+}
+
+TimelineRangeSelector {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HTimelineRangeSelectorSkin");
+  repeatDelay : 500;
+  repeatInterval : 35;
+}
+
+TimelineBand.rtlStyle TimelineRangeSelector {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.RTLHTimelineRangeSelectorSkin");
+  repeatDelay : 500;
+  repeatInterval : 35;
+}
+
+NumericTimelineBand.rtlStyle TimelineRangeSelector {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.RTLHTimelineRangeSelectorSkin");
+  repeatDelay : 500;
+  repeatInterval : 35;
+}
+
+TimelineBand#overviewBand {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HTimelineOverviewBandSkin");  
+}
+
+/* Styling of vertical timelines */
+
+VTimeline {
+  overviewBandVisible : true;
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineSkin");
+  backgroundAlpha : 1;
+  backgroundColor : #FFFFFF;    
+  borderWeight : 1;
+  contentBorderColor : #111111;
+  selectionAlpha: 1.0;
+  rollOverAlpha : 1.0;
+  selectionAndRollOverColor : #A8C6EE;
+  selectionAndRollOverAlpha : 1.0;
+}
+
+/* A TimelineBand in a Timeline must not get a background */
+VTimeline TimelineBand {
+  backgroundColor : undefined;
+}
+
+TimelineBand.ttbStyle TimeAxis, TimelineBand.bttStyle TimeAxis {
+  animationDuration : 500;
+  skinClass : ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineAxisSkin");
+}
+
+TimelineBand.ttbStyle TimelineGrid, TimelineBand.bttStyle TimelineGrid {
+  skinClass : ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineGridSkin");
+}
+
+TimelineBand.ttbStyle, TimelineBand.bttStyle {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineBandSkin");
+}
+
+TimelineBand.ttbStyle#overviewBand, TimelineBand.bttStyle#overviewBand {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineOverviewBandSkin");  
+}
+
+TimelineBand.ttbStyle TimelineRangeSelector {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineRangeSelectorSkin");
+  repeatDelay : 500;
+  repeatInterval : 35;
+}
+
+TimelineBand.bttStyle TimelineRangeSelector {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.BTTVTimelineRangeSelectorSkin");
+  repeatDelay : 500;
+  repeatInterval : 35;
+}
+
+NumericTimelineBand.bttStyle TimelineRangeSelector {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.BTTVTimelineRangeSelectorSkin");
+  repeatDelay : 500;
+  repeatInterval : 35;
+}
+
+/* Styling of horizontal numeric lines */
+
+HNumericTimeline {
+  overviewBandVisible : true;
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HNumericTimelineSkin");
+  backgroundAlpha : 1;
+  backgroundColor : #FFFFFF;    
+  borderWeight : 1;
+  contentBorderColor : #111111;
+  selectionAlpha: 1.0;
+  rollOverAlpha : 1.0;
+  selectionAndRollOverColor : #A8C6EE;
+  selectionAndRollOverAlpha : 1.0;
+}
+
+NumericAxis {
+  skinClass : ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HTimelineAxisSkin");
+  animationDuration : 500;
+  majorTicksVisible : true;
+  minorTicksVisible : true;
+  majorLabelsVisible : true;
+  minorLabelsVisible : false;
+}
+
+NumericTimelineBand {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HNumericTimelineBandSkin");
+  backgroundAlpha : 1;
+  backgroundColor : #FFFFFF;   
+}
+
+NumericTimelineBand.standalone {
+  contentBorderColor : #111111;
+  selectionAlpha: 1.0;
+  rollOverAlpha : 1.0;
+  selectionAndRollOverColor : #A8C6EE;
+  selectionAndRollOverAlpha : 1.0;
+}
+
+/* A TimelineBand in a Timeline must not get a background */
+HNumericTimeline NumericTimelineBand {
+  backgroundColor : undefined;
+}
+
+NumericTimelineBand#overviewBand {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.HNumericTimelineOverviewBandSkin");  
+}
+
+/* Styling of vertical numeric lines */
+
+VNumericTimeline {
+  overviewBandVisible : true;
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VNumericTimelineSkin");
+  backgroundAlpha : 1;
+  backgroundColor : #FFFFFF;    
+  borderWeight : 1;
+  contentBorderColor : #111111;
+  selectionAlpha: 1.0;
+  rollOverAlpha : 1.0;
+  selectionAndRollOverColor : #A8C6EE;
+  selectionAndRollOverAlpha : 1.0;
+}
+
+/* A TimelineBand in a Timeline must not get a background */
+VNumericTimeline NumericTimelineBand {
+  backgroundColor : undefined;
+}
+
+NumericTimelineBand.ttbStyle NumericAxis, NumericTimelineBand.bttStyle NumericAxis {
+  animationDuration : 500;
+  skinClass : ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineAxisSkin");
+}
+
+NumericTimelineBand.ttbStyle TimelineGrid, NumericTimelineBand.bttStyle TimelineGrid {
+  skinClass : ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineGridSkin");
+}
+
+NumericTimelineBand.ttbStyle, NumericTimelineBand.bttStyle {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VNumericTimelineBandSkin");
+}
+
+NumericTimelineBand.ttbStyle#overviewBand, NumericTimelineBand.bttStyle#overviewBand {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VNumericTimelineOverviewBandSkin");  
+}
+
+NumericTimelineBand.ttbStyle TimelineRangeSelector {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.VTimelineRangeSelectorSkin");
+  repeatDelay : 500;
+  repeatInterval : 35;
+}
+
+NumericTimelineBand.bttStyle TimelineRangeSelector {
+  skinClass: ClassReference("com.ibm.ilog.elixir.timeline.skins.spark.BTTVTimelineRangeSelectorSkin");
+  repeatDelay : 500;
+  repeatInterval : 35;
+}

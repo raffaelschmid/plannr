@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:panel="ch.plannr.view.panel.*" 
+			   xmlns:common="ch.plannr.view.common.*" 
+			   xmlns:configuration="ch.plannr.client.configuration.*" 
+			   xmlns:swiz="http://swiz.swizframework.org" xmlns:config="ch.plannr.config.*" creationComplete="initApp()">
+	<fx:Declarations>
+		<swiz:Swiz>
+			<swiz:beanProviders><config:Beans /></swiz:beanProviders>
+			<swiz:config><swiz:SwizConfig eventPackages="ch.plannr.event.*" viewPackages="ch.plannr.view.*"/></swiz:config>
+		</swiz:Swiz>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import ch.plannr.view.component.BoxRegister;
+			
+			import mx.controls.Alert;
+			import mx.events.BrowserChangeEvent;
+			import mx.events.FlexEvent;
+			import mx.managers.BrowserManager;
+			import mx.managers.IBrowserManager;
+			import mx.utils.URLUtil;
+			
+			[Mediate( event="Events.LOGIN_SUCCESS")]
+			public function handle_registration_success():void{
+				currentState="LOGGED_IN"
+			}
+
+			private var browserManager:IBrowserManager;
+			
+			private function initApp():void {
+				browserManager = BrowserManager.getInstance();
+				browserManager.addEventListener(BrowserChangeEvent.URL_CHANGE, showURLDetails);            
+				browserManager.init("", "Welcome!");            
+			}
+
+			
+			private function showURLDetails(e:BrowserChangeEvent):void {
+				var url:String = browserManager.url;
+				var baseURL:String = browserManager.base;
+				var fragment:String = browserManager.fragment;                
+				var previousURL:String = e.lastURL;                
+				
+				var fullURL:String = mx.utils.URLUtil.getFullURL(url, url);
+				var port:int = mx.utils.URLUtil.getPort(url);
+				var protocol:String = mx.utils.URLUtil.getProtocol(url);
+				var serverName:String = mx.utils.URLUtil.getServerName(url);
+				var isSecure:Boolean = mx.utils.URLUtil.isHttpsURL(url); 
+				
+				Alert.show(fullURL + "\n" +port + "\n" +protocol + "\n" +serverName + "\n" +isSecure + "\n");
+			}
+
+
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Style source="style.css"/>
+	<s:states>
+		<s:State name="NOT_LOGGED_IN" id="NOT_LOGGED_IN"/>
+		<s:State name="LOGGED_IN" id="LOGGED_IN"/>
+	</s:states>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<common:Header/>
+	<panel:PanelMain includeIn="LOGGED_IN"/>
+	<panel:PanelSplash includeIn="NOT_LOGGED_IN" horizontalAlign="center"/>
+</s:Application>

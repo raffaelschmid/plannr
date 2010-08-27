@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+///////////////////////////////////////////////////////////////////////////////
+// Licensed Materials - Property of IBM
+// 5724-Y31,5724-Z78
+// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.
+//
+// Note to U.S. Government Users Restricted Rights:
+// Use, duplication or disclosure restricted by GSA ADP Schedule
+// Contract with IBM Corp.
+///////////////////////////////////////////////////////////////////////////////
+-->
+
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" implements="recurrence.IRecurrenceRuleEditor" 
+         verticalGap="10" creationComplete="init()">
+
+  <mx:Script>
+    <![CDATA[
+      import mx.formatters.DateFormatter;
+    
+      import ilog.calendar.recurrence.WeekDay;
+      import ilog.calendar.recurrence.RRule;
+      
+      private var _checkboxes:Array;
+      
+      private function init():void {
+        
+        var date:Date = new Date();
+        
+        _checkboxes = [sunday, monday, tuesday, wednesday, thursday, friday, saturday];
+        var df:DateFormatter = new DateFormatter();
+        df.formatString = resourceManager.getString("plannr", "plannr.recurrence.ruleeditor.weekday.format");
+        
+        date.date -= date.day; //start on sunday
+        
+        for (var i:uint=0; i<7; i++) {          
+          CheckBox(_checkboxes[i]).label = df.format(date);
+          date.date++;
+        }
+        
+        buildUI();               
+      }
+      
+      private function buildUI():void {
+
+        var format:String = resourceManager.getString("plannr", "plannr.recurrence.ruleeditor.weekly.interval", ["|$interval|"]);
+        
+        Util.buildUI(this, intervalPanel, format, null);
+        
+      }
+      
+      public function set recurrenceRule(value:RRule):void {
+        
+        var r:RRule = value;
+        _valid = true;
+        
+        if (value.freq == RRule.WEEKLY) {
+          
+          for each (var wd:WeekDay in r.byDay) {
+            if (wd.modifier != 0) {
+              _valid = false;
+              break;
+            }
+          }
+          
+          if (_valid) {
+            
+            if (value.byDay.length == 0) {
+              
+              CheckBox(_checkboxes[startTime.day]).selected = true;
+              
+            } else {
+          
+              var days:String = value.byDay.join(","); 
+              sunday.selected = days.indexOf("SU") != -1;
+              monday.selected = days.indexOf("MO") != -1;
+              tuesday.selected = days.indexOf("TU") != -1;
+              wednesday.selected = days.indexOf("WE") != -1;
+              thursday.selected = days.indexOf("TH") != -1;
+              friday.selected = days.indexOf("FR") != -1;
+              saturday.selected = days.indexOf("SA") != -1;
+            }
+                                       
+            interval.text = r.interval.toString();
+            
+            if (_valid) {
+              _valid = Util.checkDefaults(value, ["freq", "byDay", "interval", "until", "count"]);
+            }              
+            
+          } else {
+            reset();  
+            _valid = false;
+          }             
+        }                 
+      }
+      
+      public function get recurrenceRule():RRule {
+        
+        var r:RRule = new RRule("FREQ=WEEKLY");
+        
+        var days:Array = [];
+        
+        var oneSelected:Boolean = false;
+        
+        if (sunday.selected) {
+          oneSelected = true;
+          days.push(new WeekDay(0, 0));
+        }
+        
+        if (monday.selected) {
+          oneSelected = true;
+          days.push(new WeekDay(0, 1));
+        }
+        
+        if (tuesday.selected) {
+          oneSelected = true;
+          days.push(new WeekDay(0, 2));
+        }
+        
+        if (wednesday.selected) {
+          oneSelected = true;
+          days.push(new WeekDay(0, 3));
+        }
+        
+        if (thursday.selected) {
+          oneSelected = true;
+          days.push(new WeekDay(0, 4));
+        }
+        
+        if (friday.selected) {
+          oneSelected = true;
+          days.push(new WeekDay(0, 5));
+        }
+        
+        if (saturday.selected) {
+          oneSelected = true;
+          days.push(new WeekDay(0, 6));
+        }
+        
+        if (oneSelected) {        
+          r.byDay = days;
+        } else {
+          r.byDay = [ new WeekDay(0, startTime.day) ];
+        }
+        
+        var inter:int = parseInt(interval.text);
+        
+        if (inter > 1) {
+          r.interval = inter;
+        }
+                       
+        return r; 
+      }
+                            
+      private function validateInterval():void {
+        var i:int = Util.validateInt(interval.text, true);
+        interval.text = i.toString();
+        dispatch();
+      }
+      
+      
+      private var _startTime:Date;
+      
+      public function set startTime(value:Date):void {
+        
+        _startTime = value;
+        
+        var sel:Boolean = false;
+        for each (var ch:CheckBox in _checkboxes) {
+          if (ch.selected) {
+            sel = true;
+            break;
+          }
+        }
+        
+        if (!sel) {
+          CheckBox(_checkboxes[startTime.day]).selected = true;
+        }        
+      }
+      
+      public function get startTime():Date {
+        return _startTime;
+      }
+      
+      private function dispatch():void {
+        dispatchEvent(new Event("ruleChanged", true));        
+      }      
+      
+      public function reset():void {
+        
+        interval.text = "1";
+        
+        sunday.selected = false;        
+        monday.selected = false;        
+        tuesday.selected = false;        
+        wednesday.selected = false;        
+        thursday.selected = false;        
+        friday.selected = false;        
+        saturday.selected = false;
+        
+        _valid = true;
+        
+      }
+            
+      private var _valid:Boolean = true;
+      
+      public function isValid():Boolean {
+        return _valid;
+      }
+      
+    ]]>
+             
+  </mx:Script>
+  
+  
+  
+  <mx:HBox id="intervalPanel"  horizontalGap="0">      
+  
+    <mx:TextInput id="interval" width="37" change="validateInterval()" text="1"/>
+          
+  </mx:HBox>
+    
+  <mx:Label text="@Resource(bundle='plannr', key='plannr.recurrence.ruleeditor.on.label')" />
+    
+  <mx:HBox>
+    <mx:CheckBox id="sunday" change="dispatch()"/>
+    <mx:CheckBox id="monday" change="dispatch()" />
+    <mx:CheckBox id="tuesday" change="dispatch()" />
+    <mx:CheckBox id="wednesday" change="dispatch()" />
+    <mx:CheckBox id="thursday" change="dispatch()" />
+    <mx:CheckBox id="friday" change="dispatch()" />
+    <mx:CheckBox id="saturday" change="dispatch()" />
+  </mx:HBox>
+     
+</mx:VBox>

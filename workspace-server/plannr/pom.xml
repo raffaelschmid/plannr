@@ -20,7 +20,6 @@
         <vscaladoc.links.liftweb.baseurl>http://scala-tools.org/mvnsites-snapshots/liftweb
         </vscaladoc.links.liftweb.baseurl>
     </properties>
-
     <!-- Set up repo for ScalaJPA -->
     <repositories>
         <repository>
@@ -39,16 +38,42 @@
             <name>JBoss Public Maven Repository</name>
             <url>https://repository.jboss.org/nexus/content/repositories/public</url>
         </repository>
+        <repository>
+            <id>stax-releases</id>
+            <url>http://mvn.stax.net/content/repositories/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>stax-snapshots</id>
+            <url>http://mvn.stax.net/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
             <id>scala-tools.releases</id>
             <name>Scala-Tools Plugins Repository for Releases</name>
             <url>http://scala-tools.org/repo-releases</url>
         </pluginRepository>
+        <pluginRepository>
+            <id>stax-plugins-releases</id>
+            <url>http://mvn.stax.net/content/repositories/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>stax-plugins-snapshots</id>
+            <url>http://mvn.stax.net/content/repositories/snapshots</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
     </pluginRepositories>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -157,14 +182,18 @@
                 <version>2.14</version>
                 <configuration>
                     <charset>${project.build.sourceEncoding}</charset>
+                    <args>
+                        <arg>-deprecation</arg>
+                        <arg>-target:jvm-1.5</arg>
+                        <!-- to support mix java/scala only -->
+                        <arg>-make:transitivenocp</arg>
+                        <arg>-dependencyfile</arg>
+                        <arg>${project.build.directory}/.scala_dependencies</arg>
+                    </args>
                     <jvmArgs>
                         <jvmArg>-Xmx1024m</jvmArg>
                         <jvmArg>-DpackageLinkDefs=file://${project.build.directory}/packageLinkDefs.properties</jvmArg>
                     </jvmArgs>
-                    <args>
-                        <!-- arg>-unchecked</arg -->
-                        <arg>-deprecation</arg>
-                    </args>
                 </configuration>
                 <executions>
                     <execution>
@@ -256,4 +285,21 @@
         <module>spa</module>
         <module>plannr-test</module>
     </modules>
+     <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <environment.type>dev</environment.type>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <environment.type>prod</environment.type>
+            </properties>
+        </profile>
+    </profiles>
 </project>

@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>MonthlyRulePanel.mxml</title><link rel="stylesheet" type="text/css" href="../SourceStyles.css"/></head><body><pre>&lt;?<span class="MXMLComponent_Tag">xml</span> version=<span class="ActionScriptString">"1.0"</span> encoding=<span class="ActionScriptString">"utf-8"</span>?&gt;
+<span class="ActionScriptComment">&lt;!--</span>
+<span class="ActionScriptComment">///////////////////////////////////////////////////////////////////////////////</span>
+<span class="ActionScriptComment">// Licensed Materials - Property of IBM</span>
+<span class="ActionScriptComment">// 5724-Y31,5724-Z78</span>
+<span class="ActionScriptComment">// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.</span>
+<span class="ActionScriptComment">//</span>
+<span class="ActionScriptComment">// Note to U.S. Government Users Restricted Rights:</span>
+<span class="ActionScriptComment">// Use, duplication or disclosure restricted by GSA ADP Schedule</span>
+<span class="ActionScriptComment">// Contract with IBM Corp.</span>
+<span class="ActionScriptComment">///////////////////////////////////////////////////////////////////////////////</span>
+<span class="ActionScriptComment">--&gt;</span>
+
+&lt;<span class="MXMLComponent_Tag">mx:VBox</span> xmlns:mx=<span class="ActionScriptString">"http://www.adobe.com/2006/mxml"</span> implements=<span class="ActionScriptString">"recurrence.IRecurrenceRuleEditor"</span>  
+         verticalGap=<span class="ActionScriptString">"10"</span> creationComplete=<span class="ActionScriptString">"init()"</span>&gt;
+
+  &lt;<span class="MXMLSpecial_Tag">mx:Script</span>&gt;
+    &lt;![<span class="MXMLComponent_Tag">CDATA</span><span class="ActionScriptBracket/Brace">[</span>
+      <span class="ActionScriptReserved">import</span> mx.formatters.DateFormatter;
+    
+      <span class="ActionScriptReserved">import</span> ilog.calendar.recurrence.WeekDay;
+      <span class="ActionScriptReserved">import</span> ilog.calendar.recurrence.RRule;
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> _positionModel:Array;      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> _dayModel:Array;      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> _startModel:Array;
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> init():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptComment">//init models</span>
+        _positionModel = <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptBracket/Brace">]</span>;
+        _positionModel.push(<span class="ActionScriptBracket/Brace">{</span>label:getString(<span class="ActionScriptString">"first.label"</span>),  value:1<span class="ActionScriptBracket/Brace">}</span>);
+        _positionModel.push(<span class="ActionScriptBracket/Brace">{</span>label:getString(<span class="ActionScriptString">"second.label"</span>), value:2<span class="ActionScriptBracket/Brace">}</span>);
+        _positionModel.push(<span class="ActionScriptBracket/Brace">{</span>label:getString(<span class="ActionScriptString">"third.label"</span>),  value:3<span class="ActionScriptBracket/Brace">}</span>);
+        _positionModel.push(<span class="ActionScriptBracket/Brace">{</span>label:getString(<span class="ActionScriptString">"fourth.label"</span>), value:4<span class="ActionScriptBracket/Brace">}</span>);
+        _positionModel.push(<span class="ActionScriptBracket/Brace">{</span>label:getString(<span class="ActionScriptString">"fifth.label"</span>), value:5<span class="ActionScriptBracket/Brace">}</span>);        
+        _positionModel.push(<span class="ActionScriptBracket/Brace">{</span>label:getString(<span class="ActionScriptString">"last.label"</span>),   value:-1<span class="ActionScriptBracket/Brace">}</span>);
+        
+        position.dataProvider = _positionModel;
+        
+        <span class="ActionScriptvar">var</span> date:Date = <span class="ActionScriptReserved">new</span> Date();
+                
+        <span class="ActionScriptvar">var</span> df:DateFormatter = <span class="ActionScriptReserved">new</span> DateFormatter();
+        df.formatString = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.recurrence.ruleeditor.weekday.format"</span>);
+        
+        date.date -= date.day; <span class="ActionScriptComment">//start on sunday</span>
+        
+        _dayModel = <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptBracket/Brace">]</span>;
+        <span class="ActionScriptReserved">for</span> (<span class="ActionScriptvar">var</span> i:uint=0; i&lt;7; <span class="MXMLComponent_Tag">i</span>++) <span class="ActionScriptBracket/Brace">{</span>          
+          _dayModel.push(<span class="ActionScriptBracket/Brace">{</span>label:df.format(date), value:i<span class="ActionScriptBracket/Brace">}</span>);
+          date.date++;
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        weekDay.dataProvider = _dayModel;
+        
+        _startModel = <span class="ActionScriptBracket/Brace">[</span>
+          <span class="ActionScriptBracket/Brace">{</span> label:getString(<span class="ActionScriptString">"month.fromStart.label"</span>), value:1 <span class="ActionScriptBracket/Brace">}</span>,
+          <span class="ActionScriptBracket/Brace">{</span> label:getString(<span class="ActionScriptString">"month.fromEnd.label"</span>), value:-1 <span class="ActionScriptBracket/Brace">}</span>        
+        <span class="ActionScriptBracket/Brace">]</span>;  
+        
+        fromStart.dataProvider = _startModel;
+        
+        buildUI();
+               
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> buildUI():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+
+        <span class="ActionScriptvar">var</span> format:String = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.recurrence.ruleeditor.monthly.interval"</span>, <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptString">"|$interval|"</span><span class="ActionScriptBracket/Brace">]</span>);        
+        Util.buildUI(<span class="ActionScriptReserved">this</span>, intervalPanel, format, <span class="ActionScriptReserved">null</span>);
+        
+        format = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.recurrence.ruleeditor.monthly.choice1"</span>,  <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptString">"|$monthDay|"</span>, <span class="ActionScriptString">"|$fromStart|"</span><span class="ActionScriptBracket/Brace">]</span>);        
+        Util.buildUI(<span class="ActionScriptReserved">this</span>, choice1Panel, format, handlerChoice1);
+        
+        format = resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.recurrence.ruleeditor.monthly.choice2"</span>, <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptString">"|$position|"</span>, <span class="ActionScriptString">"|$weekDay|"</span><span class="ActionScriptBracket/Brace">]</span>);                       
+        Util.buildUI(<span class="ActionScriptReserved">this</span>, choice2Panel, format, handlerChoice2);        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> handlerChoice1(e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        moveRadio(1);
+        dispatch();
+      <span class="ActionScriptBracket/Brace">}</span>       
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> handlerChoice2(e:Event):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        moveRadio(2);
+        dispatch();
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> getString(key:String):String <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptReserved">return</span> resourceManager.getString(<span class="ActionScriptString">"calendarsample"</span>, <span class="ActionScriptString">"calendarsample.recurrence.ruleeditor."</span>+key);
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptReserved">set</span> recurrenceRule(value:RRule):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptvar">var</span> r:RRule = value;
+        
+        _valid = <span class="ActionScriptReserved">true</span>;
+        
+        <span class="ActionScriptReserved">if</span> (r.freq == RRule.MONTHLY) <span class="ActionScriptBracket/Brace">{</span>
+          
+          <span class="ActionScriptReserved">if</span> (r.byMonthDay.length == 1) <span class="ActionScriptBracket/Brace">{</span>
+        
+            monthDay.text = Math.abs(r.byMonthDay<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span>).toString();
+            
+            fromStart.selectedIndex = r.byMonthDay<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span> &gt; 0 ? 0 : 1;                        
+            
+            radioGroup.selectedValue = <span class="ActionScriptString">"radio1"</span>;
+             
+            
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptReserved">if</span> (r.byDay.length == 1) <span class="ActionScriptBracket/Brace">{</span>
+            
+            <span class="ActionScriptvar">var</span> wd:WeekDay = r.byDay<span class="ActionScriptBracket/Brace">[</span>0<span class="ActionScriptBracket/Brace">]</span> as WeekDay;
+            
+            setPosition(wd.modifier);
+            
+            <span class="ActionScriptReserved">if</span> (_valid) <span class="ActionScriptBracket/Brace">{</span>            
+              weekDay.selectedIndex = WeekDay.WEEK_DAYS.indexOf(wd.weekDay);           
+              radioGroup.selectedValue = <span class="ActionScriptString">"radio2"</span>;                      
+            <span class="ActionScriptBracket/Brace">}</span>  
+            
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+                         
+            _valid = <span class="ActionScriptReserved">false</span>;
+          <span class="ActionScriptBracket/Brace">}</span>
+          
+          <span class="ActionScriptReserved">if</span> (_valid) <span class="ActionScriptBracket/Brace">{</span>
+            _valid = Util.checkDefaults(value, <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptString">"freq"</span>, <span class="ActionScriptString">"byDay"</span>, <span class="ActionScriptString">"byMonthDay"</span>, <span class="ActionScriptString">"interval"</span>, <span class="ActionScriptString">"until"</span>, <span class="ActionScriptString">"count"</span><span class="ActionScriptBracket/Brace">]</span>);
+          <span class="ActionScriptBracket/Brace">}</span>
+                             
+          <span class="ActionScriptReserved">if</span> (_valid) <span class="ActionScriptBracket/Brace">{</span>
+            interval.text = r.interval.toString();
+          <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+            reset();  
+            _valid = <span class="ActionScriptReserved">false</span>;
+          <span class="ActionScriptBracket/Brace">}</span>
+          
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> setPosition(value:int):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        
+        switch(value) <span class="ActionScriptBracket/Brace">{</span>
+          case 1:
+            position.selectedIndex = 0;
+            break;
+          case 2:
+            position.selectedIndex = 1;
+            break;
+          case 3:
+            position.selectedIndex = 2;
+            break;
+          case 4:
+            position.selectedIndex = 3;
+            break;
+          case 5:
+            position.selectedIndex = 4;
+            break;            
+          case -1:
+            position.selectedIndex = 5;
+            break; 
+          default:
+            _valid = <span class="ActionScriptReserved">false</span>;
+                            
+        <span class="ActionScriptBracket/Brace">}</span>
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptReserved">get</span> recurrenceRule():RRule <span class="ActionScriptBracket/Brace">{</span>
+        
+        <span class="ActionScriptvar">var</span> r:RRule = <span class="ActionScriptReserved">new</span> RRule(<span class="ActionScriptString">"FREQ=MONTHLY"</span>);
+        
+        <span class="ActionScriptReserved">if</span> (radioGroup.selectedValue == <span class="ActionScriptString">"radio1"</span>) <span class="ActionScriptBracket/Brace">{</span>
+        
+          <span class="ActionScriptvar">var</span> d:int = parseInt(monthDay.text);
+          r.byMonthDay = <span class="ActionScriptBracket/Brace">[</span>d * fromStart.selectedItem.value<span class="ActionScriptBracket/Brace">]</span>;
+          
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptBracket/Brace">{</span>
+                            
+          r.byDay = <span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptReserved">new</span> WeekDay(position.selectedItem.value, weekDay.selectedItem.value)<span class="ActionScriptBracket/Brace">]</span>;                      
+        <span class="ActionScriptBracket/Brace">}</span>        
+        
+        <span class="ActionScriptvar">var</span> inter:int = parseInt(interval.text);
+        
+        <span class="ActionScriptReserved">if</span> (inter &gt; 1) <span class="ActionScriptBracket/Brace">{</span>
+          r.interval = inter;
+        <span class="ActionScriptBracket/Brace">}</span>        
+                       
+        <span class="ActionScriptReserved">return</span> r; 
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+            
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> validateDay():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptvar">var</span> md:int = Util.validateInt(monthDay.text);
+        
+        <span class="ActionScriptReserved">if</span> (md &lt; 0) {
+          <span class="MXMLComponent_Tag">md</span> = -md;
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        <span class="ActionScriptReserved">if</span> (md &gt; 31) <span class="ActionScriptBracket/Brace">{</span>
+          md = 31;
+        <span class="ActionScriptBracket/Brace">}</span> <span class="ActionScriptReserved">else</span> <span class="ActionScriptReserved">if</span> (md == 0) <span class="ActionScriptBracket/Brace">{</span>
+          md = 1;
+        <span class="ActionScriptBracket/Brace">}</span>
+        
+        monthDay.text = md.toString();
+        
+        dispatch(); 
+      <span class="ActionScriptBracket/Brace">}</span>    
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> validateInterval():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptvar">var</span> i:int = Util.validateInt(interval.text, <span class="ActionScriptReserved">true</span>);
+        interval.text = i.toString();
+        
+        dispatch();
+      <span class="ActionScriptBracket/Brace">}</span>        
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> dispatch():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        dispatchEvent(<span class="ActionScriptReserved">new</span> <span class="ActionScriptMetadata">Event</span>(<span class="ActionScriptString">"ruleChanged"</span>, <span class="ActionScriptReserved">true</span>));        
+      <span class="ActionScriptBracket/Brace">}</span>  
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> moveRadio(id:int):<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        radioGroup.selectedValue = <span class="ActionScriptString">"radio"</span>+id;
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> reset():<span class="ActionScriptReserved">void</span> <span class="ActionScriptBracket/Brace">{</span>
+        radioGroup.selectedValue = <span class="ActionScriptString">"radio1"</span>;
+        interval.text = <span class="ActionScriptString">"1"</span>;
+        monthDay.text = <span class="ActionScriptString">"1"</span>;
+        fromStart.selectedIndex = 0;
+        position.selectedIndex = 0;
+        weekDay.selectedIndex = 0;
+        
+        _valid = <span class="ActionScriptReserved">true</span>; 
+      <span class="ActionScriptBracket/Brace">}</span>
+      
+      <span class="ActionScriptReserved">private</span> <span class="ActionScriptvar">var</span> _valid:Boolean = <span class="ActionScriptReserved">true</span>;
+      
+      <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> isValid():Boolean <span class="ActionScriptBracket/Brace">{</span>
+        <span class="ActionScriptReserved">return</span> _valid;
+      <span class="ActionScriptBracket/Brace">}</span>      
+              
+    <span class="ActionScriptBracket/Brace">]</span><span class="ActionScriptBracket/Brace">]</span>&gt;
+  &lt;/<span class="MXMLSpecial_Tag">mx:Script</span>&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:RadioButtonGroup</span> id=<span class="ActionScriptString">"radioGroup"</span> change=<span class="ActionScriptString">"dispatch()"</span> /&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+    &lt;<span class="MXMLComponent_Tag">mx:RadioButton</span> groupName=<span class="ActionScriptString">"radioGroup"</span> value=<span class="ActionScriptString">"radio1"</span> selected=<span class="ActionScriptString">"true"</span>/&gt;
+    &lt;<span class="MXMLComponent_Tag">mx:HBox</span> id=<span class="ActionScriptString">"choice1Panel"</span> horizontalGap=<span class="ActionScriptString">"0"</span>&gt;      
+      &lt;<span class="MXMLComponent_Tag">mx:TextInput</span> id=<span class="ActionScriptString">"monthDay"</span> width=<span class="ActionScriptString">"37"</span> change=<span class="ActionScriptString">"moveRadio(1);validateDay()"</span> text=<span class="ActionScriptString">"1"</span>/&gt;    
+      &lt;<span class="MXMLComponent_Tag">mx:ComboBox</span> id=<span class="ActionScriptString">"fromStart"</span> change=<span class="ActionScriptString">" moveRadio(1);dispatch()"</span> /&gt;    
+    &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;        
+  &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+    &lt;<span class="MXMLComponent_Tag">mx:RadioButton</span> groupName=<span class="ActionScriptString">"radioGroup"</span> value=<span class="ActionScriptString">"radio2"</span> /&gt;
+    &lt;<span class="MXMLComponent_Tag">mx:HBox</span> id=<span class="ActionScriptString">"choice2Panel"</span> horizontalGap=<span class="ActionScriptString">"0"</span>&gt;        
+      &lt;<span class="MXMLComponent_Tag">mx:ComboBox</span> id=<span class="ActionScriptString">"position"</span> change=<span class="ActionScriptString">"moveRadio(2);dispatch()"</span> /&gt;
+      &lt;<span class="MXMLComponent_Tag">mx:ComboBox</span> id=<span class="ActionScriptString">"weekDay"</span> change=<span class="ActionScriptString">"moveRadio(2);dispatch()"</span>/&gt;
+    &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;    
+  &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+  
+  &lt;<span class="MXMLComponent_Tag">mx:HBox</span> id=<span class="ActionScriptString">"intervalPanel"</span> horizontalGap=<span class="ActionScriptString">"0"</span>&gt;      
+    &lt;<span class="MXMLComponent_Tag">mx:TextInput</span> id=<span class="ActionScriptString">"interval"</span> width=<span class="ActionScriptString">"37"</span> change=<span class="ActionScriptString">"validateInterval()"</span> text=<span class="ActionScriptString">"1"</span>/&gt;    
+  &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+  
+&lt;/<span class="MXMLComponent_Tag">mx:VBox</span>&gt;
+</pre></body></html>

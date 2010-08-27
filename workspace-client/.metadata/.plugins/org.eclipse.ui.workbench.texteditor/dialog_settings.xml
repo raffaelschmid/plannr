@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Button" key="selection"/>
+		<item value="Delete" key="selection"/>
 		<list key="findhistory">
+			<item value="baseURL"/>
+			<item value="delete"/>
+			<item value="de"/>
+			<item value="selectedTeam.m"/>
+			<item value="&gt;&gt;"/>
+			<item value="&lt;&lt;"/>
+			<item value="spin"/>
 			<item value="button"/>
-			<item value="selectedUsers"/>
-			<item value="Alert"/>
-			<item value="A"/>
-			<item value="advanced"/>
-			<item value="search"/>
-			<item value="padding"/>
-			<item value="form"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

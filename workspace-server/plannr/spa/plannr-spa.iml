@@ -5,9 +5,22 @@
       <configuration>
         <option name="compilerLibraryLevel" value="Project" />
         <option name="compilerLibraryName" value="Maven: org.scala-lang:scala-compiler-bundle:2.8.0" />
+        <option name="compilerOptions" value="-target:jvm-1.5 -make:transitivenocp -dependencyfile /Users/rschmid/general-workspaces/hszt/plannr/software/workspace-server/plannr/spa/target/.scala_dependencies" />
         <option name="deprecationWarnings" value="true" />
         <option name="maximumHeapSize" value="1024" />
         <option name="vmOptions" value="-DpackageLinkDefs=file:///Users/rschmid/general-workspaces/hszt/plannr/software/workspace-server/plannr/spa/target/packageLinkDefs.properties" />
+      </configuration>
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+          <root url="file://$MODULE_DIR$/src/main/webResources_dev" relative="/" />
+        </webroots>
+        <context-artifact name="plannr-spa:war exploded" />
       </configuration>
     </facet>
   </component>
@@ -16,6 +29,7 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources_dev" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/scala" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
@@ -41,7 +55,7 @@
     <orderEntry type="library" name="Maven: javassist:javassist:3.9.0.GA" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:4.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.0.0.GA" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: geronimo-spec:geronimo-spec-jta:1.0.1B-rc4" level="project" />
+    <orderEntry type="library" name="Maven: geronimo-spec:geronimo-spec-jta:1.0.1B-rc4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:slf4j-simple:1.4.2" level="project" />
     <orderEntry type="library" name="Maven: net.liftweb:lift-jpa_2.8.0:2.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.liftweb:lift-webkit_2.8.0:2.1-SNAPSHOT" level="project" />

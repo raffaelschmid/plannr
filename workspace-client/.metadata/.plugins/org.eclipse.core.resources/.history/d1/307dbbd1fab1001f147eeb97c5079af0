@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>TextRulePanel.mxml</title><link rel="stylesheet" type="text/css" href="../SourceStyles.css"/></head><body><pre>&lt;?<span class="MXMLComponent_Tag">xml</span> version=<span class="ActionScriptString">"1.0"</span> encoding=<span class="ActionScriptString">"utf-8"</span>?&gt;
+<span class="ActionScriptComment">&lt;!--</span>
+<span class="ActionScriptComment">///////////////////////////////////////////////////////////////////////////////</span>
+<span class="ActionScriptComment">// Licensed Materials - Property of IBM</span>
+<span class="ActionScriptComment">// 5724-Y31,5724-Z78</span>
+<span class="ActionScriptComment">// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.</span>
+<span class="ActionScriptComment">//</span>
+<span class="ActionScriptComment">// Note to U.S. Government Users Restricted Rights:</span>
+<span class="ActionScriptComment">// Use, duplication or disclosure restricted by GSA ADP Schedule</span>
+<span class="ActionScriptComment">// Contract with IBM Corp.</span>
+<span class="ActionScriptComment">///////////////////////////////////////////////////////////////////////////////</span>
+<span class="ActionScriptComment">--&gt;</span>
+
+&lt;<span class="MXMLComponent_Tag">mx:VBox</span> xmlns:mx=<span class="ActionScriptString">"http://www.adobe.com/2006/mxml"</span> verticalGap=<span class="ActionScriptString">"0"</span> xmlns:recurrence=<span class="ActionScriptString">"recurrence.*"</span>&gt;
+
+  &lt;<span class="MXMLComponent_Tag">mx:Label</span> text=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.recurrence.ruleeditor.title.iCalendarRecRule')"</span> 
+            textAlign=<span class="ActionScriptString">"left"</span> width=<span class="ActionScriptString">"100%"</span> fontWeight=<span class="ActionScriptString">"bold"</span> fontSize=<span class="ActionScriptString">"11"</span>/&gt;
+    
+    &lt;<span class="MXMLComponent_Tag">mx:HRule</span> width=<span class="ActionScriptString">"100%"</span>/&gt;
+    
+    &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> height=<span class="ActionScriptString">"10"</span>/&gt;
+    
+    &lt;<span class="MXMLComponent_Tag">mx:Canvas</span> width=<span class="ActionScriptString">"100%"</span>&gt;
+      &lt;<span class="MXMLComponent_Tag">mx:HBox</span> id=<span class="ActionScriptString">"iCalPane"</span> width=<span class="ActionScriptString">"100%"</span>&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:Label</span> id=<span class="ActionScriptString">"ical"</span> /&gt;
+        &lt;<span class="MXMLComponent_Tag">mx:Button</span> id=<span class="ActionScriptString">"editButton"</span> label=<span class="ActionScriptString">"@Resource(bundle='calendarsample', key='calendarsample.properties.button.edit')"</span>/&gt;  
+      &lt;/<span class="MXMLComponent_Tag">mx:HBox</span>&gt;
+      &lt;<span class="MXMLComponent_Tag">recurrence:TextRuleEditor</span> id=<span class="ActionScriptString">"textEditor"</span> width=<span class="ActionScriptString">"100%"</span> visible=<span class="ActionScriptString">"false"</span> /&gt;  
+    &lt;/<span class="MXMLComponent_Tag">mx:Canvas</span>&gt;   
+         
+    &lt;<span class="MXMLComponent_Tag">mx:Spacer</span> height=<span class="ActionScriptString">"10"</span> width=<span class="ActionScriptString">"100%"</span>/&gt;
+    
+&lt;/<span class="MXMLComponent_Tag">mx:VBox</span>&gt;
+</pre></body></html>

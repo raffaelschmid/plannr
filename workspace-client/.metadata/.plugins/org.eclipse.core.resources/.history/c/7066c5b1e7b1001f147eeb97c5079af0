@@ -1,0 +1,47 @@
+///////////////////////////////////////////////////////////////////////////////
+// Licensed Materials - Property of IBM
+// 5724-Y31,5724-Z78
+// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.
+//
+// Note to U.S. Government Users Restricted Rights:
+// Use, duplication or disclosure restricted by GSA ADP Schedule
+// Contract with IBM Corp.
+///////////////////////////////////////////////////////////////////////////////
+package
+{
+  import mx.core.FlexGlobals;
+
+ /**
+  * 
+  * This class contains a set of utility methods that can be used
+  * in samples.
+  * 
+  */
+  public class DemoUtil
+  {
+    /**
+     * This method build an absolute path to the given URL which is relative
+     * to the application. To do that, we get the url of the application,
+     * remove the application's name from it and finally append the given url.
+     * 
+     * @param url The URL relative to the application to transform into
+     *            an absolute URL.
+     * @return The absolute URL.
+     */
+    public static function getAbsolutePathTo(url:String):String
+    {
+      var absUrl:String = new String(url);
+      
+      // get the url of the application
+      var s:String = FlexGlobals.topLevelApplication.url;
+      
+      // get the index of the last / or \ in the application url
+      var index:int = Math.max(s.lastIndexOf("\\"), s.lastIndexOf("/"));
+      
+      // remove the application name from the absolute url and append the relative url
+      if (index != -1) absUrl = s.substr(0, index + 1) + url;        
+      
+      return absUrl;
+    }
+  }
+}

@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>plannr.properties</title>
+ </head>
+ <body>
+  <pre>
+# NLS_ENCODING=UTF-8
+# NLS_MESSAGEFORMAT_NONE
+
+# Calendar Sample
+#######################################
+
+# The default summary of a newly created event 
+plannr.default.summary=New Event
+
+# Main panel title
+plannr.application.title=Calendar
+
+# The two following properties are used by the sample launcher
+plannr.application.name=Calendar
+plannr.application.description = This sample shows a calendar application that displays meetings, appointments and other events for personal and professional calendars. Events can be added, deleted, moved, resized and their properties can be edited.
+
+# buttons labels to show a day, week, work week or month
+plannr.button.Today=Today
+plannr.button.Day=Day
+plannr.button.WorkWeek=Work Week
+plannr.button.Week=Week
+plannr.button.Month=Month
+
+# A button label to edit a rule
+plannr.properties.button.edit=Edit
+
+# The Legend panel title
+plannr.title.Legend=Legend
+
+# The Event properties panel title
+plannr.title.EventPanel=Edit Event
+
+plannr.title.Properties=Properties
+
+plannr.properties.NewEvent=New Event
+plannr.properties.tip.NewEvent=New Event
+plannr.properties.DeleteEvent=Delete Event
+plannr.properties.tip.DeleteEvent=Delete Event
+
+plannr.properties.Recurrence=Recurrence…
+plannr.properties.tip.Recurrence=Recurrence…
+
+plannr.properties.confirmation.recurrence.remove.title=Remove the recurrence?
+plannr.properties.confirmation.recurrence.remove.label=Are you sure you want to remove the recurrence?
+plannr.properties.button.remove=Remove
+
+# The calendar label: professional or personal 
+plannr.calendar.Professional=Professional
+plannr.calendar.Personal=Personal
+
+# past event label
+plannr.legend.PastEvents=Past Events
+
+# label of event properties fields
+plannr.event.label.Summary=Summary:
+plannr.event.label.StartTime=Start Time:
+plannr.event.label.EndTime=End Time:
+plannr.event.label.AllDay=All Day
+plannr.event.label.Description=Description:
+plannr.event.label.Calendar=Calendar:
+
+plannr.event.hour.format=L:NN A
+
+plannr.delete.warning=Are you sure you want to delete the event "{0}"?
+plannr.delete.recurrent.warning=Are you sure you want to delete all occurrences of the event "{0}"?
+plannr.delete.warning.plural=Are you sure you want to delete the selected events?
+plannr.delete.title=Delete the event(s)?
+
+plannr.recurrence.title=Recurrence
+
+plannr.recurrence.ruleeditor.label.Interval=Interval:
+
+# every weekday, that is every of the week except saturday and sunday
+plannr.recurrence.ruleeditor.label.everyWeekday=Every weekday
+
+plannr.recurrence.ruleeditor.first.label=first
+plannr.recurrence.ruleeditor.second.label=second
+plannr.recurrence.ruleeditor.third.label=third
+plannr.recurrence.ruleeditor.fourth.label=fourth
+plannr.recurrence.ruleeditor.fifth.label=fifth
+plannr.recurrence.ruleeditor.last.label=last
+
+plannr.recurrence.ruleeditor.month.fromStart.label=from the beginning
+plannr.recurrence.ruleeditor.month.fromEnd.label=from the end
+
+plannr.recurrence.ruleeditor.year.fromStart.label=from the beginning
+plannr.recurrence.ruleeditor.year.fromEnd.label=from the end
+
+
+# repeat "on" a specific day of week (on Monday)
+plannr.recurrence.ruleeditor.on.label=On:
+
+# iCalendar is a standard. The editor is manipulating event recurrence rules.
+plannr.recurrence.ruleeditor.title.iCalendarRecRule=Recurrence Rule
+
+# A recurrence pattern is: every day or week or month etc... 
+plannr.recurrence.ruleeditor.title.recurrencePattern=Recurrence Pattern
+
+# The recurrence range defines when the recurrence starts and ends 
+plannr.recurrence.ruleeditor.title.recurrenceRange=Recurrence Range
+
+# Every # day(s) 
+# {0}: The text input to enter a number
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.daily.interval=Every {0} day(s)
+
+# Every #  week(s) 
+# {0}: The text input to enter a number
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.weekly.interval=Every {0} week(s)
+
+# On day # from the start or end of the month 
+# {0}: The day # in the month (1 to 31)
+# {1}: A choice to determine if the day is from the beginning of the month or from the end
+# The fromStart values are defined by:
+#   plannr.recurrence.ruleeditor.month.fromStart.label 
+#   plannr.recurrence.ruleeditor.month.fromEnd.label
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.monthly.choice1=On day {0} {1}
+
+# The first/second/.../last weekday  
+# {0}: the first/second/third/fifth/last
+# {1}: A week day (sunday, monday ...) 
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.monthly.choice2=The {0} {1}
+
+
+# Every #  months(s) 
+# {0}: The text input to enter a number
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.monthly.interval=Every {0} month(s)
+
+# Every #  year(s) 
+# {0}: The text input to enter a number
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.yearly.interval=Every {0} year(s)
+
+# On day # from the start or end of the year 
+# {0}: The day # in the month (1 to 366)
+# {1}: A choice to determine if the day is from the beginning of the month or from the end
+# The fromStart values are defined by:
+#   plannr.recurrence.ruleeditor.year.fromStart.label 
+#   plannr.recurrence.ruleeditor.year.fromEnd.label
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.yearly.choice1=On day {0} {1}
+
+# Every day # of the month  
+# {0}: A month label (January, February) etc
+# {1}: The day # in the month (1 to 31) 
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.yearly.choice2=Every {0} {1}
+
+
+# The first/second/.../last weekday of month m 
+# {0}: the first/second/third/fifth/last
+# {1}: A week day (sunday, monday ...) 
+# {2}: A month label (January, February) etc
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.yearly.choice3=The {0} {1} of {2}
+
+#@ilog.nopseudo.begin
+#@ilog.context.begin
+
+# The format of the week day labels in recurrence editor panels (see DateFormatter documentation)
+# ex: Monday, Tuesday... 
+plannr.recurrence.ruleeditor.weekday.format=EEEE
+
+#@ilog.context.end
+#@ilog.nopseudo.end
+
+
+#@ilog.nopseudo.begin
+#@ilog.context.begin
+# The format of the month labels in recurrence editor panels (see DateFormatter documentation)
+# ex: January, February...
+plannr.recurrence.ruleeditor.month.format=MMMM
+#@ilog.context.end
+#@ilog.nopseudo.end
+
+
+#@ilog.nopseudo.begin
+#@ilog.context.begin
+# The format of the start time of the recurring event (see DateFormatter documentation)
+plannr.recurrence.ruleeditor.startTime.format=MMMM D, YYYY, L:NN A
+#@ilog.context.end
+#@ilog.nopseudo.end
+
+
+# # of occurrences of a recurrent event 
+# {0}: the number of occurrences
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.count=After {0} occurrence(s)
+
+# End date of a recurrent event 
+# {0}: a date chooser
+# The rest of the text will be displayed by label components. 
+plannr.recurrence.ruleeditor.until=Until {0}
+
+
+# start time of the recurrence 
+plannr.recurrence.ruleeditor.label.start=Start:
+
+# end time of the recurrence 
+plannr.recurrence.ruleeditor.label.end=End:
+
+# expert mode that shows more options
+plannr.recurrence.ruleeditor.expertMode=Expert mode
+
+plannr.recurrence.ruleeditor.end.never.label=Never
+
+#Frequency of the recurrence: every day
+plannr.recurrence.tab.title.daily=Daily
+
+#Frequency of the recurrence: every week
+plannr.recurrence.tab.title.weekly=Weekly
+
+#Frequency of the recurrence: every month
+plannr.recurrence.tab.title.monthly=Monthly
+
+#Frequency of the recurrence: every year
+plannr.recurrence.tab.title.yearly=Yearly
+
+plannr.dialog.button.ok=OK
+plannr.dialog.button.cancel=Cancel
+
+plannr.dialog.notification.title=Event Notification
+
+plannr.editing.confirm.dialog.title=Modify the recurrence
+plannr.editing.confirm.dialog.modifySerie=Modify the entire series
+plannr.editing.confirm.dialog.modifyOccurrence=Modify this particular occurrence
+
+plannr.removal.confirm.dialog.title=Remove the recurrence
+plannr.removal.confirm.dialog.modifySerie=Delete all occurrences of this event
+plannr.removal.confirm.dialog.modifyOccurrence=Delete this particular occurrence
+
+plannr.title.help=Help
+plannr.help.content = To add an event:&lt;ul&gt;&lt;li&gt;Select the time and press the &lt;b&gt;Enter&lt;/b&gt; key or click the &lt;b&gt;New Event&lt;/b&gt; button&lt;/li&gt;&lt;li&gt;Simply click the &lt;b&gt;New Event&lt;/b&gt; button&lt;/li&gt;&lt;li&gt;Double-click in the calendar sheet&lt;/li&gt;&lt;/ul&gt;\nTo move an event, click and drag the event to the desired time.\n\nTo resize an event, click one of its extremities and drag it to adjust its duration.\n\nTo cancel an editing gesture, keep the mouse button pressed and press the &lt;b&gt;Escape&lt;/b&gt; key.\n\nThe properties of the selected event are editable in the right pane.\n\nThe recurrence of the selected event can be set or removed by clicking the &lt;b&gt;Recurrence…&lt;/b&gt; button.\n\nTo filter the events of one of the calendars, check/uncheck the calendars in the legend.\n\nTo navigate in time, select a date on a date chooser. To select a range, click a date in a date chooser and Shift-click the end date.\n\nThe &lt;b&gt;Day&lt;/b&gt;, &lt;b&gt;Work Week&lt;/b&gt;, &lt;b&gt;Week&lt;/b&gt;, and &lt;b&gt;Month&lt;/b&gt; buttons allow you to change the visible time range.\n\nThe &lt;b&gt;Today&lt;/b&gt; button allows you to go to the current day.\n\nThe Next and Previous buttons next to &lt;b&gt;Today&lt;/b&gt; set the next or previous time range (day, week, month…).\n\nSelecting time while holding the &lt;b&gt;Ctrl&lt;/b&gt; key sets the visible time range to the selected dates.\n\nThe zoom in and zoom out buttons increase/decrease the height of an hour displayed by the calendar component.   
+
+model.summary.meeting=Meeting
+model.summary.misc=Misc.
+model.summary.training=Training
+  </pre>
+ </body>
+</html>

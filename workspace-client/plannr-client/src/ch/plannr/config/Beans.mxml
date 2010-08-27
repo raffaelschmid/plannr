@@ -4,7 +4,8 @@
 	<fx:Declarations>
 		<!--configuration-->
 		<config:Properties id="config">
-			<config:rootUrl>http://localhost:8080</config:rootUrl>
+			<!--<config:rootUrl>http://localhost:8080</config:rootUrl>-->
+			<config:rootUrl></config:rootUrl>
 		</config:Properties>
 		
 		<!--context-->

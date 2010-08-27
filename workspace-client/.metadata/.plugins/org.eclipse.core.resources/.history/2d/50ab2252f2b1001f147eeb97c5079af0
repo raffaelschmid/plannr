@@ -1,0 +1,36 @@
+# NLS_ENCODING=UTF-8
+# NLS_MESSAGEFORMAT_NONE
+
+# Timeline Sample
+#######################################
+
+# Main panel title
+timelinesample.application.title=Timeline
+
+# The two following properties are used by the sample launcher
+timelinesample.application.name=Timeline
+timelinesample.application.description=This sample shows the timeline of the settlement of some IBM offices and plants over the world.
+
+#text in pseudo-html format
+timelinesample.summary=<TextFlow xmlns='http://ns.adobe.com/textLayout/2008'>This timeline displays the settlement of various IBM <span backgroundColor="#9AC5E6">offices</span> and <span backgroundColor="#449BD5">plants</span> in the US and Worldwide. Offices are displayed at loading time while plants are loaded dynamically.</TextFlow>
+timelinesample.filters=Filtering:
+timelinesample.options=Options:
+timelinesample.compact=Compact View
+timelinesample.offices=Offices
+timelinesample.plants=Plants
+timelinesample.us=United States
+timelinesample.ww=World Wide
+timelinesample.additional=Add Data
+# In {year}, IBM settled an office in {city}, {state}
+timelinesample.renderer.text=In {0}, IBM settled an office or plant in {1}, {2}
+timelinesample.help=Help
+timelinesample.properties=Properties
+timelinesample.timeline=Timeline
+timelinesample.actions=Actions:
+# Tooltips explanation text for zoom in
+timelinesample.zoomin=Zoom in the timeline
+# Tooltips explanation text for zoom out
+timelinesample.zoomout=Zoom out the timeline
+# Tooltips explanation text for going back to initial view
+timelinesample.initialzoom=Get back to initial timeline view
+  

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+///////////////////////////////////////////////////////////////////////////////
+// Licensed Materials - Property of IBM
+// 5724-Y31,5724-Z78
+// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.
+//
+// Note to U.S. Government Users Restricted Rights:
+// Use, duplication or disclosure restricted by GSA ADP Schedule
+// Contract with IBM Corp.
+///////////////////////////////////////////////////////////////////////////////
+-->
+
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" implements="recurrence.IRecurrenceRuleEditor" verticalGap="10"
+         creationComplete="init()">
+  <mx:Script>
+    <![CDATA[
+      import mx.formatters.DateFormatter;
+      import ilog.utils.TimeUnit;
+      import ilog.utils.GregorianCalendar;
+      
+      import ilog.calendar.recurrence.WeekDay;
+      import ilog.calendar.recurrence.RRule;
+      
+      private var _positionModel:Array;      
+      private var _dayModel:Array;      
+      private var _startModel:Array;
+      private var _monthModel:Array;
+      
+      private function init():void {
+        //init models
+        _positionModel = [];
+        _positionModel.push({label:getString("first.label"),  value:1});
+        _positionModel.push({label:getString("second.label"), value:2});
+        _positionModel.push({label:getString("third.label"),  value:3});
+        _positionModel.push({label:getString("fourth.label"), value:4});
+        _positionModel.push({label:getString("fifth.label"), value:5});
+        _positionModel.push({label:getString("last.label"),   value:-1});
+        
+        position.dataProvider = _positionModel;
+        
+        var date:Date = new Date();
+                
+        var df:DateFormatter = new DateFormatter();
+        df.formatString = resourceManager.getString("plannr", "plannr.recurrence.ruleeditor.weekday.format"); 
+        
+        date.date -= date.day; //start on sunday
+        
+        _dayModel = [];
+        for (var i:uint=0; i<7; i++) {          
+          _dayModel.push({label:df.format(date), value:i});
+          date.date++;
+        }
+        
+        weekDay.dataProvider = _dayModel;
+        
+        _startModel = [
+          { label:getString("year.fromStart.label"), value:1 },
+          { label:getString("year.fromEnd.label"), value:-1 }        
+        ];  
+        
+        fromStart.dataProvider = _startModel;
+        
+        var calendar:GregorianCalendar = new GregorianCalendar();
+        date = new Date(2008, 0, 1);
+        
+        df.formatString = resourceManager.getString("plannr", "plannr.recurrence.ruleeditor.month.format"); 
+                
+        _monthModel = [];
+        for (i=0; i<12; i++) {          
+          _monthModel.push({label:df.format(date), value:i});
+          date = calendar.addUnits(date, TimeUnit.MONTH, 1, true);
+        }
+        
+        month1.dataProvider = _monthModel;
+        month2.dataProvider = _monthModel;               
+        
+        buildUI();
+               
+      }
+      
+      private function buildUI():void {
+        
+        // Make spark compatible
+        var format:String = resourceManager.getString("plannr", "plannr.recurrence.ruleeditor.yearly.interval", ["|$interval|"]);        
+        Util.buildUI(this, intervalPanel, format, null);
+        
+        format = resourceManager.getString("plannr", "plannr.recurrence.ruleeditor.yearly.choice1", ["|$yearDay|", "|$fromStart|"]);        
+        Util.buildUI(this, choice1Panel, format, handlerChoice1);
+        
+        format = resourceManager.getString("plannr", "plannr.recurrence.ruleeditor.yearly.choice2", ["|$month1|", "|$monthDay|"]);        
+        Util.buildUI(this, choice2Panel, format, handlerChoice2);
+        
+        format = resourceManager.getString("plannr", "plannr.recurrence.ruleeditor.yearly.choice3", ["|$position|", "|$weekDay|", "|$month2|"]);        
+        Util.buildUI(this, choice3Panel, format, handlerChoice3);
+        
+      }
+      
+      private function handlerChoice1(e:Event):void {
+        moveRadio(1);
+        dispatch();
+      }       
+      
+      private function handlerChoice2(e:Event):void {
+        moveRadio(2);
+        dispatch();
+      }
+      
+      private function handlerChoice3(e:Event):void {
+        moveRadio(3);
+        dispatch();
+      }
+      
+      private function getString(key:String):String {
+        return resourceManager.getString("plannr", "plannr.recurrence.ruleeditor."+key);
+      }      
+      
+      public function set recurrenceRule(value:RRule):void {
+        
+        var r:RRule = value;
+        _valid = true;
+        
+        if (r.freq == RRule.YEARLY) {
+          
+          if (r.byYearDay.length == 1) {
+            
+            _valid = Util.checkDefaults(value, ["freq", "byYearDay", "interval", "until", "count"]);
+          
+            yearDay.text = Math.abs(r.byYearDay[0]).toString();
+            fromStart.selectedIndex = r.byYearDay[0] > 0 ? 0 : 1;
+            
+            radioGroup.selectedValue = "radio1";
+          
+          } else if (r.byMonthDay.length == 1 && 
+                     r.byMonth.length == 1) {
+            
+            month1.selectedIndex = r.byMonth[0] as int;
+            monthDay.text = r.byMonthDay[0].toString();
+            
+            radioGroup.selectedValue = "radio2";
+            
+            _valid = Util.checkDefaults(value, ["freq", "byMonthDay", "byMonth", "interval", "until", "count"]);
+            
+          } else if (r.byDay.length == 1 && 
+                     r.byMonth.length == 1) {
+                       
+            var wd:WeekDay = r.byDay[0] as WeekDay;
+            
+            setPosition(wd.modifier);
+            
+            if (_valid) {
+              _valid = Util.checkDefaults(value, ["freq", "byDay", "byMonth", "interval", "until", "count"]);            
+              weekDay.selectedIndex = WeekDay.WEEK_DAYS.indexOf(wd.weekDay);
+            }
+            
+            month2.selectedIndex = r.byMonth[0] as int;
+
+          } else {
+            _valid = false;            
+          }
+                    
+          
+          if (_valid) {          
+            interval.text = r.interval.toString();
+          } else {
+            reset();  
+            _valid = false;
+          }
+        }                      
+      }
+      
+      private function setPosition(value:int):void {
+        switch(value) {
+          case 1:
+            position.selectedIndex = 0;
+            break;
+          case 2:
+            position.selectedIndex = 1;
+            break;
+          case 3:
+            position.selectedIndex = 2;
+            break;
+          case 4:
+            position.selectedIndex = 3;           
+            break;
+          case 5:
+            position.selectedIndex = 4;           
+            break;         
+          case -1:
+            position.selectedIndex = 5;
+            break;    
+          default:
+            _valid = false;
+                         
+        }
+      }
+      
+      public function get recurrenceRule():RRule {
+        
+        var r:RRule = new RRule("FREQ=YEARLY");
+        
+        switch(radioGroup.selectedValue) {
+          
+          case "radio1":
+            
+            var yd:int = parseInt(yearDay.text);
+            
+            r.byYearDay = [yd * fromStart.selectedItem.value];
+            
+            break;
+            
+          case "radio2":
+            
+            var md:int = parseInt(monthDay.text);
+            
+            r.byMonthDay = [md];            
+            r.byMonth = [month1.selectedItem.value];
+            
+            break;
+            
+          case "radio3":
+              
+            r.byDay = [new WeekDay(position.selectedItem.value, weekDay.selectedItem.value)];
+            r.byMonth = [month2.selectedItem.value];  
+             
+            break;
+        }
+        
+        var inter:int = parseInt(interval.text);
+        
+        if (inter > 1) {
+          r.interval = inter;
+        }
+                                      
+        return r; 
+      }
+      
+      private function validateInterval():void {
+        var i:int = Util.validateInt(interval.text, true);
+        interval.text = i.toString();
+        dispatch();
+      }
+      
+      private function validateYearDay():void {
+        var yd:int = Util.validateInt(yearDay.text);
+        
+        if (yd > 366) {
+          yd = 366;
+        } else if (yd < -366) {
+          yd = -366;          
+        } else if (yd == 0) {
+          yd = 1;
+        }
+        
+        yearDay.text = yd.toString(); 
+        dispatch();
+      }
+      
+      private function validateMonthDay():void {
+        var md:int = Util.validateInt(monthDay.text);
+        
+        if (md > 31) {
+          md = 31;
+        } else if (md < -31) {
+          md = -31;          
+        } else if (md == 0) {
+          md = 1;
+        }
+        
+        monthDay.text = md.toString(); 
+        dispatch();
+      }
+      
+         
+      private function dispatch():void {
+        dispatchEvent(new Event("ruleChanged", true));        
+      }     
+      
+      private function moveRadio(id:int):void {
+        radioGroup.selectedValue = "radio"+id;
+      }   
+      
+      public function reset():void {
+        
+        moveRadio(3);
+        
+        yearDay.text = "1";
+        fromStart.selectedIndex = 0;
+        
+        month1.selectedIndex = 0;
+        monthDay.text = "1";
+        
+        position.selectedIndex = 0;
+        weekDay.selectedIndex = 0;
+        month2.selectedIndex = 0;
+        
+        interval.text = "1";
+        
+        _valid = true;
+      }
+      
+      
+      private var _valid:Boolean = true;
+      
+      public function isValid():Boolean {
+        return _valid;
+      }         
+            
+    ]]>
+  </mx:Script>
+  
+  <mx:RadioButtonGroup id="radioGroup" change="dispatch()" />
+  
+  <mx:HBox>
+    <mx:RadioButton groupName="radioGroup" value="radio1"  />
+    <mx:HBox id="choice1Panel" horizontalGap="0">
+      <mx:TextInput id="yearDay" width="37" change="moveRadio(1); validateYearDay()" text="1"/>    
+      <mx:ComboBox id="fromStart" change="moveRadio(1); dispatch()" />
+    </mx:HBox>
+  </mx:HBox>
+  
+  <mx:HBox>
+    <mx:RadioButton groupName="radioGroup" value="radio2"  />
+    <mx:HBox id="choice2Panel" horizontalGap="0">        
+      <mx:ComboBox id="month1" change="moveRadio(2); dispatch()" />
+      <mx:TextInput id="monthDay" width="37" change="moveRadio(2); validateMonthDay();" text="1"/>
+    </mx:HBox>
+  </mx:HBox>   
+  
+  <mx:HBox>
+    <mx:RadioButton groupName="radioGroup" value="radio3" selected="true"  />
+    <mx:HBox id="choice3Panel" horizontalGap="0">        
+      <mx:ComboBox id="position" change="moveRadio(3); dispatch()"/>
+      <mx:ComboBox id="weekDay" change="moveRadio(3); dispatch()"/>    
+      <mx:ComboBox id="month2" change="moveRadio(3); dispatch()"/>
+    </mx:HBox>
+  </mx:HBox>  
+    
+  <mx:HBox id="intervalPanel">     
+    <mx:TextInput id="interval"  width="37" change="validateInterval()" text="1"/>        
+  </mx:HBox>
+  
+</mx:VBox>

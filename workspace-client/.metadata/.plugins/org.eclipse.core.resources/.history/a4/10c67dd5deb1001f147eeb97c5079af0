@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+///////////////////////////////////////////////////////////////////////////////
+// Licensed Materials - Property of IBM
+// 5724-Y31,5724-Z78
+// © Copyright IBM Corporation 2007, 2010. All Rights Reserved.
+//
+// Note to U.S. Government Users Restricted Rights:
+// Use, duplication or disclosure restricted by GSA ADP Schedule
+// Contract with IBM Corp.
+///////////////////////////////////////////////////////////////////////////////
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+             xmlns:s="library://ns.adobe.com/flex/spark" 
+             xmlns:ibm="http://www.ibm.com/xmlns/prod/ilog/elixir/2010"
+             useChromeColor="true">
+  <fx:Metadata>[HostComponent("com.ibm.ilog.elixir.timeline.components.supportClasses.TimelineAxisBase")]</fx:Metadata>
+
+  <fx:Declarations>
+    <!--- @private -->
+    <fx:Component id="majorTickPart">
+      <s:Line xFrom="0" xTo="0" yFrom="0" yTo="20" bottom="0">
+        <s:stroke>
+          <s:SolidColorStroke color="0x000000" weight="1" caps="none"  />
+        </s:stroke>
+      </s:Line> 
+    </fx:Component>
+    <!--- @private -->
+    <fx:Component id="minorTickPart">                  
+      <s:Line xFrom="0" xTo="0" yFrom="0" yTo="10" bottom="0">
+        <s:stroke>          
+          <s:SolidColorStroke color="0x333333" />
+        </s:stroke>        
+      </s:Line>          
+    </fx:Component>
+    <!--- @private -->
+    <fx:Component id="majorLabelPart">            
+      <s:Label color="0x000000"
+               renderingMode="cff"
+               fontSize="15" 
+               bottom="20" />      
+    </fx:Component>   
+   
+  </fx:Declarations>
+  
+  <!--- @private -->
+  <s:Group id="contentGroup" width="100%" height="100%" clipAndEnableScrolling="true" >
+    <s:layout>
+      <ibm:TimelineAxisLayout/>
+    </s:layout>
+  </s:Group>
+  
+  <s:Line width="100%" bottom="0">
+    <s:stroke>
+      <s:SolidColorStroke color="#000000" />
+    </s:stroke>
+  </s:Line>
+</s:SparkSkin>

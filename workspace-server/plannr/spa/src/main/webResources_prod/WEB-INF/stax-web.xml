@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<stax-web-app xmlns="http://www.stax.net/xml/webapp/1">
+    <appid>plannr</appid>
+    <context-param>
+        <param-name>application.environment</param-name>
+        <param-value>prod</param-value>
+    </context-param>
+    <resource name="jdbc/plannr" auth="Container" type="javax.sql.DataSource">
+        <param name="username" value="plannr"/>
+        <param name="password" value="plannr"/>
+        <param name="url" value="jdbc:stax://plannr"/>
+    </resource>
+</stax-web-app>

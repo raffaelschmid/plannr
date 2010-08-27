@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+<event date="1914"><city>Adelaide</city><state>Australia</state></event>
+<event date="1917"><city>Akron</city><state>Ohio</state></event>
+<event date="1919"><city>Albany</city><state>New York</state></event>
+<event date="1915"><city>Altoona</city><state>Pennsylvania</state></event>
+<event ww="true" date="1914"><city>Amsterdam</city><state>Netherlands</state></event>
+<event date="1947"><city>Anchorage</city><state>Alaska</state></event>
+<event date="1935"><city>Ankara</city><state>Turkey</state></event>
+<event date="1946"><city>Asheville</city><state>North Carolina</state></event>
+<event date="1914"><city>Atlanta</city><state>Georgia</state></event>
+<event date="1946"><city>Aurora</city><state>Illinois</state></event>
+<event date="1937"><city>Austin</city><state>Texas</state></event>
+<event ww="true" date="1947"><city>Baghdad</city><state>Iraq</state></event>
+<event date="1915"><city>Baltimore</city><state>Maryland</state></event>
+<event date="1946"><city>Bangor</city><state>Maine</state></event>
+<event ww="true" date="1923"><city>Barcelona</city><state>Spain</state></event>
+<event date="1946" ww="true"><city>Barranquilla</city><state>Colombia</state></event>
+<event date="1938"><city>Baton Rouge</city><state>Louisiana</state></event>
+<event date="1946"><city>Beaumont</city><state>Texas</state></event>
+<event ww="true" date="1946"><city>Bergen</city><state>Norway</state></event>
+<event ww="true" date="1914"><city>Berlin</city><state>Germany</state></event>
+<event date="1938"><city>Bethlehem</city><state>Pennsylvania</state></event>
+<event ww="true" date="1947"><city>Beyrouth</city><state>Lebanon</state></event>
+<event ww="true" date="1946"><city>Bilbao</city><state>Spain</state></event>
+<event date="1919"><city>Birmingham</city><state>Alabama</state></event>
+<event date="1948"><city>Boise</city><state>Idaho</state></event>
+<event ww="true" date="1932"><city>Bordeaux</city><state>France</state></event>
+<event date="1914"><city>Boston</city><state>Massachusetts</state></event>
+<event date="1947" ww="true"><city>Brantford</city><state>Ontario</state></event>
+<event date="1938"><city>Bremen</city><state>Germany</state></event>
+<event date="1919"><city>Bridgeport</city><state>Connecticut</state></event>
+<event ww="true" date="1914"><city>Brisbane</city><state>Australia</state></event>
+<event date="1915"><city>Brooklyn</city><state>New York</state></event>
+<event ww="true" date="1919"><city>Brussels</city><state>Belgium</state></event>
+<event ww="true" date="1929"><city>Bucharest</city><state>Rumania</state></event>
+<event ww="true" date="1914"><city>Budapest</city><state>Hungary</state></event>
+<event ww="true" date="1914"><city>Buenos Aires</city><state>Argentina</state></event>
+<event date="1915"><city>Buffalo</city><state>New York</state></event>
+<event date="1931"><city>Butte</city><state>Montana</state></event>
+<event ww="true" date="1947"><city>Cairo</city><state>Egypt</state></event>
+<event ww="true" date="1936"><city>Calcutta</city><state>India</state></event>
+<event date="1922"><city>Calgary</city><state>Alberta</state></event>
+<event date="1921"><city>Canton</city><state>Ohio</state></event>
+<event date="1946"><city>Cedar Rapids</city><state>Iowa</state></event>
+<event date="1946"><city>Charleston</city><state>South Carolina</state></event>
+<event date="1941"><city>Charleston</city><state>West Virginia</state></event>
+<event date="1920"><city>Charlotte</city><state>North Carolina</state></event>
+<event date="1947" ww="true"><city>Chatham</city><state>New Brunswick</state></event>
+<event date="1919"><city>Chattanooga</city><state>Tennessee</state></event>
+<event date="1946"><city>Cheyenne</city><state>Wyoming</state></event>
+<event date="1914"><city>Chicago</city><state>Illinois</state></event>
+<event date="1915"><city>Cincinnati</city><state>Ohio</state></event>
+<event ww="true" date="1948"><city>Ciudad Trujillo</city><state>Dominican Republic</state></event>
+<event date="1915"><city>Cleveland</city><state>Ohio</state></event>
+<event date="1934"><city>Columbia</city><state>South Carolina</state></event>
+<event date="1946"><city>Columbus</city><state>Georgia</state></event>
+<event date="1917"><city>Columbus</city><state>Ohio</state></event>
+<event date="1936"><city>Concord</city><state>New Hampshire</state></event>
+<event ww="true" date="1914"><city>Copenhagen</city><state>Denmark</state></event>
+<event date="1941"><city>Corpus Christi</city><state>Texas</state></event>
+<event ww="true" date="1946"><city>Dakar</city><state>West Africa</state></event>
+<event date="1915"><city>Dallas</city><state>Texas</state></event>
+<event ww="true" date="1947"><city>Damascus</city><state>Syria</state></event>
+<event date="1919"><city>Dayton</city><state>Ohio</state></event>
+<event date="1919"><city>Denver</city><state>Colorado</state></event>
+<event date="1916"><city>Des Moines</city><state>Iowa</state></event>
+<event date="1915"><city>Detroit</city><state>Michigan</state></event>
+<event ww="true" date="1938"><city>Dortmund-Dorstfeld</city><state>Germany</state></event>
+<event ww="true" date="1927"><city>Dresden</city><state>Germany</state></event>
+<event ww="true" date="1946"><city>Dublin</city><state>Ireland</state></event>
+<event date="1919"><city>Duluth</city><state>Minnesota</state></event>
+<event ww="true" date="1926"><city>Dusseldorf</city><state>Germany</state></event>
+<event date="1941"><city>Edmonton</city><state>Alberta</state></event>
+<event date="1919"><city>El Paso</city><state>Texas</state></event>
+<event ww="true" date="1938"><city>Elisabethville</city><state>Belgian Congo</state></event>
+<event date="1946"><city>Elizabeth</city><state>New Jersey</state></event>
+<event date="1945"><city>Elmira</city><state>New York</state></event>
+<event date="1920"><city>Endicott</city><state>New York</state></event>
+<event date="1920"><city>Erie</city><state>Pennsylvania</state></event>
+<event ww="true" date="1938"><city>Essen</city><state>Germany</state></event>
+<event date="1945"><city>Evansville</city><state>Indiana</state></event>
+<event date="1936"><city>Flint</city><state>Michigan</state></event>
+<event ww="true" date="1943"><city>Florence</city><state>Italy</state></event>
+<event date="1939"><city>Fort Wayne</city><state>Indiana</state></event>
+<event date="1924"><city>Fort Worth</city><state>Texas</state></event>
+<event ww="true" date="1948"><city>Fortaleza</city><state>Brazil</state></event>
+<event ww="true" date="1938"><city>Frankfurt-Main</city><state>Germany</state></event>
+<event date="1946"><city>Fresno</city><state>California</state></event>
+<event date="1946"><city>Galveston</city><state>Texas</state></event>
+<event ww="true" date="1935"><city>Geneva</city><state>Switzerland</state></event>
+<event ww="true" date="1914"><city>Glasgow</city><state>Scotland</state></event>
+<event ww="true" date="1935"><city>Goteborg</city><state>Sweden</state></event>
+<event date="1917"><city>Grand Rapids</city><state>Michigan</state></event>
+<event date="1946"><city>Green Bay</city><state>Wisconsin</state></event>
+<event date="1920"><city>Greensboro</city><state>North Carolina</state></event>
+<event date="1946"><city>Greenville</city><state>South Carolina</state></event>
+<event date="1948"><city>Hagerstown</city><state>Maryland</state></event>
+<event ww="true" date="1919"><city>Halifax</city><state>Nova Scotia</state></event>
+<event ww="true" date="1925"><city>Hamburg</city><state>Germany</state></event>
+<event ww="true" date="1935"><city>Hamilton</city><state>Bermuda</state></event>
+<event date="1914" ww="true"><city>Hamilton</city><state>Ontario</state></event>
+<event date="1946"><city>Hammond</city><state>Indiana</state></event>
+<event ww="true" date="1938"><city>Hannover</city><state>Germany</state></event>
+<event ww="true" date="1935"><city>Hanoi</city><state>French Indo-China</state></event>
+<event date="1919"><city>Harrisburg</city><state>Pennsylvania</state></event>
+<event date="1915"><city>Hartford</city><state>Connecticut</state></event>
+<event ww="true" date="1927"><city>Havana</city><state>Cuba</state></event>
+<event date="1946"><city>Helena</city><state>Montana</state></event>
+<event ww="true" date="1923"><city>Helsinki</city><state>Finland</state></event>
+<event ww="true" date="1914"><city>Hobart</city><state>Australia</state></event>
+<event ww="true" date="1948"><city>Hong Kong</city><state>China</state></event>
+<event date="1931"><city>Honolulu</city><state>Hawaii</state></event>
+<event date="1915"><city>Houston</city><state>Texas</state></event>
+<event date="1919"><city>Huntington</city><state>West Virginia</state></event>
+<event date="1915"><city>Indianapolis</city><state>Indiana</state></event>
+<event date="1946"><city>Jackson</city><state>Michigan</state></event>
+<event date="1938"><city>Jackson</city><state>Mississippi</state></event>
+<event date="1919"><city>Jacksonville</city><state>Florida</state></event>
+<event date="1941"><city>Jamestown</city><state>New York</state></event>
+<event ww="true" date="1947"><city>Jeddah</city><state>Saudi Arabia</state></event>
+<event date="1939"><city>Jefferson City</city><state>Missouri</state></event>
+<event date="1939"><city>Jersey City</city><state>New Jersey</state></event>
+<event ww="true" date="1947"><city>Jerusalem</city><state>Palestine</state></event>
+<event ww="true" date="1938"><city>Johannesburg</city><state>South Africa</state></event>
+<event date="1937"><city>Johnstown</city><state>Pennsylvania</state></event>
+<event date="1947"><city>Joplin</city><state>Missouri</state></event>
+<event date="1940"><city>Kalamazoo</city><state>Michigan</state></event>
+<event date="1915"><city>Kansas City</city><state>Missouri</state></event>
+<event ww="true" date="1938"><city>Karlsruhe</city><state>Germany</state></event>
+<event ww="true" date="1941"><city>Kassel</city><state>Germany</state></event>
+<event date="1946"><city>Kingsport</city><state>Tennessee</state></event>
+<event date="1946" ww="true"><city>Kingston</city><state>Ontario</state></event>
+<event date="1942" ww="true"><city>Kitchner</city><state>Ontario</state></event>
+<event date="1934"><city>Knoxville</city><state>Tennessee</state></event>
+<event ww="true" date="1938"><city>Koln</city><state>Germany</state></event>
+<event ww="true" date="1941"><city>La Paz</city><state>Bolivia</state></event>
+<event date="1946"><city>Lafayette</city><state>Indiana</state></event>
+<event date="1920"><city>Lansing</city><state>Michigan</state></event>
+<event ww="true" date="1925"><city>Lille</city><state>France</state></event>
+<event ww="true" date="1919"><city>Lisbon</city><state>Portugal</state></event>
+<event date="1946"><city>Long Beach</city><state>California</state></event>
+<event date="1916"><city>Los Angeles</city><state>California</state></event>
+<event date="1939"><city>Lawrence</city><state>Massachusetts</state></event>
+<event ww="true" date="1930"><city>Leeds</city><state>England</state></event>
+<event date="1948"><city>Lexington</city><state>Kentucky</state></event>
+<event ww="true" date="1945"><city>Liege</city><state>Belgium</state></event>
+<event date="1946"><city>Lima</city><state>Ohio</state></event>
+<event ww="true" date="1930"><city>Lima</city><state>Peru</state></event>
+<event date="1936"><city>Lincoln</city><state>Nebraska</state></event>
+<event date="1935"><city>Little Rock</city><state>Arkansas</state></event>
+<event ww="true" date="1914"><city>London</city><state>England</state></event>
+<event date="1920" ww="true"><city>London</city><state>Ontario</state></event>
+<event date="1919"><city>Louisville</city><state>Kentucky</state></event>
+<event date="1946"><city>Lubbock</city><state>Texas</state></event>
+<event date="1919"><city>Macon</city><state>Georgia</state></event>
+<event date="1946"><city>Madison</city><state>Wisconsin</state></event>
+<event ww="true" date="1916"><city>Madrid</city><state>Spain</state></event>
+<event ww="true" date="1938"><city>Malmoe</city><state>Sweden</state></event>
+<event ww="true" date="1925"><city>Manchester</city><state>England</state></event>
+<event ww="true" date="1931"><city>Manila</city><state>Philippines</state></event>
+<event ww="true" date="1928"><city>Marseille</city><state>France</state></event>
+<event ww="true" date="1940"><city>Medellin</city><state>Colombia</state></event>
+<event ww="true" date="1914"><city>Melbourne</city><state>Australia</state></event>
+<event date="1921"><city>Memphis</city><state>Tennessee</state></event>
+<event ww="true" date="1927"><city>Mexico City</city><state>Mexico</state></event>
+<event date="1940"><city>Miami</city><state>Florida</state></event>
+<event ww="true" date="1928"><city>Milan</city><state>Italy</state></event>
+<event date="1915"><city>Milwaukee</city><state>Wisconsin</state></event>
+<event date="1947"><city>Mineola</city><state>New York</state></event>
+<event date="1915"><city>Minneapolis</city><state>Minnesota</state></event>
+<event date="1942"><city>Mobile</city><state>Alabama</state></event>
+<event date="1938"><city>Moline</city><state>Illinois</state></event>
+<event ww="true" date="1946"><city>Moncton</city><state>New Brunswick</state></event>
+<event ww="true" date="1946"><city>Monterey</city><state>Mexico</state></event>
+<event ww="true" date="1923"><city>Montevideo</city><state>Uruguay</state></event>
+<event date="1939"><city>Montgomery</city><state>Alabama</state></event>
+<event date="1946"><city>Montpelier</city><state>Vermont</state></event>
+<event ww="true" date="1914"><city>Montreal</city><state>Quebec</state></event>
+<event date="1948"><city>Mount Vernon</city><state>New York</state></event>
+<event ww="true" date="1930"><city>Munich</city><state>Germany</state></event>
+<event ww="true" date="1937"><city>Nancy</city><state>France</state></event>
+<event ww="true" date="1935"><city>Nantes</city><state>France</state></event>
+<event ww="true" date="1947"><city>Naples</city><state>Italy</state></event>
+<event date="1933"><city>Nashville</city><state>Tennessee</state></event>
+<event date="1946"><city>New Bedford</city><state>Massachusetts</state></event>
+<event ww="true" date="1947"><city>New Delhi</city><state>India</state></event>
+<event date="1929"><city>New Haven</city><state>Connecticut</state></event>
+<event date="1919"><city>New Orleans</city><state>Louisiana</state></event>
+<event date="1914"><city>New York</city><state>New York</state></event>
+<event date="1915"><city>Newark</city><state>New Jersey</state></event>
+<event ww="true" date="1933"><city>Newcastle-on-Tyne</city><state>England</state></event>
+<event ww="true" date="1945"><city>Niteroi</city><state>Brazil</state></event>
+<event date="1942"><city>Norfolk</city><state>Virginia</state></event>
+<event ww="true" date="1935"><city>Nurnberg</city><state>Germany</state></event>
+<event date="1919"><city>Oakland</city><state>California</state></event>
+<event date="1939"><city>Olympia</city><state>Washington</state></event>
+<event date="1919"><city>Omaha</city><state>Nebraska</state></event>
+<event date="1946"><city>Orlando</city><state>Florida</state></event>
+<event ww="true" date="1916"><city>Oslo</city><state>Norway</state></event>
+<event date="1919" ww="true"><city>Ottawa</city><state>Ontario</state></event>
+<event date="1931"><city>Panama City</city><state>Panama</state></event>
+<event ww="true" date="1914"><city>Paris</city><state>France</state></event>
+<event date="1946"><city>Paterson</city><state>New Jersey</state></event>
+<event date="1919"><city>Peoria</city><state>Illinois</state></event>
+<event ww="true" date="1914"><city>Perth</city><state>Australia</state></event>
+<event date="1914"><city>Philadelphia</city><state>Pennsylvania</state></event>
+<event date="1940"><city>Phoenix</city><state>Arizona</state></event>
+<event date="1946"><city>Pierre</city><state>South Dakota</state></event>
+<event date="1916"><city>Pittsburgh</city><state>Pennsylvania</state></event>
+<event ww="true" date="1934"><city>Porto Alegre</city><state>Brazil</state></event>
+<event date="1924"><city>Poughkeepsie</city><state>New York</state></event>
+<event date="1919"><city>Portland</city><state>Maine</state></event>
+<event date="1916"><city>Portland</city><state>Oregon</state></event>
+<event ww="true" date="1925"><city>Prague</city><state>Czechoslovakia</state></event>
+<event date="1917"><city>Providence</city><state>Rhode Island</state></event>
+<event ww="true" date="1921"><city>Quebec City</city><state>Quebec</state></event>
+<event date="1946"><city>Quincy</city><state>Illinois</state></event>
+<event date="1938"><city>Raleigh</city><state>North Carolina</state></event>
+<event date="1921"><city>Reading</city><state>Pennsylvania</state></event>
+<event ww="true" date="1948"><city>Recife</city><state>Brazil</state></event>
+<event ww="true" date="1946"><city>Regina</city><state>Canada</state></event>
+<event date="1956" plant="true"><city>Kingston</city><state>New York</state></event>
+<event date="1956" plant="true"><city>Lexington</city><state>Kentucky</state></event>
+<event date="1968" plant="true"><city>Manassas</city><state>Virginia</state></event>
+<event date="1966" plant="true"><city>Menlo Park</city><state>California</state></event>
+<event date="1957" plant="true"><city>Owego</city><state>New York</state></event>
+<event date="1941" plant="true"><city>Poughkeepsie</city><state>New York</state></event>
+<event date="1965" plant="true"><city>Raleigh</city><state>North Carolina</state></event>
+<event date="1956" plant="true"><city>Rochester</city><state>Minnesota</state></event>
+<event date="1943" plant="true"><city>San Jose</city><state>California</state></event>
+<event date="1980" plant="true"><city>Tucson</city><state>Arizona</state></event>
+</events>
