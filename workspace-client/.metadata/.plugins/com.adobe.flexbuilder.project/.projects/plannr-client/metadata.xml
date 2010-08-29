@@ -3,4 +3,6 @@
   <swf bgcolor="ffffff" fullPath="/plannr-client/bin-debug/Main.swf" height="100%" pageTitle="" width="100%"/>
   <generatedHTMLResources/>
 <swf bgcolor="ffffff" fullPath="/plannr-client/bin-release/Main.swf" height="100%" pageTitle="" width="100%"/>
+<swf bgcolor="ffffff" fullPath="/plannr-client/bin-debug/timeline.swf" height="100%" pageTitle="" width="100%"/>
+  <swf bgcolor="ffffff" fullPath="/plannr-client/bin-debug/test.swf" height="100%" pageTitle="" width="100%"/>
 </projectMetadata>

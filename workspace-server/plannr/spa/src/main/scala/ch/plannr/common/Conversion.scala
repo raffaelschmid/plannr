@@ -26,6 +26,10 @@ trait Conversion {
     val s = extract(ns)
     if (s != null) s.toInt else 0
   }
+  implicit def string2Integer(ns: NodeSeq): _root_.java.lang.Integer = {
+    val s = extract(ns)
+    if (s != null) s.toInt else 0
+  }
 
   implicit def string2Boolean(ns: NodeSeq): Boolean = {
     val s = extract(ns)

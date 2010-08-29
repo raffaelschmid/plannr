@@ -17,13 +17,13 @@
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="156" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="com.adobe.flexbuilder.editors.css.editors.CSSEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
-<page aggregateWorkingSetId="Aggregate for window 1279279498026" focus="true" label="Workspace - Flash Debug">
+<page aggregateWorkingSetId="Aggregate for window 1279279498026" focus="true" label="Workspace - Flash">
 <editors>
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
@@ -37,67 +37,36 @@
 <part id="5"/>
 <part id="6"/>
 <part id="7"/>
-<part id="8"/>
-<part id="9"/>
-<part id="10"/>
-<part id="11"/>
-<part id="12"/>
-<part id="13"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="TeamController.as" partName="TeamController.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/controller/TeamController.as" title="TeamController.as" tooltip="plannr-client/src/ch/plannr/controller/TeamController.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/controller/TeamController.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1693" selectionTopPixel="420"/>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="TabScheduler.mxml" partName="TabScheduler.mxml" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/view/component/TabScheduler.mxml" title="TabScheduler.mxml" tooltip="plannr-client/src/ch/plannr/view/component/TabScheduler.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/view/component/TabScheduler.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="calendar.mxml" partName="calendar.mxml" path="/Users/rschmid/sources/flex/ibm/calendar/src/calendar.mxml" title="calendar.mxml" tooltip="elixir-sample-calendar/src/calendar.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/elixir-sample-calendar/src/calendar.mxml"/>
+</editor>
+<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="DateChooserManager.as" partName="DateChooserManager.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/view/component/DateChooserManager.as" title="DateChooserManager.as" tooltip="plannr-client/src/ch/plannr/view/component/DateChooserManager.as" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/view/component/DateChooserManager.as"/>
+<editorState selectionHorizontalPixel="0" selectionLength="18" selectionOffset="1014" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="elixirsamplebar.properties" partName="elixirsamplebar.properties" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/locale/en_US/elixirsamplebar.properties" title="elixirsamplebar.properties" tooltip="plannr-client/locale/en_US/elixirsamplebar.properties" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/locale/en_US/elixirsamplebar.properties"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="498" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="plannrclient.properties" partName="plannrclient.properties" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/locale/en_US/plannrclient.properties" title="plannrclient.properties" tooltip="plannr-client/locale/en_US/plannrclient.properties" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/locale/en_US/plannrclient.properties"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="8848" selectionTopPixel="2835"/>
 </editor>
 <editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="TabAdministrationTeam.mxml" partName="TabAdministrationTeam.mxml" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/view/component/TabAdministrationTeam.mxml" title="TabAdministrationTeam.mxml" tooltip="plannr-client/src/ch/plannr/view/component/TabAdministrationTeam.mxml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/view/component/TabAdministrationTeam.mxml"/>
 </editor>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="Team.as" partName="Team.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/model/Team.as" title="Team.as" tooltip="plannr-client/src/ch/plannr/model/Team.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/model/Team.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="4" selectionOffset="217" selectionTopPixel="0"/>
+<editor activePart="true" focus="true" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="TabAbout.mxml" partName="TabAbout.mxml" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/view/component/TabAbout.mxml" title="TabAbout.mxml" tooltip="plannr-client/src/ch/plannr/view/component/TabAbout.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/view/component/TabAbout.mxml"/>
 </editor>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="Events.as" partName="Events.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/event/Events.as" title="Events.as" tooltip="plannr-client/src/ch/plannr/event/Events.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/event/Events.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="20" selectionOffset="1578" selectionTopPixel="0"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="TeamEvent.as" partName="TeamEvent.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/event/TeamEvent.as" title="TeamEvent.as" tooltip="plannr-client/src/ch/plannr/event/TeamEvent.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/event/TeamEvent.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="9" selectionOffset="132" selectionTopPixel="0"/>
-</editor>
-<editor activePart="true" focus="true" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="HttpServiceFactory.as" partName="HttpServiceFactory.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/service/HttpServiceFactory.as" title="HttpServiceFactory.as" tooltip="plannr-client/src/ch/plannr/service/HttpServiceFactory.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/service/HttpServiceFactory.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1276" selectionTopPixel="210"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.css.editors.CSSEditor" name="style.css" partName="style.css" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/style.css" title="style.css" tooltip="plannr-client/src/style.css" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/style.css"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="UserController.as" partName="UserController.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/controller/UserController.as" title="UserController.as" tooltip="plannr-client/src/ch/plannr/controller/UserController.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/controller/UserController.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="14" selectionOffset="491" selectionTopPixel="660"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="Context.as" partName="Context.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/core/Context.as" title="Context.as" tooltip="plannr-client/src/ch/plannr/core/Context.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/core/Context.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="733" selectionTopPixel="0"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="AddMembersToTeamEvent.as" partName="AddMembersToTeamEvent.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/event/AddMembersToTeamEvent.as" title="AddMembersToTeamEvent.as" tooltip="plannr-client/src/ch/plannr/event/AddMembersToTeamEvent.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/event/AddMembersToTeamEvent.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="446" selectionTopPixel="0"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="DeleteMemberFromTeamEvent.as" partName="DeleteMemberFromTeamEvent.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/event/DeleteMemberFromTeamEvent.as" title="DeleteMemberFromTeamEvent.as" tooltip="plannr-client/src/ch/plannr/event/DeleteMemberFromTeamEvent.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/event/DeleteMemberFromTeamEvent.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="384" selectionTopPixel="0"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="Properties.as" partName="Properties.as" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/config/Properties.as" title="Properties.as" tooltip="plannr-client/src/ch/plannr/config/Properties.as" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/config/Properties.as"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="Beans.mxml" partName="Beans.mxml" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/config/Beans.mxml" title="Beans.mxml" tooltip="plannr-client/src/ch/plannr/config/Beans.mxml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/config/Beans.mxml"/>
-</editor>
-<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="Main.mxml" partName="Main.mxml" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/Main.mxml" title="Main.mxml" tooltip="plannr-client/src/Main.mxml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/Main.mxml"/>
+<editor id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="PanelMain.mxml" partName="PanelMain.mxml" path="/Users/rschmid/general-workspaces/hszt/plannr/software/workspace-client/plannr-client/src/ch/plannr/view/panel/PanelMain.mxml" title="PanelMain.mxml" tooltip="plannr-client/src/ch/plannr/view/panel/PanelMain.mxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/plannr-client/src/ch/plannr/view/panel/PanelMain.mxml"/>
 </editor>
 </editors>
 <views>
@@ -121,23 +90,28 @@
 </view>
 <view id="com.adobe.flexbuilder.packageexplorer" partName="Package Explorer">
 <viewState LINK_NAVIGATOR_TO_EDITOR="1" fpeIsFlat="0" fpeSortBy="1" sorter="1">
-<fpeExpanded>&#x0A;<fpeElement fpePath="/plannr-client"/>
+<fpeExpanded>
+<fpeElement fpePath="/elixir-sample-calendar"/>
+<fpeElement fpePath="/elixir-sample-calendar/src"/>
+<fpeElement fpePath="/elixir-sample-calendar/src/%typeDefaultPackage"/>
+<fpeElement fpePath="/elixir-sample-calendar/src/recurrence"/>
+<fpeElement fpePath="/elixir-sample-calendar/locale"/>
+<fpeElement fpePath="/elixir-sample-calendar/locale/en_US"/>
+<fpeElement fpePath="/plannr-client"/>
 <fpeElement fpePath="/plannr-client/src"/>
 <fpeElement fpePath="/plannr-client/src/%typeDefaultPackage"/>
 <fpeElement fpePath="/plannr-client/src/ch/plannr"/>
-<fpeElement fpePath="/plannr-client/src/ch/plannr/config"/>
-<fpeElement fpePath="/plannr-client/src/ch/plannr/controller"/>
-<fpeElement fpePath="/plannr-client/src/ch/plannr/core"/>
-<fpeElement fpePath="/plannr-client/src/ch/plannr/event"/>
-<fpeElement fpePath="/plannr-client/src/ch/plannr/model"/>
-<fpeElement fpePath="/plannr-client/src/ch/plannr/service"/>
 <fpeElement fpePath="/plannr-client/src/ch/plannr/view"/>
 <fpeElement fpePath="/plannr-client/src/ch/plannr/view/component"/>
-<fpeElement fpePath="/plannr-client/libs"/>
+<fpeElement fpePath="/plannr-client/src/ch/plannr/view/panel"/>
+<fpeElement fpePath="/plannr-client/locale"/>
+<fpeElement fpePath="/plannr-client/locale/en_US"/>
 </fpeExpanded>
-<fpeSelection>&#x0A;<fpeElement fpePath="/plannr-client/src/ch/plannr/service/HttpServiceFactory.as"/>
+<fpeSelection>
+<fpeElement fpePath="/plannr-client/src/ch/plannr/view/component/TabAbout.mxml"/>
 </fpeSelection>
-<filters>&#x0A;<filter element=".flexProperties" isEnabled="true"/>
+<filters>
+<filter element=".flexProperties" isEnabled="true"/>
 <filter element=".actionScriptProperties" isEnabled="true"/>
 <filter element=".project" isEnabled="true"/>
 <filter element=".settings" isEnabled="true"/>
@@ -154,10 +128,14 @@
 <filter element=".model" isEnabled="true"/>
 <filter element=".*" isEnabled="false"/>
 </filters>
-<expanded>&#x0A;<element path="/plannr-client"/>
-<element path="/plannr-client/libs"/>
+<expanded>
+<element path="/elixir-sample-calendar"/>
+<element path="/elixir-sample-calendar/locale"/>
+<element path="/plannr-client"/>
+<element path="/plannr-client/locale"/>
 </expanded>
-<selection>&#x0A;<element path="/plannr-client/src/ch/plannr/service/HttpServiceFactory.as"/>
+<selection>
+<element path="/plannr-client/src/ch/plannr/view/component/TabAbout.mxml"/>
 </selection>
 </viewState>
 </view>
@@ -188,10 +166,12 @@
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.resourceField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>&#x0A;<category IMemento.internal.id="Errors (1 item)"/>
+<expanded>
+<category IMemento.internal.id="Warnings (1 item)"/>
+<category IMemento.internal.id="Warnings"/>
 <category IMemento.internal.id="Errors"/>
 </expanded>
-<columnWidths org.eclipse.ui.ide.locationField="84" org.eclipse.ui.ide.markerType="114" org.eclipse.ui.ide.pathField="144" org.eclipse.ui.ide.resourceField="114" org.eclipse.ui.ide.severityAndDescriptionField="1049"/>
+<columnWidths org.eclipse.ui.ide.locationField="84" org.eclipse.ui.ide.markerType="114" org.eclipse.ui.ide.pathField="144" org.eclipse.ui.ide.resourceField="294" org.eclipse.ui.ide.severityAndDescriptionField="1049"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -209,7 +189,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" activePerspective="com.adobe.flexbuilder.debug.ui.perspectives.debug">
+<perspectives activePart="com.adobe.flexbuilder.editors.mxml.MXMLEditor" activePerspective="com.adobe.flexbuilder.editors.mxml.ui.perspectives.development">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.adobe.flexbuilder.mxml.editor.ui.perspectives.DevelopmentPerspectiveFactory" id="com.adobe.flexbuilder.editors.mxml.ui.perspectives.development" label="Flash"/>
 <alwaysOnActionSet id="com.adobe.flexbuilder.editorcore.modeswitch"/>
@@ -227,6 +207,7 @@
 <alwaysOnActionSet id="com.adobe.flexbuilder.debug.ui.flexDebuggingActionSet"/>
 <alwaysOnActionSet id="com.adobe.flexbuilder.zzz.editors.common.ui.project.publish"/>
 <alwaysOnActionSet id="com.adobe.flexbuilder.as.editor.ui.NavigationActions"/>
+<alwaysOnActionSet id="ilog.flex.about"/>
 <alwaysOnActionSet id="com.adobe.flexbuilder.dcrad.actionSet"/>
 <show_view_action id="com.adobe.flexbuilder.mxml.editor.AppearanceView"/>
 <show_view_action id="com.adobe.flexbuilder.mxml.editor.components.ComponentsView"/>
@@ -270,27 +251,40 @@
 <view id="com.adobe.flexbuilder.as.editor.CallHierarchyView"/>
 <view id="com.adobe.flexbuilder.as.editor.asdocviewer"/>
 <fastViewBars/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.ui.internal.ViewStack@18dabf1">&#x0A;<folder activePageID="com.adobe.flexbuilder.packageexplorer" appearance="2" expanded="2">&#x0A;<page content="com.adobe.flexbuilder.packageexplorer" label="Package Explorer"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@18dabf1">
+<folder activePageID="com.adobe.flexbuilder.packageexplorer" appearance="2" expanded="2">
+<page content="com.adobe.flexbuilder.packageexplorer" label="Package Explorer"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="762" ratioRight="254" relationship="2" relative="org.eclipse.ui.internal.ViewStack@18dabf1">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="762" ratioRight="254" relationship="2" relative="org.eclipse.ui.internal.ViewStack@18dabf1">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.18858041" ratioLeft="360" ratioRight="1549" relationship="2" relative="org.eclipse.ui.internal.ViewStack@18dabf1"/>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@32ef2d" ratio="0.6494465" ratioLeft="528" ratioRight="285" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="com.adobe.flexbuilder.mxml.editor.states.StatesViewer" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@32ef2d" ratio="0.6494465" ratioLeft="528" ratioRight="285" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="com.adobe.flexbuilder.mxml.editor.states.StatesViewer" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="propertiesHolder" ratio="0.2489019" ratioLeft="170" ratioRight="513" relationship="4" relative="org.eclipse.ui.internal.ViewStack@32ef2d">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="com.adobe.flexbuilder.mxml.editor.inspector.view.PropertiesView" label="LabelNotFound"/>
+<info folder="true" part="propertiesHolder" ratio="0.2489019" ratioLeft="170" ratioRight="513" relationship="4" relative="org.eclipse.ui.internal.ViewStack@32ef2d">
+<folder appearance="2" expanded="2">
+<page content="com.adobe.flexbuilder.mxml.editor.inspector.view.PropertiesView" label="LabelNotFound"/>
 <page content="com.adobe.flexbuilder.mxml.editor.AppearanceView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="bottomLayout" ratio="0.7677543" ratioLeft="800" ratioRight="242" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<info folder="true" part="bottomLayout" ratio="0.7677543" ratioLeft="800" ratioRight="242" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.search.ui.views.SearchView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="com.adobe.flexbuilder.dcrad.views.DataServicesView" label="Data/Services"/>
 <page content="com.adobe.flexbuilder.monitors.network.view.NetworkMonitorView" label="Network Monitor"/>
 <page content="org.eclipse.ui.views.ProgressView" label="Progress"/>
@@ -299,7 +293,8 @@
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="com.adobe.flexbuilder.as.editor.CallHierarchyView" label="Call Hierarchy"/>
 <page content="com.adobe.flexbuilder.as.editor.asdocviewer" label="ASDoc"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
@@ -311,9 +306,12 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="outlineHolder" ratio="0.6612284" ratioLeft="689" ratioRight="353" relationship="4" relative="org.eclipse.ui.internal.ViewStack@18dabf1">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<info folder="true" part="outlineHolder" ratio="0.8752399" ratioLeft="912" ratioRight="130" relationship="4" relative="org.eclipse.ui.internal.ViewStack@18dabf1">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="com.adobe.flexbuilder.mxml.editor.components.ComponentsView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
@@ -335,9 +333,10 @@
 <alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
 <alwaysOnActionSet id="com.adobe.flexbuilder.debug.ui.flexDebuggingActionSet"/>
 <alwaysOnActionSet id="com.adobe.flexbuilder.zzz.editors.common.ui.project.publish"/>
+<alwaysOnActionSet id="ilog.flex.about"/>
 <alwaysOnActionSet id="com.adobe.flexbuilder.as.editor.ui.NavigationActions"/>
-<alwaysOnActionSet id="com.adobe.flexbuilder.dcrad.actionSet"/>
 <alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.dcrad.actionSet"/>
 <show_view_action id="org.eclipse.debug.ui.VariableView"/>
 <show_view_action id="org.eclipse.debug.ui.BreakpointView"/>
 <show_view_action id="org.eclipse.debug.ui.ExpressionView"/>
@@ -414,7 +413,7 @@
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.2998713" ratioLeft="233" ratioRight="544" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
 <info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="956" ratioRight="956" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.debug.ui.ExpressionView" appearance="2" expanded="2">
 <page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="Expressions"/>
@@ -432,161 +431,168 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" path="/plannr-client/src/ch/plannr/controller/TeamController.as"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" path="/plannr-client/src/ch/plannr/service/HttpServiceFactory.as"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" path="/plannr-client/src/Main.mxml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.mxml.editor.MXMLCodeEditor" path="/plannr-client/src/Main.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.mxml.editor.MXMLCodeEditor" path="/plannr-client/src/ch/plannr/view/component/TabScheduler.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" path="/plannr-client/src/ch/plannr/view/component/TabScheduler.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" path="/elixir-sample-calendar/src/calendar.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.mxml.editor.MXMLCodeEditor" path="/elixir-sample-calendar/src/calendar.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" path="/plannr-client/src/ch/plannr/view/component/DateChooserManager.as"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/plannr-client/locale/en_US/elixirsamplebar.properties"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/plannr-client/locale/en_US/plannrclient.properties"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" path="/plannr-client/src/ch/plannr/view/component/TabAdministrationTeam.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.mxml.editor.MXMLCodeEditor" path="/plannr-client/src/ch/plannr/view/component/TabAdministrationTeam.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" path="/plannr-client/src/ch/plannr/view/component/TabAbout.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" path="/plannr-client/src/ch/plannr/view/panel/PanelMain.mxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.mxml.editor.MXMLCodeEditor" path="/plannr-client/src/ch/plannr/view/component/TabAbout.mxml"/>
 </editors>
-<item historyLabel="Main.mxml" index="3">
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="2070" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="2025" y="0"/>
+</item>
+<item historyLabel="DateChooserManager.as" index="4">
+<position info="not_deleted" x="464" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="4246" y="0"/>
+</item>
+<item historyLabel="DateChooserManager.as" index="4">
+<position info="not_deleted" x="6668" y="1235"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="4472" y="13"/>
+</item>
+<item historyLabel="DateChooserManager.as" index="4">
+<position info="not_deleted" x="6851" y="13"/>
+</item>
+<item historyLabel="calendar.mxml" index="2">
+<position info="not_deleted" x="2814" y="47"/>
+</item>
+<item historyLabel="DateChooserManager.as" index="4">
+<position info="not_deleted" x="440" y="24"/>
+</item>
+<item historyLabel="calendar.mxml" index="2">
+<position info="not_deleted" x="2814" y="47"/>
+</item>
+<item historyLabel="calendar.mxml" index="3">
+<position info="not_deleted" x="3237" y="0"/>
+</item>
+<item historyLabel="calendar.mxml" index="3">
+<position info="not_deleted" x="38901" y="1034"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="7063" y="0"/>
+</item>
+<item historyLabel="calendar.mxml" index="2">
+<position info="not_deleted" x="38901" y="1034"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="7063" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6343" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6329" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="4253" y="14"/>
+</item>
+<item historyLabel="calendar.mxml" index="2">
+<position info="not_deleted" x="3211" y="18"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="6163" y="10"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6159" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="2052" y="11"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6432" y="6"/>
+</item>
+<item historyLabel="calendar.mxml" index="2">
+<position info="not_deleted" x="3211" y="18"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="1976" y="0"/>
+</item>
+<item historyLabel="elixirsamplebar.properties" index="5">
+<position info="not_deleted" x="498" y="0"/>
+</item>
+<item historyLabel="plannrclient.properties" index="6">
+<position info="not_deleted" x="8848" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="1976" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6174" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6169" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
 <position/>
 </item>
-<item historyLabel="Main.mxml" index="3">
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6539" y="0"/>
+</item>
+<item historyLabel="TabAdministrationTeam.mxml" index="7">
+<position info="not_deleted" x="4268" y="181"/>
+</item>
+<item historyLabel="TabAdministrationTeam.mxml" index="8">
+<position info="not_deleted" x="829" y="113"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="6560" y="0"/>
+</item>
+<item historyLabel="TabAdministrationTeam.mxml" index="7">
+<position info="not_deleted" x="4331" y="10"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="6560" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6224" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6265" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6260" y="0"/>
+</item>
+<item historyLabel="TabScheduler.mxml" index="0">
 <position/>
 </item>
-<item historyLabel="Main.mxml" index="3">
+<item historyLabel="TabScheduler.mxml" index="0">
 <position/>
 </item>
-<item historyLabel="Main.mxml" index="3">
+<item historyLabel="TabScheduler.mxml" index="0">
 <position/>
 </item>
-<item historyLabel="Main.mxml" index="3">
-<position/>
+<item historyLabel="TabScheduler.mxml" index="0">
+<position info="not_deleted" x="6155" y="0"/>
 </item>
-<item historyLabel="Main.mxml" index="3">
-<position/>
+<item historyLabel="TabAdministrationTeam.mxml" index="7">
+<position info="not_deleted" x="4331" y="10"/>
 </item>
-<item historyLabel="Main.mxml" index="3">
-<position/>
+<item historyLabel="TabScheduler.mxml" index="1">
+<position info="not_deleted" x="6155" y="0"/>
 </item>
-<item historyLabel="Main.mxml" index="3">
-<position/>
+<item historyLabel="TabAbout.mxml" index="9">
+<position info="not_deleted" x="457" y="0"/>
 </item>
-<item historyLabel="Main.mxml" index="3">
-<position/>
+<item historyLabel="PanelMain.mxml" index="10">
+<position info="not_deleted" x="536" y="0"/>
 </item>
-<item historyLabel="Main.mxml" index="3">
-<position info="not_deleted" x="1220" y="45"/>
+<item historyLabel="TabAbout.mxml" index="9">
+<position info="not_deleted" x="457" y="0"/>
 </item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="157" y="36"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="677" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="630" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1271" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1275" y="0"/>
-</item>
-<item historyLabel="Main.mxml" index="2">
-<position info="not_deleted" x="430" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1275" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1292" y="0"/>
-</item>
-<item historyLabel="TabAdministrationTeam.mxml" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="TeamController.as" index="0">
-<position info="not_deleted" x="1693" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1292" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="696" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="489" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1269" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1292" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1334" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1339" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="696" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1269" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1285" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1348" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1325" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1237" y="15"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1278" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1276" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1313" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1295" y="0"/>
-</item>
-<item historyLabel="HttpServiceFactory.as" index="1">
-<position/>
-</item>
-<item active="true" historyLabel="HttpServiceFactory.as" index="1">
-<position info="not_deleted" x="1307" y="0"/>
+<item active="true" historyLabel="TabAbout.mxml" index="11">
+<position info="not_deleted" x="422" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -605,41 +611,44 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="PanelMain.mxml" tooltip="plannr-client/src/ch/plannr/view/panel/PanelMain.mxml">
+<persistable path="/plannr-client/src/ch/plannr/view/panel/PanelMain.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="TabAbout.mxml" tooltip="plannr-client/src/ch/plannr/view/component/TabAbout.mxml">
+<persistable path="/plannr-client/src/ch/plannr/view/component/TabAbout.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="TabAdministrationTeam.mxml" tooltip="plannr-client/src/ch/plannr/view/component/TabAdministrationTeam.mxml">
+<persistable path="/plannr-client/src/ch/plannr/view/component/TabAdministrationTeam.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="plannrclient.properties" tooltip="plannr-client/locale/en_US/plannrclient.properties">
+<persistable path="/plannr-client/locale/en_US/plannrclient.properties"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="elixirsamplebar.properties" tooltip="plannr-client/locale/en_US/elixirsamplebar.properties">
+<persistable path="/plannr-client/locale/en_US/elixirsamplebar.properties"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="DateChooserManager.as" tooltip="plannr-client/src/ch/plannr/view/component/DateChooserManager.as">
+<persistable path="/plannr-client/src/ch/plannr/view/component/DateChooserManager.as"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="calendar.mxml" tooltip="elixir-sample-calendar/src/calendar.mxml">
+<persistable path="/elixir-sample-calendar/src/calendar.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="TabScheduler.mxml" tooltip="plannr-client/src/ch/plannr/view/component/TabScheduler.mxml">
+<persistable path="/plannr-client/src/ch/plannr/view/component/TabScheduler.mxml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="calendarsample.properties" tooltip="plannr-client/locale/en_US/calendarsample.properties">
+<persistable path="/plannr-client/locale/en_US/calendarsample.properties"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="Main.mxml" tooltip="plannr-client/src/Main.mxml">
 <persistable path="/plannr-client/src/Main.mxml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="Beans.mxml" tooltip="plannr-client/src/ch/plannr/config/Beans.mxml">
-<persistable path="/plannr-client/src/ch/plannr/config/Beans.mxml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="MonthlyRulePanel.mxml" tooltip="elixir-sample-calendar/src/recurrence/MonthlyRulePanel.mxml">
+<persistable path="/elixir-sample-calendar/src/recurrence/MonthlyRulePanel.mxml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="Properties.as" tooltip="plannr-client/src/ch/plannr/config/Properties.as">
-<persistable path="/plannr-client/src/ch/plannr/config/Properties.as"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.mxml.MXMLEditor" name="ElixirSampleBar.mxml" tooltip="elixir-sample-calendar/src/ElixirSampleBar.mxml">
+<persistable path="/elixir-sample-calendar/src/ElixirSampleBar.mxml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="DeleteMemberFromTeamEvent.as" tooltip="plannr-client/src/ch/plannr/event/DeleteMemberFromTeamEvent.as">
-<persistable path="/plannr-client/src/ch/plannr/event/DeleteMemberFromTeamEvent.as"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="AddMembersToTeamEvent.as" tooltip="plannr-client/src/ch/plannr/event/AddMembersToTeamEvent.as">
-<persistable path="/plannr-client/src/ch/plannr/event/AddMembersToTeamEvent.as"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="Context.as" tooltip="plannr-client/src/ch/plannr/core/Context.as">
-<persistable path="/plannr-client/src/ch/plannr/core/Context.as"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="UserController.as" tooltip="plannr-client/src/ch/plannr/controller/UserController.as">
-<persistable path="/plannr-client/src/ch/plannr/controller/UserController.as"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="SearchUserEvent.as" tooltip="plannr-client/src/ch/plannr/event/SearchUserEvent.as">
-<persistable path="/plannr-client/src/ch/plannr/event/SearchUserEvent.as"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.css.editors.CSSEditor" name="style.css" tooltip="plannr-client/src/style.css">
-<persistable path="/plannr-client/src/style.css"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="HttpServiceFactory.as" tooltip="plannr-client/src/ch/plannr/service/HttpServiceFactory.as">
-<persistable path="/plannr-client/src/ch/plannr/service/HttpServiceFactory.as"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="TeamEvent.as" tooltip="plannr-client/src/ch/plannr/event/TeamEvent.as">
-<persistable path="/plannr-client/src/ch/plannr/event/TeamEvent.as"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="User.as" tooltip="plannr-client/src/ch/plannr/model/User.as">
-<persistable path="/plannr-client/src/ch/plannr/model/User.as"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.adobe.flexbuilder.editors.actionscript.ActionScriptEditor" name="ElixirLinkButton.as" tooltip="elixir-sample-calendar/src/ElixirLinkButton.as">
+<persistable path="/elixir-sample-calendar/src/ElixirLinkButton.as"/>
 </file>
 </mruList>
 </workbench>

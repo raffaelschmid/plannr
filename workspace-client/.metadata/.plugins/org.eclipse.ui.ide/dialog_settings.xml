@@ -3,34 +3,41 @@
 	<list key="installedFeatures">
 		<item value="com.adobe.flexbuilder.feature.standalone.nl1:4.0.1.277662"/>
 		<item value="com.adobe.flexbuilder.feature.standalone:4.0.1.277662"/>
+		<item value="ilog.flex.elixir.feature:3.0.0.v201005191116"/>
 		<item value="org.eclipse.cvs:1.1.101.R35x_v20090811-7E79FEd9KKF5H2YDWFLLBL01A16"/>
 		<item value="org.eclipse.help:1.1.1.R35x_v20090811-7e7eFAnFEx2XZoYz0uPgIfwD"/>
 		<item value="org.eclipse.platform:3.5.1.R35x_v20090910-9gEeG1_FthkNDSP2odXdThaOu9GFDPn83DGB7"/>
 		<item value="org.eclipse.rcp:3.5.1.R35x_v20090811-9SA0FxVFqE70OL1ARMrfcO6e7BA6"/>
 	</list>
 	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
-		<item value="true" key="ShowStatusLine"/>
 		<item value="false" key="ShowDerived"/>
+		<item value="true" key="ShowStatusLine"/>
 		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;" key="WorkingSet"/>
 		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History&gt;&#x0A;&lt;historyRootNode/&gt;&#x0A;&lt;/History&gt;" key="History"/>
 		<section name="DialogBoundsSettings">
 			<item value="600" key="DIALOG_WIDTH"/>
 			<item value="232" key="DIALOG_Y_ORIGIN"/>
-			<item value="500" key="DIALOG_HEIGHT"/>
 			<item value="660" key="DIALOG_X_ORIGIN"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
 			<item value="1|Lucida Grande|11.0|0|CARBON|1|Lucida Grande" key="DIALOG_FONT_NAME"/>
 		</section>
+	</section>
+	<section name="ExternalProjectImportWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 	</section>
 	<section name="ResourceNavigator">
 		<item value="" key="ResourceWorkingSetFilter.STORE_WORKING_SET"/>
 		<item value="true" key="LINK_NAVIGATOR_TO_EDITOR"/>
 		<item value="2" key="ResourceViewer.STORE_SORT_TYPE"/>
 	</section>
+	<section name="NewWizardAction">
+	</section>
 	<section name="CleanDialogSettings">
 		<item value="484" key="DIALOG_WIDTH"/>
 		<item value="357" key="DIALOG_Y_ORIGIN"/>
-		<item value="345" key="DIALOG_HEIGHT"/>
 		<item value="724" key="DIALOG_X_ORIGIN"/>
+		<item value="345" key="DIALOG_HEIGHT"/>
 		<item value="false" key="TOGGLE_SELECTED"/>
 	</section>
 </section>

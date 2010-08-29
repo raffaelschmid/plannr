@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent label="Account" width="100%" height="100%"  
+					xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/mx" contentCreationComplete="creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import ch.plannr.model.User;
+			import ch.plannr.util.UtilFunctions;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			[Inject(source="context.currentUser",bind="true")]
+			public var currentUser : User;
+			
+			[Bindable]
+			private var userToUpdate:User = null;
+			
+
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				if(!userToUpdate)
+					userToUpdate = UtilFunctions.clone(currentUser) as User;
+			}
+
+
+			protected function ddlCountries_changeHandler(event:IndexChangeEvent):void
+			{
+				userToUpdate.address.countryCode=ddlCountries.selectedItem.value;	
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:ArrayCollection id="countries">
+			<fx:Object label="Switzerland" value="CHE"/>
+			<fx:Object label="Sweden" value="SWE"/>
+		</s:ArrayCollection>
+	</fx:Declarations>
+	<mx:Form width="100%" height="100%" defaultButton="{bRegister}">
+		<mx:FormItem label="email address">
+			<s:TextInput id="tiEmail" text="{userToUpdate.email}"/>
+		</mx:FormItem>
+		<mx:FormItem label="first name">
+			<s:TextInput id="tiFirstName" text="{userToUpdate.firstname}"/>
+		</mx:FormItem>
+		<mx:FormItem label="last name">
+			<s:TextInput id="tiLastname" text="{userToUpdate.lastname}"/>
+		</mx:FormItem>
+		<mx:FormItem label="street 1">
+			<s:TextInput id="tiStreet1" text="{userToUpdate.address.street1}"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="street 2">
+			<s:TextInput id="tiStreet2" text="{userToUpdate.address.street2}"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="zip">
+			<s:TextInput id="tiZip" text="{userToUpdate.address.zip}" restrict="0-9"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="city">
+			<s:TextInput id="tiCity" text="{userToUpdate.address.city}"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="country">
+			<s:DropDownList id="ddlCountries" dataProvider="{countries}" labelField="label" change="ddlCountries_changeHandler(event)"/> 
+		</mx:FormItem>
+		
+		<mx:FormItem>
+			<s:HGroup>
+				<s:Button id="bRegister" label="Register" /><s:Button id="bCancel" label="Cancel"/>
+			</s:HGroup>
+		</mx:FormItem>
+		<mx:Spacer height="10"/>
+		<s:Label id="lMessage" text=""/>
+	</mx:Form>	
+	
+</s:NavigatorContent>

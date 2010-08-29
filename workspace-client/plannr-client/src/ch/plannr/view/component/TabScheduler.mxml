@@ -27,7 +27,7 @@
 			private var baseModel:XML = 
 				<list>
 				  <event d="1" s="0"  e="72"  key="vacation"  calendar="0" />
-				  <event d="2" s="0"  e="72" key="vacation"     calendar="1" />
+				  <event d="2" s="0"  e="72" key="vacation"     calendar="0" />
 				</list>;
 			
 			private function createDefaultModel():XMLList {

@@ -9,7 +9,7 @@ package ch.plannr.model
 		
 		private var _street1:String;
 		private var _street2:String;
-		private var _zip:int;
+		private var _zip:String;
 		private var _city:String;
 		private var _countryCode:String;
 		
@@ -34,12 +34,12 @@ package ch.plannr.model
 			_countryCode= value;
 		}
 		
-		public function set zip(value:int):void
+		public function set zip(value:String):void
 		{
 			_zip= value;
 		} 
 		
-		public function get zip():int
+		public function get zip():String
 		{
 			return _zip;
 		}

@@ -14,6 +14,7 @@ package ch.plannr.model
 		private var _lastname:String=null;
 		private var _email:String=null;
 		private var _password:String = null;
+		private var _confirmPassword:String = null;
 		public var address:Address = new Address();
 		
 		public function User(firstname:String=null, lastname:String=null, email:String=null, password:String=null)
@@ -44,7 +45,7 @@ package ch.plannr.model
 			user.address.street2=xml.address.street2[0];
 			user.address.city=xml.address.city[0];
 			user.address.countryCode=xml.address.countryCode[0];
-			user.address.zip=parseInt(xml.address.zip[0]);
+			user.address.zip=xml.address.zip[0];
 			
 			return user;
 		}
@@ -93,6 +94,16 @@ package ch.plannr.model
 			return _password;
 		}
 		
+		public function set confirmPassword(confirmPassword:String):void
+		{
+			_confirmPassword= confirmPassword;
+		}
+				
+		public function get confirmPassword():String
+		{
+			return _confirmPassword;
+		}
+		
 		public function set id(value:int):void
 		{
 			_id= value;
@@ -101,7 +112,7 @@ package ch.plannr.model
 		{
 			return _id;
 		}
-		public function get address_zip():int
+		public function get address_zip():String
 		{
 			return address.zip;
 		}

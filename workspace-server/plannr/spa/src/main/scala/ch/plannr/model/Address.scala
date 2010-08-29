@@ -20,7 +20,7 @@ class Address extends ToString{
 
   @Column(name="ZIP")
   @Size(min = 4, max = 10)
-  var zip: Int = _
+  var zip: _root_.java.lang.Integer = _
 
   @Column(name="CITY")
   var city: String = _

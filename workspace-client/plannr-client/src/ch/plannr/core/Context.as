@@ -15,7 +15,7 @@ package ch.plannr.core
 	public class Context extends EventDispatcher
 	{
 		[Bindable]
-		public var currentUser:User = null;
+		public var currentUser:User = new User();
 		
 		[Bindable]
 		public var email:String = null;

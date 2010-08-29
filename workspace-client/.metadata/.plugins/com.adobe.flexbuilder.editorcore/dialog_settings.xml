@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="com.adobe.flexbuilder.editorcore.ui.pi.PropertiesView">
-		<item value="false" key="Size and Position"/>
 		<item value="Common" key="TreeGridImpl.TopCategory"/>
+		<item value="false" key="Size and Position"/>
 		<item value="true" key="Layout"/>
 		<item value="130" key="TreeGridImpl.ColumnZeroWidth"/>
 		<item value="" key="TreeGridImpl.TopAttribute"/>
 		<item value="false" key="Style"/>
-		<item value="2" key="ViewOption"/>
 		<item value="true" key="Common"/>
+		<item value="2" key="ViewOption"/>
 		<item value="78" key="TreeGridImpl.ColumnOneWidth"/>
 		<list key="CategoryExpanded">
 			<item value="true"/>
@@ -17,6 +17,9 @@
 			<item value="false"/>
 			<item value="true"/>
 			<item value="true"/>
+			<item value="false"/>
+			<item value="false"/>
+			<item value="false"/>
 			<item value="false"/>
 			<item value="false"/>
 		</list>
@@ -29,6 +32,9 @@
 			<item value="Other"/>
 			<item value="Layout Constraints"/>
 			<item value="Layout"/>
+			<item value="Timeline"/>
+			<item value="Calendar"/>
+			<item value="Data"/>
 		</list>
 	</section>
 	<section name="ExportWizard">
