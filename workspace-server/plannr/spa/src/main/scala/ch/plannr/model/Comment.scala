@@ -21,6 +21,9 @@ class Comment {
   @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
   var user: User = _
 
+  @ManyToOne
+  @JoinColumn(name = "VACATION_ID", referencedColumnName = "ID")
+  var vacation: Vacation = _
 
   @Column(name = "COMMENT", nullable = false)
   @NotNull

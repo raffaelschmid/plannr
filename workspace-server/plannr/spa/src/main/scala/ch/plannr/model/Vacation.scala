@@ -45,6 +45,9 @@ class Vacation extends Domain with Persistent[Vacation] with Conversion {
   @NotNull
   var to: Date = _
 
+  @OneToMany(mappedBy = "vacation")
+  var ownerOf: _root_.java.util.Set[Comment] = new _root_.java.util.HashSet[Comment]
+
   override def toXml =
     <vacation>
       <id>
