@@ -1,13 +1,33 @@
 \select@language {ngerman}
 \contentsline {chapter}{\numberline {1}Zusammenfassung}{3}
 \contentsline {chapter}{\numberline {2}Grundlagen}{9}
-\contentsline {chapter}{\numberline {3}Analyse}{11}
-\contentsline {chapter}{\numberline {4}Evaluation}{13}
-\contentsline {chapter}{\numberline {5}Implementation}{15}
-\contentsline {section}{\numberline {5.1}Datenbank}{15}
-\contentsline {subsection}{\numberline {5.1.1}Entity Relationship Model}{15}
-\contentsline {chapter}{\numberline {6}Zusammenfassung}{17}
-\contentsline {chapter}{\numberline {A}Glossar}{23}
-\contentsline {chapter}{\numberline {B}Journal}{25}
-\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{25}
-\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{26}
+\contentsline {section}{\numberline {2.1}Funktionale Programmierung}{9}
+\contentsline {subsection}{\numberline {2.1.1}Imperativ vs. Deklarativ}{9}
+\contentsline {subsection}{\numberline {2.1.2}Funktionale Programmierung}{10}
+\contentsline {section}{\numberline {2.2}Statisch typisierte Sprachen}{11}
+\contentsline {subsection}{\numberline {2.2.1}Explizite Deklaration und Typinferenz}{11}
+\contentsline {subsubsection}{Typinferenz in der Praxis}{11}
+\contentsline {subsection}{\numberline {2.2.2}Vorteile von statischer Typisierung}{12}
+\contentsline {subsection}{\numberline {2.2.3}Nachteile von statischer Typisierung}{12}
+\contentsline {subsection}{\numberline {2.2.4}Scala und die Typisierung}{12}
+\contentsline {chapter}{\numberline {3}Analyse}{13}
+\contentsline {section}{\numberline {3.1}Programmiersprachen}{13}
+\contentsline {subsection}{\numberline {3.1.1}Java}{13}
+\contentsline {subsection}{\numberline {3.1.2}Groovy}{13}
+\contentsline {subsection}{\numberline {3.1.3}Scala}{13}
+\contentsline {section}{\numberline {3.2}Web-Frameworks}{13}
+\contentsline {subsection}{\numberline {3.2.1}Grails}{13}
+\contentsline {subsection}{\numberline {3.2.2}Liftweb}{13}
+\contentsline {section}{\numberline {3.3}HTML vs. Flex vs. others}{13}
+\contentsline {chapter}{\numberline {4}Evaluation}{15}
+\contentsline {section}{\numberline {4.1}Programmiersprache}{15}
+\contentsline {section}{\numberline {4.2}Web Framework}{15}
+\contentsline {chapter}{\numberline {5}Implementation}{17}
+\contentsline {section}{\numberline {5.1}Datenbank}{17}
+\contentsline {subsection}{\numberline {5.1.1}Entity Relationship Model}{17}
+\contentsline {chapter}{\numberline {6}Fazit}{19}
+\contentsline {chapter}{\numberline {A}Glossar}{27}
+\contentsline {chapter}{\numberline {B}Journal}{29}
+\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{29}
+\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{30}
+\contentsline {section}{\numberline {B.3}Phase Dokumentation}{31}

@@ -1,4 +1,5 @@
 \documentclass[11pt]{book}
+\bibliographystyle{plain}
 \setlength{\headheight}{10pt}
 \usepackage[german, ngerman]{babel}
 \usepackage{graphicx}
@@ -8,7 +9,9 @@
 \usepackage{setspace}
 \usepackage{listings}
 
+\usepackage{listings}
 
+\lstset{language=JAVA, basicstyle=\small \ttfamily, showspaces=false, showtabs=false, tab= , keywordstyle=\bfseries, showstringspaces=false, framexleftmargin=5mm, frame=single, numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt, texcl=false, escapechar=$}
 %-----------------------------------------------------------
 % properties
 %-----------------------------------------------------------
@@ -34,9 +37,10 @@
 \input{analyse}
 \input{evaluation}
 \input{implementation}	
-\input{zusammenfassung}
-\listoffigures
+\input{fazit}
 \input{literaturverzeichnis}
+\listoffigures
+\listoftables
 \appendix
 \input{glossary}
 \input{journal}

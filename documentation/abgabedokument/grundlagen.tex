@@ -1,1 +1,109 @@
 \chapter{Grundlagen}
+\section{Funktionale Programmierung}
+Um das Prinzip der Funktionalen Programmierung ein kurzer Vergleich zwischen imperativer und deklarativer Programmierung.
+\subsection{Imperativ vs. Deklarativ}
+Im Gegensatz zu den Imperativen\footnote{der Begriff Imperativ bezeichnet die Befehlsform (lat: imperare=Befehlen)} Sprachen wird der ''Computer'' angewiesen, wie er ein bestimmtes Resultat berechnen muss. Die Deklarativen Sprachen hingegen erm\"oglichen eine Trennung zwischen Arbeits- und Steuerungsalgorithmus. Wir formulieren, was wir haben wollen, und m\"ussen dazu nicht wissen, wie es im Hintergrund ''erarbeitet'' wird.
+
+Als gutes Beispiel f\"ur eine deklarative Sprache ist SQL, die Structured Query Language zur Abfrage von Daten einer Datenbank, und ist deshalb ein gutes Beispiel f\"ur eine Sprache die unserem Denken entspricht. 
+
+\begin{lstlisting}[caption=Sql Deklaration]
+select first_name, last_name, zip, city 
+from tbl_user 
+where zip<=8000;
+\end{lstlisting}
+
+
+  \begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \caption{Resultat der deklarativen Abfrage}\\
+\hline
+  firstname & lastname & zip & city\\
+  \hline
+    Flavor & Flav & 8000 & Z\"urich\\
+  \hline
+  \end{longtable}
+
+Eine Sql-Anweisung ist im Normalfall auch ohne detaillierte Erkl\"arung verst\"andlich und man hat sich nicht mit dem Steuerungsalgorithmus im Hintergrund zu besch\"aftigen. Da die Queries nur auf Tabellen operieren, m\"ussen wir nicht einmal wissen, wie Computer funktionieren. Mit Hilfe der Abfragesprache k\"onnen wir uns auf das Wesentliche konzentrieren und mit wenigen Anweisungen viel erreichen. \cite{Piepmeyer201006}
+
+Im Gegensatz zu dieser Deklaration ist beispielsweise die Aufsummierung aller Zahlen einer Liste in Sprachen wie Java, C++ oder C\# imperativ:
+
+\begin{lstlisting}[caption=Summe einer Liste in Java]
+List<Integer> summanden = asList(new Integer[] { 1, 2 });
+int summe = 0;
+for (int i = 0; i < summanden.size(); i++) {
+	summe = summe + summanden.get(i);
+}
+System.out.println(summe);
+\end{lstlisting}
+
+Imperative Sprachen haben unter anderem die folgenden Eigenschaften:
+\begin{itemize}
+\item Programme bestehen aus Anweisungen, die der Prozessor in einer bestimmten Reihenfolge abarbeitet. If-Else-Anweisungen werden durch Forw\"artsspr\"unge realisiert, Schleifen durch R\"uckw\"artsspr\"unge.
+\item Werte von Variablen ver\"andern sich unter umst\"anden kontinuierlich.
+\end{itemize}
+
+In h\"oheren Sprachen wie zum Beispiel Scala wird die Berechnung der Summe auf deklarative Weise gemacht und sieht folgendermassen aus:
+\begin{lstlisting}[caption=Summe einer Liste in Scala]
+List(1,2,3).foldLeft(0)((sum,x) => sum+x)
+\end{lstlisting} 
+
+\subsection{Funktionale Programmierung}
+Funktionale Programmierung besitzt die folgenden eigenschaften:
+\begin{itemize}
+\item jedes Programm ist auch eine Funktion
+\item jede Funktion kann weitere Funktionen aufrufen
+\item Funktionale Sprachen haben Top-Class Funktionen welche nicht nur definiert und aufgerufen werden k\"onnen, sondern als Werte respektive Objekte herumgereicht werden k\"onnen.
+\item Die theoretische Grundlage von Funktionaler Programmiersprachen basiert auf dem Lambda-Kalk\"ul\footnote{Der Lambda-Kalkül ist eine formale Sprache zur Untersuchung von Funktionen. Sie beschreibt Funktionsdefinitionen, das Definieren formaler Parameter sowie das Auswerten und Einsetzen aktueller Parameter. http://de.wikipedia.org/wiki/Lambda-Kalk\"ul} Jeder Ausdruck wird dabei als auswertbare Funktion betrachtet, so dass Funktionen als Parameter übergeben werden können.
+\end{itemize}
+
+
+
+
+
+\section{Statisch typisierte Sprachen}
+Statisch typisierte Sprachen zeichnen sich dadurch aus, dass sie im Gegensatz zu dynamisch typisierten Sprachen den Typ von Variablen schon beim Kompilierungsprozess ermitteln. Dies kann im wesentlichen durch 2 verschiedene Arten geschehen:
+
+\subsection{Explizite Deklaration und Typinferenz}
+Bei der expliziten Deklaration wird der Typ einer Variablen respektive der R\"uckgabetyp einer Funktion festgelegt und wird f\"ur die weitere Verwendung bekannt gemacht. Im Normalfall k\"onnen diese expliziten Definitionen aus den restlichen Angaben hergeleitet werden und k\"onnen in h\"oheren Sprachen wie beispielsweise Scala weggelassen werden - dann Spricht man von Typinferenz. Die heutigen Programmiersprachen besitzen unterschiedliche F\"ahigkeiten in Sachen Typinferent. 
+
+\subsubsection{Typinferenz in der Praxis}
+In Sachen Typinferenz ist Java wenige beg\"utert. Ein kleines Beispiel welches das kleine bisschen Typinferenz in Java aufzeigen soll:
+
+\begin{lstlisting}[caption=Typeinferenz in Java]
+public static void main(String[] args) {
+	List<String> list = newArrayList();
+}
+public static <T> List<T> newArrayList() {
+	return new ArrayList<T>();
+}
+\end{lstlisting}
+Die Ermittlung des R\"uckgabetyps aufgrund des Variablen-Typs ist schon fast alles was Java in Sachen Typeinferenz zu bieten hat. Etwas mehr kann mit den h\"oheren Sprachen wie Scala erreicht werden:
+\begin{lstlisting}[caption=Typeinferenz in Scala]
+scala> val s = "inference"
+s: java.lang.String = inference
+
+scala> val l = List("a","b","c")
+l: List[java.lang.String] = List(a, b, c)
+\end{lstlisting}
+
+\subsection{Vorteile von statischer Typisierung}
+\begin{itemize}
+\item Bestimmte Fehler werden durch die Typpr\"ufung w\"ahrend der Kompilierzeit vermieden.
+\item Grunds\"atzlich ist das akribische Testen von Code weniger wichtig. 
+\item Die Performance von statisch typisierten Sprachen ist deshalb besser, weil die ermittlung des Typs zur Laufzeit in den meisten F\"allen vermieden werden kann.
+\end{itemize}
+
+\subsection{Nachteile von statischer Typisierung}
+\begin{itemize}
+\item Dynamische Sprachen erm\"oglichen eine h\"ohere Flexibilit\"at. Zum Beispiel k\"onnen folgende Dinge in statischen Sprachen nicht, mit erh\"ohtem Aufwand oder mit schlechtem Design gemacht werden:
+\begin{itemize}
+\item Einf\"ugen von Methoden in Classen oder Objekte zur Laufzeit.
+\item Duck Typing\footnote{Duck-Typing ist ein Konzept der objektorientierten Programmierung, bei dem der Typ eines Objektes nicht durch seine Klasse beschrieben wird, sondern durch das Vorhandensein bestimmter Methoden. http://de.wikipedia.org/wiki/Duck-Typing}
+\end{itemize}
+\item Kompilieraufwand ist wesentlich gr\"osser.
+\end{itemize}
+\subsection{Scala und die Typisierung}
+
+
+
+
+
