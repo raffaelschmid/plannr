@@ -28,17 +28,6 @@ package ch.plannr.service
 			temp.init();
 			baseURL = temp.url;
 				
-/*			var url:String = browserManager.url;
-			var fragment:String = browserManager.fragment;                
-			                
-			var fullURL:String = mx.utils.URLUtil.getFullURL(url, url);
-			var port:int = mx.utils.URLUtil.getPort(url);
-			var protocol:String = mx.utils.URLUtil.getProtocol(url);
-			var serverName:String = mx.utils.URLUtil.getServerName(url);
-			var isSecure:Boolean = mx.utils.URLUtil.isHttpsURL(url); 
-			
-			Alert.show(fullURL + "\n" +port + "\n" +protocol + "\n" +serverName + "\n" +isSecure + "\n");*/
-			
 			if(baseURL.substr(0,5)=="file:")
 				baseURL="http://localhost:8080";
 			else
@@ -98,12 +87,6 @@ package ch.plannr.service
 		private function getAuthorizationHeaders(authentication:Boolean, method:String):Array
 		{
 			var headers:Array = new Array();
-			
-			if(authentication){
-				var encoder:Base64Encoder=new Base64Encoder();
-				encoder.encode(this.email + ":" + this.password);
-				headers["Authorization"]="Basic " + encoder.toString();
-			}
 			if(method=="DELETE" || method=="PUT"){
 				headers["X-HTTP-Method-Override"]=method;
 			}

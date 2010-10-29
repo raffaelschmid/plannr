@@ -1,8 +1,8 @@
 mail.smtp.starttls.enable=true
 mail.smtp.auth=true
 
-mail.smtp.host=
-mail.username=
-mail.password=
+mail.smtp.host=smtp.gmail.com
+mail.username=plannr.test@gmail.com
+mail.password=plannrplannr
 
 mail.from=plannr.test@gmail.com

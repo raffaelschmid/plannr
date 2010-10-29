@@ -17,6 +17,7 @@ trait Persistent[T] {
 
   def persist = {
     DBModel.persist(this)
+    
     this
   }
 

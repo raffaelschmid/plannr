@@ -24,6 +24,8 @@ import util.Random
 import common.{Conversion, FullEquality}
 import common.persistence.{MetaDomain, Domain, Persistent}
 import collection.JavaConversions._
+import net.liftweb.common.Full
+import reflect.BeanProperty
 
 
 /**
@@ -39,44 +41,53 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
 
   @Column(name = "ACTIVATION_SALT", nullable = false)
   @NotNull
+  @BeanProperty
   var activationSalt: Long = _
 
 
   @Column(name = "EMAIL", unique = true, nullable = false)
   @Email
   @NotNull
+  @BeanProperty
   var email: String = _
 
   @Column(name = "PASSWORD")
   @Size(min = 6, max = 10)
+  @BeanProperty
   var password: String = _
 
 
   @Column(name = "FIRST_NAME", nullable = false)
   @NotNull
   @NotEmpty
+  @BeanProperty
   var firstname: String = _
 
   @Column(name = "LAST_NAME", nullable = false)
   @NotNull
   @NotEmpty
+  @BeanProperty
   var lastname: String = _
 
   @Column(name = "VALIDATED")
   @NotNull
+  @BeanProperty
   var validated: Boolean = false
 
   @Column(name = "SELF_REGISTERED")
   @NotNull
+  @BeanProperty
   var selfRegistered: Boolean = false
 
   @Embedded
+  @BeanProperty
   var address: Address = new Address
 
   @ManyToMany
   @JoinTable(name = "ROLEMAPPING",
     joinColumns = Array(new JoinColumn(name = "USER_ID", referencedColumnName = "ID")),
     inverseJoinColumns = Array(new JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")))
+  @BeanProperty
   var roles: _root_.java.util.Set[Role] = new _root_.java.util.HashSet[Role]()
 
   @ManyToMany
@@ -84,16 +95,20 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
     name = "MEMBERSHIP",
     joinColumns = Array(new JoinColumn(name = "USER_ID", referencedColumnName = "ID")),
     inverseJoinColumns = Array(new JoinColumn(name = "TEAM_ID", referencedColumnName = "ID")))
+  @BeanProperty
   var memberOf: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]()
 
 
   @OneToMany(mappedBy = "owner")
+  @BeanProperty
   var ownerOf: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]
 
   @OneToMany(mappedBy = "user")
+  @BeanProperty
   var vacations: _root_.java.util.Set[Vacation] = new _root_.java.util.HashSet[Vacation]
 
   @OneToMany(mappedBy = "user")
+  @BeanProperty
   var comments: _root_.java.util.Set[Comment] = _
 
 
@@ -161,13 +176,15 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[User]
 
-  override def toString = "User [ id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", activationSalt=" + activationSalt +", street1=" + address.street1 + "]"
+  override def toString = "User [ id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", activationSalt=" + activationSalt + ", street1=" + address.street1 + "]"
 }
 object User extends User with MetaDomain[User] with MetaMegaBasicUser[User] with FullEquality with Conversion {
+  def apply() = new User
+
   private var rand = new Random()
 
   def fromXml(xml: NodeSeq): User = {
-    val user = new User()
+    val user = User()
     user.id = xml \ "id"
     user.password = xml \ "password"
     user.firstname = xml \ "firstname"
@@ -190,6 +207,12 @@ object User extends User with MetaDomain[User] with MetaMegaBasicUser[User] with
   }
 
   def newActivationSalt: Long = rand.nextLong
+
+  def create: User = User()
+
+  override def screenWrap = Full(<lift:surround with="default" at="content">
+      <lift:bind/>
+  </lift:surround>)
 
 }
 }

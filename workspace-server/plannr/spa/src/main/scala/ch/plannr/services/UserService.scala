@@ -2,11 +2,12 @@ package ch.plannr.services
 
 import ch.plannr.model.User
 import net.liftweb.http.S
-import ch.plannr.common.mail.{MailTemplates, MailSupport}
 import net.liftweb.util.Mailer._
 import net.liftweb.common.{Box, Empty}
 import net.liftweb.util.{Props, Mailer}
 import util.Random
+import ch.plannr.templates.MailTemplate
+import ch.plannr.common.mail.{MailTemplates, MailSupport}
 
 /**
  * User: Raffael Schmid
@@ -25,7 +26,7 @@ object UserService extends MailSupport {
     val email: String = user.email
     def emailFrom = Props.get("mail.from").open_!
     val validationLink = S.hostAndPath + "/webservices/validate/" + user.id + "?salt=" + user.activationSalt
-    val msgXml = MailTemplates.signupMailBody(user.firstname, validationLink)
+    val msgXml = MailTemplate.signupMailBody(user.firstname, validationLink)
     def bccEmail: Box[String] = Empty
 
     sendMail(From(emailFrom), Subject(subject),
@@ -42,7 +43,7 @@ object UserService extends MailSupport {
     val email: String = user.email
     def emailFrom = Props.get("mail.from").open_!
     val notificationLink = S.hostAndPath + "/webservices/registrationform/" + user.id + "?salt=" + user.activationSalt
-    val msgXml = MailTemplates.notificationMailBody(user.firstname, notificationLink)
+    val msgXml = MailTemplate.notificationMailBody(user.firstname, notificationLink)
     def bccEmail: Box[String] = Empty
 
     sendMail(From(emailFrom), Subject(subject),

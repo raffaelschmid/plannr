@@ -24,7 +24,7 @@ class Flash {
             var attributes = {};
             attributes.id = "Main";
             attributes.name = "Main";
-            attributes.align = "middle";
+            attributes.align = "top";
             swfobject.embedSWF("flex/Main.swf", "flashContent", "100%", "100%", swfVersionStr, xiSwfUrlStr, flashvars, params, attributes);
             swfobject.createCSS("#flashContent", "display:block;text-align:left;");
   """

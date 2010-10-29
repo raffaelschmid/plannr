@@ -57,8 +57,7 @@ package ch.plannr.controller
 			{
 				dispatcher.dispatchEvent(new CustomEvent(Events.OWNED_TEAMS_LOAD_FAILURE));
 			}
-			
-			serviceHelper.executeServiceCall( httpServiceFactory.getService("/webservices/team?ownerId="+currentUser.id,true).send(), handleResult,handleFault );
+			serviceHelper.executeServiceCall( httpServiceFactory.getService("/webservices/team",true).send(), handleResult,handleFault );
 		}
 		
 		[Mediate(event="Events.OWNED_TEAMS_DELETE",properties="team")]

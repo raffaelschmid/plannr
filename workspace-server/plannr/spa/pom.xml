@@ -15,6 +15,11 @@
     <name>plannr Spa</name>
 
     <dependencies>
+        <!--TODO remove-->
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <artifactId>lift-mapper_2.8.0</artifactId>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -102,7 +107,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <webappDirectory>target/homegate-war</webappDirectory>
+                    <webappDirectory>target/plannr-war</webappDirectory>
                     <webResources>
                         <resource>
                             <directory>src/main/webResources_${environment.type}</directory>

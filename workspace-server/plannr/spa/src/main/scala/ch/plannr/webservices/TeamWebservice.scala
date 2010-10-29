@@ -51,15 +51,15 @@ object TeamWebservice extends RestHelper with RESTSupport with Conversion {
     case r@Req("webservices" :: "team" :: _, _, GetRequest) => {
 
       try {
-        if (S.param("ownerId").isDefined) {
-          val ownerId = S.param("ownerId").open_!.toLong
+        if (User.currentUser.isDefined) {
+          val ownerId = User.currentUser.open_!.id
           val user = User.findById(ownerId).open_!
           val list: List[Team] = user.ownerOf
           val retVal = list2TeamsXml(list.toArray: _*)
           xmlSuccess(retVal)
         }
         else {
-          xmlError("ownerId must be specified")
+          xmlError("user not logged in")
         }
       }
       catch {
@@ -73,8 +73,8 @@ object TeamWebservice extends RestHelper with RESTSupport with Conversion {
     case r@Req("webservices" :: "team" :: _, _, PostRequest) => {
 
       try {
-        if (S.param("ownerId").isDefined) {
-          val ownerId = S.param("ownerId").open_!.toLong
+        if (User.currentUser.isDefined) {
+          val ownerId = User.currentUser.open_!.id
 
           val team = Team.fromXml(r.xml.open_!)
           val savedTeam = TeamService.addTeamToOwner(team, ownerId)
@@ -82,7 +82,7 @@ object TeamWebservice extends RestHelper with RESTSupport with Conversion {
           xmlSuccess(savedTeam.toXml)
         }
         else {
-          xmlError("ownerId must be specified")
+          xmlError("user not logged in")
         }
       }
       catch {

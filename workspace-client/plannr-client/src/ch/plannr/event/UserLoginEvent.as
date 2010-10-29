@@ -7,24 +7,9 @@ package ch.plannr.event
 	public class UserLoginEvent extends Event
 	{
 		
-		private var _email:String;
-		private var _password:String;
-		
-		public function UserLoginEvent(email:String, password:String)
+		public function UserLoginEvent()
 		{
-			super(Events.LOGIN_ATTEMPT,true);
-			this._email=email;
-			this._password=password;
-		}
-		
-		public function get password():String
-		{
-			return _password;
-		}
-		public function get email():String
-		{
-			return _email;
-		}
-		
+			super(Events.LOGIN_SUCCESS,true);
+		}		
 	}
 }

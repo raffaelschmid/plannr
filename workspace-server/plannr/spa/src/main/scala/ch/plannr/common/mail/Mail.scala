@@ -11,10 +11,15 @@ import net.liftweb.util.Mailer.{From, Subject, MailTypes, XHTMLMailBodyType, Pla
  * TODO
  */
 object Mail {
-  def configure {
+  def config(host: String, user: String, password: String) {
+    System.setProperty("mail.smtp.starttls.enable","true");
+    System.setProperty("mail.smtp.auth", "true")
+    System.setProperty("mail.mime.charset", "UTF-8")
     Mailer.authenticator = Full(new Authenticator {
-      override def getPasswordAuthentication = new PasswordAuthentication(Props.get("mail.username").open_!, Props.get("mail.password").open_!)
+      override def getPasswordAuthentication =
+        new PasswordAuthentication(user, password)
     })
+
   }
 }
 

@@ -15,19 +15,27 @@
  */
 package bootstrap.liftweb
 
-import _root_.net.liftweb.common.Full
 import _root_.net.liftweb.http._
 import auth.{userRoles, AuthRole, HttpBasicAuthentication}
 import ch.plannr.model._
 import ch.plannr.common.persistence.TransactionalLoanWrapper
 import ch.plannr.webservices._
+import net.liftweb.sitemap.{Loc, Menu, SiteMap}
+import net.liftweb.sitemap.Loc._
+import net.liftweb.common.{Box, Full}
+import javax.mail.{Authenticator, PasswordAuthentication}
+import net.liftweb.util.Mailer
+import ch.plannr.common.mail.Mail
 
 /**
  * A class that's instantiated early and run.  It allows the application
  * to modify lift's environment
  */
 class Boot {
+
   def boot {
+
+    Mail.config("smtp.gmail.com","plannr.test@gmail.com","plannrplannr")
     LiftRules.resourceNames = "messages" :: LiftRules.resourceNames
 
     LiftRules.addToPackages("ch.plannr")
@@ -36,33 +44,40 @@ class Boot {
       case Req("webservices" :: "login" :: _, _, _) => Full(AuthRole("admin"))
     }
 
+    println(System.getProperty("mail.smtp.host"))
 
-    LiftRules.authentication = HttpBasicAuthentication("plannr")
-              {
-      case (email, password, req) => {
-        try {
-          val user = User.login(email, password)
-          userRoles(AuthRole("admin"))
-          true
-        }
-        catch {
-          case se: SecurityException => {
-            false
-          }
-          case _ => false
-        }
-      }
-    }
-    LiftRules.loggedInTest = Full(() => true)
+  val entries = Menu(Loc("Home", List("index"), "Home")) :: Menu(Loc("Manager", List("manager"), "Manager",If(User.loggedIn_? _, S.??("must.be.logged.in")))) :: User.sitemap
 
-    LiftRules.dispatch.append(UserWebservice)
-    LiftRules.dispatch.append(TeamWebservice)
-    LiftRules.dispatch.append(VacationWebservice)
-    LiftRules.dispatch.append(SearchWebservice)
+  LiftRules.setSiteMap(SiteMap(entries: _*))
 
 
-    S.addAround(new TransactionalLoanWrapper())
+  //    LiftRules.authentication = HttpBasicAuthentication("plannr")
+  //              {
+  //      case (email, password, req) => {
+  //        try {
+  //          val user = User.login(email, password)
+  //          userRoles(AuthRole("admin"))
+  //          true
+  //        }
+  //        catch {
+  //          case se: SecurityException => {
+  //            false
+  //          }
+  //          case _ => false
+  //        }
+  //      }
+  //    }
 
-  }
+  LiftRules.loggedInTest = Full(() => User.loggedIn_?)
+
+  LiftRules.dispatch.append(UserWebservice)
+  LiftRules.dispatch.append(TeamWebservice)
+  LiftRules.dispatch.append(VacationWebservice)
+  LiftRules.dispatch.append(SearchWebservice)
+
+
+  S.addAround(new TransactionalLoanWrapper())
+
+}
 }
 

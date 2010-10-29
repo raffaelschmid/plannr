@@ -49,4 +49,6 @@ object MailTemplates {
       </body>
     </html>)
   }
+  
+
 }
