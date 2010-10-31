@@ -1,9 +1,0 @@
-package ch.plannr.config
-{
-	public class Properties
-	{
-		public function Properties()
-		{
-		}
-	}
-}

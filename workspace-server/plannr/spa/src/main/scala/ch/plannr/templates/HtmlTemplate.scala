@@ -17,13 +17,13 @@ object HtmlTemplate {
         </h2>
       </p>
       <p>
-        <label for="firstname">Firstname</label> <user:firstname/>
+        <label for="firstname">Firstname</label> <user:firstname/><lift:Msg id="err_firstname" errorClass="error"/>
       </p>
       <p>
-        <label for="lastname">Lastname</label> <user:lastname/>
+        <label for="lastname">Lastname</label> <user:lastname/><lift:Msg id="err_lastname" errorClass="error"/>
       </p>
       <p>
-        <label for="email">Email</label> <user:email/>
+        <label for="email">Email</label> <user:email/><lift:Msg id="err_email" errorClass="error"/>
       </p>
         <user:submit/>
     </form>)
@@ -36,19 +36,19 @@ object HtmlTemplate {
       </h2>
       <form method="post" action={S.uri}>
         <p>
-          <label for="firstname">Firstname</label> <user:firstname/>
+          <label for="firstname">Firstname</label> <user:firstname/><lift:Msg id="err_firstname" errorClass="error"/>
         </p>
         <p>
-          <label for="lastname">Lastname</label> <user:lastname/>
+          <label for="lastname">Lastname</label> <user:lastname/><lift:Msg id="err_lastname" errorClass="error"/>
         </p>
         <p>
-          <label for="email">Email</label> <user:email/>
+          <label for="email">Email</label> <user:email/><lift:Msg id="err_email" errorClass="error"/>
         </p>
         <p>
-          <label for="password">Password</label> <user:password/>
+          <label for="password">Password</label> <user:password/><lift:Msg id="err_password" errorClass="error"/>
         </p>
         <p>
-          <label for="confirm_password">Password Confirmation</label> <user:password/>
+          <label for="confirm_password">Password Confirmation</label> <user:confirm_password/><lift:Msg id="err_confirm_password" errorClass="error"/>
         </p>
           <user:submit/>
       </form>
@@ -64,14 +64,12 @@ object HtmlTemplate {
         </h2>
       </p>
       <p>
-        <label>
-          {S.??("enter.your.new.password")}
-        </label> <user:pwd/>
+        <label>{S.??("enter.your.new.password")}</label> <user:pwd/><lift:Msg id="err_password" errorClass="error"/>
       </p>
       <p>
         <label>
           {S.??("repeat.your.new.password")}
-        </label> <user:pwd/>
+        </label> <user:pwd/><lift:Msg id="err_confirm_password" errorClass="error"/>
       </p>
       <p>
           <user:submit/>
@@ -89,17 +87,17 @@ object HtmlTemplate {
       <p>
         <label>
           {S.??("old.password")}
-        </label> <user:old_pwd/>
+        </label> <user:old_pwd/><lift:Msg id="err_old_password" errorClass="error"/>
       </p>
       <p>
         <label>
           {S.??("new.password")}
-        </label> <user:new_pwd/>
+        </label> <user:new_pwd/><lift:Msg id="err_password" errorClass="error"/>
       </p>
       <p>
         <label>
           {S.??("repeat.password")}
-        </label> <user:new_pwd/>
+        </label> <user:new_pwd/><lift:Msg id="err_confirm_password" errorClass="error"/>
       </p>
       <p>
           <user:submit/>
@@ -118,7 +116,7 @@ object HtmlTemplate {
       <p>
         <label>
           {S.??("email.address")}
-        </label> <user:email/>
+        </label> <user:email/><lift:Msg id="err_email" errorClass="error"/>
       </p>
       <p>
           <user:submit/>
@@ -137,12 +135,12 @@ object HtmlTemplate {
       <p>
         <label>
           {S.??("email.address")}
-        </label> <user:email/>
+        </label> <user:email/><lift:Msg id="err_email" errorClass="error"/>
       </p>
       <p>
         <label>
           {S.??("password")}
-        </label> <user:password/>
+        </label> <user:password/><lift:Msg id="err_password" errorClass="error"/>
       </p>
       <p>
         <a href={lostPasswordPath}>
@@ -155,6 +153,6 @@ object HtmlTemplate {
     </form>)
   }
 
-  
+
 
 }

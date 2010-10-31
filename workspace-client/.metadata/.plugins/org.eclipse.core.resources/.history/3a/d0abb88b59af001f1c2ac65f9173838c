@@ -1,9 +1,0 @@
-package ch.plannr.client.core
-{
-	import flash.events.Event;
-
-	public interface Command
-	{
-		public function execute(event:Event);		
-	}
-}

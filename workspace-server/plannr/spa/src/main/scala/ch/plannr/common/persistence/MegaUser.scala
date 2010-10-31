@@ -1,8 +1,6 @@
 package ch.plannr.model
 
-import ch.plannr.common.persistence.DBModel
 import net.liftweb.common.{Loggable, Full, Empty, Box}
-import net.liftweb.mapper.By
 import net.liftweb.http._
 import js._
 import JsCmds._
@@ -15,8 +13,11 @@ import _root_.net.liftweb.util.Mailer._
 import xml.{Elem, NodeSeq, Node}
 import _root_.net.liftweb.util.Helpers._
 import net.liftweb.sitemap.Loc.{Template, LocParam, If}
-import javax.validation.{Validation, ConstraintViolationException}
 import ch.plannr.templates.{MailTemplate, HtmlTemplate}
+import javax.persistence.Transient
+import ch.plannr.common.persistence.{Persistent, DBModel}
+import ch.plannr.common.MessageDisplay
+import javax.validation.{ConstraintViolation, Validation, ConstraintViolationException}
 
 /**
  * User: Raffael Schmid
@@ -24,12 +25,8 @@ import ch.plannr.templates.{MailTemplate, HtmlTemplate}
  * TODO
  */
 
-trait MegaBasicUser[T <: MegaBasicUser[T]] {
+trait MegaBasicUser[T <: MegaBasicUser[T]] extends Persistent[T] with MessageDisplay {
   self: T =>
-
-  def persist(): T
-
-  def merge(): T
 
   var id: Long
 
@@ -46,6 +43,7 @@ trait MegaBasicUser[T <: MegaBasicUser[T]] {
   var firstname: String
 
   var lastname: String
+
 }
 
 trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable {
@@ -284,19 +282,12 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     MenuItem(S.??("edit.profile"), editPath, true),
     MenuItem("", validateUserPath, false))
 
-  // def requestLoans: List[LoanWrapper] = Nil // List(curUser)
-
   var onLogIn: List[ModelType => Unit] = Nil
 
   var onLogOut: List[Box[ModelType] => Unit] = Nil
 
-  /**
-   * This function is given a chance to log in a user
-   * programmatically when needed
-   */
   var autologinFunc: Box[() => Unit] = Empty
 
-  //def loggedIn_? : Boolean = currentUserEmail.isDefined
   def loggedIn_? = {
     if (!currentUserEmail.isDefined)
       for (f <- autologinFunc) f()
@@ -359,8 +350,16 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
 
     def testSignup() {
       try {
-        theUser.persist
-        S.redirectTo(homePage)
+        val violations: Set[ConstraintViolation[ModelType]] = theUser.validate
+        if (violations.size == 0) {
+          theUser.persist
+          S.redirectTo(homePage)
+        }
+        else {
+          violations.foreach(cv => S.error("err_" + cv.getPropertyPath.toString, cv.getMessage))
+          S.redirectTo(signUpPath.mkString("/", "/", ""))
+        }
+
       } catch {
         case cve: ConstraintViolationException => {
           println(cve.getConstraintViolations)
@@ -378,14 +377,13 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
       "lastname" -> SHtml.text("", s => theUser.lastname = s, "id" -> "lastname"),
       "email" -> SHtml.text("", s => theUser.email = s, "id" -> "email"),
       "password" -> SHtml.text("", s => theUser.password = s, "id" -> "password"),
-      "password" -> SHtml.text("", s => confirmPassword = s, "id" -> "confirm_password"),
+      "confirm_password" -> SHtml.text("", s => confirmPassword = s, "id" -> "confirm_password"),
       "submit" -> SHtml.submit(S.??("sign.up"), testSignup _))
 
     innerSignup
   }
 
-//  def emailFrom = "noreply@" + S.hostName
-  def emailFrom = "plannr.test@gmail.com"
+  private def emailFrom = "plannr.test@gmail.com"
 
   def bccEmail: Box[String] = Empty
 
@@ -476,8 +474,14 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     findById(id.toLong) match {
       case Full(user) =>
         def finishSet() {
-          //TODO validate
-           user.merge
+          val violations = user.validate
+          if (violations.size == 0)
+            user.merge
+          else {
+            val node: NodeSeq = violations
+            S.error(node)
+            S.redirectTo("/")
+          }
         }
 
         bind("user", HtmlTemplate.passwordResetXhtml,
@@ -493,22 +497,29 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     var newPassword: List[String] = Nil
 
     def testAndSet() {
-      if (!(user.password==oldPassword) )
+      if (!(user.password == oldPassword)){
         S.error(S.??("wrong.old.password"))
+        S.redirectTo(changePasswordPath.mkString("/", "/", ""))
+      }
       else {
-        if (newPassword(0) == newPassword(1)){
+        if (newPassword(0) == newPassword(1)) {
           user.password = newPassword(0)
-        //        user.validate match {
-        //          case Nil => saveit
-        //          case xs => S.error(xs)
-        //        }
-          user.merge;
-          S.notice(S.??("password.changed"));
-        }
-        else
-          S.??("passwords.do.not.match")
+          val violations: Set[ConstraintViolation[ModelType]] = user.validate
+          if (violations.size == 0) {
+            user.merge
+            S.notice(S.??("password.changed"));
+            S.redirectTo(homePage)
+          }
+          else {
+            violations.foreach(cv => S.error("err_" + cv.getPropertyPath.toString, cv.getMessage))
+            S.redirectTo(changePasswordPath.mkString("/", "/", ""))
+          }
 
-        S.redirectTo(homePage)
+        }
+        else{
+          S.??("passwords.do.not.match")
+          S.redirectTo(changePasswordPath.mkString("/", "/", ""))
+        }
       }
     }
 
@@ -525,22 +536,17 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     val theName = editPath.mkString("")
 
 
-    val validatorFactory = Validation.buildDefaultValidatorFactory();
-    val validator = validatorFactory.getValidator();
-
-    def jpaIsValid[T](obj: T): Boolean = {
-      val violations = validator.validate(obj)
-      return if (violations == null || violations.size() == 0)
-        true
-      else false
-    }
     def testEdit() {
       try {
 
-        if (jpaIsValid(theUser))
-          theUser.merge()
-        else
-          println("no valid")
+        val violations: Set[ConstraintViolation[ModelType]] = theUser.validate
+        if (violations.size == 0)
+          theUser.merge
+        else {
+          violations.foreach(cv => S.error("err_" + cv.getPropertyPath.toString, cv.getMessage))
+          S.redirectTo(editPath.mkString("/", "/", ""))
+        }
+
 
         S.notice(S.??("profile.updated"))
         S.redirectTo(homePage)
@@ -577,8 +583,8 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     })) openOr in
 
   /**FINDERS*/
-  def findAll: List[User] = {
-    val users = DBModel.createNamedQuery[User]("findAllUsers").getResultList()
+  def findAll: List[ModelType] = {
+    val users = DBModel.createNamedQuery[ModelType]("findAllUsers").getResultList()
     List(users: _*)
   }
 
@@ -604,11 +610,11 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     }
   }
 
-  def findFullTextLike(term: String): List[User] = {
+  def findFullTextLike(term: String): List[ModelType] = {
     if (term.size < 3)
       throw new IllegalArgumentException("term must contain at least 3 characters")
 
-    val users = DBModel.createNamedQuery[User]("fullTextUserSearch", Pair("keyword", "%" + term + "%")).getResultList
+    val users = DBModel.createNamedQuery[ModelType]("fullTextUserSearch", Pair("keyword", "%" + term + "%")).getResultList
     List(users: _*)
   }
 

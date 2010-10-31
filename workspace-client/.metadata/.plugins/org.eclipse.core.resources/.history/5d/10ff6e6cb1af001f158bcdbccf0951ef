@@ -1,9 +1,0 @@
-package ch.plannr.event
-{
-	public class Event
-	{
-		public function Event()
-		{
-		}
-	}
-}

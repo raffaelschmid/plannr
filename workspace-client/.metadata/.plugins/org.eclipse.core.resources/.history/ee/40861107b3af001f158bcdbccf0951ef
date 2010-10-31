@@ -1,9 +1,0 @@
-package ch.plannr.config
-{
-	public class States
-	{
-		public static const LOGGED_IN:String="LOGGED_IN";
-		public static const NOT_LOGGED_IN:String="NOT_LOGGED_IN";
-		
-	}
-}

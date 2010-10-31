@@ -1,9 +1,0 @@
-package ch.plannr.client.commands
-{
-	public class UserRegisteredCommand
-	{
-		public function UserRegisteredCommand()
-		{
-		}
-	}
-}

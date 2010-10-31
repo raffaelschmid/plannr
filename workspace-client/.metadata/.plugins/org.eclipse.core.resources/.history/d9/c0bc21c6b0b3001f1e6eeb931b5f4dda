@@ -1,9 +1,0 @@
-package ch.plannr.util
-{
-	public class UtilFunctions
-	{
-		public function UtilFunctions()
-		{
-		}
-	}
-}

@@ -23,7 +23,6 @@ import javax.validation.constraints.{NotNull, Size}
 import util.Random
 import common.{Conversion, FullEquality}
 import common.persistence.{MetaDomain, Domain, Persistent}
-import collection.JavaConversions._
 import net.liftweb.common.Full
 import reflect.BeanProperty
 
@@ -52,6 +51,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   var email: String = _
 
   @Column(name = "PASSWORD")
+  @NotNull
   @Size(min = 6, max = 10)
   @BeanProperty
   var password: String = _
@@ -80,6 +80,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   var selfRegistered: Boolean = false
 
   @Embedded
+  @BeanProperty
   @BeanProperty
   var address: Address = new Address
 
@@ -172,7 +173,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
    * persistence provider needs carefully selected properties for calculating hashCode
    * email should not be null in any case but because of it is an entity it's a var
    */
-  override def hashCode: Int = 41 + email.hashCode
+  override def hashCode: Int = 41 + (if(email!=null){email.hashCode}else{0})
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[User]
 
