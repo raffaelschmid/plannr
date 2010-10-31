@@ -14,10 +14,10 @@ import xml.{Elem, NodeSeq, Node}
 import _root_.net.liftweb.util.Helpers._
 import net.liftweb.sitemap.Loc.{Template, LocParam, If}
 import ch.plannr.templates.{MailTemplate, HtmlTemplate}
-import javax.persistence.Transient
 import ch.plannr.common.persistence.{Persistent, DBModel}
 import ch.plannr.common.MessageDisplay
 import javax.validation.{ConstraintViolation, Validation, ConstraintViolationException}
+import javax.persistence.{NoResultException, Transient}
 
 /**
  * User: Raffael Schmid
@@ -414,7 +414,7 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
                 user.password == S.param("password").openOr("*") =>
           S.notice(S.??("logged.in"))
           logUserIn(user)
-          //S.redirectTo(homePage)
+
           val redir = loginRedirect.is match {
             case Full(url) =>
               loginRedirect(Empty)
@@ -426,8 +426,11 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
 
         case Full(user) if !user.validated =>
           S.error(S.??("account.validation.error"))
+          S.redirectTo(loginPageURL)
+        case _ =>
+          S.error(S.??("invalid.credentials"))
+          S.redirectTo(loginPageURL)
 
-        case _ => S.error(S.??("invalid.credentials"))
       }
     }
 
@@ -517,7 +520,7 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
 
         }
         else{
-          S.??("passwords.do.not.match")
+          S.error(S.??("passwords.do.not.match"))
           S.redirectTo(changePasswordPath.mkString("/", "/", ""))
         }
       }
@@ -596,10 +599,15 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
   }
 
   def findByEmail(email: String): Box[ModelType] = {
-    logger.debug("email: " + email)
-    val user: ModelType = DBModel.createNamedQuery[ModelType]("findByEmail", Pair("email", email)).getSingleResult
-    user match {
-      case _ => Full(user)
+    try{
+      logger.debug("email: " + email)
+      val user: ModelType = DBModel.createNamedQuery[ModelType]("findByEmail", Pair("email", email)).getSingleResult
+      user match {
+        case _ => Full(user)
+      }
+    }
+    catch{
+      case noresult:NoResultException => Empty
     }
   }
 
