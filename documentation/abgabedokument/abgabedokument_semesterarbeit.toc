@@ -35,70 +35,79 @@
 \contentsline {subsection}{\numberline {3.2.7}Predef}{31}
 \contentsline {subsection}{\numberline {3.2.8}Implicit Conversion}{32}
 \contentsline {subsection}{\numberline {3.2.9}XML Datentyp}{32}
+\contentsline {subsection}{\numberline {3.2.10}Integration mit Java}{32}
 \contentsline {section}{\numberline {3.3}Liftweb Framework}{32}
 \contentsline {subsection}{\numberline {3.3.1}Erstellen eines Lift-Projektes}{33}
-\contentsline {subsection}{\numberline {3.3.2}Bootstrapping \cite [p. 26]{chen2009lift}}{33}
+\contentsline {subsection}{\numberline {3.3.2}Bootstrapping \cite [p. 26]{chen2009lift}}{34}
 \contentsline {subsection}{\numberline {3.3.3}Site Rendering \cite [p. 27-43]{chen2009lift}}{34}
 \contentsline {subsubsection}{Rendering mit Templates}{34}
 \contentsline {subsubsection}{Rendering mit Views}{35}
-\contentsline {subsection}{\numberline {3.3.4}Formulare}{35}
+\contentsline {subsection}{\numberline {3.3.4}Formulare}{36}
 \contentsline {subsection}{\numberline {3.3.5}SiteMap \cite [p. 61-70]{chen2009lift}}{36}
 \contentsline {subsection}{\numberline {3.3.6}Persistenz}{36}
 \contentsline {subsubsection}{Relationale Datenbanken}{36}
-\contentsline {subsubsection}{NoSql-Datenbanken}{37}
-\contentsline {subsection}{\numberline {3.3.7}Internationalisierung}{38}
-\contentsline {subsection}{\numberline {3.3.8}Fazit}{38}
-\contentsline {chapter}{\numberline {4}Design und Konzeption}{39}
-\contentsline {section}{\numberline {4.1}Use Case Definitionen}{40}
-\contentsline {subsection}{\numberline {4.1.1}Aktoren}{41}
-\contentsline {subsubsection}{Mitarbeiter}{41}
-\contentsline {subsubsection}{Owner - Team Owner}{41}
-\contentsline {subsection}{\numberline {4.1.2}Beschreibung der Use Cases}{41}
-\contentsline {subsubsection}{Projekt er\"offnen}{41}
-\contentsline {subsubsection}{Mitarbeiter in Projekt erfassen}{41}
-\contentsline {subsubsection}{Ferienw\"unsche bearbeiten}{41}
-\contentsline {subsubsection}{Ferienwunsch erfassen}{42}
-\contentsline {subsubsection}{Ferienwunsch bearbeiten}{42}
-\contentsline {section}{\numberline {4.2}Rollen-Konzept}{42}
-\contentsline {subsection}{\numberline {4.2.1}Anonymous}{42}
-\contentsline {subsection}{\numberline {4.2.2}Registrierte Benutzer}{42}
-\contentsline {subsection}{\numberline {4.2.3}Optional Aufteilung der Registrierten Benutzer}{43}
+\contentsline {subsubsection}{NoSql-Datenbanken}{38}
+\contentsline {subsection}{\numberline {3.3.7}Internationalisierung}{39}
+\contentsline {subsection}{\numberline {3.3.8}Fazit}{39}
+\contentsline {chapter}{\numberline {4}Design und Konzeption}{41}
+\contentsline {section}{\numberline {4.1}Use Case Definitionen}{42}
+\contentsline {subsection}{\numberline {4.1.1}Aktoren}{43}
 \contentsline {subsubsection}{Mitarbeiter}{43}
-\contentsline {subsubsection}{Team Owner}{43}
-\contentsline {section}{\numberline {4.3}Datenbank-Schema}{43}
-\contentsline {subsection}{\numberline {4.3.1}Entity Relationship Model}{43}
-\contentsline {subsubsection}{User und Rollen}{43}
-\contentsline {subsubsection}{Teammitgliedschaft, Membership}{44}
-\contentsline {subsubsection}{Teamzugeh\"origkeit}{44}
-\contentsline {subsubsection}{Ferien}{44}
-\contentsline {section}{\numberline {4.4}Prozesse}{46}
-\contentsline {subsection}{\numberline {4.4.1}Person registrieren}{46}
-\contentsline {subsection}{\numberline {4.4.2}Ferien beantragen, planen}{46}
-\contentsline {subsection}{\numberline {4.4.3}Team administrieren}{47}
-\contentsline {section}{\numberline {4.5}Navigations-Konzept}{48}
-\contentsline {section}{\numberline {4.6}Architektur}{48}
-\contentsline {chapter}{\numberline {5}Implementation}{49}
-\contentsline {chapter}{\numberline {6}Deployment}{51}
-\contentsline {section}{\numberline {6.1}Setup von Entwicklungs-, Test- und Produktiv-Umgebung}{51}
-\contentsline {subsection}{\numberline {6.1.1}Aufbau des Domain Modells}{51}
-\contentsline {subsection}{\numberline {6.1.2}Implementation der Persistenz-Schicht}{51}
-\contentsline {subsection}{\numberline {6.1.3}Security: Registrierung, Login}{51}
-\contentsline {subsection}{\numberline {6.1.4}Navigation}{51}
-\contentsline {subsection}{\numberline {6.1.5}Mail-Versand (Notifikationen)}{51}
-\contentsline {subsection}{\numberline {6.1.6}Evaluierung eines geeigneten, auf Javascript basierendem Kalender, um die Persönliche Ferien\"ubersicht sowie die Team\"ubersicht darstellen zu können.}{51}
-\contentsline {part}{III\hspace {1em}R\"uckblick}{53}
-\contentsline {chapter}{\numberline {7}Analyse der Arbeit auf der Basis der Aufgabenstellung}{55}
-\contentsline {section}{\numberline {7.1}Prototyp}{55}
-\contentsline {section}{\numberline {7.2}Optionale Ziele}{55}
-\contentsline {subsection}{\numberline {7.2.1}Setup von Test-und Produktiv-Umgebung}{55}
-\contentsline {subsection}{\numberline {7.2.2}Performance Tests}{55}
-\contentsline {subsection}{\numberline {7.2.3}Internationalization}{55}
-\contentsline {subsection}{\numberline {7.2.4}Search Engine Optimization}{55}
-\contentsline {subsection}{\numberline {7.2.5}Usability}{55}
-\contentsline {chapter}{\numberline {8}Fazit}{57}
-\contentsline {part}{IV\hspace {1em}Anhang}{65}
-\contentsline {chapter}{\numberline {A}Glossar}{67}
-\contentsline {chapter}{\numberline {B}Journal}{69}
-\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{69}
-\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{70}
-\contentsline {section}{\numberline {B.3}Phase Dokumentation}{71}
+\contentsline {subsubsection}{Owner - Team Owner}{43}
+\contentsline {subsection}{\numberline {4.1.2}Beschreibung der Use Cases}{43}
+\contentsline {subsubsection}{Projekt er\"offnen}{43}
+\contentsline {subsubsection}{Mitarbeiter in Projekt erfassen}{43}
+\contentsline {subsubsection}{Ferienw\"unsche bearbeiten}{43}
+\contentsline {subsubsection}{Ferienwunsch erfassen}{44}
+\contentsline {subsubsection}{Ferienwunsch bearbeiten}{44}
+\contentsline {section}{\numberline {4.2}Rollen-Konzept}{44}
+\contentsline {subsection}{\numberline {4.2.1}Anonymous}{44}
+\contentsline {subsection}{\numberline {4.2.2}Registrierte Benutzer}{44}
+\contentsline {subsection}{\numberline {4.2.3}Optional Aufteilung der Registrierten Benutzer}{45}
+\contentsline {subsubsection}{Mitarbeiter}{45}
+\contentsline {subsubsection}{Team Owner}{45}
+\contentsline {section}{\numberline {4.3}Datenbank-Schema}{45}
+\contentsline {subsection}{\numberline {4.3.1}Entity Relationship Model}{45}
+\contentsline {subsubsection}{User und Rollen}{45}
+\contentsline {subsubsection}{Teammitgliedschaft, Membership}{46}
+\contentsline {subsubsection}{Teamzugeh\"origkeit}{46}
+\contentsline {subsubsection}{Ferien}{46}
+\contentsline {section}{\numberline {4.4}Prozesse}{48}
+\contentsline {subsection}{\numberline {4.4.1}Person registrieren}{48}
+\contentsline {subsection}{\numberline {4.4.2}Ferien beantragen, planen}{48}
+\contentsline {subsection}{\numberline {4.4.3}Team administrieren}{49}
+\contentsline {section}{\numberline {4.5}Navigations-Konzept}{50}
+\contentsline {section}{\numberline {4.6}Architektur}{50}
+\contentsline {chapter}{\numberline {5}Implementation}{51}
+\contentsline {section}{\numberline {5.1}Persistenz}{51}
+\contentsline {subsection}{\numberline {5.1.1}Auswahl Persistenz-Provider}{51}
+\contentsline {subsubsection}{Aktive Weiterentwicklung}{51}
+\contentsline {subsubsection}{Dokumentation}{51}
+\contentsline {subsubsection}{Reifegrad}{52}
+\contentsline {subsubsection}{Fazit}{52}
+\contentsline {subsection}{\numberline {5.1.2}Domain Mapping}{52}
+\contentsline {subsubsection}{Klasse User}{52}
+\contentsline {subsection}{\numberline {5.1.3}Validation}{54}
+\contentsline {subsection}{\numberline {5.1.4}Aufbau des Domain Modells}{54}
+\contentsline {section}{\numberline {5.2}Security: Registrierung, Login}{54}
+\contentsline {section}{\numberline {5.3}Navigation}{54}
+\contentsline {section}{\numberline {5.4}Mail-Versand (Notifikationen)}{54}
+\contentsline {section}{\numberline {5.5}Evaluation Kalender}{54}
+\contentsline {chapter}{\numberline {6}Deployment}{55}
+\contentsline {section}{\numberline {6.1}Setup von Entwicklungs-, Test- und Produktiv-Umgebung}{55}
+\contentsline {part}{III\hspace {1em}R\"uckblick}{57}
+\contentsline {chapter}{\numberline {7}Analyse der Arbeit auf der Basis der Aufgabenstellung}{59}
+\contentsline {section}{\numberline {7.1}Prototyp}{59}
+\contentsline {section}{\numberline {7.2}Optionale Ziele}{59}
+\contentsline {subsection}{\numberline {7.2.1}Setup von Test-und Produktiv-Umgebung}{59}
+\contentsline {subsection}{\numberline {7.2.2}Performance Tests}{59}
+\contentsline {subsection}{\numberline {7.2.3}Internationalization}{59}
+\contentsline {subsection}{\numberline {7.2.4}Search Engine Optimization}{59}
+\contentsline {subsection}{\numberline {7.2.5}Usability}{59}
+\contentsline {chapter}{\numberline {8}Fazit}{61}
+\contentsline {part}{IV\hspace {1em}Anhang}{67}
+\contentsline {chapter}{\numberline {A}Glossar}{69}
+\contentsline {chapter}{\numberline {B}Journal}{71}
+\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{71}
+\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{72}
+\contentsline {section}{\numberline {B.3}Phase Dokumentation}{73}

@@ -105,7 +105,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
   var ownerOf: _root_.java.util.Set[Team] = new _root_.java.util.HashSet[Team]
 
   @OneToMany(mappedBy = "user")
-  @BeanProperty
+  @BeanProperty                                                                       
   var vacations: _root_.java.util.Set[Vacation] = new _root_.java.util.HashSet[Vacation]
 
   @OneToMany(mappedBy = "user")

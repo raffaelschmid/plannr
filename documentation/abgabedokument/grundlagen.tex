@@ -258,7 +258,10 @@ implicit def wrapString(s:String):WrappedString = {
 \end{lstlisting}
 Sofern der Typ die aufgerufene Methode reverse nicht hat, wird im G\"ultigkeitsbereich nach einer Impliziten Conversion gesucht die zu einem R\"uckgabetyp mit dieser Methode f\"uhrt. Das ganze wird zur Kompilierzeit gemacht.
 
-\subsection{XML Datentyp}
+\subsection{XML Datentyp}\label{grundlagen:scala:xmldatentyp}
+TODO
+
+\subsection{Integration mit Java}\label{grundlagen:integration:java}
 TODO
 
 
@@ -343,22 +346,68 @@ Grunds\"atzlich stellt die Lift SiteMap die Menu-Struktur mit entsprechenden Lin
 \item Request-Rewriting
 \end{itemize}
 
-\subsection{Persistenz}
+\subsection{Persistenz}\label{grundlagen:persistenz}
 \subsubsection{Relationale Datenbanken}
-Im Bereich der Persistenz mit relationalen Datenbanken habe ich mir die drei Verf\"ugbaren Ansatze angeschaut. Die Entwickler hinter dem Lift-Framework gingen den Weg, dass sie vorallem zu Beginn versuchten, eigene OR-Mapper respektive eigene Persistenz Frameworks auf der Basis von Scala zu entwickeln. Das originale Framework, namentlich \textbf{Mapper}, ist bereits seit l\"angerem Verf\"ugbar. Mit ihm lassen sich die g\"angigen Relationen (many-to-many, one-to-many) abbilden und es stellt daf\"ur alle CRUD\footnote{Create, Read, Update, Delete}-Operationen f\"ur Objekte und ein bisschen Scaffolding zur Verf\"ugung. Die \"uberarbeitet Version dieser Bibliothek mit dem Namen \textbf{Record}\footnote{Ich gehe davon aus, dass der Begriff vom "Active Record" Pattern hergeleitet ist } \"ahnliche Funktionen an. 
-Im wesentlichen unterscheiden sich die beiden Frameworks durch die Art- und Weise der Konfiguration.
+Im Bereich der Persistenz mit relationalen Datenbanken habe ich mir die drei Verf\"ugbaren Ans\"atze angeschaut. Die Entwickler hinter dem Lift-Framework gingen den Weg, dass sie vorallem zu Beginn versuchten, eigene OR-Mapper respektive eigene Persistenz Frameworks auf der Basis von Scala zu entwickeln. \newline\newline
+\textbf{Mapper - }Das originale Framework, namentlich Mapper, ist bereits seit l\"angerem verf\"ugbar. Mit ihm lassen sich die g\"angigen Relationen (many-to-many, one-to-many) abbilden und es stellt daf\"ur alle CRUD\footnote{Create, Read, Update, Delete}-Operationen f\"ur Objekte und sticht vorallem im Bereich des Scaffoldings\footnote{Scaffolding bedeutet soviel wie die Generierung von View-Komponenten aus den in den Modellklassen existierenden Informationen.} heraus. \newline\newline
+Ein Beispiel f\"ur das Mapping einer User-Klasse\footnote{Quelle ist das Mapper Framework} sieht folgendermassen aus:
 
-W\"ahrend dieser Semesterarbeit erhielt ich des \"ofteren den Eindruck, dass man die Eigenentwicklung von Mapper und Record nicht sonderlich forciert und entsprechend die Kr\"afte auf die Integration von JPA in Lift-Anwendungen einsetzt. Ich begr\"unde diese Aussage mit den Folgenden Feststellungen:
+\begin{lstlisting}[caption=Beispiel Mapping User Klasse mit Mapper]
+trait ProtoUser[T <: ProtoUser[T]] 
+       extends KeyedMapper[Long, T] with UserIdAsString {
+  self: T =>
 
-\begin{itemize}
-\item Ein Blick auf die Commit-History von Mapper\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-mapper} zeigt auf, dass man sich bei Mapper vor allem noch um Bug-Fixing und leichte Updates von Funktionen k\"ummert.
-\item Auch bei der Record-Bibliothek wurde laut Commit-History\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-record} zum jetzigen Zeitpunkt schon seit l\"angerem nichts mehr gemacht, zuvor waren es ebenfalls kleine Feature Updates und Bug Fixes.
-\item W\"ahrend die Dokumentation von Mapper\footnote{http://www.assembla.com/wiki/show/liftweb/Mapper} noch einigermassen anspricht, kann man zum Mapping mit dem Record Framework ausser ganz wenige Beispiele in \cite[p. 79 - 113]{chen2009lift} nichts auffinden.
-\end{itemize}
+  override def primaryKeyField = id
 
-Nebst den beiden genannten Objekt-Relationalen Mappern gibt es aber auch die M\"oglichkeit, die auf der Basis von scalajpa verf\"ugbare lift-jpa Library zu verwenden. Es bietet sich dabei sogleich an, als JPA-Implementation Hibernate zu verwenden. Lift-JPA-Applikationen k\"onnen mit dem Maven Archetype ''lift-archetype-jpa-basic'' erzeugt werden.
+  // the primary key for the database
+  object id extends MappedLongIndex(this)
 
+  def userIdAsString: String = id.is.toString
 
+  // First Name
+  object firstName extends MappedString(this, 32) {
+    override def displayName = fieldOwner.firstNameDisplayName
+    override val fieldId = Some(Text("txtFirstName"))
+  }
+
+  def firstNameDisplayName = ??("first.name")
+
+  //...
+} 
+\end{lstlisting}
+Die Verwendung von Typen aus dem Persistenz-Framework als Properties f\"uhrt zu einer \textbf{hohen Kopplung an den Persistenz-Layer}\label{persistenz:kopplung}, insbesondere auch in Service-Klassen und Controller, sehr gross wird.\newline\newline
+\textbf{Record - }Die \"uberarbeitet Version dieser Bibliothek Record \footnote{Ich vermute, der Terminus Record stammt vom Active Record Design Pattern, das durch Martin Folwer definiert wurde.} bietet \"ahnliche Funktionen an. 
+Im wesentlichen unterscheiden sich die beiden Frameworks durch die Art- und Weise der Konfiguration. \newline\newline
+\textbf{JPA - }Nebst den beiden genannten Objekt-Relationalen Mappern gibt es aber auch die M\"oglichkeit, die auf der Basis von scalajpa verf\"ugbare lift-jpa Library zu verwenden. Es bietet sich dabei sogleich an, als JPA-Implementation Hibernate zu verwenden. Lift-JPA-Applikationen k\"onnen mit dem Maven Archetype ''lift-archetype-jpa-basic'' erzeugt werden. Wie im folgenden Beispiel beschrieben k\"onnen die Annotationen wie anhin in Java Dom\"anenklassen verwendet werden:
+\begin{lstlisting}[caption=Property Mapping mit JPA]
+@Column(name = "FIRST_NAME", nullable = false)
+@NotNull
+@NotEmpty
+@BeanProperty
+var firstname: String = _
+\end{lstlisting}
+
+Kompliziertere Mappings werden in Java mittels Nested-Annotations\footnote{Annotation innerhalb einer anderen Annotation} erstellt. Seit Scala 2.8 k\"onnen diese nun folgendermassen definiert werden:
+
+\begin{lstlisting}[caption=Relation Mapping mit JPA]
+@ManyToMany
+  @JoinTable(
+    name = "MEMBERSHIP",
+    joinColumns = Array(
+    			  new JoinColumn(
+			    name = "USER_ID", 
+    			    referencedColumnName = "ID")
+			  ),
+    inverseJoinColumns = Array(
+    			  new JoinColumn(
+  		  	    name = "TEAM_ID",
+    			    referencedColumnName = "ID")
+			  )
+			)
+  @BeanProperty
+  var memberOf=new _root_.java.util.HashSet[Team]()
+  \end{lstlisting}
+  
 \subsubsection{NoSql-Datenbanken}
 In den vergangenen 1-2 Jahren haben Objektorientierte- und Dokumentenorientierte-Datenbanken\footnote{Zusammengefasst spricht man von NoSql (Not only Sql) Datenbanken} stark an Wichtigkeit gewonnen. Man\cite{wiki:NoSQL} begr\"undet die dies vorallem damit, dass Relationale Datenbanken mit bestimmten Charakteristiken heute vorkommender Daten-Manipulationen\footnote{Mehrheitlich haben sie Probleme mit hoher Anzahl an Daten\"anderungen und gleichzeitig hohen Datenvolumen} an Leistungsgrenzen gelangen.
 Die Scala-Entwickler haben im Bereich der NoSql Datenbanken f\"ur relativ viel Wirbel gesorgt, dies sicherlich auch deshalb, weil grosse Plattformen wie Novel oder Foursquare auf diesen beiden Technologien aufgebaut sind. F\"ur die meisten dieser Datenbanken sind Treiber in Scala oder mindestens Java vorhanden:
@@ -374,7 +423,7 @@ Die Integration von MongoDB wird via den oben erw\"ahnten Java-Treiber gemacht, 
 Die M\"oglichkeiten zur Internationalisierung von Web-Applikation unterscheiden sich im Wesentlichen nicht von den M\"oglichkeiten anderer Applikationen und basieren ebenfalls auf java.util.Locale, die wir aus der Java-Entwicklung bereits kennen. 
 
 Ressourcen werden in sogenannten Properties Dateien (Resource Bundles) im Klassenpfad abgelegt und erhalten Key-Value-Pairs. Das jeweilige Bundle wird anhand der berechneten Locale geladen. 
-Es gibt wie bereits unter ''\ref{grundlagen:templates} \titleref{grundlagen:templates}'' beschrieben die M\"oglichkeit, unterschiedliche Templates zu definieren, welche beim rendern der Seite Locale-abh\"angig ausgew\"ahlt werden.
+Es gibt wie bereits unter \ref{grundlagen:templates} \titleref{grundlagen:templates} beschrieben die M\"oglichkeit, unterschiedliche Templates zu definieren, welche beim rendern der Seite Locale-abh\"angig ausgew\"ahlt werden.
 
 Eine Methode mit der folgende Signatur k\"onnte im Bootstrap konfiguriert werden, um die Berechnung der Locale wie sie per default durchgef\"uhrt wird, zu \"uberschreiben:
 
