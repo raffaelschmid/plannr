@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  1 NOV 2010 12:21
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  1 NOV 2010 12:46
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -554,58 +554,91 @@ LaTeX Warning: Citation `chen2009lift' on page 51 undefined on input line 13.
 
 [51
 
-] [52] [53] [54]
+] [52] [53]
+<images/validation_registration.png, id=187, 512.91624pt x 195.73125pt>
+File: images/validation_registration.png Graphic file (type png)
+
+<use images/validation_registration.png>
+Overfull \hbox (9.92796pt too wide) in paragraph at lines 68--74
+\OT1/cmr/m/n/10.95 tels der me-tho-de va-li-da-te va-li-diert wer-den. Die Va-l
+i-die-rung wird voll-umf[]anglich
+ []
+
+
+Overfull \hbox (22.12503pt too wide) in paragraph at lines 68--74
+\OT1/cmr/m/n/10.95 an-hand der in den Klas-sen ent-hal-te-nen An-no-ta-tio-nen 
+ge-macht. Als R[]uckgabewert
+ []
+
+
+Overfull \hbox (5.39584pt too wide) in paragraph at lines 68--74
+\OT1/cmr/m/n/10.95 Zum Bei-spiel der Va-li-die-rung bei der Re-gis-trie-rung we
+r-den bei un-voll-st[]andiger
+ []
+
+
+Overfull \hbox (12.72627pt too wide) in paragraph at lines 77--77
+[]\OT1/cmr/m/n/10.95 Listing 5.4: |Va-li-da-ti-on in-ner-halb von ch.plannr.com
+mon.persistence.Persistence| 
+ []
+
+[54 <./images/validation_registration.png (PNG copy)>]
+Overfull \hbox (5.39929pt too wide) in paragraph at lines 80--82
+[][][][][][][][] 
+ []
+
+[55] [56
+
+]
 Kapitel 6.
 
-Overfull \hbox (4.14618pt too wide) in paragraph at lines 76--76
+Overfull \hbox (4.14618pt too wide) in paragraph at lines 99--99
 []\OT1/cmr/bx/n/14.4 Setup von Entwicklungs-, Test- und Produktiv-
  []
 
-) [55
+) [57] [58
 
-] [56
-
-] [57] [58] (./analyse-basis-aufgabenstellung.tex
+] [59] [60] (./analyse-basis-aufgabenstellung.tex
 Kapitel 7.
-) (./fazit.tex [59
+) (./fazit.tex [61
 
 ]
 Overfull \hbox (80.1212pt too wide) has occurred while \output is active
-\OT1/cmr/m/n/10.95 60 \OT1/cmr/m/sl/10.95 KAPITEL 7.  ANALYSE DER ARBEIT AUF DE
+\OT1/cmr/m/n/10.95 62 \OT1/cmr/m/sl/10.95 KAPITEL 7.  ANALYSE DER ARBEIT AUF DE
 R BASIS DER AUFGABENSTELLUNG
  []
 
-[60
+[62
 
 ]
 Kapitel 8.
 ) (./literaturverzeichnis.tex
 No file abgabedokument_semesterarbeit.bbl.
-) [61] [62
+) [63] [64
 
 ] (./abgabedokument_semesterarbeit.lof)
 \tf@lof=\write4
 \openout4 = `abgabedokument_semesterarbeit.lof'.
 
- [63] [64
+ [65] [66
 
 ]
 (./abgabedokument_semesterarbeit.lot)
 \tf@lot=\write5
 \openout5 = `abgabedokument_semesterarbeit.lot'.
 
- [65] [66
+ [67] [68
 
-] [67] [68] (./glossary.tex
+] [69] [70] (./glossary.tex
 Anhang A.
 
 Overfull \hbox (62.33858pt too wide) in alignment at lines 2--10
  [] [] 
  []
 
-) (./journal.tex [69
+) (./journal.tex [71
 
-] [70
+] [72
 
 ]
 Anhang B.
@@ -619,7 +652,7 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 6--68
  [] [] 
  []
 
-[71]
+[73]
 Underfull \hbox (badness 10000) in paragraph at lines 81--82
 []\OT1/cmr/m/n/10.95 Initialer Com-mit ins Git Re-po-si-to-ry un-ter
  []
@@ -629,12 +662,12 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 73--97
  [] [] 
  []
 
-[72]
+[74]
 Overfull \hbox (62.33858pt too wide) in alignment at lines 102--111
  [] [] 
  []
 
-) [73] (./abgabedokument_semesterarbeit.aux)
+) [75] (./abgabedokument_semesterarbeit.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -643,10 +676,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4157 strings out of 493848
- 61394 string characters out of 3149207
+ 4169 strings out of 493848
+ 61704 string characters out of 3149207
  165327 words of memory out of 3000000
- 7355 multiletter control sequences out of 15000+200000
+ 7366 multiletter control sequences out of 15000+200000
  11971 words of font info for 43 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  36i,11n,42p,1386b,1558s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -662,9 +695,9 @@ cal/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local
 /texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on abgabedokument_semesterarbeit.pdf (73 pages, 581226 bytes).
+Output written on abgabedokument_semesterarbeit.pdf (75 pages, 607035 bytes).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
+ 299 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

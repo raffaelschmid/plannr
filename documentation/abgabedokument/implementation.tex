@@ -63,6 +63,29 @@ Des weiteren sind die Annotationen @Embedded\footnote{@Embedded bietet die M\"og
 
 
 \subsection{Validation}\label{jpa:validation}
+Annotationen wie @NotNull, @Null, @Past, @Future sind definiert \"uber den JSR330 (Bean Validation 1.0). Mittels Bean Validation lassen sich Validierungen auf allen Ebenen des Systems durchf\"uhren. Zum Beispiel lassen sich User-Objekte bereits ohne Speicherung validieren und entsprechend f\"ur jedes Property Fehlermeldungen in der View bereitstellen. Auf der Ebene der Datenbank k\"onnen automatisch Constraints anhand dieser annotierten Properties setzen.
+
+Alle Dom\"anenklassen die als Mixin Persistent[T] verwenden k\"onnen mittels der methode validate validiert werden. Die Validierung wird vollumf\"anglich anhand der in den Klassen enthaltenen Annotationen gemacht. Als R\"uckgabewert werden die Constraints-Verletzungen innerhal eines Sets zur\"uckgeliefert. Ich verwende diese Constraints-Verletzungen weiter f\"ur die Anzeige in der View. Zum Beispiel der Validierung bei der Registrierung werden bei unvollst\"andiger Eingabe folgende Fehler angezeigt:
+ \begin{figure}
+  	\centering
+    	\includegraphics[width=12cm]{images/validation_registration}
+        	\caption{Formular Validierung: Registration}
+\end{figure}
+
+
+Die Implementation der Methode validate ist relativ einfach und sieht folgendermassen aus:
+\begin{lstlisting}[caption=Validation innerhalb von ch.plannr.common.persistence.Persistence]
+@Transient
+private val validatorFactory = 
+		Validation.buildDefaultValidatorFactory();
+
+@Transient
+private val validator = validatorFactory.getValidator();
+  
+def validate() = {
+  validator.validate(this)
+}
+\end{lstlisting}
 
 \subsection{Aufbau des Domain Modells}
 \section{Security: Registrierung, Login}

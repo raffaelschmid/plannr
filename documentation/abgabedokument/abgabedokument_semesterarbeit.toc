@@ -88,26 +88,26 @@
 \contentsline {subsection}{\numberline {5.1.2}Domain Mapping}{52}
 \contentsline {subsubsection}{Klasse User}{52}
 \contentsline {subsection}{\numberline {5.1.3}Validation}{54}
-\contentsline {subsection}{\numberline {5.1.4}Aufbau des Domain Modells}{54}
-\contentsline {section}{\numberline {5.2}Security: Registrierung, Login}{54}
-\contentsline {section}{\numberline {5.3}Navigation}{54}
-\contentsline {section}{\numberline {5.4}Mail-Versand (Notifikationen)}{54}
-\contentsline {section}{\numberline {5.5}Evaluation Kalender}{54}
-\contentsline {chapter}{\numberline {6}Deployment}{55}
-\contentsline {section}{\numberline {6.1}Setup von Entwicklungs-, Test- und Produktiv-Umgebung}{55}
-\contentsline {part}{III\hspace {1em}R\"uckblick}{57}
-\contentsline {chapter}{\numberline {7}Analyse der Arbeit auf der Basis der Aufgabenstellung}{59}
-\contentsline {section}{\numberline {7.1}Prototyp}{59}
-\contentsline {section}{\numberline {7.2}Optionale Ziele}{59}
-\contentsline {subsection}{\numberline {7.2.1}Setup von Test-und Produktiv-Umgebung}{59}
-\contentsline {subsection}{\numberline {7.2.2}Performance Tests}{59}
-\contentsline {subsection}{\numberline {7.2.3}Internationalization}{59}
-\contentsline {subsection}{\numberline {7.2.4}Search Engine Optimization}{59}
-\contentsline {subsection}{\numberline {7.2.5}Usability}{59}
-\contentsline {chapter}{\numberline {8}Fazit}{61}
-\contentsline {part}{IV\hspace {1em}Anhang}{67}
-\contentsline {chapter}{\numberline {A}Glossar}{69}
-\contentsline {chapter}{\numberline {B}Journal}{71}
-\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{71}
-\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{72}
-\contentsline {section}{\numberline {B.3}Phase Dokumentation}{73}
+\contentsline {subsection}{\numberline {5.1.4}Aufbau des Domain Modells}{55}
+\contentsline {section}{\numberline {5.2}Security: Registrierung, Login}{55}
+\contentsline {section}{\numberline {5.3}Navigation}{55}
+\contentsline {section}{\numberline {5.4}Mail-Versand (Notifikationen)}{55}
+\contentsline {section}{\numberline {5.5}Evaluation Kalender}{55}
+\contentsline {chapter}{\numberline {6}Deployment}{57}
+\contentsline {section}{\numberline {6.1}Setup von Entwicklungs-, Test- und Produktiv-Umgebung}{57}
+\contentsline {part}{III\hspace {1em}R\"uckblick}{59}
+\contentsline {chapter}{\numberline {7}Analyse der Arbeit auf der Basis der Aufgabenstellung}{61}
+\contentsline {section}{\numberline {7.1}Prototyp}{61}
+\contentsline {section}{\numberline {7.2}Optionale Ziele}{61}
+\contentsline {subsection}{\numberline {7.2.1}Setup von Test-und Produktiv-Umgebung}{61}
+\contentsline {subsection}{\numberline {7.2.2}Performance Tests}{61}
+\contentsline {subsection}{\numberline {7.2.3}Internationalization}{61}
+\contentsline {subsection}{\numberline {7.2.4}Search Engine Optimization}{61}
+\contentsline {subsection}{\numberline {7.2.5}Usability}{61}
+\contentsline {chapter}{\numberline {8}Fazit}{63}
+\contentsline {part}{IV\hspace {1em}Anhang}{69}
+\contentsline {chapter}{\numberline {A}Glossar}{71}
+\contentsline {chapter}{\numberline {B}Journal}{73}
+\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{73}
+\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{74}
+\contentsline {section}{\numberline {B.3}Phase Dokumentation}{75}
