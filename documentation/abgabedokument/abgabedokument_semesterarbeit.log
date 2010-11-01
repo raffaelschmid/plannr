@@ -1,21 +1,16 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  21 SEP 2010 23:45
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.10.3)  13 OCT 2010 23:30
 entering extended mode
- \write18 enabled.
- %&-line parsing enabled.
-**abgabedokument_semesterarbeit.tex
-(./abgabedokument_semesterarbeit.tex
+**C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/abgabedokume
+nt/abgabedokument_semesterarbeit.tex
+
+(C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/abgabedokumen
+t/abgabedokument_semesterarbeit.tex
 LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, german-x-2009-06-19, ngerman-x-2009-06-19, ancientgreek, ibycus, ar
-abic, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutc
-h, esperanto, estonian, farsi, finnish, french, galician, german, ngerman, mono
-greek, greek, hungarian, icelandic, indonesian, interlingua, irish, italian, ku
-rmanji, latin, latvian, lithuanian, mongolian, mongolian2a, bokmal, nynorsk, po
-lish, portuguese, romanian, russian, sanskrit, serbian, slovak, slovenian, span
-ish, swedish, turkish, ukenglish, ukrainian, uppersorbian, welsh, loaded.
-(/usr/local/texlive/2009/texmf-dist/tex/latex/base/book.cls
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, french, loaded.
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\book.cls"
 Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2009/texmf-dist/tex/latex/base/bk11.clo
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\bk11.clo"
 File: bk11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -31,13 +26,19 @@ File: bk11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/local/texlive/2009/texmf-dist/tex/generic/babel/babel.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\babel.sty"
 Package: babel 2008/07/06 v3.8l The Babel package
 
-(/usr/local/texlive/2009/texmf-dist/tex/generic/babel/germanb.ldf
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\germanb.ldf"
 Language: germanb 2008/06/01 v2.6m German support from the babel system
 
-(/usr/local/texlive/2009/texmf-dist/tex/generic/babel/babel.def
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\babel.def"
 File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
@@ -45,43 +46,43 @@ File: babel.def 2008/07/06 v3.8l Babel common definitions
 \l@austrian = a dialect from \language\l@german 
 Package babel Info: Making " an active character on input line 102.
 )
-(/usr/local/texlive/2009/texmf-dist/tex/generic/babel/ngermanb.ldf
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\ngermanb.ldf"
 Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
 \l@naustrian = a dialect from \language\l@ngerman 
 ))
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/graphicx.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/keyval.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/graphics.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphics.sty"
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/trig.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
 \Gread@gobject=\count89
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/lscape.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\lscape.sty"
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2009/10/09 v3.1k Customizing captions (AR)
+(C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\caption\caption.sty
+Package: caption 2010/01/09 v3.1m Customizing captions (AR)
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
+(C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\caption\caption3.sty
+Package: caption3 2010/01/14 v3.1m caption3 kernel (AR)
 \captionmargin=\dimen106
 \captionmargin@=\dimen107
 \captionwidth=\dimen108
@@ -91,7 +92,7 @@ Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
 )
 \c@ContinuedFloat=\count90
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/tools/longtable.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\tools\longtable.sty"
 Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \LTleft=\skip43
 \LTright=\skip44
@@ -109,11 +110,11 @@ Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \c@LT@chunks=\count95
 \LT@p@ftn=\toks15
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/setspace/setspace.sty
+(C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\setspace\setspace.sty
 Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
 
 Package: `setspace' 6.7 <2000/12/01>
-) (/usr/local/texlive/2009/texmf-dist/tex/latex/listings/listings.sty
+) (C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\listings.sty
 \lst@mode=\count96
 \lst@gtempboxa=\box30
 \lst@token=\toks16
@@ -127,59 +128,85 @@ Package: `setspace' 6.7 <2000/12/01>
 \lst@lineno=\count101
 \lst@maxwidth=\dimen116
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/listings/lstmisc.sty
+(C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\lstmisc.sty
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 \c@lstnumber=\count102
 \lst@skipnumbers=\count103
 \lst@framebox=\box31
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/listings/listings.cfg
+(C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\listings.cfg
 File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/listings/lstlang1.sty
+(C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\ulem\ulem.sty
+\UL@box=\box32
+\UL@hyphenbox=\box33
+\UL@skip=\skip47
+\UL@hook=\toks17
+\UL@pe=\count104
+\UL@pixel=\dimen117
+\ULC@box=\box34
+Package: ulem 2010/01/21
+\ULdepth=\dimen118
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count105
+\float@exts=\toks18
+\float@box=\box35
+\@float@everytoks=\toks19
+\@floatcapt=\box36
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ltxmisc\titleref.sty"
+Package: titleref 2001/04/05 v3.1  Cross-references with titles.
+)
+(C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
-(./abgabedokument_semesterarbeit.aux)
-\openout1 = `abgabedokument_semesterarbeit.aux'.
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\abgabedokument_semesterarbeit.aux
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
+LaTeX Warning: Label `implementation' multiply defined.
 
-(/usr/local/texlive/2009/texmf-dist/tex/context/base/supp-pdf.mkii
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+ ("C:\Program Files (x86)\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count104
-\scratchdimen=\dimen117
-\scratchbox=\box32
-\nofMPsegments=\count105
-\nofMParguments=\count106
-\everyMPshowfont=\toks17
-\MPscratchCnt=\count107
-\MPscratchDim=\dimen118
-\MPnumerator=\count108
-\everyMPtoPDFconversion=\toks18
+\scratchcounter=\count106
+\scratchdimen=\dimen119
+\scratchbox=\box37
+\nofMPsegments=\count107
+\nofMParguments=\count108
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count109
+\MPscratchDim=\dimen120
+\MPnumerator=\count110
+\everyMPtoPDFconversion=\toks21
 )
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
- (/usr/local/texlive/2009/texmf-dist/tex/latex/caption/ltcaption.sty
+ (C:\Users\els\AppData\Roaming\MiKTeX\2.8\tex\latex\caption\ltcaption.sty
 Package: ltcaption 2008/03/28 v1.2 longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count109
+\c@lstlisting=\count111
 
-(./titlepage.tex
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\titlepage.tex
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
 (Font)              using `OT1/cmr/bx/n' instead on input line 5.
@@ -198,91 +225,340 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--20
 [1
 
 
-{/usr/local/texlive/2009/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
-(./zusammenfassung.tex [2
+{C:/Users/els/AppData/Local/MiKTeX/2.8/pdftex/config/pdftex.map}])
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\zusammenfassung.tex [2
 
 ]
-Kapitel 1.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <9> on input line 6.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 6.
 ) [3] [4
 
-] (./abgabedokument_semesterarbeit.toc [5])
+]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\abgabedokument_semesterarbeit.toc
+Overfull \hbox (0.22519pt too wide) in paragraph at lines 19--19
+ [][] []\OT1/cmr/m/n/10.95 Begriffserkl[]arungen zur Klas-si-fi-zie-rung von Pr
+o-gram-mier-spra- 
+ []
+
+[5] [6]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+)
 \tf@toc=\write3
-\openout3 = `abgabedokument_semesterarbeit.toc'.
 
- (./einleitung.tex [6])
-(./grundlagen.tex [7
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\einleitung.tex [7] [8
 
-] [8
+]) [9] [10
+
+] [11] [12]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\aufgabenstellung.tex
+Kapitel 1.
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no © in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no © in font cmr10!
+[13
 
 ]
-Kapitel 2.
-[9]
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 30.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 40.
- (/usr/local/texlive/2009/texmf-dist/tex/latex/base/omscmr.fd
+Overfull \hbox (17.07584pt too wide) in paragraph at lines 20--21
+\OT1/cmr/m/n/10.95 on und Im-ple-men-ta-ti-on des Pro-to-ty-pen zu erm[]ogliche
+n. Se-tup der Entwicklungs-
+ []
+
+[14]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 27.
+ ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 40.
-Missing character: There is no Ÿ in font cmr9!
-Missing character: There is no Ÿ in font cmr10!
-Missing character: There is no š in font cmr10!
- [10] [11])
-(./analyse.tex [12]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 27.
+) [15]
+[16
+
+] [17] [18]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\analyse-aufgabenstellung.tex
+Kapitel 2.
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+[19
+
+]
+Overfull \hbox (0.95499pt too wide) in paragraph at lines 30--31
+[]\OT1/cmr/m/n/10.95 Die De-fi-ni-tio-nen der Pro-zes-se be-fin-den sich Ab-sch
+nitt 4.4[] Prozesse[] 
+ []
+
+[20])
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\grundlagen.tex [21] [22
+
+]
 Kapitel 3.
-) (./evaluation.tex [13
 
-] [14
+Overfull \hbox (11.653pt too wide) in paragraph at lines 6--6
+[]\OT1/cmr/bx/n/14.4 Begriffserkl[]arungen zur Klas-si-fi-zie-rung von Pro-
+ []
 
-]
+[23]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 35.
+ [24]
+Overfull \hbox (19.57005pt too wide) in paragraph at lines 60--61
+\OT1/cmr/m/n/10.95 wert-ba-re Funk-ti-on be-trach-tet, so dass Funk-tio-nen als
+ Pa-ra-me-ter []ubergeben
+ []
+
+
+Overfull \hbox (124.9895pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/10.95 3.1.  BEGRIFFSERKL[]ARUNGEN ZUR KLASSIFIZIERUNG VON PROGRAM
+MIERSPRACHEN \OT1/cmr/m/n/10.95 25
+ []
+
+[25]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¼ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+ [26]
+LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 112.
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¼ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¤ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+ [27] [28]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¼ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¼ in font cmr10!
+ [29] [30]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¼ in font cmr10!
+ [31]
+Overfull \hbox (37.95694pt too wide) in paragraph at lines 259--260
+\OT1/cmr/m/n/10.95 Sofern der Typ die auf-ge-ru-fe-ne Me-tho-de re-ver-se nicht
+ hat, wird im G[]ultigkeitsbereich
+ []
+
+
+Overfull \hbox (15.46059pt too wide) in paragraph at lines 272--273
+\OT1/cmr/m/n/10.95 ver-wen-det. Mit-tels der vor-de-fi-nier-ten Ma-ven Ar-che-t
+y-pen[] k[]onnen Lift-Projekte
+ []
+
+
+Overfull \hbox (1.50244pt too wide) in paragraph at lines 272--273
+\OT1/cmr/m/n/10.95 schie-dens-ten Pha-sen der Software-Entwicklung. Zum Bei-spi
+el k[]onnen Maven-
+ []
+
+[32]
+Overfull \hbox (10.17134pt too wide) in paragraph at lines 282--283
+\OT1/cmr/m/n/10.95 Das Boot-strap-ping der Ap-pli-ka-ti-on kann zus[]atzlich du
+rch die Klas-se Boot.scala
+ []
+
+[33] [34] [35]
+Overfull \hbox (6.18633pt too wide) in paragraph at lines 348--350
+\OT1/cmr/m/n/10.95 ckeln. Das ori-gi-na-le Fra-me-work, na-ment-lich \OT1/cmr/b
+x/n/10.95 Map-per\OT1/cmr/m/n/10.95 , ist be-reits seit l[]angerem
+ []
+
+[36]
+Overfull \hbox (39.24965pt too wide) in paragraph at lines 363--365
+\OT1/cmr/m/n/10.95 In den ver-gan-ge-nen 1-2 Jah-ren ha-ben Objektorientierte- 
+und Dokumentenorientierte-
+ []
+
+[37]
+Overfull \hbox (1.44164pt too wide) in paragraph at lines 374--375
+\OT1/cmr/m/n/10.95 Die M[]oglichkeiten zur In-ter-na-tio-na-li-sie-rung von Web
+-Applikation un-ter-schei-
+ []
+
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\design.tex [38]
 Kapitel 4.
-) (./implementation.tex [15] [16
+<images/usecases.png, id=134, 468.75125pt x 561.09625pt>
+File: images/usecases.png Graphic file (type png)
+
+<use images/usecases.png>
+Overfull \hbox (9.88582pt too wide) in paragraph at lines 5--6
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [39
 
 ]
-Kapitel 5.
-[17] <images/erm.png, id=65, 858.20625pt x 755.82375pt>
+Overfull \vbox (140.79076pt too high) has occurred while \output is active []
+
+
+[40 <C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/abgabedok
+ument/images/usecases.png (PNG copy)>]
+Overfull \hbox (15.12923pt too wide) in paragraph at lines 20--21
+\OT1/cmr/m/n/10.95 Die vom Mit-ar-bei-ter er-fass-ten Fe-ri-en k[]onnen durch d
+en Ad-mi-nis-tra-tor bez[]uglich
+ []
+
+[41] [42]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¼ in font cmr10!
+ [43] [44] <images/erm.png, id=154, 859.21pt x 622.325pt>
 File: images/erm.png Graphic file (type png)
- <use images/erm.png>
 
-LaTeX Warning: Float too large for page by 89.5917pt on input line 10.
+<use images/erm.png>
 
-[18 <./images/erm.png (PNG copy)>]) (./fazit.tex
+LaTeX Warning: Float too large for page by 55.16353pt on input line 87.
+
+[45 <C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/abgabedok
+ument/images/erm.png (PNG copy)>]
+<images/process_registration.png, id=158, 585.18625pt x 258.9675pt>
+File: images/process_registration.png Graphic file (type png)
+
+<use images/process_registration.png>
+Overfull \hbox (66.79134pt too wide) in paragraph at lines 95--96
+ [][] 
+ []
+
+<images/process_vacation.png, id=159, 683.55376pt x 259.97125pt>
+File: images/process_vacation.png Graphic file (type png)
+
+<use images/process_vacation.png>
+Overfull \hbox (66.79134pt too wide) in paragraph at lines 102--103
+ [][] 
+ []
+
+<images/process_team_administration.png, id=160, 584.1825pt x 550.055pt>
+File: images/process_team_administration.png Graphic file (type png)
+
+<use images/process_team_administration.png>
+Overfull \hbox (66.79134pt too wide) in paragraph at lines 110--111
+ [][] 
+ []
+
+
+Underfull \vbox (badness 3769) has occurred while \output is active []
+
+ [46
+
+
+ <C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/abgabedokume
+nt/images/process_registration.png (PNG copy)> <C:/Users/els/workspaces/hszt/se
+mesterarbeit/plannr/documentation/abgabedokument/images/process_vacation.png (P
+NG copy)>] <images/navigation_process.png, id=164, 702.625pt x 641.39626pt>
+File: images/navigation_process.png Graphic file (type png)
+
+<use images/navigation_process.png>
+Overfull \hbox (9.88582pt too wide) in paragraph at lines 121--122
+ [][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [47 <C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/abgabedo
+kument/images/process_team_administration.png (PNG copy)>])
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\implementation.tex [48 <C:/Users/els/workspaces/hszt/semesterarbeit/plannr/do
+cumentation/abgabedokument/images/navigation_process.png (PNG copy)>]
+Kapitel 5.
+[49
+
+] [50
+
+]
 Kapitel 6.
-) (./literaturverzeichnis.tex (./abgabedokument_semesterarbeit.bbl [19
 
+Overfull \hbox (4.14618pt too wide) in paragraph at lines 4--4
+[]\OT1/cmr/bx/n/14.4 Setup von Entwicklungs-, Test- und Produktiv-
+ []
 
+Missing character: There is no Ã in font cmbx12!
+Missing character: There is no ¶ in font cmbx12!
+Missing character: There is no Ã in font cmbx12!
+Missing character: There is no ¶ in font cmbx12!
+) [51] [52
+
+] [53] [54]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\analyse-basis-aufgabenstellung.tex
+Kapitel 7.
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\fazit.tex [55
 
 ]
-[20
+Overfull \hbox (80.1212pt too wide) has occurred while \output is active
+\OT1/cmr/m/n/10.95 56 \OT1/cmr/m/sl/10.95 KAPITEL 7.  ANALYSE DER ARBEIT AUF DE
+R BASIS DER AUFGABENSTELLUNG
+ []
 
-])) [21] [22
+[56
 
-] (./abgabedokument_semesterarbeit.lof)
+]
+Kapitel 8.
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\literaturverzeichnis.tex
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\abgabedokument_semesterarbeit.bbl [57] [58
+
+]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¤ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¤ in font cmr10!
+)) [59] [60
+
+]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\abgabedokument_semesterarbeit.lof)
 \tf@lof=\write4
-\openout4 = `abgabedokument_semesterarbeit.lof'.
-
- [23] [24
+ [61] [62
 
 ]
-(./abgabedokument_semesterarbeit.lot)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\abgabedokument_semesterarbeit.lot)
 \tf@lot=\write5
-\openout5 = `abgabedokument_semesterarbeit.lot'.
+ [63] [64
 
- (./glossary.tex [25] [26
-
-]
+] [65] [66]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\glossary.tex
 Anhang A.
 
 Overfull \hbox (62.33858pt too wide) in alignment at lines 2--10
  [] [] 
  []
 
-) (./journal.tex [27] [28
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\journal.tex [67
+
+] [68
 
 ]
 Anhang B.
@@ -296,7 +572,7 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 6--68
  [] [] 
  []
 
-[29]
+[69]
 Underfull \hbox (badness 10000) in paragraph at lines 81--82
 []\OT1/cmr/m/n/10.95 Initialer Com-mit ins Git Re-po-si-to-ry un-ter
  []
@@ -306,38 +582,44 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 73--97
  [] [] 
  []
 
-[30]
+[70]
 Overfull \hbox (62.33858pt too wide) in alignment at lines 102--111
  [] [] 
  []
 
-) [31] (./abgabedokument_semesterarbeit.aux)
+) [71]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\abgabedokumen
+t\abgabedokument_semesterarbeit.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 3845 strings out of 493848
- 56821 string characters out of 3149207
- 155481 words of memory out of 3000000
- 7065 multiletter control sequences out of 15000+200000
- 11788 words of font info for 41 fonts, out of 3000000 for 9000
- 714 hyphenation exceptions out of 8191
- 36i,11n,42p,676b,1006s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
-usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr
-/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/lo
-cal/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local
-/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/
-texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local
-/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
-texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/t
-exlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on abgabedokument_semesterarbeit.pdf (31 pages, 262722 bytes).
+ 4132 strings out of 495285
+ 64436 string characters out of 3179884
+ 164544 words of memory out of 3000000
+ 7248 multiletter control sequences out of 15000+200000
+ 11971 words of font info for 43 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 36i,11n,42p,1466b,1556s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbsy10.pfb
+><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:
+/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/
+Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pro
+gram Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program
+ Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (
+x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsl10.pfb><C:/Program Files (x8
+6)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Program Files (x8
+6)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)
+/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on abgabedokument_semesterarbeit.pdf (71 pages, 565719 bytes).
 PDF statistics:
- 147 PDF objects out of 1000 (max. 8388607)
+ 284 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

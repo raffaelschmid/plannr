@@ -1,21 +1,16 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  19 SEP 2010 12:08
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.10.3)  9 OCT 2010 12:10
 entering extended mode
- \write18 enabled.
- %&-line parsing enabled.
-**00_projektplan.tex
-(./00_projektplan.tex
+**C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/project-mana
+gement/projektplan/00_projektplan.tex
+
+(C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/project-manag
+ement/projektplan/00_projektplan.tex
 LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, german-x-2009-06-19, ngerman-x-2009-06-19, ancientgreek, ibycus, ar
-abic, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutc
-h, esperanto, estonian, farsi, finnish, french, galician, german, ngerman, mono
-greek, greek, hungarian, icelandic, indonesian, interlingua, irish, italian, ku
-rmanji, latin, latvian, lithuanian, mongolian, mongolian2a, bokmal, nynorsk, po
-lish, portuguese, romanian, russian, sanskrit, serbian, slovak, slovenian, span
-ish, swedish, turkish, ukenglish, ukrainian, uppersorbian, welsh, loaded.
-(/usr/local/texlive/2009/texmf-dist/tex/latex/base/book.cls
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, french, loaded.
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\book.cls"
 Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2009/texmf-dist/tex/latex/base/bk11.clo
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\bk11.clo"
 File: bk11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -31,13 +26,19 @@ File: bk11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/local/texlive/2009/texmf-dist/tex/generic/babel/babel.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\babel.sty"
 Package: babel 2008/07/06 v3.8l The Babel package
 
-(/usr/local/texlive/2009/texmf-dist/tex/generic/babel/germanb.ldf
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\germanb.ldf"
 Language: germanb 2008/06/01 v2.6m German support from the babel system
 
-(/usr/local/texlive/2009/texmf-dist/tex/generic/babel/babel.def
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\babel.def"
 File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
@@ -45,41 +46,40 @@ File: babel.def 2008/07/06 v3.8l Babel common definitions
 \l@austrian = a dialect from \language\l@german 
 Package babel Info: Making " an active character on input line 102.
 )
-(/usr/local/texlive/2009/texmf-dist/tex/generic/babel/ngermanb.ldf
+("C:\Program Files (x86)\MiKTeX 2.8\tex\generic\babel\ngermanb.ldf"
 Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
 \l@naustrian = a dialect from \language\l@ngerman 
 ))
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/graphicx.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/keyval.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/graphics.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphics.sty"
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/trig.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(/usr/local/texlive/2009/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
 \Gread@gobject=\count89
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/lscape.sty
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\lscape.sty"
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
-(./00_projektplan.aux)
-\openout1 = `00_projektplan.aux'.
-
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\00_projektplan.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
 LaTeX Font Info:    ... okay on input line 23.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
@@ -93,7 +93,7 @@ LaTeX Font Info:    ... okay on input line 23.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
 LaTeX Font Info:    ... okay on input line 23.
 
-(/usr/local/texlive/2009/texmf-dist/tex/context/base/supp-pdf.mkii
+("C:\Program Files (x86)\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count90
 \scratchdimen=\dimen106
@@ -105,7 +105,9 @@ LaTeX Font Info:    ... okay on input line 23.
 \MPscratchDim=\dimen107
 \MPnumerator=\count94
 \everyMPtoPDFconversion=\toks16
-) (./titlepage.tex
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\titlepage.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line 15.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -115,18 +117,19 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 
-{/usr/local/texlive/2009/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]) [2
+{C:/Users/els/AppData/Local/MiKTeX/2.8/pdftex/config/pdftex.map}]) [2
 
-] (./00_projektplan.toc [3])
+]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\00_projektplan.toc [3])
 \tf@toc=\write3
-\openout3 = `00_projektplan.toc'.
-
- [4] (./00_projektplan.lof)
+ [4]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\00_projektplan.lof)
 \tf@lof=\write4
-\openout4 = `00_projektplan.lof'.
 
-
-(./einleitung.tex [5
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\einleitung.tex [5
 
 ] [6
 
@@ -150,7 +153,9 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <9> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 4.
-[9] [10]) (./ubiquitous_language.tex [11] [12]
+[9] [10])
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\ubiquitous_language.tex [11] [12]
 Kapitel 2.
 
 Underfull \hbox (badness 10000) in paragraph at lines 6--6
@@ -167,7 +172,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--7
 []\OT1/cmr/m/n/10.95 Webapplikationen be-ste-hen grob ge-sagt aus
  []
 
-) (./projektorganisation.tex
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\projektorganisation.tex
 Overfull \hbox (33.88582pt too wide) in paragraph at lines 2--1
 []
  []
@@ -197,7 +204,10 @@ Overfull \hbox (4.37004pt too wide) in paragraph at lines 8--9
  [][] 
  []
 
-[15 <./orgchart/Slide1.jpg>]) (./stakeholderanalyse.tex [16]
+[15 <C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/project-m
+anagement/projektplan/orgchart/Slide1.jpg>])
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\stakeholderanalyse.tex [16]
 Kapitel 4.
 
 Underfull \hbox (badness 10000) in paragraph at lines 4--5
@@ -214,7 +224,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--13
 []\OT1/cmr/m/n/10.95 Guter In-for-ma-ti-ons-
  []
 
-) (./risikoanalyse.tex
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\risikoanalyse.tex
 Overfull \hbox (74.8858pt too wide) in paragraph at lines 6--1
 [][]
  []
@@ -367,7 +379,9 @@ Overfull \hbox (30.74933pt too wide) in paragraph at lines 49--58
 [] 
  []
 
-[21]) (./requirements_engineering.tex [22
+[21])
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\requirements_engineering.tex [22
 
 
 ]
@@ -390,14 +404,19 @@ en Ad-mi-nis-tra-tor bez[]uglich
  []
 
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 26.
-(/usr/local/texlive/2009/texmf-dist/tex/latex/base/omscmr.fd
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 26.
- [24 <./orgchart/reqeng_usecase.png (PNG copy)>]) (./estimation.tex [25] [26]
+ [24 <C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/project-
+management/projektplan/orgchart/reqeng_usecase.png (PNG copy)>])
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\estimation.tex [25] [26]
 Kapitel 7.
-) (./projektplanung.tex
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\projektplanung.tex
 Overfull \hbox (3.20667pt too wide) in paragraph at lines 13--1
 [] 
  []
@@ -583,14 +602,18 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [31
 
-] [32 <./orgchart/projectplanning_msproject.png (PNG copy)>])
-(./projektkosten.tex [33
+] [32 <C:/Users/els/workspaces/hszt/semesterarbeit/plannr/documentation/project
+-management/projektplan/orgchart/projectplanning_msproject.png (PNG copy)>])
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\projektkosten.tex [33
 
 ] [34
 
 ]
 Kapitel 9.
-) (./projektrapportierung.tex
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\projektrapportierung.tex
 Overfull \hbox (0.49884pt too wide) in paragraph at lines 2--1
 \OT1/cmr/m/n/10.95 Projektkosten (Bud-get, Kal-ku-la-ti-ons-art) wer-den f[]ur 
 die Se-mes-ter-ar-beit nicht
@@ -600,11 +623,15 @@ die Se-mes-ter-ar-beit nicht
 
 ]
 Kapitel 10.
-) (./projektabschluss.tex [37] [38
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\projektabschluss.tex [37] [38
 
 ]
 Kapitel 11.
-) (./qualitaetssicherung.tex [39] [40
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\qualitaetssicherung.tex [39] [40
 
 ]
 Kapitel 12.
@@ -621,32 +648,36 @@ Overfull \hbox (6.88635pt too wide) in paragraph at lines 13--14
 -klo-ma-ti-scher Kom-
  []
 
-) (./literaturverzeichnis.tex [42]) [43
+)
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\literaturverzeichnis.tex [42]) [43
 
-] (./00_projektplan.aux) ) 
+]
+(C:\Users\els\workspaces\hszt\semesterarbeit\plannr\documentation\project-manag
+ement\projektplan\00_projektplan.aux) ) 
 Here is how much of TeX's memory you used:
- 1462 strings out of 493848
- 19245 string characters out of 3149207
- 81012 words of memory out of 3000000
- 4707 multiletter control sequences out of 15000+200000
+ 1469 strings out of 495285
+ 23040 string characters out of 3179884
+ 80225 words of memory out of 3000000
+ 4635 multiletter control sequences out of 15000+200000
  14415 words of font info for 49 fonts, out of 3000000 for 9000
- 714 hyphenation exceptions out of 8191
- 29i,16n,24p,642b,256s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2009/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr12.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr17.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr6.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr8.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr9.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-l10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
-0.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12
+ 14 hyphenation exceptions out of 8191
+ 29i,16n,24p,738b,256s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.8/fonts
+/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/t
+ype1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/typ
+e1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type
+1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/p
+ublic/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/publ
+ic/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/
+amsfonts/cm/cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsf
+onts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts
+/cm/cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/
+cmsl10.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cm
+sy10.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmti
+10.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmti12
 .pfb>
-Output written on 00_projektplan.pdf (43 pages, 368900 bytes).
+Output written on 00_projektplan.pdf (43 pages, 368863 bytes).
 PDF statistics:
  197 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

@@ -1,0 +1,38 @@
+\section{Teilnehmer}
+Beat Seeliger, Raffael Schmid
+
+\section{Ablauf}
+Folgende Traktanden standen f\"ur das Design Review auf dem Programm und wurden besprochen. Weitere Informationen befinden sich weiter unten im Dokument.
+\begin{itemize} 
+\item Begr\"ussung
+\item Planung
+\item Vorstellung des Prototypen durch den Studenten
+\item Besprechung des Prototypen
+\item Besprechung der Dokumentation auf Basis der Aufgabenstellung
+\end{itemize}
+
+\section{Planung}
+Die Planung und der weitere Verlauf der Semesterarbeit wurde kurz besprochen. Der Fakt, dass die Abgabefrist der Semesterarbeit zum Zeitpunkt des Design Reviews bereits abgelaufen ist, wurde diskutiert. Es wurde abgemacht, dass ein Antrag auf Verl\"angerung gestellt wird. \footnote{Der Antrag wurde von der Schulleitung bewilligt - sp\"atester Abgabetermin von Arbeit inklusive Pr\"asentation ist nun auf den 4. Dezember 2010 festgelegt.}
+
+
+\section{Prototyp}
+\subsection{Entwicklungsstand}
+Die Entwicklungs- und Test-Infrastruktur ist bereits aufgesetzt. Der Prototyp bereits auf einer Cloud-Plattform installiert. Die Architektur und das Design der Applikation sind gemacht und die zu verwendenden Technologien sind bestimmt: 
+Der Prototyp auf Basis von Lift verwendet als Persistenzschicht ScalaJPA\footnote{ScalaJPA ist ein f\"ur Scala  verf\"ugbarer Adapterauf Basis des Java Persistence APIs (JPAs) zur Abbildung von Objekten auf Relationale Datenbanken} respektive im Hintergrund Hibernate. Die View wird einerseits in Flex (mit Zugriff via RESTful Webservices), andererseits mit HTML und den von Lift direkt verf\"ugbaren Funktionen implementiert. Der Prototyp beinhaltet aktuell noch nicht den gesamten Funktionsumfang. Die Implementation beinhaltet Authentifizierung, Authorisierung, Administration von Team und Members. Momentan fehlt aber noch der Bereich der Ferienadministration.
+Die Tests sind momentan als Scala Specs implementiert und sind in Integrations- und Unit-Tests aufgeteilt. Der Anteil an Unit-Tests ist noch immer etwas mager. Dies war des weiteren aber nicht Bestandteil der Diskussion
+
+
+\subsection{Abmachungen}
+Es wurde Abgemacht, dass die Dokumentation auf Kosten der Weiterentwicklung des Prototypen vorangetrieben wird. Die in der Aufgabenstellung definierten Use-Cases sollten - wenn m\"oglich noch umgesetzt werden. Der Fokus sollte aber bis zum Abgabetermin vor allem im Bereich der Dokumentation liegen.
+
+\section{Dokumentation}
+Die Dokumentation ist noch nicht weit fortgeschritten und insbesondere folgende in der Aufgabenstellung definierten Punkte sind nur teilweise oder gar nicht vorhanden:
+\begin{itemize}
+\item Benutzer- und Rollenkonzept
+\item Navigationskonzept
+\item Prozessdefinitionen
+\end{itemize}
+
+Der Dozent kommuniziert klar, dass die Bewertung der Semesterarbeit auf der Basis der Aufgabenstellung gemacht wird, und insbesondere diese Punkte in der Dokumentation klar ersichtlich sein m\"ussen.
+
+

@@ -8,6 +8,10 @@
 \usepackage{longtable}
 \usepackage{setspace}
 \usepackage{listings}
+\usepackage{ulem}
+\usepackage{float}
+\usepackage{titleref}
+
 
 \usepackage{listings}
 
@@ -33,14 +37,24 @@
 \input{zusammenfassung}
 \tableofcontents
 \input{einleitung}
+
+\part{Projektdetails}
+\input{aufgabenstellung}
+
+\part{Umsetzung}
+\input{analyse-aufgabenstellung}
 \input{grundlagen}
-\input{analyse}
-\input{evaluation}
+\input{design}
 \input{implementation}	
+
+\part{R\"uckblick}
+\input{analyse-basis-aufgabenstellung}
 \input{fazit}
+
 \input{literaturverzeichnis}
 \listoffigures
 \listoftables
+\part{Anhang}
 \appendix
 \input{glossary}
 \input{journal}
