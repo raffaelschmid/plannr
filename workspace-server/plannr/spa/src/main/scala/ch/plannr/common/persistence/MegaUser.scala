@@ -2,13 +2,14 @@ package ch.plannr.model
 
 import net.liftweb.common.{Loggable, Full, Empty, Box}
 import net.liftweb.http._
+import net.liftweb.http.SHtml._
 import js._
 import JsCmds._
 import S._
 import net.liftweb.sitemap.{Loc, Menu}
 import _root_.net.liftweb.sitemap.Loc._
 import xml.transform.{RewriteRule, RuleTransformer}
-import net.liftweb.util.{FieldError, Mailer}
+import net.liftweb.util.Mailer
 import _root_.net.liftweb.util.Mailer._
 import xml.{Elem, NodeSeq, Node}
 import _root_.net.liftweb.util.Helpers._
@@ -16,8 +17,8 @@ import net.liftweb.sitemap.Loc.{Template, LocParam, If}
 import ch.plannr.templates.{MailTemplate, HtmlTemplate}
 import ch.plannr.common.persistence.{Persistent, DBModel}
 import ch.plannr.common.MessageDisplay
-import javax.validation.{ConstraintViolation, Validation, ConstraintViolationException}
-import javax.persistence.{NoResultException, Transient}
+import javax.validation.{ConstraintViolation, ConstraintViolationException}
+import javax.persistence.{NoResultException}
 
 /**
  * User: Raffael Schmid
@@ -373,12 +374,12 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
 
     def innerSignup = bind("user",
       HtmlTemplate.signupXhtml,
-      "firstname" -> SHtml.text("", s => theUser.firstname = s, "id" -> "firstname"),
-      "lastname" -> SHtml.text("", s => theUser.lastname = s, "id" -> "lastname"),
-      "email" -> SHtml.text("", s => theUser.email = s, "id" -> "email"),
-      "password" -> SHtml.text("", s => theUser.password = s, "id" -> "password"),
-      "confirm_password" -> SHtml.text("", s => confirmPassword = s, "id" -> "confirm_password"),
-      "submit" -> SHtml.submit(S.??("sign.up"), testSignup _))
+      "firstname" -> text("", s => theUser.firstname = s, "id" -> "firstname"),
+      "lastname" -> text("", s => theUser.lastname = s, "id" -> "lastname"),
+      "email" -> text("", s => theUser.email = s, "id" -> "email"),
+      "password" -> text("", s => theUser.password = s, "id" -> "password"),
+      "confirm_password" -> text("", s => confirmPassword = s, "id" -> "confirm_password"),
+      "submit" -> submit(S.??("sign.up"), testSignup _))
 
     innerSignup
   }
@@ -469,7 +470,7 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
 
   def lostPassword = {
     bind("user", HtmlTemplate.lostPasswordXhtml,
-      "email" -> SHtml.text("", sendPasswordReset _),
+      "email" -> text("", sendPasswordReset _),
       "submit" -> <input type="submit" value={S.??("send.it")}/>)
   }
 
@@ -488,10 +489,12 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
         }
 
         bind("user", HtmlTemplate.passwordResetXhtml,
-          "pwd" -> SHtml.password_*("", (p: List[String]) =>
+          "pwd" -> password_*("", (p: List[String]) =>
             user.password = p.head),
-          "submit" -> SHtml.submit(S.??("set.password"), finishSet _))
-      case _ => S.error(S.??("password.link.invalid")); S.redirectTo(homePage)
+          "submit" -> submit(S.??("set.password"), finishSet _))
+      case _ =>
+        S.error(S.??("password.link.invalid"));
+        S.redirectTo(homePage)
     }
 
   def changePassword = {
@@ -500,7 +503,7 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     var newPassword: List[String] = Nil
 
     def testAndSet() {
-      if (!(user.password == oldPassword)){
+      if (!(user.password == oldPassword)) {
         S.error(S.??("wrong.old.password"))
         S.redirectTo(changePasswordPath.mkString("/", "/", ""))
       }
@@ -519,7 +522,7 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
           }
 
         }
-        else{
+        else {
           S.error(S.??("passwords.do.not.match"))
           S.redirectTo(changePasswordPath.mkString("/", "/", ""))
         }
@@ -528,8 +531,8 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
 
     bind("user", HtmlTemplate.changePasswordXhtml,
       "old_pwd" -> SHtml.password("", s => oldPassword = s),
-      "new_pwd" -> SHtml.password_*("", LFuncHolder(s => newPassword = s)),
-      "submit" -> SHtml.submit(S.??("change"), testAndSet _))
+      "new_pwd" -> password_*("", LFuncHolder(s => newPassword = s)),
+      "submit" -> submit(S.??("change"), testAndSet _))
   }
 
   object editFunc extends RequestVar[Box[() => NodeSeq]](Empty)
@@ -564,10 +567,10 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
     }
 
     def innerEdit = bind("user", HtmlTemplate.editXhtml,
-      "firstname" -> SHtml.text(theUser.firstname, s => theUser.firstname = s, "id" -> "firstname"),
-      "lastname" -> SHtml.text(theUser.lastname, s => theUser.lastname = s, "id" -> "lastname"),
-      "email" -> SHtml.text(theUser.email, s => theUser.email = s, "id" -> "email"),
-      "submit" -> SHtml.submit(S.??("save"), testEdit _))
+      "firstname" -> text(theUser.firstname, s => theUser.firstname = s, "id" -> "firstname"),
+      "lastname" -> text(theUser.lastname, s => theUser.lastname = s, "id" -> "lastname"),
+      "email" -> text(theUser.email, s => theUser.email = s, "id" -> "email"),
+      "submit" -> submit(S.??("save"), testEdit _))
 
     innerEdit
   }
@@ -599,15 +602,15 @@ trait MetaMegaBasicUser[ModelType <: MegaBasicUser[ModelType]] extends Loggable 
   }
 
   def findByEmail(email: String): Box[ModelType] = {
-    try{
+    try {
       logger.debug("email: " + email)
       val user: ModelType = DBModel.createNamedQuery[ModelType]("findByEmail", Pair("email", email)).getSingleResult
       user match {
         case _ => Full(user)
       }
     }
-    catch{
-      case noresult:NoResultException => Empty
+    catch {
+      case noresult: NoResultException => Empty
     }
   }
 

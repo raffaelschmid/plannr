@@ -23,7 +23,7 @@ trait Persistent[T] {
   @Transient
   private val validator = validatorFactory.getValidator();
 
-  def validate() = {
+  def validate = {
     validator.validate(this)
   }
 

@@ -271,7 +271,7 @@ TODO
 \section{Liftweb Framework}\label{einarbeitung:lift}
 Im Prinzip war die Entscheidung, welches Web Framework zu verwenden ist, bereits in der Aufgabenstellung definiert. Ziel war es viel mehr, eine Analyse des als Grundlage definierten Lift Frameworks zu erstellen und Wege zu finden, mit denen die einzelnen Problemstellungen, die im \"ubrigen praktisch in jeder Webapplikation auftreten, umgesetzt werden k\"onnen. Im ersten Teil werde ich deshalb viele einzelne Aspekte des Lift Webframeworks beleuchten. Im Anschluss an diese Punkte werde ich zus\"atzlich versuchen, den Vergleich mit Grails, eines auf Java, Spring, Hibernate und Groovy basierenden Webframeworks, herzustellen.
 
-\subsection{Erstellen eines Lift-Projektes}
+\subsection{Erstellen eines Lift-Projektes}\label{lift:create}
 Innerhalb des ganzen Lift-\"Okosystems wird Maven\footnote{http://maven.apache.org} als das Build-System verwendet. Mittels der vordefinierten Maven Archetypen\footnote{Archetypes in Maven sind vordefinierte Templates mit welchen Maven-Projekte erstellt werden k\"onnen.} k\"onnen Lift-Projekte mit relativ geringem Aufwand erstellt werden. Momentan sind mehrere Archetypen f\"ur unterschiedliche Projekte vorhanden: zum Beispiel zur erstellung eines Lift-Projektes basierend auf JPA (lift-archetype-jpa-basic), oder eines Lift-Projektes basierend auf Mapper\footnote{Mapper ist nebst Record und der JPA-Integration eine der ORM-Libraries f\"ur Relationale Datenbanken} (lift-archetype-basic), usw.  Die Standardisierung an die sich Maven-Projekte halten\footnote{Convention over Configuration} vereinfachen die verschiedensten Phasen der Software-Entwicklung. Zum Beispiel k\"onnen Maven-Projekte in die meisten Continuous Integration Systeme ohne erheblichen Aufwand importiert werden.
 
 Mittels folgendem Befehl l\"asst sich ein Wizard starten mittels welchem man ein neues Maven-Projekt erstellen kann. Die Auswahl des Archetypen kann zu Beginn gemacht werden. Aktuell befinden sich die Lift-Archetypen zwischen ca. Position 21 und 39.
@@ -338,7 +338,7 @@ Views m\"ussen sich im Package {default-namespace}.views befinden. Hier wird ein
 \subsection{Formulare}
 Mit dem oben beschriebenen Mechanismus k\"onnen ebenfalls Formulare definiert werden. Dabei werden in den Snippets zus\"atzliche Callback-Funktionen definiert, die beim \"Ubermitteln des Post-Requests ausgef\"uhrt werden. Mehr dazu kann unter  \cite[p. 47-58]{chen2009lift} nachgeschlagen werden.
 
-\subsection{SiteMap \cite[p. 61-70]{chen2009lift}}
+\subsection{SiteMap \cite[p. 61-70]{chen2009lift}}\label{lift:sitemap}
 Grunds\"atzlich stellt die Lift SiteMap die Menu-Struktur mit entsprechenden Links zur Verf\"ugung und kann mittels der Unordered List auf der Webseite eingef\"ugt werden. Des weiteren bietet aber die SiteMap noch eine Vielzahl anderer Funktionen:
 \begin{itemize}
 \item Hierarchien und Gruppierungen von Elementen der Navigation, somit k\"onnen auch nur einzelne \"Aste der Navigation angezeigt werden.
