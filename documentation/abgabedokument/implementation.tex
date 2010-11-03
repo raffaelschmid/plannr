@@ -74,7 +74,7 @@ Alle Dom\"anenklassen die als Mixin die bereits erw\"ahnte Klasse Persistent[T] 
 
 
 Die Implementation der Methode validate ist relativ einfach und sieht folgendermassen aus:
-\begin{lstlisting}[caption=Validation innerhalb von ch.plannr.common.persistence.Persistence]
+\begin{lstlisting}[caption=Validation innerhalb der Klasse Persistence]
 @Transient
 private val validatorFactory = 
 		Validation.buildDefaultValidatorFactory();
@@ -86,7 +86,7 @@ def validate() = {
   validator.validate(this)
 }
 \end{lstlisting}
-\section{Security: Registrierung, Login}
+\section{Benutzermanagement}
 Sofern man bei der Entwicklung von Webapplikationen mittels Lift den Persistenz-Provider Mapper ausw\"ahlt, erh\"alt man Benutzerverwaltung inklusive Login-, Registrierung- und Passwort-Reset-Mechanismus mitgeliefert und kann diesen relativ flexibel erweitern. Sofern man sich f\"ur JPA entscheidet, muss dies - insbesondere weil die Kopplung zwischen Dom\"anenklassen und Mapper respektive Record so hoch ist - selber implementieren. In anlehnung an ProtoUser, MegaProtoUser und MetaMegaProtoUser vom Mapper-Framework habe ich Funktionalit\"at \"ubernommen und MegaBasicUser respektive MetaMegaBasicUser f\"ur das Mapping mit JPA implementiert. In Sachen LOC\footnote{Lines of Code} haben die Klassen noch etwas Optimierungspotential, in Sachen Registrierung, Login, Validierung, Passwort Reset, Benutzer Editierung tun sie aber ihren Zweck. Als kurze Erl\"auterung die Beschreibung zur Funktionalit\"at f\"ur das Passwort-Reset beispielhaft:
 
 \begin{lstlisting}[caption=Implementation Funktionalit\"at Passwort-Reset]
@@ -151,19 +151,67 @@ Da die Ferienplanung und Administration der Benutzer vollumf\"anglich in Flex im
 
 Das Menu wird aus einer Liste von Menu-Eintr\"agen in der Klasse Boot.scala definiert und in die SiteMap gesetzt. Die Zugriffssteuerung wird \"uber die LocParams implementiert die sich in den Menu Instanzen befinden. 
  
+\section{Flex Client}
+\subsection{Architektur}
+
+\subsection{Ferienplanung}\label{implementation:ferienplanung}
+\subsubsection{Evaluation Kalender}
+\subsection{Teammanagement}\label{implementation:teammanagement}
 
 \section{Mail-Versand (Notifikationen)}
-\section{Ferienplanung}\label{implementation:ferienplanung}
-\subsection{Evaluation Kalender}
-
 
 
 
 \chapter{Entwicklung, Build und Deployment}
-\section{Build-System}
-\section{Entwicklungsumgebung}
 
-\section{Testumgebung}
+\section{Build-System}Maven als Build-System basiert ebenfalls auf einem Plugin-Konzept und unterst\"utzt in den verschiedensten Bereichen des Build-Managements. Nicht zuletzt dank dem Grundsatz ``Convention over Configuration'' l\"asst es sich auf allen Plattformen im Nu deployen. Maven \"ubernimmt bei diesem Projekt eine vielzahl an Funktionen:
+
+\begin{itemize}
+\item \textbf{Dependency Management: } Maven l\"adt die im pom.xml definierten Abh\"angigkeiten von \"offentlichen Repositories. 
+\item \textbf{Support Entwicklungsumgebung:  } Die grosse Verbreitung von Maven hat dazu gef\"uhrt, dass Entwicklungsumgebungen Adapter oder Plugins daf\"ur entwickelt haben vomit sich solche Projekte automatisch innerhalb der IDE konfigurieren. Dazu geh\"ort das Hinzuf\"ugen von Abh\"angigkeiten in den Source- und Build-Pfad, das korrekte setzen von Ausgabe-Ordner. 
+\item \textbf{Clean, Compile, Package: }Der gesamte Build-Prozess f\"urs Test-System findet mit Maven statt. Bei der Entwicklung werden die Klassen allerdings von der Entwicklungsumgebung kompilliert - diese beschriebenen Targets sind deshalb da nicht n\"otig. 
+\item \textbf{Profil Management - } Maven ist von Grund auf f\"ahig, verschiedene Profile zu definieren. Profile kann man beispielsweise dann verwenden, wenn Applikationen f\"ur Entwicklung, Test, Produktion in unterschiedlichen Umgebungen laufen. Dann gilt es meistens, unterschiedliche Konfigurationen zu verwenden. Profile brauche ich um folgende Probleme zu l\"osen:\begin{itemize}
+\item Der Datenbank-Zugriff wird in der Entwicklungsumgebung direkt \"uber JDBC gemacht, in der Testumgebung auf der Stax-Cloud wird eine von Servern verf\"ugbare Datasource verwendet.
+\end{itemize}
+\end{itemize}
+\section{Entwicklungsumgebung}
+W\"ahrend der Entwicklung hilft Maven vorallem im Bereich des Dependency Managements - Abh\"angigkeiten werden automatisch geladen, das Projekt kann nach der \"Offnung sofort kompiliert und gestartet werden. Die meisten Funktionalit\"aten im Backend habe ich Test-Driven mit Scala-Specs entwickelt, ohne dass ich die Funktionalit\"at jedesmal im Browser nachvollzog. Tests kann man auf verschiedene Arten ausf\"uhren:
+\begin{itemize}
+\item Maven per Default unterst\"utzt die Ausf\"uhrung von JUnit-Tests, mit Plugins k\"onnen allerdings auch Scala-Specs oder andere Tests ausf\"uhren.
+\item Entwicklungsumgebungen welche Scala unterst\"utzen, bringen meistens auch Funktionalit\"at zum Testen (Ausf\"uhrung von Scala Specs oder Scala Unit  Tests). 
+\item Die Scala-Gemeinde richtet sich mehr und mehr auf das Simple Build Tool\cite{SimpleBuildTool} aus. Es handelt sich dabei um ein Tool welches ebenfalls Dependency Management, Test, Build, usw. unterst\"utzt und sich gegebenenfalls auch mit Maven kombinieren l\"asst. Bei der Entwicklung hat das Tool mir geholfen, die Tests auszuf\"uhren, indem es kontinuierlich auf \"Anderungen wartet, neu Kompiliert und entsprechend die Tests neu ausf\"uhrt. Das somit schnelle Feedback kann den Entwicklungsprozess massiv beschleunigen.\end{itemize}
+
+
+\section{Test- und Produktiv-Umgebung}
+Um die Applikation auch der Breiten Masse verf\"ugbar zu machen, habe ich sie auf der Cloud-Plattform namens Stax\cite{Stax} deployt. Bei der Verfolgung von Twitter-Nachrichten verschiedener Personen und Diensten bin ich auf diese Plattform aufmerksam geworden und die Einfachheit des Deployments hat mich sehr \"uberrascht.
+
+F\"ur das Deployment auf diese Plattform musste ich folgende \"Anderungen durchf\"uhren:
+\begin{itemize}
+\item \textbf{Stax-Konfiguration f\"ur Maven - } F\"ur Maven ist ein Stax-Plugin vorhanden, das mittels der folgenden Zeilen im pom.xml konfiguriert werden muss: 
+
+\begin{lstlisting}[caption=Konfiguration Maven mit Stax]
+<build>
+  <plugins>
+    <plugin>
+      <groupId>net.stax</groupId>
+      <artifactId>stax-maven-plugin</artifactId>
+    </plugin>
+  ...
+  </plugins>
+</build>
+\end{lstlisting}
+Schlussendlich ist es m\"oglich, die Applikation mittels dem folgenden Kommando zu deployen:
+\begin{lstlisting}[caption=Befehl Deployment Stax]
+mvn clean stax:deploy -Pprod -Dstax.appid=plannr
+\end{lstlisting}
+\item \textbf{Stax-Konfiguration des Web Archives - } Wars f\"ur die Stax Plattform m\"ussen ein zus\"atzliches Xml mit dem namen stax-web.xml beinhalten. 
+\item \textbf{Datasource Anbindung - } Via das Web-Interface von Stax kann eine neue MySql Datenbank auf der Cloud angelegt werden. Um der Applikation den Zugriff auf diese Datenbank zu erm\"oglichen, wird diese einerseits im stax-web.xml als auch im web.xml definiert. Die Aufl\"osung der Datasource wird zur Laufzeit \"uber den JNDI-Namen gemacht, der im persistence.xml definiert ist.
+\item \textbf{Konfiguration JPA -} Damit sich der Persistenz-Provider nicht wie w\"ahrend der Entwicklungszeit direkt \"uber JDBC mit Url, Benutzernamen und Passwort verbindet, wird im Profilabh\"angigen persistence.xml f\"ur Test- und Produktiv-Umgebung die im web.xml als Ressource definierte Datasource verwendet. 
+\end{itemize} 
+
+Der Pfad f\"ur diese Dateien werden nur mit der Aktivierung \"uber das Maven-Profil geladen und \"uberschreiben die bereits bestehenden.
+
+
 
 
 
