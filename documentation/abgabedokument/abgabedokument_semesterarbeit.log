@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  3 NOV 2010 20:13
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  3 NOV 2010 23:51
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -237,17 +237,7 @@ Overfull \hbox (0.22519pt too wide) in paragraph at lines 19--19
 o-gram-mier-spra- 
  []
 
-[5]
-
-LaTeX Warning: Citation `chen2009lift' on page 6 undefined on input line 41.
-
-
-LaTeX Warning: Citation `chen2009lift' on page 6 undefined on input line 42.
-
-
-LaTeX Warning: Citation `chen2009lift' on page 6 undefined on input line 46.
-
-[6])
+[5] [6])
 \tf@toc=\write3
 \openout3 = `abgabedokument_semesterarbeit.toc'.
 
@@ -301,13 +291,9 @@ Overfull \hbox (11.653pt too wide) in paragraph at lines 6--6
  []
 
 [23]
-
-LaTeX Warning: Citation `Piepmeyer201006' on page 24 undefined on input line 30
-.
-
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 35.
-[24]
+ [24]
 Overfull \hbox (19.57005pt too wide) in paragraph at lines 60--61
 \OT1/cmr/m/n/10.95 wert-ba-re Funk-ti-on be-trach-tet, so dass Funk-tio-nen als
  Pa-ra-me-ter []ubergeben
@@ -341,37 +327,15 @@ Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¤ in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¶ in font cmr10!
-
-
-LaTeX Warning: Citation `odersky2008programming' on page 27 undefined on input 
-line 128.
-
-[27] [28]
+ [27] [28]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¼ in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¼ in font cmr10!
-
-
-LaTeX Warning: Citation `Piepmeyer201006' on page 29 undefined on input line 19
-1.
-
-[29] [30]
-
-LaTeX Warning: Citation `odersky2008programming' on page 31 undefined on input 
-line 230.
-
-
-LaTeX Warning: Citation `Piepmeyer201006' on page 31 undefined on input line 23
-0.
-
-
-LaTeX Warning: Citation `wiki:Endrekursion' on page 31 undefined on input line 
-235.
-
+ [29] [30]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¼ in font cmr10!
-[31]
+ [31]
 Overfull \hbox (37.95694pt too wide) in paragraph at lines 259--260
 \OT1/cmr/m/n/10.95 Sofern der Typ die auf-ge-ru-fe-ne Me-tho-de re-ver-se nicht
  hat, wird im G[]ultigkeitsbereich
@@ -390,31 +354,12 @@ el k[]onnen Maven-
  []
 
 
-LaTeX Warning: Citation `liftweb:using-sbt' on page 33 undefined on input line 
-282.
-
-
-LaTeX Warning: Citation `chen2009lift' on page 33 undefined on input line 284.
-
-
 Overfull \hbox (10.17134pt too wide) in paragraph at lines 285--286
 \OT1/cmr/m/n/10.95 Das Boot-strap-ping der Ap-pli-ka-ti-on kann zus[]atzlich du
 rch die Klas-se Boot.scala
  []
 
-[33]
-
-LaTeX Warning: Citation `chen2009lift' on page 34 undefined on input line 287.
-
-[34]
-
-LaTeX Warning: Citation `chen2009lift' on page 35 undefined on input line 339.
-
-[35]
-
-LaTeX Warning: Citation `chen2009lift' on page 36 undefined on input line 341.
-
-
+[33] [34] [35]
 Underfull \hbox (badness 10000) in paragraph at lines 351--354
 
  []
@@ -446,10 +391,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 378--382
  []
 
 [37]
-
-LaTeX Warning: Citation `wiki:NoSQL' on page 38 undefined on input line 412.
-
-
 Overfull \hbox (39.24965pt too wide) in paragraph at lines 412--414
 \OT1/cmr/m/n/10.95 In den ver-gan-ge-nen 1-2 Jah-ren ha-ben Objektorientierte- 
 und Dokumentenorientierte-
@@ -460,9 +401,6 @@ Overfull \hbox (1.44164pt too wide) in paragraph at lines 423--424
 \OT1/cmr/m/n/10.95 Die M[]oglichkeiten zur In-ter-na-tio-na-li-sie-rung von Web
 -Applikation un-ter-schei-
  []
-
-
-LaTeX Warning: Citation `Stax' on page 39 undefined on input line 444.
 
 [39]) (./design.tex [40]
 Kapitel 4.
@@ -552,9 +490,6 @@ Overfull \hbox (2.44536pt too wide) in paragraph at lines 5--6
 he der drei m[]oglichen
  []
 
-
-LaTeX Warning: Citation `chen2009lift' on page 51 undefined on input line 13.
-
 [51
 
 ] [52] [53]
@@ -575,15 +510,7 @@ Overfull \hbox (5.39929pt too wide) in paragraph at lines 80--82
 [][][][][][][][] 
  []
 
-[55 <./images/validation_registration.png (PNG copy)>]
-
-LaTeX Warning: Citation `chen2009lift' on page 56 undefined on input line 118.
-
-[56]
-
-LaTeX Warning: Citation `chen2009lift' on page 57 undefined on input line 123.
-
-
+[55 <./images/validation_registration.png (PNG copy)>] [56]
 Underfull \hbox (badness 10000) in paragraph at lines 137--137
 []|\OT1/cmr/m/n/10.95 Benutzer
  []
@@ -620,102 +547,184 @@ er Klas-se Boot.scala
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \hbox (1.68492pt too wide) in paragraph at lines 156--157
+\OT1/cmr/m/n/10.95 Die meis-ten User-Interfaces zeich-nen sich, ins-be-son-de-r
+e durch die ho-he Kopp-
+ []
 
- [57]
+[57]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 161--161
+[] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+
+ []
+
+
+Overfull \hbox (0.59006pt too wide) in paragraph at lines 183--184
+\OT1/cmr/m/n/10.95 hand ei-nes Bei-spie-les. Be-ans und so-mit der ap-pli-ka-ti
+-ons-wei-te Con-
+ []
+
 [58]
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 184--184
+[] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--184
+
+ []
+
+
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 193--193
+[] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--193
+
+ []
+
+
+Overfull \hbox (22.64088pt too wide) in paragraph at lines 199--200
+\OT1/cmr/m/n/10.95 ter-fa-ces IE-vent-Dis-pat-cher ge-wor-fen wer-den. MXML sin
+d grunds[]atzlich
+ []
+
+
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 201--201
+[] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--201
+
+ []
+
+[59] [60]
 Kapitel 6.
-[59
+[61
 
 ]
-Overfull \hbox (6.85585pt too wide) in paragraph at lines 180--181
+Overfull \hbox (6.85585pt too wide) in paragraph at lines 240--241
 \OT1/cmr/m/n/10.95 Plug-ins k[]onnen al-ler-dings auch Scala-Specs oder an-de-r
 e Tests ausf[]uhren. 
  []
 
-
-LaTeX Warning: Citation `SimpleBuildTool' on page 60 undefined on input line 18
-2.
-
-
-LaTeX Warning: Citation `Stax' on page 60 undefined on input line 186.
-
-[60]
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 192--192
+[62]
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 252--252
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 192--192
+Underfull \hbox (badness 10000) in paragraph at lines 252--252
 
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 204--204
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 264--264
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 204--204
+Underfull \hbox (badness 10000) in paragraph at lines 264--264
 
  []
 
 
-Overfull \hbox (0.83339pt too wide) in paragraph at lines 209--210
+Overfull \hbox (0.83339pt too wide) in paragraph at lines 269--270
 \OT1/cmr/m/n/10.95 men und Pass-wort ver-bin-det, wird im Pro-filabh[]angigen p
 er-sis-tence.xml
  []
 
-) [61] [62] [63
+) [63] [64] [65
 
-] [64] (./analyse-basis-aufgabenstellung.tex
+] [66] (./analyse-basis-aufgabenstellung.tex
 Kapitel 7.
-) (./fazit.tex [65
+) (./fazit.tex [67
 
 ]
 Overfull \hbox (80.1212pt too wide) has occurred while \output is active
-\OT1/cmr/m/n/10.95 66 \OT1/cmr/m/sl/10.95 KAPITEL 7.  ANALYSE DER ARBEIT AUF DE
+\OT1/cmr/m/n/10.95 68 \OT1/cmr/m/sl/10.95 KAPITEL 7.  ANALYSE DER ARBEIT AUF DE
 R BASIS DER AUFGABENSTELLUNG
  []
 
-[66
+[68
 
 ]
 Kapitel 8.
-) (./literaturverzeichnis.tex
-No file abgabedokument_semesterarbeit.bbl.
-) [67] [68
+) (./literaturverzeichnis.tex (./abgabedokument_semesterarbeit.bbl [69]
+[70
 
-] (./abgabedokument_semesterarbeit.lol)
+]
+Overfull \hbox (33.29994pt too wide) in paragraph at lines 29--33
+[]\OT1/cmr/m/n/10.95 Liftweb.  Using sbt.  http://www.assembla.com/wiki/show/li
+ftweb/Using[]SBT,
+ []
+
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¤ in font cmr10!
+
+Underfull \hbox (badness 2980) in paragraph at lines 45--50
+[]\OT1/cmr/m/n/10.95 Wikipedia.  End-re-kur-si-on --- wi-ki-pe-dia, die freie e
+n-zy-klop-die.
+ []
+
+
+Overfull \hbox (25.37979pt too wide) in paragraph at lines 45--50
+\OT1/cmr/m/n/10.95 http://de.wikipedia.org/w/index.php?title=Endrekursion&oldid
+=78741723,
+ []
+
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¤ in font cmr10!
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--57
+[]\OT1/cmr/m/n/10.95 Wikipedia.  Nos-ql --- wi-ki-pe-dia, die freie en-zy-klop-
+die.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--57
+\OT1/cmr/m/n/10.95 http://de.wikipedia.org/w/index.php?title=NoSQL&oldid=791543
+75,
+ []
+
+)) [71] [72
+
+] (./abgabedokument_semesterarbeit.lol [73])
 \tf@lol=\write4
 \openout4 = `abgabedokument_semesterarbeit.lol'.
 
- [69] [70
-
-]
+ [74]
 (./abgabedokument_semesterarbeit.lof)
 \tf@lof=\write5
 \openout5 = `abgabedokument_semesterarbeit.lof'.
 
- [71] [72
+ [75
+
+] [76
 
 ]
 (./abgabedokument_semesterarbeit.lot)
 \tf@lot=\write6
 \openout6 = `abgabedokument_semesterarbeit.lot'.
 
- [73] [74
+ [77] [78
 
-] [75] [76] (./glossary.tex
+] [79] [80] (./glossary.tex
 Anhang A.
 
 Overfull \hbox (62.33858pt too wide) in alignment at lines 2--10
  [] [] 
  []
 
-) (./journal.tex [77
+) (./journal.tex [81
 
-] [78
+] [82
 
 ]
 Anhang B.
@@ -729,7 +738,7 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 6--68
  [] [] 
  []
 
-[79]
+[83]
 Underfull \hbox (badness 10000) in paragraph at lines 81--82
 []\OT1/cmr/m/n/10.95 Initialer Com-mit ins Git Re-po-si-to-ry un-ter
  []
@@ -739,24 +748,21 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 73--97
  [] [] 
  []
 
-[80]
+[84]
 Overfull \hbox (62.33858pt too wide) in alignment at lines 102--111
  [] [] 
  []
 
-) [81] (./abgabedokument_semesterarbeit.aux)
+) [85] (./abgabedokument_semesterarbeit.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 4213 strings out of 493848
- 62287 string characters out of 3149207
+ 4243 strings out of 493848
+ 62713 string characters out of 3149207
  165327 words of memory out of 3000000
- 7407 multiletter control sequences out of 15000+200000
+ 7435 multiletter control sequences out of 15000+200000
  11971 words of font info for 43 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  36i,11n,42p,1386b,1558s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -772,9 +778,9 @@ cal/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local
 /texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on abgabedokument_semesterarbeit.pdf (81 pages, 624755 bytes).
+Output written on abgabedokument_semesterarbeit.pdf (85 pages, 634323 bytes).
 PDF statistics:
- 318 PDF objects out of 1000 (max. 8388607)
+ 331 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

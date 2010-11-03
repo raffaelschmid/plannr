@@ -20,6 +20,7 @@
 				var event : UserLoginEvent = new UserLoginEvent();
 				dispatchEvent(event);
 			}
+
 		]]>
 	</fx:Script>
 	<fx:Style source="style.css"/>

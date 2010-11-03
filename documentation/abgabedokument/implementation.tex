@@ -153,6 +153,66 @@ Das Menu wird aus einer Liste von Menu-Eintr\"agen in der Klasse Boot.scala defi
  
 \section{Flex Client}
 \subsection{Architektur}
+Die meisten User-Interfaces zeichnen sich, insbesondere durch die hohe Kopplung zwischen Komponenten, durch eine extrem schlechte Wartbarkeit aus. Eine weitere Schwierigkeit bei diesen Applikationen sind die angemessene und zentrale Behandlung von auftretenden Events, die Verf\"ugbarkeit von Contexten und die Unterst\"utzung in der Anbindung an Backend-Systemen. Damit solche Problemstellungen f\"ur diesen Client minimiert werden k\"onnen, habe ich eine kurze Evaluation bestehender Flex-Frameworks durchgef\"uhrt und dabei die folgenden angeschaut:
+\begin{itemize}
+\item \textbf{Cairngorm\cite{Cairngorm} - } unter Flex 2 und 3 war Cairngorm noch ein Frameworks mit Fokus auf die MVC-Architektur von Client-Applikationen. Mittlerweile handelt es sich allerdings um ein breiteres Set von Guidelines, Tools und Bibliotheken. Welche sich frameworkunabh\"angig einsetzen lassen. Mittlerweile basieren viele dieser Bibliotheken auf anderen Dependency Injection und MVC Frameworks wie Parsley, Swiz, oder Spring ActionScript
+\item \textbf{Mate\cite{Mate} - } in erster Linie wurde Mate f\"ur das Event-Handling entwickelt. Die Art und Weise der Konfiguration findet deklarativ via ein MXML statt und ist relativ unflexibel:
+
+\begin{lstlisting}[caption=Event-Deklaration mit dem Mate Framework]
+<EventHandlers type="{MessageEvent.GET}">
+  <RemoteObjectInvoker 
+    instance="{services.helloService}" 
+    method="sayHello" 
+    arguments="{event.name}">
+    <resultHandlers>
+      <CallBack 
+        method="handleResult" 
+        arguments="{resultObject.text}"/>
+    </resultHandlers>
+    <faultHandlers>
+      <CallBack 
+        method="handleFault" 
+        arguments="{fault.faultDetail}"/>
+    </faultHandlers>
+    </RemoteObjectInvoker>
+</EventHandlers>
+\end{lstlisting}
+
+\item \textbf{Switz\cite{Swiz} - }ist meines Erachtens das flexibelste und am elegantesten zu konfigurierende Framework. Es stellt folgende drei Hauptfunktionalit\"aten zur Verf\"ugung:
+\begin{itemize}
+	\item \textbf{Dependency Injection} als Basis zur Inversion of Control anhand eines Beispieles. Beans und somit der applikationsweite Context werden in einer MXML-Datei definiert:
+\begin{lstlisting}[caption=Swiz: Bean Deklaration]
+<swiz:BeanProvider ...>
+  <fx:Declarations>
+    <core:Context id="context"/>
+  </fx:Declarations>
+</swiz:BeanProvider>
+\end{lstlisting}
+
+Objekte k\"onnen nun in beliebeigen MXML-Dateien oder ActionScript Klassen injected werden - selbst two-way Bindings sind m\"oglich:
+\begin{lstlisting}[caption=Swiz: Bean Injection]
+[Inject(source="context.selectedTeam", 
+        bind="true",
+        twoWay="true")]
+public var selectedTeam:Team = null;
+\end{lstlisting}
+\item \textbf{Event Handling} zur entkopplung von Mediator und Observer. Events werden mit der Methode dispatchEvent(Event e) des Interfaces IEventDispatcher geworfen werden. MXML sind grunds\"atzlich von diesem Typ, in normalen ActionScript-Klassen kann ein entsprechender Dispatcher injected werden. Um sich f\"ur Events zu registrieren ist eine Methode mit folgender Signatur und Annotation zu implementieren:
+
+\begin{lstlisting}[caption=Swiz: Event Observer]
+[Mediate( event="Events.SEARCH_USERS", 
+          properties="term" )]
+public function searchUsers( term:String) : void
+{
+//...
+}
+\end{lstlisting}
+Hier wird das Property term des geworfenen Events zus\"atzlich der Methode als Argument \"ubergeben.
+\item Einfacher Lifecycle f\"ur asynchrone Aufrufe auf Remote Systeme.
+\end{itemize}
+\end{itemize}
+
+Aufgrund der Einfachheit des Swiz-Frameworks, der Flexibilit\"at und der eleganten Konfiguration habe ich mich gegen Cairngorm und Mate entschieden und das Event-Handling sowie Context und Dependency Injection mit Swiz implementiert.
+
 
 \subsection{Ferienplanung}\label{implementation:ferienplanung}
 \subsubsection{Evaluation Kalender}

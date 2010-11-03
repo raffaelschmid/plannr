@@ -23,5 +23,9 @@
 \contentsline {lstlisting}{\numberline {5.3}User: ScalaJPA firstname Mapping}{53}
 \contentsline {lstlisting}{\numberline {5.4}Validation innerhalb der Klasse Persistence}{55}
 \contentsline {lstlisting}{\numberline {5.5}Implementation Funktionalit\"at Passwort-Reset}{56}
-\contentsline {lstlisting}{\numberline {6.1}Konfiguration Maven mit Stax}{61}
-\contentsline {lstlisting}{\numberline {6.2}Befehl Deployment Stax}{61}
+\contentsline {lstlisting}{\numberline {5.6}Event-Deklaration mit dem Mate Framework}{58}
+\contentsline {lstlisting}{\numberline {5.7}Swiz: Bean Deklaration}{59}
+\contentsline {lstlisting}{\numberline {5.8}Swiz: Bean Injection}{59}
+\contentsline {lstlisting}{\numberline {5.9}Swiz: Event Observer}{59}
+\contentsline {lstlisting}{\numberline {6.1}Konfiguration Maven mit Stax}{63}
+\contentsline {lstlisting}{\numberline {6.2}Befehl Deployment Stax}{63}

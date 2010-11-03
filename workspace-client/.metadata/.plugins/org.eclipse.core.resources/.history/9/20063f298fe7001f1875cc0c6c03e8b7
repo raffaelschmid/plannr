@@ -44,7 +44,7 @@ package ch.plannr.service
 			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
 			service.showBusyCursor=true;
 			service.url = rootUrl+url;
-			service.headers = restHeader(authentication,"POST");
+			service.headers = getAuthorizationHeaders(authentication,"POST");
 			
 			return service;
 		}
@@ -56,7 +56,7 @@ package ch.plannr.service
 			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
 			service.showBusyCursor=true;
 			service.url = rootUrl+url;
-			service.headers = restHeader(authentication,"PUT");
+			service.headers = getAuthorizationHeaders(authentication,"PUT");
 			
 			return service;
 		}
@@ -67,7 +67,7 @@ package ch.plannr.service
 			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
 			service.showBusyCursor=true;
 			service.url = rootUrl+url;
-			service.headers = restHeader(authentication,"GET");
+			service.headers = getAuthorizationHeaders(authentication,"GET");
 			
 			return service;
 		}
@@ -79,12 +79,12 @@ package ch.plannr.service
 			service.resultFormat=HTTPService.RESULT_FORMAT_E4X;
 			service.showBusyCursor=true;
 			service.url = rootUrl+url;
-			service.headers = restHeader(authentication,"DELETE");
+			service.headers = getAuthorizationHeaders(authentication,"DELETE");
 			
 			return service;
 		}
 		
-		private function restHeader(authentication:Boolean, method:String):Array
+		private function getAuthorizationHeaders(authentication:Boolean, method:String):Array
 		{
 			var headers:Array = new Array();
 			if(method=="DELETE" || method=="PUT"){

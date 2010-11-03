@@ -91,29 +91,29 @@
 \contentsline {subsection}{\numberline {5.1.3}Validation}{54}
 \contentsline {section}{\numberline {5.2}Benutzermanagement}{55}
 \contentsline {section}{\numberline {5.3}Navigation}{57}
-\contentsline {section}{\numberline {5.4}Flex Client}{58}
-\contentsline {subsection}{\numberline {5.4.1}Architektur}{58}
-\contentsline {subsection}{\numberline {5.4.2}Ferienplanung}{58}
-\contentsline {subsubsection}{Evaluation Kalender}{58}
-\contentsline {subsection}{\numberline {5.4.3}Teammanagement}{58}
-\contentsline {section}{\numberline {5.5}Mail-Versand (Notifikationen)}{58}
-\contentsline {chapter}{\numberline {6}Entwicklung, Build und Deployment}{59}
-\contentsline {section}{\numberline {6.1}Build-System}{59}
-\contentsline {section}{\numberline {6.2}Entwicklungsumgebung}{60}
-\contentsline {section}{\numberline {6.3}Test- und Produktiv-Umgebung}{60}
-\contentsline {part}{III\hspace {1em}R\"uckblick}{63}
-\contentsline {chapter}{\numberline {7}Analyse der Arbeit auf der Basis der Aufgabenstellung}{65}
-\contentsline {section}{\numberline {7.1}Prototyp}{65}
-\contentsline {section}{\numberline {7.2}Optionale Ziele}{65}
-\contentsline {subsection}{\numberline {7.2.1}Setup von Test-und Produktiv-Umgebung}{65}
-\contentsline {subsection}{\numberline {7.2.2}Performance Tests}{65}
-\contentsline {subsection}{\numberline {7.2.3}Internationalization}{65}
-\contentsline {subsection}{\numberline {7.2.4}Search Engine Optimization}{65}
-\contentsline {subsection}{\numberline {7.2.5}Usability}{65}
-\contentsline {chapter}{\numberline {8}Fazit}{67}
-\contentsline {part}{IV\hspace {1em}Anhang}{75}
-\contentsline {chapter}{\numberline {A}Glossar}{77}
-\contentsline {chapter}{\numberline {B}Journal}{79}
-\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{79}
-\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{80}
-\contentsline {section}{\numberline {B.3}Phase Dokumentation}{81}
+\contentsline {section}{\numberline {5.4}Flex Client}{57}
+\contentsline {subsection}{\numberline {5.4.1}Architektur}{57}
+\contentsline {subsection}{\numberline {5.4.2}Ferienplanung}{60}
+\contentsline {subsubsection}{Evaluation Kalender}{60}
+\contentsline {subsection}{\numberline {5.4.3}Teammanagement}{60}
+\contentsline {section}{\numberline {5.5}Mail-Versand (Notifikationen)}{60}
+\contentsline {chapter}{\numberline {6}Entwicklung, Build und Deployment}{61}
+\contentsline {section}{\numberline {6.1}Build-System}{61}
+\contentsline {section}{\numberline {6.2}Entwicklungsumgebung}{62}
+\contentsline {section}{\numberline {6.3}Test- und Produktiv-Umgebung}{62}
+\contentsline {part}{III\hspace {1em}R\"uckblick}{65}
+\contentsline {chapter}{\numberline {7}Analyse der Arbeit auf der Basis der Aufgabenstellung}{67}
+\contentsline {section}{\numberline {7.1}Prototyp}{67}
+\contentsline {section}{\numberline {7.2}Optionale Ziele}{67}
+\contentsline {subsection}{\numberline {7.2.1}Setup von Test-und Produktiv-Umgebung}{67}
+\contentsline {subsection}{\numberline {7.2.2}Performance Tests}{67}
+\contentsline {subsection}{\numberline {7.2.3}Internationalization}{67}
+\contentsline {subsection}{\numberline {7.2.4}Search Engine Optimization}{67}
+\contentsline {subsection}{\numberline {7.2.5}Usability}{67}
+\contentsline {chapter}{\numberline {8}Fazit}{69}
+\contentsline {part}{IV\hspace {1em}Anhang}{79}
+\contentsline {chapter}{\numberline {A}Glossar}{81}
+\contentsline {chapter}{\numberline {B}Journal}{83}
+\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{83}
+\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{84}
+\contentsline {section}{\numberline {B.3}Phase Dokumentation}{85}
