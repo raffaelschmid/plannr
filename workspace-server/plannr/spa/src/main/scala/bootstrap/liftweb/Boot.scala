@@ -24,18 +24,19 @@ import net.liftweb.sitemap.{Loc, Menu, SiteMap}
 import net.liftweb.sitemap.Loc._
 import net.liftweb.common.{Box, Full}
 import javax.mail.{Authenticator, PasswordAuthentication}
-import net.liftweb.util.Mailer
 import ch.plannr.common.mail.Mail
+import net.liftweb.util.{Props, Mailer}
 
 /**
  * A class that's instantiated early and run.  It allows the application
  * to modify lift's environment
  */
-class Boot {
+
+class Boot{
 
   def boot {
 
-    Mail.config("smtp.gmail.com","plannr.test@gmail.com","plannrplannr")
+    Mail.configure
     LiftRules.resourceNames = "messages" :: LiftRules.resourceNames
 
     LiftRules.addToPackages("ch.plannr")

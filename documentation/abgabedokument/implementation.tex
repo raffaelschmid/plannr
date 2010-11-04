@@ -219,8 +219,38 @@ Aufgrund der Einfachheit des Swiz-Frameworks, der Flexibilit\"at und der elegant
 \subsection{Teammanagement}\label{implementation:teammanagement}
 
 \section{Mail-Versand (Notifikationen)}
+\subsection{Use Cases}
+Zu unterschiedlichen Zwecken m\"ussen  Emails an die Benutzer versendet werden. Die Email-Adressen gelten systemweit als Benutzer Identifikatoren und werden hierf\"ur auch verwendet. Nachfolgend eine Liste der Aktionen die einen Email-Versand zur Folge haben. Zus\"atzlich auch der Status der Implementation:
+  \begin{longtable}{|p{3cm}|p{7cm}|p{3cm}|}
+      \caption{Use Cases Email Versand}\\
+\hline
+  \textbf{Aktion} & \textbf{Beschreibung} & \textbf{Status der Implementation}\\
+  \hline
+  Signup&Nach der Registrierung wird zur Email-Validierung ein Email inklusive einem Link an den Benutzer versendet, \"uber welchen er den Account aktivieren kann. Im Link enthalten ist eine Zufallszahl so dass kein Missbrauch betrieben werden kann. & Nicht implementiert\\
+  \hline
+  Passwort vergessen&Sofern das Passwort vergessen geht, wird ein Email an den Benutzer versendet. \"Uber dieses Email kann das Passwort neu gesetzt werden. & Implementiert\\
+  \hline
+  Erfassung von Ferien durch den Mitarbeiter & Nachdem der Benutzer seine Ferienw\"unsche erfasst hat, geht ein Email an den Vorgesetzten, damit dieser die Eintr\"age \"uberpr\"ufen kann & Nicht implementiert \\
+  \hline
+  Status\"anderung durch Vorgesetzten & Nachdem der Vorgesetzte die Ferien \"uberpr\"uft und bewilligt, abgelehnt hat, wird der Mitarbeiter informiert & Nicht implementiert\\
+  \hline
+\end{longtable}
+ 
+ \subsection{Technische Umsetzung}
+ \subsubsection{Konfiguration des Mailers}
+ In meinem Fall l\"asst sich der Lift-Mail-Support, der sich innerhalb der Klasse net.liftweb.util.Mailer befindet, nicht nur \"uber die definition der Properties (mail.smtp.host, mail.username, mail.password) konfigurieren - ich muss zus\"atzlich den Authenticator (Mailer.authenticator) des Objekts Mailer setzen.
 
+ \subsubsection{Mails versenden}
+  Mails k\"onnen nun mit dem Aufruf der folgenden Methode versendet werden:
+\begin{lstlisting}[caption=]
+    Mailer.sendMail(From(emailFrom), 
+                    Subject(signupMailSubject),
+                    (To(user.email) :: 
+                    xmlToMailBodyType(msgXml) ::
+                    (bccEmail.toList.map(BCC(_)))): _*)
+\end{lstlisting} 
 
+Das erste Argument ist die Absender-Adresse, das zweite das Subject und das dritte eine Liste bestehend aus Empf\"anger, Carbon Copy (CC), Blind Carbon Copy (BCC) und Mailbodies (HTML, Plain Text). Die Liste wird vom Lift Framework beim Verwenden wieder in ihre Bestandteile aufgel\"ost und mit Empf\"anger und Subject versendet. 
 
 \chapter{Entwicklung, Build und Deployment}
 

@@ -419,6 +419,39 @@ Die Scala-Entwickler haben im Bereich der NoSql Datenbanken f\"ur relativ viel W
 
 Die Integration von MongoDB wird via den oben erw\"ahnten Java-Treiber gemacht, auf die CouchDB wird auf der Basis einer Thirdparty Library via RESTful Http Requests zugegriffen, aber auch hier bietet das Lift-Framework einen d\"unnen Wrapper um die Libraries.
 
+\subsection{Konfiguration}
+Fast alle Applikationen werden ben\"otigen fr\"uher oder sp\"ager eine umgebungsabh\"angige Konfigurationsm\"oglichkeit. Bereits Maven gibt einem die M\"oglichkeit, verschiedene Konfigurationen Profilabh\"angig in den Klassenpfad zu laden. Lift Applikationen haben zus\"atzlich einen Run-Mode, der sich \"uber das System-Property ``run.mode'' definieren l\"asst. Grunds\"atzlich sind die Run-Modes Test, Staging, Production, Pilot, Profile m\"oglich. Properties-Dateien im Root- oder ``props''-Verzeichnis des Klassenpfades werden, sofern sie einer Namenskonvention entsprechen, nach einem bestimmten Schema geladen. Der Code befindet sich in der Klasse net.liftweb.util.Props und ist praktisch selbsterkl\"arend:
+
+\begin{lstlisting}[caption=Konfigurationsschema von .properties-Dateien im Lift Framework]
+lazy val toTry: List[() => String] = List(
+    () => "/props/" + _modeName + _userName + _hostName,
+      () => "/props/" + _modeName + _userName,
+      () => "/props/" + _modeName + _hostName,
+      () => "/props/" + _modeName + "default.",
+      () => "/" + _modeName + _userName + _hostName,
+      () => "/" + _modeName + _userName,
+      () => "/" + _modeName + _hostName,
+      () => "/" + _modeName + "default.")
+\end{lstlisting}
+
+Im Test-Modus, Localhost und dem Benutzer ``rschmid'' werden die Konfigurations-Properties mit folgender Priorit\"at geladen:
+
+\begin{enumerate}
+\item /props/test.rschmid.localhost.properties
+\item /props/test.rschmid.properties
+\item /props/test.localhost.properties
+\item /props/test.default.properties
+\item /test.rschmid.localhost.properties
+\item /test.rschmid.properties
+\item /test.localhost.properties
+\item /test.default.properties
+\end{enumerate}
+
+Innerhalb der Applikation kann man dann mit dem folgenden Befehl eine Eigenschaft aus diesen Properties laden:
+
+
+Props.get(''key'') liefert als erstes eine Box\footnote{Box ist ein in Scala oft verwendetes Pattern um st\"andigen Not-Null-Tests aus dem Weg zu gehen. Im Fall dass die Box leer ist  (z.Bsp. das Property wurde nirgends konfiguriert) wird beim \"offnen mittels der Methode open\_! eine Exception geworfen. openOr \"ubernimmt ein Argument und verwendet dies - ohne eine Exception zu werfen, als Default-Wert.}
+
 \subsection{Internationalisierung}
 Die M\"oglichkeiten zur Internationalisierung von Web-Applikation unterscheiden sich im Wesentlichen nicht von den M\"oglichkeiten anderer Applikationen und basieren ebenfalls auf java.util.Locale, die wir aus der Java-Entwicklung bereits kennen. 
 

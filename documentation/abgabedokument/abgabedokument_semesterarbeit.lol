@@ -17,15 +17,16 @@
 \contentsline {lstlisting}{\numberline {3.17}Beispiel Mapping User Klasse mit Mapper}{37}
 \contentsline {lstlisting}{\numberline {3.18}Property Mapping mit JPA}{37}
 \contentsline {lstlisting}{\numberline {3.19}Relation Mapping mit JPA}{38}
-\contentsline {lstlisting}{\numberline {3.20}\"Uberschreibung der Locale-Berechnung}{39}
-\contentsline {lstlisting}{\numberline {5.1}User: ScalaJPA Entity Definiton}{53}
-\contentsline {lstlisting}{\numberline {5.2}User: ScalaJPA Id mit Auto-Increment}{53}
-\contentsline {lstlisting}{\numberline {5.3}User: ScalaJPA firstname Mapping}{53}
-\contentsline {lstlisting}{\numberline {5.4}Validation innerhalb der Klasse Persistence}{55}
-\contentsline {lstlisting}{\numberline {5.5}Implementation Funktionalit\"at Passwort-Reset}{56}
-\contentsline {lstlisting}{\numberline {5.6}Event-Deklaration mit dem Mate Framework}{58}
-\contentsline {lstlisting}{\numberline {5.7}Swiz: Bean Deklaration}{59}
-\contentsline {lstlisting}{\numberline {5.8}Swiz: Bean Injection}{59}
-\contentsline {lstlisting}{\numberline {5.9}Swiz: Event Observer}{59}
-\contentsline {lstlisting}{\numberline {6.1}Konfiguration Maven mit Stax}{63}
-\contentsline {lstlisting}{\numberline {6.2}Befehl Deployment Stax}{63}
+\contentsline {lstlisting}{\numberline {3.20}Konfigurationsschema von .properties-Dateien im Lift Framework}{39}
+\contentsline {lstlisting}{\numberline {3.21}\"Uberschreibung der Locale-Berechnung}{40}
+\contentsline {lstlisting}{\numberline {5.1}User: ScalaJPA Entity Definiton}{55}
+\contentsline {lstlisting}{\numberline {5.2}User: ScalaJPA Id mit Auto-Increment}{55}
+\contentsline {lstlisting}{\numberline {5.3}User: ScalaJPA firstname Mapping}{55}
+\contentsline {lstlisting}{\numberline {5.4}Validation innerhalb der Klasse Persistence}{57}
+\contentsline {lstlisting}{\numberline {5.5}Implementation Funktionalit\"at Passwort-Reset}{58}
+\contentsline {lstlisting}{\numberline {5.6}Event-Deklaration mit dem Mate Framework}{60}
+\contentsline {lstlisting}{\numberline {5.7}Swiz: Bean Deklaration}{61}
+\contentsline {lstlisting}{\numberline {5.8}Swiz: Bean Injection}{61}
+\contentsline {lstlisting}{\numberline {5.9}Swiz: Event Observer}{61}
+\contentsline {lstlisting}{\numberline {6.1}Konfiguration Maven mit Stax}{67}
+\contentsline {lstlisting}{\numberline {6.2}Befehl Deployment Stax}{67}

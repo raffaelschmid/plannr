@@ -1,9 +1,9 @@
 package ch.plannr.common.mail
 
 import javax.mail.{Authenticator, PasswordAuthentication}
-import net.liftweb.common.Full
 import net.liftweb.util.{Props, Mailer}
 import net.liftweb.util.Mailer.{From, Subject, MailTypes, XHTMLMailBodyType, PlainMailBodyType, MailBodyType}
+import net.liftweb.common.{Box, Full}
 
 /**
  * User: Raffael Schmid
@@ -11,13 +11,10 @@ import net.liftweb.util.Mailer.{From, Subject, MailTypes, XHTMLMailBodyType, Pla
  * TODO
  */
 object Mail {
-  def config(host: String, user: String, password: String) {
-    System.setProperty("mail.smtp.starttls.enable","true");
-    System.setProperty("mail.smtp.auth", "true")
-    System.setProperty("mail.mime.charset", "UTF-8")
+  def configure {
     Mailer.authenticator = Full(new Authenticator {
       override def getPasswordAuthentication =
-        new PasswordAuthentication(user, password)
+                new PasswordAuthentication(Props.get("mail.username").open_!, Props.get("mail.password").open_!)
     })
 
   }
