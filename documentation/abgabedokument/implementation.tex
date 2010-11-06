@@ -152,8 +152,9 @@ Da die Ferienplanung und Administration der Benutzer vollumf\"anglich in Flex im
 Das Menu wird aus einer Liste von Menu-Eintr\"agen in der Klasse Boot.scala definiert und in die SiteMap gesetzt. Die Zugriffssteuerung wird \"uber die LocParams implementiert die sich in den Menu Instanzen befinden. 
  
 \section{Flex Client}
-\subsection{Architektur}
-Die meisten User-Interfaces zeichnen sich, insbesondere durch die hohe Kopplung zwischen Komponenten, durch eine extrem schlechte Wartbarkeit aus. Eine weitere Schwierigkeit bei diesen Applikationen sind die angemessene und zentrale Behandlung von auftretenden Events, die Verf\"ugbarkeit von Contexten und die Unterst\"utzung in der Anbindung an Backend-Systemen. Damit solche Problemstellungen f\"ur diesen Client minimiert werden k\"onnen, habe ich eine kurze Evaluation bestehender Flex-Frameworks durchgef\"uhrt und dabei die folgenden angeschaut:
+F\"ur die Administration der Teams sowie auch f\"ur die Ferienplanung habe ich mich wegen von mir subjektiv empfundener besserer Usability und der M\"oglichkeit eines etwas besseren Software-Designs f\"ur Adobe Flex entschieden. 
+\subsection{Software-Design}
+Die meisten User-Interfaces zeichnen sich, insbesondere durch die hohe Kopplung zwischen Komponenten, durch eine extrem schlechte Wartbarkeit aus. Diese Problematik kann in Applikationen verschiedenster Frontend-Technologien auftreten - egal ob Javascript, Flex, GWT oder Silverlight. Eine weitere Schwierigkeit bei diesen Applikationen sind die angemessene und zentrale Behandlung von auftretenden Events, die Verf\"ugbarkeit von Contexten und die Unterst\"utzung in der Anbindung an Backend-Systemen. Damit solche Problemstellungen f\"ur diesen Client minimiert werden k\"onnen, habe ich eine kurze Evaluation bestehender Flex-Frameworks durchgef\"uhrt und dabei die folgenden angeschaut:
 \begin{itemize}
 \item \textbf{Cairngorm\cite{Cairngorm} - } unter Flex 2 und 3 war Cairngorm noch ein Frameworks mit Fokus auf die MVC-Architektur von Client-Applikationen. Mittlerweile handelt es sich allerdings um ein breiteres Set von Guidelines, Tools und Bibliotheken. Welche sich frameworkunabh\"angig einsetzen lassen. Mittlerweile basieren viele dieser Bibliotheken auf anderen Dependency Injection und MVC Frameworks wie Parsley, Swiz, oder Spring ActionScript
 \item \textbf{Mate\cite{Mate} - } in erster Linie wurde Mate f\"ur das Event-Handling entwickelt. Die Art und Weise der Konfiguration findet deklarativ via ein MXML statt und ist relativ unflexibel:
@@ -213,9 +214,33 @@ Hier wird das Property term des geworfenen Events zus\"atzlich der Methode als A
 
 Aufgrund der Einfachheit des Swiz-Frameworks, der Flexibilit\"at und der eleganten Konfiguration habe ich mich gegen Cairngorm und Mate entschieden und das Event-Handling sowie Context und Dependency Injection mit Swiz implementiert.
 
+\subsection{Architektur}
+Flex-Applikationen werden als Flash-Dateien dem Browser gesendet und laufen innerhalb der Flash Runtime Umgebung. Verglichen mit HTML 4.0.1 und XHTML 1.0 hat man mit Flex die M\"oglichkeit, Daten respektive Zust\"ande clientseitig zu Speichern. In der Praxis w\"are es auch m\"oglich, ganz auf den Browser zu verzichten - dann l\"asst man die Flex-Applikation in der Adobe Air Runtime laufen. Hier h\"atte k\"onnte man Daten sogar Clientseitig in eine SQLLight Datenbank speichern. 
+
+In meinem Fall wird der Flex-Client innerhalb der Lift-Applikation eingebettet und kommuniziert mit dem Backend via RESTful\cite{wiki:rest} Webservices. Siehe Abschnitt \ref{implementation:restful-webservices} \titleref{implementation:restful-webservices}. Hinsichtlich eines einfacheren Implementationsaufwandes w\"are es Sinnvoll, ob ein Framework zur Kommunikation wie BlazeDS\cite{blazeDs}\cite{IntegratingBlazeDsLiftweb} oder GranitDS\cite{graniteDs} nicht sinnvoll w\"are. F\"ur Informationen zum Thema Security siehe Abschnitt \ref{flex:security}.
+
+
+\subsubsection{RESTful Webservices}\label{implementation:restful-webservices}
+Nebest verschiedenen Konzepten wie die ``Betrachtung von Daten als Ressourcen'' ist die Verwendung der verschiedenen Http-Methoden POST, PUT, GET, DELETE, etc. 
+Die Kommunikation von Flex-Applikationen zu anderen Systemen findet \"uber den darunterliegenden Browser statt, welcher in den meisten F\"allen PUT und DELETE nicht unterst\"utzt. Ein M\"oglicher Workaround f\"ur dieses Problem ist die Verwendung eines Http-Attributes wie zum Beispiel ''X-HTTP-Method-Override''. Bei PUT- und DELETE-Aufrufen setze ich dieses Attribut in den Http-Header (Beispiel: X-HTTP-Method-Override=PUT). Auf der Serverseite wird der eintretende Request gewrappt und Aufrufe wie request.getMethode() liefern anhand des Headers auch PUT oder DELETE zur\"uck. F\"ur weitere Informationen siehe
+\begin{itemize}
+\item Klasse ch.plannr.common.http.WrappedRequest.java,
+\item Klasse ch.plannr.common.http.RequestWrapperFilter.scala,
+\item web.xml
+\end{itemize}
+Auf Client-Seite wird das Attribute in der ActionScript-Klasse ch.plannr.service.HttpServiceFactory gesetzt. 
+
+REST definiert grunds\"atzlich nicht, in welcher Form daten \"ubertragen werden m\"ussen. Es hat sich bereits etabliert, dass entweder Daten im XML- oder JSON-Format ausgetauscht werden. Aufgrund der XML-Unterst\"utzung in Scala (XML-Datentyp, Pattern-Matching auf XML) habe ich mich f\"ur XML entschieden.
+
+\subsubsection{Security}\label{flex:security}
+Zu Beginn habe ich die Authentifizierung der Webservice-Aufrufe \"uber Basic Authentication gemacht. Dies hat in der Praxis den wesentlichen Nachteil, dass prinzipiell alle Aufrufe verschl\"usselt werden m\"ussten. Basic Authentication \"ubermittelt das Passwort zwar nicht klartext, allerdings nur Base-64 Encoded. Somit k\"onnte man mit einem Sniffern sofort daran gelangen.
+Nun habe ich die Authentifizierung auf eine Form-Authentication umgestellt, bei der die Benutzer-Identifikation respektive in meinem Fall die Email-Adresse in der Session gespeichert wird. Somit muss nur der Login-Formular Submit via das Https-Protokoll laufen.
+
 
 \subsection{Ferienplanung}\label{implementation:ferienplanung}
-\subsubsection{Evaluation Kalender}
+
+
+
 \subsection{Teammanagement}\label{implementation:teammanagement}
 
 \section{Mail-Versand (Notifikationen)}

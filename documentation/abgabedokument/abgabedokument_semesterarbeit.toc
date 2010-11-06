@@ -18,41 +18,41 @@
 \contentsline {chapter}{\numberline {3}Grundlagen}{23}
 \contentsline {section}{\numberline {3.1}Begriffserkl\"arungen zur Klassifizierung von Programmiersprachen}{23}
 \contentsline {subsection}{\numberline {3.1.1}Funktionale Programmierung}{23}
-\contentsline {subsubsection}{Imperativ vs. Deklarativ}{23}
-\contentsline {subsubsection}{Definition Funktionale Programmierung}{24}
+\contentsline {subsubsection}{Imperativ vs. Deklarativ}{24}
+\contentsline {subsubsection}{Definition Funktionale Programmierung}{25}
 \contentsline {subsection}{\numberline {3.1.2}Statisch typisierte Sprachen}{25}
-\contentsline {subsubsection}{Explizite Deklaration und Typinferenz}{25}
-\contentsline {subsubsection}{Typinferenz in Java}{25}
+\contentsline {subsubsection}{Explizite Deklaration und Typinferenz}{26}
+\contentsline {subsubsection}{Typinferenz in Java}{26}
 \contentsline {subsubsection}{Vorteile von statischer Typisierung}{26}
 \contentsline {subsubsection}{Nachteile von statischer Typisierung}{26}
-\contentsline {section}{\numberline {3.2}Scala}{26}
+\contentsline {section}{\numberline {3.2}Scala}{27}
 \contentsline {subsection}{\numberline {3.2.1}Scala Type Inferenz}{27}
-\contentsline {subsection}{\numberline {3.2.2}Traits}{27}
-\contentsline {subsection}{\numberline {3.2.3}Funktionen als Objekte}{29}
+\contentsline {subsection}{\numberline {3.2.2}Traits}{28}
+\contentsline {subsection}{\numberline {3.2.3}Funktionen als Objekte}{30}
 \contentsline {subsection}{\numberline {3.2.4}Currying}{30}
-\contentsline {subsection}{\numberline {3.2.5}Pattern Matching}{30}
-\contentsline {subsection}{\numberline {3.2.6}Tail Recursion}{31}
-\contentsline {subsection}{\numberline {3.2.7}Predef}{31}
+\contentsline {subsection}{\numberline {3.2.5}Pattern Matching}{31}
+\contentsline {subsection}{\numberline {3.2.6}Tail Recursion}{32}
+\contentsline {subsection}{\numberline {3.2.7}Predef}{32}
 \contentsline {subsection}{\numberline {3.2.8}Implicit Conversion}{32}
-\contentsline {subsection}{\numberline {3.2.9}XML Datentyp}{32}
-\contentsline {subsection}{\numberline {3.2.10}Integration mit Java}{32}
-\contentsline {section}{\numberline {3.3}Liftweb Framework}{32}
+\contentsline {subsection}{\numberline {3.2.9}XML Datentyp}{33}
+\contentsline {subsection}{\numberline {3.2.10}Integration mit Java}{33}
+\contentsline {section}{\numberline {3.3}Liftweb Framework}{33}
 \contentsline {subsection}{\numberline {3.3.1}Erstellen eines Lift-Projektes}{33}
 \contentsline {subsection}{\numberline {3.3.2}Bootstrapping \cite [p. 26]{chen2009lift}}{34}
 \contentsline {subsection}{\numberline {3.3.3}Site Rendering \cite [p. 27-43]{chen2009lift}}{34}
-\contentsline {subsubsection}{Rendering mit Templates}{34}
+\contentsline {subsubsection}{Rendering mit Templates}{35}
 \contentsline {subsubsection}{Rendering mit Views}{35}
 \contentsline {subsection}{\numberline {3.3.4}Formulare}{36}
 \contentsline {subsection}{\numberline {3.3.5}SiteMap \cite [p. 61-70]{chen2009lift}}{36}
-\contentsline {subsection}{\numberline {3.3.6}Persistenz}{36}
-\contentsline {subsubsection}{Relationale Datenbanken}{36}
-\contentsline {subsubsection}{NoSql-Datenbanken}{38}
+\contentsline {subsection}{\numberline {3.3.6}Persistenz}{37}
+\contentsline {subsubsection}{Relationale Datenbanken}{37}
+\contentsline {subsubsection}{NoSql-Datenbanken}{39}
 \contentsline {subsection}{\numberline {3.3.7}Konfiguration}{39}
-\contentsline {subsection}{\numberline {3.3.8}Internationalisierung}{40}
+\contentsline {subsection}{\numberline {3.3.8}Internationalisierung}{41}
 \contentsline {subsection}{\numberline {3.3.9}Fazit}{41}
 \contentsline {section}{\numberline {3.4}Stax Cloud Plattform}{41}
 \contentsline {chapter}{\numberline {4}Design und Konzeption}{43}
-\contentsline {section}{\numberline {4.1}Use Case Definitionen}{44}
+\contentsline {section}{\numberline {4.1}Use Cases Beschreibung}{44}
 \contentsline {subsection}{\numberline {4.1.1}Aktoren}{45}
 \contentsline {subsubsection}{Mitarbeiter}{45}
 \contentsline {subsubsection}{Owner - Team Owner}{45}
@@ -68,18 +68,18 @@
 \contentsline {subsection}{\numberline {4.2.3}Optional Aufteilung der Registrierten Benutzer}{47}
 \contentsline {subsubsection}{Mitarbeiter}{47}
 \contentsline {subsubsection}{Team Owner}{47}
-\contentsline {section}{\numberline {4.3}Datenbank-Schema}{47}
-\contentsline {subsection}{\numberline {4.3.1}Entity Relationship Model}{47}
-\contentsline {subsubsection}{User und Rollen}{47}
-\contentsline {subsubsection}{Teammitgliedschaft, Membership}{48}
-\contentsline {subsubsection}{Teamzugeh\"origkeit}{48}
-\contentsline {subsubsection}{Ferien}{48}
-\contentsline {section}{\numberline {4.4}Prozesse}{50}
-\contentsline {subsection}{\numberline {4.4.1}Person registrieren}{50}
-\contentsline {subsection}{\numberline {4.4.2}Ferien beantragen, planen}{50}
-\contentsline {subsection}{\numberline {4.4.3}Team administrieren}{51}
-\contentsline {section}{\numberline {4.5}Navigations-Konzept}{52}
-\contentsline {section}{\numberline {4.6}Architektur}{52}
+\contentsline {section}{\numberline {4.3}Prozesse}{48}
+\contentsline {subsection}{\numberline {4.3.1}Person registrieren}{48}
+\contentsline {subsection}{\numberline {4.3.2}Ferien beantragen, planen}{48}
+\contentsline {subsection}{\numberline {4.3.3}Team administrieren}{49}
+\contentsline {section}{\numberline {4.4}Navigations-Konzept}{50}
+\contentsline {section}{\numberline {4.5}Datenbank-Schema}{50}
+\contentsline {subsection}{\numberline {4.5.1}Entity Relationship Model}{50}
+\contentsline {subsection}{\numberline {4.5.2}Beschreibung}{52}
+\contentsline {subsubsection}{User und Rollen}{52}
+\contentsline {subsubsection}{Teammitgliedschaft, Membership}{52}
+\contentsline {subsubsection}{Teamzugeh\"origkeit}{52}
+\contentsline {subsubsection}{Ferien}{52}
 \contentsline {chapter}{\numberline {5}Implementation}{53}
 \contentsline {section}{\numberline {5.1}Persistenz}{53}
 \contentsline {subsection}{\numberline {5.1.1}Auswahl Persistenz-Provider}{53}
@@ -93,32 +93,36 @@
 \contentsline {section}{\numberline {5.2}Benutzermanagement}{57}
 \contentsline {section}{\numberline {5.3}Navigation}{59}
 \contentsline {section}{\numberline {5.4}Flex Client}{59}
-\contentsline {subsection}{\numberline {5.4.1}Architektur}{59}
-\contentsline {subsection}{\numberline {5.4.2}Ferienplanung}{62}
-\contentsline {subsubsection}{Evaluation Kalender}{62}
-\contentsline {subsection}{\numberline {5.4.3}Teammanagement}{62}
-\contentsline {section}{\numberline {5.5}Mail-Versand (Notifikationen)}{62}
-\contentsline {subsection}{\numberline {5.5.1}Use Cases}{62}
-\contentsline {subsection}{\numberline {5.5.2}Technische Umsetzung}{63}
-\contentsline {subsubsection}{Konfiguration des Mailers}{63}
-\contentsline {subsubsection}{Mails versenden}{63}
-\contentsline {chapter}{\numberline {6}Entwicklung, Build und Deployment}{65}
-\contentsline {section}{\numberline {6.1}Build-System}{65}
-\contentsline {section}{\numberline {6.2}Entwicklungsumgebung}{66}
-\contentsline {section}{\numberline {6.3}Test- und Produktiv-Umgebung}{66}
-\contentsline {part}{III\hspace {1em}R\"uckblick}{69}
-\contentsline {chapter}{\numberline {7}Analyse der Arbeit auf der Basis der Aufgabenstellung}{71}
-\contentsline {section}{\numberline {7.1}Prototyp}{71}
-\contentsline {section}{\numberline {7.2}Optionale Ziele}{71}
-\contentsline {subsection}{\numberline {7.2.1}Setup von Test-und Produktiv-Umgebung}{71}
-\contentsline {subsection}{\numberline {7.2.2}Performance Tests}{71}
-\contentsline {subsection}{\numberline {7.2.3}Internationalization}{71}
-\contentsline {subsection}{\numberline {7.2.4}Search Engine Optimization}{71}
-\contentsline {subsection}{\numberline {7.2.5}Usability}{71}
-\contentsline {chapter}{\numberline {8}Fazit}{73}
-\contentsline {part}{IV\hspace {1em}Anhang}{83}
-\contentsline {chapter}{\numberline {A}Glossar}{85}
-\contentsline {chapter}{\numberline {B}Journal}{87}
-\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{87}
-\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{88}
-\contentsline {section}{\numberline {B.3}Phase Dokumentation}{89}
+\contentsline {subsection}{\numberline {5.4.1}Software-Design}{60}
+\contentsline {subsection}{\numberline {5.4.2}Architektur}{62}
+\contentsline {subsubsection}{RESTful Webservices}{62}
+\contentsline {subsubsection}{Security}{63}
+\contentsline {subsection}{\numberline {5.4.3}Ferienplanung}{63}
+\contentsline {subsection}{\numberline {5.4.4}Teammanagement}{63}
+\contentsline {section}{\numberline {5.5}Mail-Versand (Notifikationen)}{63}
+\contentsline {subsection}{\numberline {5.5.1}Use Cases}{63}
+\contentsline {subsection}{\numberline {5.5.2}Technische Umsetzung}{64}
+\contentsline {subsubsection}{Konfiguration des Mailers}{64}
+\contentsline {subsubsection}{Mails versenden}{64}
+\contentsline {chapter}{\numberline {6}Entwicklung, Build und Deployment}{67}
+\contentsline {section}{\numberline {6.1}Build-System}{67}
+\contentsline {section}{\numberline {6.2}Entwicklungsumgebung}{68}
+\contentsline {section}{\numberline {6.3}Test- und Produktiv-Umgebung}{68}
+\contentsline {part}{III\hspace {1em}R\"uckblick}{71}
+\contentsline {chapter}{\numberline {7}Auswertung und Fazit der verwendeten Technologien}{73}
+\contentsline {section}{\numberline {7.1}Scala}{73}
+\contentsline {section}{\numberline {7.2}Lift Framework}{73}
+\contentsline {chapter}{\numberline {8}Analyse der Arbeit auf der Basis der Aufgabenstellung}{75}
+\contentsline {section}{\numberline {8.1}Zielerreichung}{75}
+\contentsline {subsection}{\numberline {8.1.1}Entwicklung und Deployment}{75}
+\contentsline {section}{\numberline {8.2}Optionale Ziele}{75}
+\contentsline {subsection}{\numberline {8.2.1}Performance Tests}{75}
+\contentsline {subsection}{\numberline {8.2.2}Internationalization}{75}
+\contentsline {subsection}{\numberline {8.2.3}Search Engine Optimization}{75}
+\contentsline {subsection}{\numberline {8.2.4}Usability}{75}
+\contentsline {part}{IV\hspace {1em}Anhang}{85}
+\contentsline {chapter}{\numberline {A}Glossar}{87}
+\contentsline {chapter}{\numberline {B}Journal}{89}
+\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{89}
+\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{90}
+\contentsline {section}{\numberline {B.3}Phase Dokumentation}{91}

@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (TeX Live 2009)
+The top-level auxiliary file: abgabedokument_semesterarbeit.aux
+The style file: plain.bst
+Database file #1: rschmid.bib
+You've used 15 entries,
+            2118 wiz_defined-function locations,
+            565 strings with 5528 characters,
+and the built_in function-call counts, 3240 in all, are:
+= -- 293
+> -- 127
+< -- 0
++ -- 53
+- -- 38
+* -- 110
+:= -- 548
+add.period$ -- 42
+call.type$ -- 15
+change.case$ -- 61
+chr.to.int$ -- 0
+cite$ -- 15
+duplicate$ -- 120
+empty$ -- 331
+format.name$ -- 38
+if$ -- 701
+int.to.chr$ -- 0
+int.to.str$ -- 15
+missing$ -- 6
+newline$ -- 75
+num.names$ -- 30
+pop$ -- 131
+preamble$ -- 1
+purify$ -- 49
+quote$ -- 0
+skip$ -- 112
+stack$ -- 0
+substring$ -- 75
+swap$ -- 15
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 54
+warning$ -- 0
+while$ -- 30
+width$ -- 17
+write$ -- 138

@@ -4,6 +4,14 @@
 Cairngorm.
 \newblock http://sourceforge.net/adobe/cairngorm/home.
 
+\bibitem{graniteDs}
+Granit data services (flex \& java ee).
+\newblock http://www.graniteds.org.
+
+\bibitem{blazeDs}
+Integrating flex, blazeds, and scala/lift.
+\newblock http://opensource.adobe.com/wiki/display/blazeds/BlazeDS.
+
 \bibitem{Mate}
 Mate flex framework.
 \newblock http://mate.asfusion.com.
@@ -43,16 +51,28 @@ Lothar Piepmeyer.
 
 \bibitem{wiki:Endrekursion}
 Wikipedia.
-\newblock Endrekursion --- wikipedia{,} die freie enzyklopädie.
+\newblock Endrekursion --- wikipedia.
 \newblock
   http://de.wikipedia.org/w/index.php?title=Endrekursion\&oldid=78741723, 2010.
 \newblock [Online; Stand 3. Oktober 2010].
 
 \bibitem{wiki:NoSQL}
 Wikipedia.
-\newblock Nosql --- wikipedia{,} die freie enzyklopädie.
-\newblock http://de.wikipedia.org/w/index.php?title=NoSQL\&oldid=79154375,
-  2010.
+\newblock Nosql --- wikipedia.
+\newblock http://de.wikipedia.org/w/index.php?title=NoSQL, 2010.
 \newblock [Online; Stand 11. Oktober 2010].
+
+\bibitem{wiki:rest}
+Wikipedia.
+\newblock Representational state transfer --- wikipedia.
+\newblock
+  http://de.wikipedia.org/w/index.php?title=Representational\_State\_Transfer,
+  2010.
+\newblock [Online; Stand 6. November 2010].
+
+\bibitem{IntegratingBlazeDsLiftweb}
+Derek Wischusen.
+\newblock Integrating flex, blazeds, and scala/lift.
+\newblock http://flexonrails.net/?p=103.
 
 \end{thebibliography}

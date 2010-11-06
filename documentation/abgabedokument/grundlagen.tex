@@ -1,4 +1,5 @@
 \chapter{Grundlagen}
+Zu Beginn dieser Semesterarbeit stand die Einarbeitung in Scala und das Lift Framework auf dem Programm. Im ersten Teil dieses Abschnitts beschreibe ich grundlegende Paradigmen und Eigenschaften, die zum Vergleich und zur Klassifizierung von Programmiersprachen wesentlich sind.  Im wesentlichen geht es dabei um Kriterien wie Typisierung und Fragen wie Imperative versus Deklarative / Funktionale Programmierungs.  Im zweiten Teil beschreibe ich Eigenschaften der Sprache Scala, insbesondere diese Kriterien machen die Affinit\"at vieler Entwickler zu dieser Sprache  fassbar und sollen darstellen, dass die Beliebtheit von Sprachen wie Java\footnote{Ich meine hier nur die Sprache Java, nicht aber die ganze Plattform} in\"achster Zeit r\"uckl\"aufig sein wird. Trotz meiner m\"assigen Begeisterung \"uber das Lift Framework (siehe Abschnitt \ref{auswertung:lift} \titleref{auswertung:lift}) m\"ochte ich im zweiten Teil vorallem die mir positiv aufgefallenen Bereiche aufzeigen. Bereiche die ich aus anderen Frameworks nicht kenne und welchen 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%BEGRIFFSERKLAERUNG
@@ -92,9 +93,9 @@ Die Ermittlung des R\"uckgabetyps aufgrund des Variablen-Typs ist schon fast all
 
 \subsubsection{Nachteile von statischer Typisierung}
 \begin{itemize}
-\item Dynamische Sprachen erm\"oglichen eine h\"ohere Flexibilit\"at. Zum Beispiel k\"onnen folgende Dinge in statischen Sprachen teilweise relativ schön, aber mit erhöhtem aufwand gemacht werden:
+\item Dynamische Sprachen erm\"oglichen eine h\"ohere Flexibilit\"at. Zum Beispiel k\"onnen folgende Dinge in statischen Sprachen teilweise relativ sch\"on, aber mit erh\"ohtem aufwand gemacht werden:
 \begin{itemize}
-\item Einf\"ugen von Methoden in Classen oder Objekte zur Laufzeit in Java ist beispielsweise mit AspectJ\footnote{AspectJ ist eine aspekt-orientierte Erweiterung von Java, bei Xerox Parc entwickelt und mittlerweile Teil des Eclipse Projektes} m\"oglich, herkömmliche Mittel erlauben dies nicht.
+\item Einf\"ugen von Methoden in Classen oder Objekte zur Laufzeit in Java ist beispielsweise mit AspectJ\footnote{AspectJ ist eine aspekt-orientierte Erweiterung von Java, bei Xerox Parc entwickelt und mittlerweile Teil des Eclipse Projektes} m\"oglich, herk\"ommliche Mittel erlauben dies nicht.
 \item Interceptoren k\"onnen mittels dem seit Java 1.3 verf\"ugbaren java.lang.reflect.Proxy implementiert werden. Dabei wird vor jeder Methodenlogik der Interceptor-Code durchlaufen. Dynamische Sprachen auf der Java-Plattform greifen auf techniken der Byte-Code-Manipulation und stellen diese Funktionalit\"at in wesentlich einfacherer Art zur Verf\"ugung
 \item Duck Typing\footnote{Duck-Typing ist ein Konzept der objektorientierten Programmierung, bei dem der Typ eines Objektes nicht durch seine Klasse beschrieben wird, sondern durch das Vorhandensein bestimmter Methoden. http://de.wikipedia.org/wiki/Duck-Typing}
 \end{itemize}
@@ -106,7 +107,7 @@ Die Ermittlung des R\"uckgabetyps aufgrund des Variablen-Typs ist schon fast all
 %%SCALA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scala}\label{einarbeitung:scala}
-Scala wird von Martin Odersky seit 2003 an der EPFL in Lausanne entwickelt. Trotzdem dass Scala an einer Hochschule entwickelt wurde, handelt es sich dabei um eine Sprache für den industriellen Gebrauch. Dies ist unter anderem auch deshalb m\"oglich, da die Sprache auf der Java Plattform aufbaut und deshalb andere Frameworks wie zum Beispiel JPA Bibliotheken verwendet werden können. Die Ideologie hinter Scala l\"asst sich durch die folgenden beiden Begriffe umschreiben:
+Scala wird von Martin Odersky seit 2003 an der EPFL in Lausanne entwickelt. Trotzdem dass Scala an einer Hochschule entwickelt wurde, handelt es sich dabei um eine Sprache f\"ur den industriellen Gebrauch. Dies ist unter anderem auch deshalb m\"oglich, da die Sprache auf der Java Plattform aufbaut und deshalb andere Frameworks wie zum Beispiel JPA Bibliotheken verwendet werden k\"onnen. Die Ideologie hinter Scala l\"asst sich durch die folgenden beiden Begriffe umschreiben:
 \begin{itemize}
 \item \bf{Concise\footnote{\"ubersetzt pr\"agnant}} - Dieser Begriff wird in B\"uchern \"uber Scala pro Seite gef\"uhlte 10 mal. Mehr dazu unter Ausdrucksst\"arke.
 \item \bf{Consistent\footnote{\"ubersetzt einheitlich}} - Mehr dazu in der Sektion Consistenz.
@@ -125,7 +126,7 @@ val l = List("a","b","c")     //typisierte Liste
 def add(a:Int,b:Int)=a+b      //Methode (impliziter Typ)
 \end{lstlisting}
 \subsection{Traits}
-Traits sind ein fundamentales Konzept in Scala für die Wiederverwendbarkeit von Code. Im Gegensatz zu der Klassenvererbung können unzählige Traits\footnote{bedeutet \"ubersetzt Eigenschaft respektive Merkmal} eingemischt werden und aufgrund der Linearisierung dieser "mixins" können bekannte Probleme wie sie in der Mehrfachvererbung vorkommen vermieden werden. Zur erkl\"arung von Traits in Scala ein Beispiel\cite[p. 222-227]{odersky2008programming}:
+Traits sind ein fundamentales Konzept in Scala f\"ur die Wiederverwendbarkeit von Code. Im Gegensatz zu der Klassenvererbung k\"onnen unz\"ahlige Traits\footnote{bedeutet \"ubersetzt Eigenschaft respektive Merkmal} eingemischt werden und aufgrund der Linearisierung dieser "mixins" k\"onnen bekannte Probleme wie sie in der Mehrfachvererbung vorkommen vermieden werden. Zur erkl\"arung von Traits in Scala ein Beispiel\cite[p. 222-227]{odersky2008programming}:
 
 \begin{lstlisting}[caption=Klassen und Traits definieren]
 import scala.collection.mutable.ArrayBuffer
@@ -177,7 +178,7 @@ Am Beispiel Doubling-Incrementing-Queue schauen wir uns an, was hinter den Kulis
 val diQ=new BasicIntQueue with Incrementing with Doubling
 \end{lstlisting}
 
-Die Delegation des Super-Calls wird bei dieser Deklaration von rechts nach links durchgeführt, damit Klassen nicht mehrmals aufgerufen werden führt der Scala Compiler bei der Instanzierung eine wie folgt definierte Linearisierung durch. Sofern eine Klasse in der Vererbungshierarchie mehrmals vorkommt, wird nur die erste verwendet (in Punkt 4 wird die Klasse BasicIntQueue beim ersten Mal ignoriert). 
+Die Delegation des Super-Calls wird bei dieser Deklaration von rechts nach links durchgef\"uhrt, damit Klassen nicht mehrmals aufgerufen werden f\"uhrt der Scala Compiler bei der Instanzierung eine wie folgt definierte Linearisierung durch. Sofern eine Klasse in der Vererbungshierarchie mehrmals vorkommt, wird nur die erste verwendet (in Punkt 4 wird die Klasse BasicIntQueue beim ersten Mal ignoriert). 
 \begin{enumerate}
 	\item IntQueue - AnyRef - Any
 	\item BasicIntQueue - IntQueue - AnyRef - Any
@@ -232,7 +233,7 @@ Mehr Informationen gibt es unter \cite[p. 263-296]{odersky2008programming} oder 
 Urspr\"unglich kommt die Idee von
 
 \subsection{Tail Recursion}
-Wie jede rekursive Funktion lassen sich Endrekursive\cite{wiki:Endrekursion} Funktion mittels einer Iteration darstellen, dabei sind die iterativen Varianten oft auch wesentlich sparsamer mit Ressourcen, da für jeden Funktionsaufruf ein Frame auf dem Stack erstellt wird. Allerdings lassen sich gewisse Problemstellungen wesentlich lesbarer mit Rekursion darstellen. Sogar in Java gibt es Compiler die es schaffen, Endrekursive Funktionen zu optimieren. Der Scala Compiler wandelt diese in Iterationen um. Seit der Scala Version 2.8 bietet der Compiler die M\"oglichkeit, die  Umwandlung "Endrekursiv - Iteration" mit der Annotation \textbf{@endrec} zu \"Uberpr\"ufen.
+Wie jede rekursive Funktion lassen sich Endrekursive\cite{wiki:Endrekursion} Funktion mittels einer Iteration darstellen, dabei sind die iterativen Varianten oft auch wesentlich sparsamer mit Ressourcen, da f\"ur jeden Funktionsaufruf ein Frame auf dem Stack erstellt wird. Allerdings lassen sich gewisse Problemstellungen wesentlich lesbarer mit Rekursion darstellen. Sogar in Java gibt es Compiler die es schaffen, Endrekursive Funktionen zu optimieren. Der Scala Compiler wandelt diese in Iterationen um. Seit der Scala Version 2.8 bietet der Compiler die M\"oglichkeit, die  Umwandlung "Endrekursiv - Iteration" mit der Annotation \textbf{@endrec} zu \"Uberpr\"ufen.
 
 \subsection{Predef}
 Das Predef Objekt stellt Definitionen zur Verf\"ugung, die ohne explizite deklaration verf\"ugbar sind und vom Compiler in die Klasse importiert werden. Ein paar Beispiele, die via dieses Objekt implizit definiert sind: 

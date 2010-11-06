@@ -1,5 +1,6 @@
 \chapter{Design und Konzeption}
-\section{Use Case Definitionen}\label{konzept:usecase}
+Nach der Analyse der Aufgabenstellung und der Erarbeitung des Knowhows im Bereich von Scala und des Lift Frameworks ging es an Design und Konzeption. In dieser Phase entstanden auf der Basis von \ref{konzept:usecase} \titleref{konzept:usecase} die in der Aufgabenstellung definierten Konzepte der Benutzerrollen, Navigationskonzept und der Prozesse. Als Basis f\"ur die Implementation dient zum Ende \ref{design:erm} \titleref{design:erm} und \ref{design:architektur} \titleref{design:architektur}
+\section{Use Cases Beschreibung}\label{konzept:usecase}
  \begin{figure}[H]
   	\centering
     	\includegraphics[width=13cm]{images/usecases}
@@ -63,31 +64,6 @@ Zus\"atzlich zu den Funktionen des Mitarbeiters kann der Team Owner folgendes tu
 \item Einladen von Mitarbeitern
 \end{itemize}
 
-\section{Datenbank-Schema}
-\subsection{Entity Relationship Model}
-Das Entity Relationship Model zeigt alle Tabellen, wie sie für die Datenbank geplant werden. Many-to-Many Beziehungen sind also bereits in relationaler Form aufgel\"ost. 
-
-\subsubsection{User und Rollen}
-Beginnen wir mit den Tabellen User und Rollen: F\"ur die Modellierung der Rollen gibt es meines Erachtens zwei vertretbare Alternativen. Erstens wie hier im ERM aufgezeigt, werden die Rollen via eine Join Table dem User zugewiesen. Die Erweiterung davon w\"are dann eine Zus\"atzlichen Self-Join auf der Tabelle TBL\_ROLE, damit man eine Hierarchie der Rollen abbilden kann, und Rollen den Benutzern auch in Gruppen zuweisen kann. Aufgrund der zus\"atzlichen Komplexit\"atsstufe habe ich mich f\"ur Variante eins entschieden.
-
-\subsubsection{Teammitgliedschaft, Membership}
-Die Zuteilung von Membern zu Teams muss ebenfalls \"uber eine Many-to-Many Assoziation realisiert werden. Im Diagramm ersichtlich an der Tabelle MEMBERSHIP. 
-
-\subsubsection{Teamzugeh\"origkeit}
-Im von mir modelierten einfacheren Fall, bei dem ein Team nur einem Verantwortlichen zugeteilt wird, wird die Beziehung zwischen TBL\_TEAM und TBL\_USER mittels einer One-To-Many Relation hergestellt. Nebst der Einfachheit hat dies den Nachteil, dass Ferien nur vom Ersteller und Team-Owner bewilligt werden k\"onnen, er kann also keine Stellvertreter daf\"ur nominieren. 
-
-\subsubsection{Ferien}
-Ferien werden als Eintr\"age in der Tabelle TBL\_VACATION definiert. Die Beziehung zu TBL\_USER ist relativ einleuchten, da diese immer einem Teilnehmer zugeordnet werden. Die Relation zu TBL\_TEAM kommt daher, weil ich Ferien immer \"fur ein spezifisches Team erfassen muss. Ob das dann manuell durch den Benutzer oder Applikatorisch f\"ur alle Teams durchgef\"uhrt wird, sei dahin gestellt. Jedenfalls, sofern ein Benutzer mehreren Teams zugeordnet ist, m\"ussen f\"ur all diese Teams Ferien-Records vorhanden sein.
-
-\begin{landscape}
- \begin{figure}
-  	\centering
-    	\includegraphics[width=19cm]{images/erm}
-        	\caption{Entity Relationship Model}
-\end{figure}
-\end{landscape}
-
-
 \section{Prozesse}\label{konzept:prozesse}
 \subsection{Person registrieren}
  \begin{figure}[H]
@@ -111,10 +87,6 @@ Ferien werden als Eintr\"age in der Tabelle TBL\_VACATION definiert. Die Beziehu
  	\caption{Prozess Member Administration Webpage}
 \end{figure}
 
-
-
-
-
 \section{Navigations-Konzept}\label{konzept:navigation}
  \begin{figure}[H]
   	\centering
@@ -122,10 +94,27 @@ Ferien werden als Eintr\"age in der Tabelle TBL\_VACATION definiert. Die Beziehu
  	\caption{Navigation Webpage}
 \end{figure}
 
-\section{Architektur}
+\section{Datenbank-Schema}\label{design:erm}
 
+\subsection{Entity Relationship Model}
+\begin{landscape}
+ \begin{figure}
+  	\centering
+    	\includegraphics[width=19cm]{images/erm}
+        	\caption{Entity Relationship Model}
+\end{figure}
+\end{landscape}
+\subsection{Beschreibung}
+Das Entity Relationship Model zeigt alle Tabellen, wie sieauf Ebene der Datenbank geplant sind. Many-to-Many Beziehungen sind also bereits aufgel\"ost. 
 
+\subsubsection{User und Rollen}
+Beginnen wir mit den Tabellen User und Rollen: F\"ur die Modellierung der Rollen gibt es meines Erachtens zwei vertretbare Alternativen. Erstens wie hier im ERM aufgezeigt, werden die Rollen via eine Join Table dem User zugewiesen. Die Erweiterung davon w\"are dann eine Zus\"atzlichen Self-Join auf der Tabelle TBL\_ROLE, damit man eine Hierarchie der Rollen abbilden kann, und Rollen den Benutzern auch in Gruppen zuweisen kann. Aufgrund der zus\"atzlichen Komplexit\"atsstufe habe ich mich f\"ur Variante eins entschieden.
 
+\subsubsection{Teammitgliedschaft, Membership}
+Die Zuteilung von Membern zu Teams muss ebenfalls \"uber eine Many-to-Many Assoziation realisiert werden. Im Diagramm ersichtlich an der Tabelle MEMBERSHIP. 
 
+\subsubsection{Teamzugeh\"origkeit}
+Im von mir modelierten einfacheren Fall, bei dem ein Team nur einem Verantwortlichen zugeteilt wird, wird die Beziehung zwischen TBL\_TEAM und TBL\_USER mittels einer One-To-Many Relation hergestellt. Nebst der Einfachheit hat dies den Nachteil, dass Ferien nur vom Ersteller und Team-Owner bewilligt werden k\"onnen, er kann also keine Stellvertreter daf\"ur nominieren. 
 
-
+\subsubsection{Ferien}
+Ferien werden als Eintr\"age in der Tabelle TBL\_VACATION definiert. Die Beziehung zu TBL\_USER ist relativ einleuchten, da diese immer einem Teilnehmer zugeordnet werden. Die Relation zu TBL\_TEAM kommt daher, weil ich Ferien immer \"fur ein spezifisches Team erfassen muss. Ob das dann manuell durch den Benutzer oder Applikatorisch f\"ur alle Teams durchgef\"uhrt wird, sei dahin gestellt. Jedenfalls, sofern ein Benutzer mehreren Teams zugeordnet ist, m\"ussen f\"ur all diese Teams Ferien-Records vorhanden sein.
