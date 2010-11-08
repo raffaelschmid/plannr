@@ -37,5 +37,9 @@ package ch.plannr.event
 		public static const VACATIONS_LOAD:String="VACATIONS_LOAD";
 		public static const VACATIONS_LOAD_SUCCESS:String="VACATIONS_LOAD_SUCCESS";
 		public static const VACATIONS_LOAD_FAILURE:String="VACATIONS_LOAD_FAILURE";
+		
+		public static const VACATION_DELETE:String="VACATION_DELETE";
+		public static const VACATION_DELETE_SUCCESS:String="VACATION_DELETE_SUCCESS";
+		public static const VACATION_DELETE_FAILURE:String="VACATION_DELETE_FAILURE";
 	}
 }

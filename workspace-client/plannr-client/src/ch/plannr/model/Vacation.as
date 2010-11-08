@@ -75,7 +75,8 @@ package ch.plannr.model
 		} 
 		
 		public function toEventXml():XML{
-			var addedItem:XML= <event/>;                                                             
+			var addedItem:XML= <event/>;
+			addedItem.@id = _id;
 			addedItem.@startTime = _startTime;              
 			addedItem.@endTime = _endTime;
 			addedItem.@summary = _summary;
@@ -85,6 +86,7 @@ package ch.plannr.model
 		
 		public function toXml():XML {
 			var vacation:XML = <vacation />
+			vacation.id=id;	
 			vacation.from = DateField.dateToString(startTime, "YYYYMMDD");
 			vacation.to = DateField.dateToString(endTime, "YYYYMMDD");
 			vacation.title = summary;

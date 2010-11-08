@@ -5177,3 +5177,182 @@ org.eclipse.core.internal.resources.ResourceException: Marker id 2964 not found.
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
 !SUBENTRY 1 org.eclipse.core.resources 4 376 2010-11-07 22:42:38.749
 !MESSAGE Marker id 2964 not found.
+!SESSION 2010-11-08 07:00:47.751 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_22
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=carbon, NL=en_US
+Framework arguments:  -keyring /Users/rschmid/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws carbon -arch x86 -keyring /Users/rschmid/.eclipse_keyring -consoleLog -showlocation
+
+!ENTRY org.eclipse.equinox.p2.repository 4 0 2010-11-08 07:00:48.755
+!MESSAGE ProvisioningEventBus could not be obtained. Metadata caches may not be cleaned up properly.
+
+!ENTRY com.adobe.flexbuilder.project 4 43 2010-11-08 07:04:07.114
+!MESSAGE Error getting breakpoint text
+!STACK 1
+org.eclipse.debug.core.DebugException: Breakpoint does not have an associated marker.
+	at org.eclipse.debug.core.model.Breakpoint.ensureMarker(Breakpoint.java:268)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.getHitCount(FlexBreakpoint.java:263)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.getTextWithoutStatus(FlexLineBreakpoint.java:374)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.getText(FlexBreakpoint.java:243)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.getMessage(FlexLineBreakpoint.java:245)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.updateMessageAttribute(FlexBreakpoint.java:191)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.changeInstantiationStatusCount(FlexBreakpoint.java:142)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.removeInstantiationStatus(FlexBreakpoint.java:114)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpointMap.clearBreakpointLocations(FlexBreakpointMap.java:122)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.uninstantiate(FlexLineBreakpoint.java:555)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.uninstantiateBreakpoint(FlexDebugTarget.java:1034)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.access$12(FlexDebugTarget.java:1031)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget$2.run(FlexDebugTarget.java:1072)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2010-11-08 07:04:07.134
+!MESSAGE Breakpoint does not have an associated marker.
+
+!ENTRY com.adobe.flexbuilder.project 4 43 2010-11-08 07:04:07.142
+!MESSAGE Marker id 3155 not found.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 3155 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:56)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:236)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.updateMessageAttribute(FlexBreakpoint.java:196)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.changeInstantiationStatusCount(FlexBreakpoint.java:142)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.removeInstantiationStatus(FlexBreakpoint.java:114)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpointMap.clearBreakpointLocations(FlexBreakpointMap.java:122)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.uninstantiate(FlexLineBreakpoint.java:555)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.uninstantiateBreakpoint(FlexDebugTarget.java:1034)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.access$12(FlexDebugTarget.java:1031)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget$2.run(FlexDebugTarget.java:1072)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2010-11-08 07:04:07.142
+!MESSAGE Marker id 3155 not found.
+
+!ENTRY org.eclipse.jface 2 0 2010-11-08 07:22:29.343
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-11-08 07:22:29.343
+!MESSAGE A conflict occurred for COMMAND+G:
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllDeclarationsAction@30799b)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllDeclarationsAction@30799b)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-11-08 07:22:29.343
+!MESSAGE A conflict occurred for COMMAND+SHIFT+G:
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllReferencesAction@7fb456)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		LegacyHandlerWrapper(ActionHandler(action=com.adobe.flexbuilder.as.editor.ui.actions.FindAllReferencesAction@7fb456)),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+
+!ENTRY com.adobe.flexbuilder.project 4 43 2010-11-08 07:26:08.492
+!MESSAGE Error getting breakpoint text
+!STACK 1
+org.eclipse.debug.core.DebugException: Breakpoint does not have an associated marker.
+	at org.eclipse.debug.core.model.Breakpoint.ensureMarker(Breakpoint.java:268)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.getHitCount(FlexBreakpoint.java:263)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.getTextWithoutStatus(FlexLineBreakpoint.java:374)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.getText(FlexBreakpoint.java:243)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.getMessage(FlexLineBreakpoint.java:245)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.updateMessageAttribute(FlexBreakpoint.java:191)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.changeInstantiationStatusCount(FlexBreakpoint.java:142)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.removeInstantiationStatus(FlexBreakpoint.java:114)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpointMap.clearBreakpointLocations(FlexBreakpointMap.java:122)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.uninstantiate(FlexLineBreakpoint.java:555)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.uninstantiateBreakpoint(FlexDebugTarget.java:1034)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.access$12(FlexDebugTarget.java:1031)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget$2.run(FlexDebugTarget.java:1072)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2010-11-08 07:26:08.492
+!MESSAGE Breakpoint does not have an associated marker.
+
+!ENTRY com.adobe.flexbuilder.project 4 43 2010-11-08 07:26:08.494
+!MESSAGE Marker id 3179 not found.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 3179 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:56)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:236)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.updateMessageAttribute(FlexBreakpoint.java:196)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.changeInstantiationStatusCount(FlexBreakpoint.java:142)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.removeInstantiationStatus(FlexBreakpoint.java:114)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpointMap.clearBreakpointLocations(FlexBreakpointMap.java:122)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.uninstantiate(FlexLineBreakpoint.java:555)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.uninstantiateBreakpoint(FlexDebugTarget.java:1034)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.access$12(FlexDebugTarget.java:1031)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget$2.run(FlexDebugTarget.java:1072)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2010-11-08 07:26:08.494
+!MESSAGE Marker id 3179 not found.
+!SESSION 2010-11-08 18:13:11.260 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_22
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=carbon, NL=en_US
+Framework arguments:  -keyring /Users/rschmid/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws carbon -arch x86 -keyring /Users/rschmid/.eclipse_keyring -consoleLog -showlocation
+
+!ENTRY org.eclipse.equinox.p2.repository 4 0 2010-11-08 18:13:12.247
+!MESSAGE ProvisioningEventBus could not be obtained. Metadata caches may not be cleaned up properly.
+
+!ENTRY org.eclipse.core.net 1 0 2010-11-08 18:13:31.902
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2010-11-08 18:16:21.022
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-11-08 18:16:21.022
+!MESSAGE A conflict occurred for COMMAND+G:
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		ActionHandler(com.adobe.flexbuilder.as.editor.ui.packageexplorer.actions.FlexPackageExplorerFindAllDeclarationsAction@a192a5),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		ActionHandler(com.adobe.flexbuilder.as.editor.ui.packageexplorer.actions.FlexPackageExplorerFindAllDeclarationsAction@a192a5),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-11-08 18:16:21.022
+!MESSAGE A conflict occurred for COMMAND+SHIFT+G:
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		ActionHandler(com.adobe.flexbuilder.as.editor.ui.packageexplorer.actions.FlexPackageExplorerFindAllReferencesAction@1a2b4ea),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		ActionHandler(com.adobe.flexbuilder.as.editor.ui.packageexplorer.actions.FlexPackageExplorerFindAllReferencesAction@1a2b4ea),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)

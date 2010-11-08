@@ -4,25 +4,25 @@
 		<item value="249" key="DIALOG_WIDTH"/>
 		<item value="292" key="DIALOG_Y_ORIGIN"/>
 		<item value="403" key="DIALOG_HEIGHT"/>
-		<item value="1356" key="DIALOG_X_ORIGIN"/>
+		<item value="1191" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|CARBON|1|Lucida Grande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item value="false" key="wrap"/>
+		<item value="true" key="wrap"/>
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="tc" key="selection"/>
+		<item value="selectedVac" key="selection"/>
 		<list key="findhistory">
-			<item value="tc"/>
-			<item value="event"/>
-			<item value="ownedTeams"/>
-			<item value="selected"/>
-			<item value="drop"/>
-			<item value="userToRegister"/>
-			<item value="currentUser"/>
-			<item value="team"/>
+			<item value="selectedVac"/>
+			<item value="select"/>
+			<item value="alert"/>
+			<item value="itemD"/>
+			<item value="PopUp"/>
+			<item value="popup"/>
+			<item value="item"/>
+			<item value="d"/>
 		</list>
 		<list key="replacehistory">
 			<item value="userToUpdate"/>

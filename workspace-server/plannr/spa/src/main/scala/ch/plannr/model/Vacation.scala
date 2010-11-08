@@ -3,9 +3,10 @@ package ch.plannr.model
 import javax.persistence._
 import javax.validation.constraints.NotNull
 import java.util.Date
-import ch.plannr.common.persistence.{MetaDomain, Domain, Persistent}
 import ch.plannr.common.Conversion
 import xml.NodeSeq
+import net.liftweb.common.Box
+import ch.plannr.common.persistence.{DBModel, MetaDomain, Domain, Persistent}
 
 /**
  * User: Raffael Schmid
@@ -80,6 +81,10 @@ object Vacation extends Vacation with MetaDomain[Vacation] with Conversion {
     retVal.from = xml \ "from"
     retVal.to = xml \ "to"
     retVal
+  }
+
+  def findById(id: Long): Box[Vacation] = {
+    DBModel.find(classOf[Vacation], id)
   }
 }
 

@@ -1,9 +1,0 @@
-package ch.plannr.controller
-{
-	public class VacationController
-	{
-		public function VacationController()
-		{
-		}
-	}
-}

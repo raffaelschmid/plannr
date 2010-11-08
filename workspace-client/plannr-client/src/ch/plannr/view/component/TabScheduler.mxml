@@ -26,6 +26,7 @@
 			import ilog.calendar.CalendarEvent;
 			import ilog.calendar.CalendarEventReason;
 			import ilog.calendar.CalendarItem;
+			import ilog.calendar.recurrence.IRecurrenceInstance;
 			import ilog.utils.GregorianCalendar;
 			import ilog.utils.TimeUnit;
 			
@@ -56,16 +57,15 @@
 			public var vacations:ArrayCollection = new ArrayCollection();
 			
 			
-			/* private var baseModel:XML = 
-				<list>
-				  <event d="1" s="0"  e="72"  key="vacation"  calendar="0" />
-				  <event d="2" s="0"  e="72" key="vacation"     calendar="0" />
-				</list>; */
-			
-			
 			[Mediate( event="Events.VACATIONS_LOAD_SUCCESS")]
 			public function loadVacationsS() : void{
-				cal.dataProvider = createDefaultModel();
+				cal.dataProvider = loadData();
+			}
+
+			[Mediate( event="Events.VACATION_DELETE_SUCCESS")]
+			[Mediate( event="Events.VACATION_SAVE_SUCCESS")]
+			public function locationSaved() : void{
+				dispatchEvent(new VacationEvent(Events.VACATIONS_LOAD));
 			}
 			
 			private function init():void{
@@ -73,7 +73,6 @@
 				
 				cal.addEventListener(CalendarEvent.VISIBLE_TIME_RANGE_CHANGE, visibleTimeRangeChanged);
 				cal.addEventListener(CalendarEvent.ITEM_EDIT_END, itemEditEnd, false);        
-				cal.addEventListener(CalendarEvent.ITEM_EDIT_BEGIN, itemEditBegin, false);
 				cal.addEventListener(CalendarEvent.CHANGE, selectionChanged);
 				cal.addEventListener(CalendarEvent.SHEET_DOUBLE_CLICK, sheetDoubleClickHandler);
 				cal.addEventListener(CalendarEvent.ITEM_DOUBLE_CLICK, itemDoubleClickHandler);
@@ -88,14 +87,13 @@
 				toggleModeBar.selectedIndex = 3;
 				
 				cal.mode=Calendar.MONTH_MODE;
-				//cal.dataProvider = model;
 				dispatchEvent(new VacationEvent(Events.VACATIONS_LOAD));
 			}
 			
 			private var vacationIndex:int=0;
-			private function createDefaultModel():XMLList {
+			private function loadData():XMLList {
 				vacationIndex=0;
-				var baseModel:XML = <list/>
+				var xml:XML = <list/>
 				for each (var vac:Vacation in vacations){
 					var ev:XML = <event/>
 					ev.@startTime=vac.startTime.toString();
@@ -103,11 +101,12 @@
 					ev.@id=vac.id.toString();
 					ev.@summary="Vacation";
 					ev.@description=vac.description;
-					ev.@index=vacationIndex++;
-					baseModel.appendChild(ev);
+					ev.@index=vacationIndex;
+					xml.appendChild(ev);
+					vacationIndex++
 				}
 				
-				return baseModel.children();
+				return xml.children();
 			}
 			
 			private var modes:Array = [
@@ -125,11 +124,6 @@
 			[Bindable]
 			private var totalPrice:Number = 0.00;
 		
-	/*		protected function itemIndexChangeHandler(event:IndexChangeEvent):void
-			{
-				schedulerViewStack.selectedChild=overlays.selectedItem.show;
-			}*/
-			
 			private function itemColorFunction(calItem:CalendarItem):Object {
 				
 				var now:Date = new Date();
@@ -193,34 +187,26 @@
 				var s:Date;
 				var e:Date;
 				
-				// an alternative implementation is to use the current time range selection.        
-				
 				if (cal.mode == Calendar.MONTH_MODE) {
 					if (event.calendarArea == CalendarArea.CELL_HEADER) {
-						// zoom to the day if we double click on the header
 						cal.date = event.startDate;
 						cal.mode = Calendar.DAY_MODE;
 						return;
 						
 					} else if (event.calendarArea == CalendarArea.ROW_HEADER) {
-						
 						s = event.startDate;
 						e = event.endDate;
 						
 					} else {
-						
-						// create an all day event, when double click on a cell
 						s = cal.calendar.floor(event.startDate, TimeUnit.DAY, 1);
 						e = cal.calendar.addUnits(s, TimeUnit.DAY, 1);
 					}    
 				} else {
 					
 					if (event.calendarArea == CalendarArea.SHEET) {
-						//create an event that starts at the beginning of the time slot and that lasts a time slot duration
 						s = cal.calendar.floor(event.startDate, TimeUnit.MINUTE, cal.getTimeSlotDuration());
 						e = cal.calendar.addUnits(s, TimeUnit.MINUTE, cal.getTimeSlotDuration());
 					} else {
-						// create an all day event when double click on the secondary sheet or the column header
 						s = cal.calendar.floor(event.startDate, TimeUnit.DAY, 1);
 						e = cal.calendar.addUnits(s, TimeUnit.DAY, 1);
 					}
@@ -232,28 +218,25 @@
 			}
 			
 			private function createNewEvent(startTime:Date, endTime:Date, summary:String="Vacation"):void {
-				if (summary == null) {
-					//summary = resourceManager.getString("calendarsample", "calendarsample.default.summary");
-				}
 				var vacation:Vacation = new Vacation(startTime, endTime, summary, "");
 				
 				var col:ListCollectionView = cal.dataProvider as ListCollectionView;
 				var xml:XML = vacation.toEventXml();
-				xml.@index=++vacationIndex;
+				xml.@index=vacationIndex++;
 				vacations.addItem(vacation);
 				selectedVacation=vacation;
 				col.addItem(xml);
 				
 				cal.selectedItems = [xml];
 				
-				edit(); 
+				editVacation(); 
 			}
-			private function edit():void{
-				var newTitleWindow:ModalAddVacation = new ModalAddVacation();
-				newTitleWindow.setTabScheduler(this);
-				newTitleWindow.showCloseButton = true;
-				PopUpManager.addPopUp(newTitleWindow,this,true);
-				PopUpManager.centerPopUp(newTitleWindow);
+			private function editVacation():void{
+				var editPanel:ModalAddVacation = new ModalAddVacation();
+				editPanel.setTabScheduler(this);
+				editPanel.showCloseButton = true;
+				PopUpManager.addPopUp(editPanel,this,true);
+				PopUpManager.centerPopUp(editPanel);
 			}
 			private function itemDoubleClickHandler(event:CalendarEvent):void {
 				var item:CalendarItem = null;
@@ -264,60 +247,38 @@
 				var ind:int = _calendarItem.data.@index;
 				
 				selectedVacation = vacations.getItemAt(ind) as Vacation;
-				edit();
+				editVacation();
 			}
+
 			private function selectionChanged(event:CalendarEvent):void {
-				
 				var item:CalendarItem = null;
 				if (cal.selectedItems.length == 1) {
 					item = cal.itemToCalendarItem(cal.selectedItems[0]);
 				} 
 				
 				_calendarItem = item;
-				
-				var ind:int = _calendarItem.data.@index;
-				
-				selectedVacation = vacations.getItemAt(ind) as Vacation;
-				
-				
-				
-				if(currentState=="VACATION_CHANGED" || currentState=="VACATION_CHANGED_SELECTED")
-					currentState="VACATION_CHANGED_SELECTED";
-				else
-				 	currentState="VACATION_SELECTED"; 
+
+				if(_calendarItem!=null && _calendarItem.data!=null && _calendarItem.data.@index!=null){
+					var ind:int = _calendarItem.data.@index;
+					selectedVacation = vacations.getItemAt(ind) as Vacation;
+					
+					if(currentState=="VACATION_CHANGED" || currentState=="VACATION_CHANGED_SELECTED")
+						currentState="VACATION_CHANGED_SELECTED";
+					else
+						currentState="VACATION_SELECTED";
+				}
 			}  
 			
-			private var editingValues:Object;
-			private function itemEditBegin(event:CalendarEvent):void {
-				
-				
-				Alert.show("itemEditBegin");
-				/*var calItem:CalendarItem = cal.itemToCalendarItem(event.item);
-				
-				 editingValues = {
-					oldStartTime: new Date(calItem.startTime.time),
-					oldEndTime: new Date(calItem.endTime.time)
-				};  */
-				
-			}
-			
-			
 			private function itemEditEnd(event:CalendarEvent):void {
-				/* Alert.show("itemEditEnd"); */
-				
 				if (event.reason == CalendarEventReason.COMPLETED) {
-					
 					var calItem:CalendarItem = cal.itemToCalendarItem(event.item);
 					
-					/* if (event.item is IRecurrenceInstance) {
-						
-						event.preventDefault();                      
-						
-						editingValues.kind = cal.editKind;
-						editingValues.item = event.item;
-						editingValues.newStartTime = new Date(calItem.startTime.time);
-					} */
-				}
+					if(selectedVacation!=null){
+						selectedVacation.startTime=calItem.startTime
+						selectedVacation.endTime=calItem.endTime
+						dispatchEvent(new VacationEvent(Events.VACATION_SAVE));
+					}
+				}	
 			}
 			
 			

@@ -1,9 +1,0 @@
-package ch.plannr.model
-{
-	public class Vacation
-	{
-		public function Vacation()
-		{
-		}
-	}
-}
