@@ -1,0 +1,27 @@
+package ch.plannr.model
+{
+	
+	[Bindable]
+	public class Vacation
+	{
+		private var _startTime:Date = null;
+		private var _endTime:Date = null;
+		public function Vacation()
+		{
+		}
+		
+		public function get startTime():Date
+		{
+			return _startTime;
+		}
+
+		public function get endsTime():Date
+		{
+			return _endTime;
+		}
+		public function set startTime(value:startTime):void
+		{
+			_startTime= value;
+		} 
+	}
+}

@@ -2,10 +2,6 @@ package ch.plannr.event
 {
 	public class Events
 	{
-		public static const REGISTRATION_ATTEMPT:String="REGISTRATION_ATTEMPT";
-		public static const REGISTRATION_SUCCESS:String="REGISTRATION_SUCCESS";
-		public static const REGISTRATION_FAILURE:String="REGISTRATION_FAILURE";
-		
 		public static const LOGIN_ATTEMPT:String="LOGIN_ATTEMPT";
 		public static const LOGIN_SUCCESS:String="LOGIN_SUCCESS";
 		public static const LOGIN_FAILURE:String="LOGIN_FAILURE";
@@ -34,15 +30,12 @@ package ch.plannr.event
 		public static const MEMBERS_REMOVE_EVENT_SUCCESS:String="MEMBERS_REMOVE_EVENT_SUCCESS";
 		public static const MEMBERS_REMOVE_EVENT_FAILURE:String="MEMBERS_REMOVE_EVENT_FAILURE";
 		
+		public static const VACATION_SAVE:String="VACATION_SAVE";
+		public static const VACATION_SAVE_SUCCESS:String="VACATION_SAVE_SUCCESS";
+		public static const VACATION_SAVE_FAILURE:String="VACATION_SAVE_FAILURE";
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		public static const VACATIONS_LOAD:String="VACATIONS_LOAD";
+		public static const VACATIONS_LOAD_SUCCESS:String="VACATIONS_LOAD_SUCCESS";
+		public static const VACATIONS_LOAD_FAILURE:String="VACATIONS_LOAD_FAILURE";
 	}
 }

@@ -1,0 +1,19 @@
+package ch.plannr.controller
+{
+	public class VacationController
+	{
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
+		[Inject]
+		public var serviceHelper : ServiceHelper;
+		
+		[Inject]
+		public var httpServiceFactory:HttpServiceFactory;
+		
+		
+		public function VacationController()
+		{
+		}
+	}
+}

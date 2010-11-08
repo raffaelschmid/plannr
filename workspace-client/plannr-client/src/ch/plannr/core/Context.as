@@ -3,6 +3,7 @@ package ch.plannr.core
 
 	import ch.plannr.model.Team;
 	import ch.plannr.model.User;
+	import ch.plannr.model.Vacation;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -27,6 +28,9 @@ package ch.plannr.core
 		public var selectedTeam:Team = null;
 		
 		[Bindable]
+		public var selectedVacation:Vacation = null;
+		
+		[Bindable]
 		public var ownedTeams:ArrayCollection = null;
 		
 		[Bindable]
@@ -34,6 +38,12 @@ package ch.plannr.core
 		
 		[Bindable]
 		public var selectUsers:ArrayCollection = null;
+		
+		[Bindable]
+		public var vacationSelectedTeam:Team = null;
+		
+		[Bindable]
+		public var vacations:ArrayCollection = null;
 		
 	}
 }

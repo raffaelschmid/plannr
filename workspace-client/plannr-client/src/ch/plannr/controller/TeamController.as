@@ -2,8 +2,10 @@ package ch.plannr.controller
 {
 	import ch.plannr.event.CustomEvent;
 	import ch.plannr.event.Events;
+	import ch.plannr.event.UserLoginEvent;
 	import ch.plannr.model.Team;
 	import ch.plannr.model.User;
+	import ch.plannr.model.Vacation;
 	import ch.plannr.service.HttpServiceFactory;
 	
 	import flash.events.IEventDispatcher;

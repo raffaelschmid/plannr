@@ -1,3 +1,3 @@
-#Fri Aug 27 17:54:35 CEST 2010
-prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<watchExpressions>\n<expression enabled\="true" text\="ownedTeams"/>\n<expression enabled\="true" text\="baseURL.substr(0,4)"/>\n<expression enabled\="true" text\="toggleModeBar"/>\n</watchExpressions>\n
+#Mon Nov 08 00:29:54 CET 2010
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<watchExpressions>\n<expression enabled\="true" text\="ownedTeams"/>\n<expression enabled\="true" text\="baseURL.substr(0,4)"/>\n<expression enabled\="true" text\="toggleModeBar"/>\n<expression enabled\="true" text\="vacations"/>\n<expression enabled\="true" text\="selectedVacation.startTime.toString()"/>\n<expression enabled\="true" text\="vacations.getItemAt(vacations.size()).startTime.toString()"/>\n<expression enabled\="true" text\="vacation.startTime.toString()"/>\n</watchExpressions>\n
 eclipse.preferences.version=1

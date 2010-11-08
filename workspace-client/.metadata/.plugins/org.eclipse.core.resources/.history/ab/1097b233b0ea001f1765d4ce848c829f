@@ -1,0 +1,23 @@
+package ch.plannr.event
+{
+	import ch.plannr.model.Vacation;
+	
+	import flash.events.Event;
+	
+	public class LoadVacationsEvent extends Event
+	{
+		private var _vacation:Vacation;
+		
+		public function LoadVacationsEvent(id:String, vacation:ArrayCollection=null)
+		{
+			super(id,true);
+			this._vacation=vacation;
+		}
+		
+		public function get vacation():Vacation
+		{
+			return _vacation;
+		}
+		
+	}
+}

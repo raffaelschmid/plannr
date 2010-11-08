@@ -63,8 +63,6 @@ object TeamWebservice extends RestHelper with RESTSupport with Conversion {
         }
       }
       catch {
-        case ex: ConstraintViolationException =>
-          xmlViolation(ex.getConstraintViolations)
         case ex: IllegalArgumentException =>
           xmlError(ex.getMessage)
       }

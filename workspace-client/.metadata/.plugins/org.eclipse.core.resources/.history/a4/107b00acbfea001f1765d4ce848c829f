@@ -1,0 +1,89 @@
+package ch.plannr.controller
+{
+	import ch.plannr.event.CustomEvent;
+	import ch.plannr.event.Events;
+	import ch.plannr.event.LoadVacationsEvent;
+	import ch.plannr.event.UserLoginEvent;
+	import ch.plannr.event.VacationEvent;
+	import ch.plannr.event.VacationEvents;
+	import ch.plannr.model.Team;
+	import ch.plannr.model.Vacation;
+	import ch.plannr.service.HttpServiceFactory;
+	
+	import flash.events.IEventDispatcher;
+	import flash.sampler.startSampling;
+	
+	import mx.collections.ArrayCollection;
+	import mx.controls.Alert;
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
+	
+	import org.swizframework.utils.services.ServiceHelper;
+
+	public class VacationController
+	{
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
+		[Bindable]
+		[Inject(source="context.vacationSelectedTeam", bind="true")]
+		public var selectedTeam:Team = null;
+		
+		[Bindable]
+		[Inject(source="context.selectedVacation", bind="true", twoWay="true")]
+		public var selectedVacation:Vacation = null;
+		
+		[Bindable]
+		[Inject(source="context.vacations", bind="true", twoWay="true")]
+		public var vacations:ArrayCollection = null;
+		
+		[Inject]
+		public var serviceHelper : ServiceHelper;
+		
+		[Inject]
+		public var httpServiceFactory:HttpServiceFactory;
+		
+		public function VacationController()
+		{
+		}
+		
+		[Mediate( event="VacationEvents.VACATION_SAVE")]
+		public function vacationSave() : void
+		{
+			function handleVacationSaveResult( event : ResultEvent ) : void
+			{
+				var xml:XML = new XML(event.result);
+				dispatcher.dispatchEvent(new CustomEvent(VacationEvents.VACATION_SAVE_SUCCESS));
+			}
+			
+			if(selectedVacation!=null){
+				serviceHelper.executeServiceCall( httpServiceFactory.postService("/webservices/vacation/add?teamId="+selectedTeam.id,true).send(selectedVacation.toXml()), handleVacationSaveResult );
+			}
+		}
+
+		[Mediate( event="VacationEvents.VACATIONS_LOAD")]
+		public function loadVacations() : void
+		{
+			function handleResult( event : ResultEvent ) : void
+			{
+				var xml:XML = new XML(event.result);
+				var vacations:XMLList = xml.vacations.vacation;
+				var list:ArrayCollection = new ArrayCollection();
+				for each(var vacation:XML in vacations) {
+					var vac:Vacation = Vacation.fromXml(vacation);
+					list.addItem(vac);
+				}
+				
+				dispatcher.dispatchEvent(new LoadVacationsEvent(VacationEvents.VACATIONS_LOAD_SUCCESS));
+			}
+			
+			function handleFault( event : FaultEvent ) : void
+			{
+				dispatchEvent(new CustomEvent(VacationEvents.VACATIONS_LOAD_FAILURE));
+			}
+			serviceHelper.executeServiceCall( httpServiceFactory.getService("/webservices/vacation",true).send(), handleResult,handleFault );
+		}
+		
+		
+	}
+}

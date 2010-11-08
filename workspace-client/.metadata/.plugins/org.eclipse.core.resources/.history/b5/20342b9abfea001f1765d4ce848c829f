@@ -1,0 +1,14 @@
+package ch.plannr.event
+{
+	public class VacationEvents
+	{
+		
+		public static const VACATION_SAVE:String="VACATION_SAVE";
+		public static const VACATION_SAVE_SUCCESS:String="VACATION_SAVE_SUCCESS";
+		public static const VACATION_SAVE_FAILURE:String="VACATION_SAVE_FAILURE";
+
+		public static const VACATIONS_LOAD:String="VACATIONS_LOAD";
+		public static const VACATIONS_LOAD_SUCCESS:String="VACATIONS_LOAD_SUCCESS";
+		public static const VACATIONS_LOAD_FAILURE:String="VACATIONS_LOAD_FAILURE";
+	}
+}

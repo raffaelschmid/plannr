@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent label="Scheduler" width="100%" height="100%"  
+					xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/mx" 
+					xmlns:ibm="http://www.ibm.com/xmlns/prod/ilog/elixir/2010"
+					 xmlns:ilog="http://www.ilog.com/2007/ilog/flex"
+					 xmlns:local="ch.plannr.view.renderer.*" 
+					 creationComplete="init()">
+	<s:states>
+		<s:State name="VACATION" />
+		<s:State name="VACATION_SELECTED"/>
+		<s:State name="VACATION_CHANGED"/>
+		<s:State name="VACATION_CHANGED_SELECTED"/>
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			import ch.plannr.event.CustomEvent;
+			import ch.plannr.event.Events;
+			import ch.plannr.event.VacationEvent;
+			import ch.plannr.model.Team;
+			import ch.plannr.model.Vacation;
+			import ch.plannr.service.HttpServiceFactory;
+			
+			import ilog.calendar.CalendarArea;
+			import ilog.calendar.CalendarEvent;
+			import ilog.calendar.CalendarEventReason;
+			import ilog.calendar.CalendarItem;
+			import ilog.utils.GregorianCalendar;
+			import ilog.utils.TimeUnit;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ListCollectionView;
+			import mx.controls.Alert;
+			import mx.events.ItemClickEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import org.swizframework.utils.services.ServiceHelper;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			public var model:XMLList = null;
+			
+			[Bindable]
+			[Inject(source="context.ownedTeams", bind="true")]
+			public var ownedTeams:ArrayCollection = null;
+			
+			[Bindable]
+			[Inject(source="context.vacationSelectedTeam", bind="true", twoWay="true")]
+			public var selectedTeam:Team = null;
+			
+			[Bindable]
+			[Inject(source="context.selectedVacation", bind="true", twoWay="true")]
+			public var selectedVacation:Vacation = null;
+			
+			[Bindable]
+			private var _calendarItem:CalendarItem;
+			
+			[Bindable]
+			[Inject(source="context.vacations", bind="true", twoWay="true")]
+			public var vacations:ArrayCollection = new ArrayCollection();
+			
+			
+			/* private var baseModel:XML = 
+				<list>
+				  <event d="1" s="0"  e="72"  key="vacation"  calendar="0" />
+				  <event d="2" s="0"  e="72" key="vacation"     calendar="0" />
+				</list>; */
+			
+			
+			[Mediate( event="Events.VACATIONS_LOAD_SUCCESS")]
+			public function loadVacationsS() : void{
+				cal.dataProvider = createDefaultModel();
+			}
+			
+			private function init():void{
+				currentState="VACATION";
+				
+				cal.addEventListener(CalendarEvent.VISIBLE_TIME_RANGE_CHANGE, visibleTimeRangeChanged);
+				cal.addEventListener(CalendarEvent.ITEM_EDIT_END, itemEditEnd, false);        
+				cal.addEventListener(CalendarEvent.ITEM_EDIT_BEGIN, itemEditBegin, false);
+				cal.addEventListener(CalendarEvent.CHANGE, selectionChanged);
+				cal.addEventListener(CalendarEvent.SHEET_DOUBLE_CLICK, sheetDoubleClickHandler);
+				
+				toggleModeBar.dataProvider = [
+					resourceManager.getString('plannrclient', 'plannrclient.button.Day'),
+					resourceManager.getString('plannrclient', 'plannrclient.button.WorkWeek'),
+					resourceManager.getString('plannrclient', 'plannrclient.button.Week'),     
+					resourceManager.getString('plannrclient', 'plannrclient.button.Month')
+				];
+				
+				toggleModeBar.selectedIndex = 3;
+				
+				cal.mode=Calendar.MONTH_MODE;
+				//cal.dataProvider = model;
+				dispatchEvent(new VacationEvent(Events.VACATIONS_LOAD));
+			}
+			
+			private var vacationIndex:int=0;
+			private function createDefaultModel():XMLList {
+				var baseModel:XML = <list/>
+				for each (var vac:Vacation in vacations){
+					var ev:XML = <event/>
+					ev.@startTime=vac.startTime.toString();
+					ev.@endTime=vac.endTime.toString();
+					ev.@id=vac.id.toString();
+					ev.@summary="Vacation";
+					ev.@description=vac.description;
+					baseModel.appendChild(ev);
+					vacations.addItem(vacationIndex++);
+				}
+				
+				return baseModel.children();
+				/* var gCal:GregorianCalendar = new GregorianCalendar();
+				var startOfWeek:Date = gCal.floor(new Date(), TimeUnit.WEEK, 1);
+				
+				for each (var evt:XML in baseModel.children()) {
+					var dayOfWeek:int = parseInt(evt.@d);          
+					
+					var s:Date = gCal.addUnits(startOfWeek, TimeUnit.DAY, dayOfWeek);                   
+					var e:Date = gCal.addUnits(s, TimeUnit.HOUR, 72);
+					
+					vacations.addItem(new Vacation(s,e,"Vacation"));
+					
+					evt.@startTime = s.toString();
+					evt.@endTime = e.toString();
+					evt.@id = vacationIndex; 
+					evt.@summary="Vacation";
+					
+					
+					vacationIndex++
+				}
+				return baseModel.children(); */
+			}
+			
+			private var modes:Array = [
+				Calendar.DAY_MODE,
+				Calendar.WORK_WEEK_MODE,
+				Calendar.WEEK_MODE,
+				Calendar.MONTH_MODE
+			];  
+			
+			[Bindable]  
+			private var calendars:Array = [
+				{ id: "0", label: "vacation", color:0x6B56BB}
+			];   
+		
+			[Bindable]
+			private var totalPrice:Number = 0.00;
+		
+	/*		protected function itemIndexChangeHandler(event:IndexChangeEvent):void
+			{
+				schedulerViewStack.selectedChild=overlays.selectedItem.show;
+			}*/
+			
+			private function itemColorFunction(calItem:CalendarItem):Object {
+				
+				var now:Date = new Date();
+				
+				if (calItem.endTime < now) {
+					return 0x555555;
+				} else {
+					var index:int = parseInt(calItem.calendar as String);
+					return calendars[index].color;        
+				}
+			}
+			
+			private function zoomInCalendar():void {
+				if (cal.mode != Calendar.MONTH_MODE) {                   
+					zoomInButton.enabled = cal.zoom(2, true);
+					zoomOutButton.enabled = true;                    
+				}
+			}
+			
+			private function zoomOutCalendar():void {
+				if (cal.mode != Calendar.MONTH_MODE) {          
+					zoomOutButton.enabled = cal.zoom(0.5, true);
+					zoomInButton.enabled = true;          
+				}        
+			}
+			
+			private function moveToCurrentDay():void {
+				
+				cal.date = new Date();
+				cal.mode = Calendar.DAY_MODE;                                   
+			}
+			
+			private function toggleMode(event:ItemClickEvent):void {
+				if (cal.date == null) {          
+					cal.date = cal.endDate;              
+				}
+				cal.mode = modes[event.index];
+				
+				cal.rowHeaderEnabled = cal.mode == Calendar.MONTH_MODE;
+				cal.columnHeaderEnabled = cal.mode != Calendar.MONTH_MODE;
+			}
+			
+			private function updateDisplayedTimeRangeLabel():void {
+				var e:Date = cal.calendar.addUnits(cal.endDisplayedDate, TimeUnit.DAY, 1);
+				rangeLabel.text = cal.getTimeRangeLabel(null, cal.startDisplayedDate, e);
+			}
+			
+			private function visibleTimeRangeChanged(event:CalendarEvent):void {
+				
+				updateDisplayedTimeRangeLabel();
+				
+				var buttonEnabled:Boolean = cal.mode != Calendar.MONTH_MODE;
+				zoomInButton.enabled = buttonEnabled;
+				zoomOutButton.enabled = buttonEnabled;
+				
+				toggleModeBar.selectedIndex = modes.indexOf(cal.mode);                               
+			}
+			
+			private function sheetDoubleClickHandler(event:CalendarEvent):void {
+				
+				var s:Date;
+				var e:Date;
+				
+				// an alternative implementation is to use the current time range selection.        
+				
+				if (cal.mode == Calendar.MONTH_MODE) {
+					if (event.calendarArea == CalendarArea.CELL_HEADER) {
+						// zoom to the day if we double click on the header
+						cal.date = event.startDate;
+						cal.mode = Calendar.DAY_MODE;
+						return;
+						
+					} else if (event.calendarArea == CalendarArea.ROW_HEADER) {
+						
+						s = event.startDate;
+						e = event.endDate;
+						
+					} else {
+						
+						// create an all day event, when double click on a cell
+						s = cal.calendar.floor(event.startDate, TimeUnit.DAY, 1);
+						e = cal.calendar.addUnits(s, TimeUnit.DAY, 1);
+					}    
+				} else {
+					
+					if (event.calendarArea == CalendarArea.SHEET) {
+						//create an event that starts at the beginning of the time slot and that lasts a time slot duration
+						s = cal.calendar.floor(event.startDate, TimeUnit.MINUTE, cal.getTimeSlotDuration());
+						e = cal.calendar.addUnits(s, TimeUnit.MINUTE, cal.getTimeSlotDuration());
+					} else {
+						// create an all day event when double click on the secondary sheet or the column header
+						s = cal.calendar.floor(event.startDate, TimeUnit.DAY, 1);
+						e = cal.calendar.addUnits(s, TimeUnit.DAY, 1);
+					}
+				}
+				
+				createNewEvent(s, e);
+				
+				cal.timeRangeSelection = null;
+			}
+			
+			private function createNewEvent(startTime:Date, endTime:Date, summary:String=""):void {
+				if (summary == null) {
+					//summary = resourceManager.getString("calendarsample", "calendarsample.default.summary");
+				}
+				var vacation:Vacation = new Vacation(startTime, endTime, summary, "");
+				
+				var col:ListCollectionView = model as ListCollectionView;
+				var xml:XML = vacation.toEventXml();
+				vacations.addItem(vacation);
+				col.addItem(xml);
+				
+				cal.selectedItems = [xml];
+				
+				
+			}
+			
+			private function selectionChanged(event:CalendarEvent):void {
+				
+				var item:CalendarItem = null;
+				if (cal.selectedItems.length == 1) {
+					item = cal.itemToCalendarItem(cal.selectedItems[0]);
+				} 
+				
+				_calendarItem = item;
+				
+				selectedVacation = vacations.getItemAt(_calendarItem.data.@id) as Vacation;
+				
+				if(currentState=="VACATION_CHANGED" || currentState=="VACATION_CHANGED_SELECTED")
+					currentState="VACATION_CHANGED_SELECTED";
+				else
+				 	currentState="VACATION_SELECTED"; 
+			}  
+			
+			private var editingValues:Object;
+			private function itemEditBegin(event:CalendarEvent):void {
+				
+				/* Alert.show("itemEditBegin");
+				var calItem:CalendarItem = cal.itemToCalendarItem(event.item);
+				
+				 editingValues = {
+					oldStartTime: new Date(calItem.startTime.time),
+					oldEndTime: new Date(calItem.endTime.time)
+				};  */
+				
+			}
+			
+			
+			private function itemEditEnd(event:CalendarEvent):void {
+				/* Alert.show("itemEditEnd"); */
+				
+				if (event.reason == CalendarEventReason.COMPLETED) {
+					
+					var calItem:CalendarItem = cal.itemToCalendarItem(event.item);
+					
+					/* if (event.item is IRecurrenceInstance) {
+						
+						event.preventDefault();                      
+						
+						editingValues.kind = cal.editKind;
+						editingValues.item = event.item;
+						editingValues.newStartTime = new Date(calItem.startTime.time);
+					} */
+				}
+			}
+			
+			
+			private function save_on_click():void{
+				
+				if(selectedVacation!=null){
+					dispatchEvent(new VacationEvent(Events.VACATION_SAVE));
+				}
+				
+				
+			}
+			private function cancel_on_click():void{
+				createDefaultModel();
+			}
+		]]>
+	</fx:Script>
+	<mx:HBox height="100%" width="100%">
+		<mx:VDividedBox width="100%" height="100%" label="All" id="all"  paddingLeft="10" paddingBottom="10" paddingRight="10" paddingTop="10">
+			<mx:Canvas width="100%">
+				
+				<mx:HBox left="0" bottom="0">
+					<mx:Label id="rangeLabel" fontWeight="bold" fontSize="18" />                                           
+				</mx:HBox>
+				
+				<mx:HBox id="box" right="0" bottom="0">
+					
+					<mx:Button id="zoomInButton" width="36" icon="@Embed(source='../resources/zoom.png')" click="zoomInCalendar()" />
+					<mx:Button id="zoomOutButton" width="36" icon="@Embed(source='../resources/unzoom.png')" click="zoomOutCalendar()" />
+					<mx:Box width="20" height="10" />
+					
+					<mx:Button id="prevButton" height="22" skin="ilog.skins.PreviousArrowSkin" click="cal.previousRange()"  />
+					<mx:Button id="nextButton" height="22" skin="ilog.skins.NextArrowSkin" click="cal.nextRange()"  /> 
+					<mx:Button label="@Resource(bundle='plannrclient', key='plannrclient.button.Today')" click="moveToCurrentDay()" />
+					<mx:Box width="5" height="10" />
+					
+					<mx:ToggleButtonBar id="toggleModeBar" itemClick="toggleMode(event)"/>            
+					
+				</mx:HBox>
+				
+			</mx:Canvas>    
+			<mx:HBox width="100%" height="60%">
+				<s:BorderContainer width="300" height="100%">
+					<s:layout><s:VerticalLayout paddingLeft="5" paddingTop="5" paddingBottom="5" paddingRight="5"/></s:layout>
+						<mx:DateChooser id="dc" width="100%" allowMultipleSelection="false" allowDisjointSelection="false" />
+						<mx:Form width="100%" height="100%" id="selectTeamForm" includeIn="VACATION_SELECTED,VACATION_CHANGED_SELECTED">
+							<mx:FormHeading fontSize="14"  label="Select Team" />
+							<s:DropDownList change="selectedTeam=cbTeam.selectedItem" dataProvider="{ownedTeams}" labelField="name" width="250" id="cbTeam"/>
+							<mx:Spacer height="30"/>
+								<s:BorderContainer styleName="toolbox nonborder">
+									<s:layout><s:HorizontalLayout/></s:layout>
+									<s:Button name="bSave" label="Save" click="save_on_click()"/>
+									<s:Button name="bCancel" label="Cancel" click="cancel_on_click()"/>	
+								</s:BorderContainer>							
+							</mx:Form>
+					<mx:Text text="{currentState}"/>
+				</s:BorderContainer>
+				<ilog:Calendar id="cal" width="100%" height="100%"                                           
+							   animationDuration="1000"                     
+							   doubleClickEnabled="true"
+							   itemColorFunction="{itemColorFunction}"                      
+							   allowMultipleSelection="false"                                                 
+							   startDisplayedTime="[8,0]"
+							   endDisplayedTime="[18,0]"
+							   showItemIndicators="true"
+							   columnHeaderEnabled="true">
+					<ilog:currentTimeIndicatorStroke >
+						<mx:SolidColorStroke alpha="0.8" color="#9C35BE" weight="2" caps="none" />
+					</ilog:currentTimeIndicatorStroke>
+					
+					<ilog:workingTimes>
+						<fx:Object rangeStart="8:00" rangeEnd="18:00"/>
+					</ilog:workingTimes>  
+					
+					<ilog:itemVerticalRenderer>
+						<fx:Component>
+							<ilog:CalendarItemVerticalRenderer/>
+						</fx:Component>
+					</ilog:itemVerticalRenderer>                       
+					
+				</ilog:Calendar>           
+			</mx:HBox>
+		</mx:VDividedBox>
+	</mx:HBox>
+</s:NavigatorContent>

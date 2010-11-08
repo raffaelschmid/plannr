@@ -16,10 +16,13 @@
 		<![CDATA[
 			import ch.plannr.event.UserLoginEvent;
 			
+			import mx.controls.Alert;
+			
 			public function initApp():void{
 				var event : UserLoginEvent = new UserLoginEvent();
 				dispatchEvent(event);
 			}
+			
 		]]>
 	</fx:Script>
 	<fx:Style source="style.css"/>

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  6 NOV 2010 17:10
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  7 NOV 2010 11:12
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -610,93 +610,99 @@ Overfull \hbox (109.96854pt too wide) in paragraph at lines 231--232
 lasse ch.plannr.service.HttpServiceFactory
  []
 
+[63]
+Overfull \hbox (47.27957pt too wide) in paragraph at lines 248--249
+\OT1/cmr/m/n/10.95 men-tie-ren ist ver-gleichs-wei-se ge-rin-ger. Man muss al-l
+er-dings auch ber[]ucksichtigen,
+ []
 
-Underfull \hbox (badness 1484) in paragraph at lines 254--254
+
+Underfull \hbox (badness 1484) in paragraph at lines 269--269
 \OT1/cmr/m/n/10.95 Validierung ein Email in-klu-si-ve ei-nem
  []
 
 
-Underfull \hbox (badness 3492) in paragraph at lines 254--255
+Underfull \hbox (badness 3492) in paragraph at lines 269--270
 []|\OT1/cmr/m/n/10.95 Nicht im-ple-men-
  []
 
 
-Underfull \hbox (badness 3333) in paragraph at lines 256--256
+Underfull \hbox (badness 3333) in paragraph at lines 271--271
 []|\OT1/cmr/m/n/10.95 Passwort ver-ges-
  []
 
 
-Underfull \hbox (badness 7851) in paragraph at lines 258--258
+Underfull \hbox (badness 7851) in paragraph at lines 273--273
 \OT1/cmr/m/n/10.95 ri-en durch den
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 258--258
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
 []|\OT1/cmr/m/n/10.95 Nachdem der Be-nut-zer sei-ne Fe-ri-
  []
 
 
-Underfull \hbox (badness 3492) in paragraph at lines 258--259
+Underfull \hbox (badness 3492) in paragraph at lines 273--274
 []|\OT1/cmr/m/n/10.95 Nicht im-ple-men-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 260--260
+Underfull \hbox (badness 10000) in paragraph at lines 275--275
 []|\OT1/cmr/m/n/10.95 Status[]anderung
  []
 
 
-Underfull \hbox (badness 2359) in paragraph at lines 260--260
+Underfull \hbox (badness 2359) in paragraph at lines 275--275
 \OT1/cmr/m/n/10.95 durch Vor-ge-setz-
  []
 
 
-Underfull \hbox (badness 4886) in paragraph at lines 260--260
+Underfull \hbox (badness 4886) in paragraph at lines 275--275
 []|\OT1/cmr/m/n/10.95 Nachdem der Vor-ge-setz-te die Fe-ri-en
  []
 
 
-Underfull \hbox (badness 3492) in paragraph at lines 260--261
+Underfull \hbox (badness 3492) in paragraph at lines 275--276
 []|\OT1/cmr/m/n/10.95 Nicht im-ple-men-
  []
 
 
-Overfull \hbox (45.8858pt too wide) in alignment at lines 249--262
+Overfull \hbox (45.8858pt too wide) in alignment at lines 264--277
  [] [] [] 
  []
 
-[63] [64] [65] [66
+[64] [65] [66]
+Kapitel 6.
+[67
 
 ]
-Kapitel 6.
-[67]
-Overfull \hbox (6.85585pt too wide) in paragraph at lines 295--296
+Overfull \hbox (6.85585pt too wide) in paragraph at lines 310--311
 \OT1/cmr/m/n/10.95 Plug-ins k[]onnen al-ler-dings auch Scala-Specs oder an-de-r
 e Tests ausf[]uhren. 
  []
 
 [68]
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 307--307
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 322--322
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 307--307
+Underfull \hbox (badness 10000) in paragraph at lines 322--322
 
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 319--319
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 334--334
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--319
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
 
  []
 
 
-Overfull \hbox (0.83339pt too wide) in paragraph at lines 324--325
+Overfull \hbox (0.83339pt too wide) in paragraph at lines 339--340
 \OT1/cmr/m/n/10.95 men und Pass-wort ver-bin-det, wird im Pro-filabh[]angigen p
 er-sis-tence.xml
  []
@@ -726,47 +732,58 @@ R BASIS DER AUFGABENSTELLUNG
 [76
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 12--14
+Underfull \hbox (badness 10000) in paragraph at lines 16--18
 []\OT1/cmr/m/n/10.95 Integrating flex, bla-zeds, and sca-la/-lift.
  []
 
 
-Overfull \hbox (33.29994pt too wide) in paragraph at lines 37--41
+Overfull \hbox (33.29994pt too wide) in paragraph at lines 45--49
 []\OT1/cmr/m/n/10.95 Liftweb.  Using sbt.  http://www.assembla.com/wiki/show/li
 ftweb/Using[]SBT,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--58
+Underfull \hbox (badness 10000) in paragraph at lines 61--66
+[]\OT1/cmr/m/n/10.95 Wikipedia.  Be-nut-zer-freund-lich-keit --- wi-ki-pe-dia.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--66
+\OT1/cmr/m/n/10.95 http://de.wikipedia.org/w/index.php?title=Benutzerfreundlich
+keit,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--73
 []\OT1/cmr/m/n/10.95 Wikipedia.  End-re-kur-si-on --- wi-ki-pe-dia.
  []
 
 
-Overfull \hbox (25.37979pt too wide) in paragraph at lines 53--58
+Overfull \hbox (25.37979pt too wide) in paragraph at lines 68--73
 \OT1/cmr/m/n/10.95 http://de.wikipedia.org/w/index.php?title=Endrekursion&oldid
 =78741723,
  []
 
-
-Overfull \hbox (61.17403pt too wide) in paragraph at lines 60--64
+[77]
+Overfull \hbox (61.17403pt too wide) in paragraph at lines 80--84
 []\OT1/cmr/m/n/10.95 Wikipedia.  Nos-ql --- wi-ki-pe-dia.  http://de.wikipedia.
 org/w/index.php?title=NoSQL,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 66--72
+Underfull \hbox (badness 10000) in paragraph at lines 86--92
 []\OT1/cmr/m/n/10.95 Wikipedia.  Re-pre-sen-ta-tio-nal state trans-fer --- wi-k
 i-pe-dia.
  []
 
 
-Overfull \hbox (29.70497pt too wide) in paragraph at lines 66--72
+Overfull \hbox (29.70497pt too wide) in paragraph at lines 86--92
 \OT1/cmr/m/n/10.95 http://de.wikipedia.org/w/index.php?title=Representational[]
 State[]Transfer,
  []
 
-[77]
-Underfull \hbox (badness 6758) in paragraph at lines 74--77
+
+Underfull \hbox (badness 6758) in paragraph at lines 94--97
 []\OT1/cmr/m/n/10.95 Derek Wi-schu-sen.  In-te-gra-ting flex, bla-zeds, and sca
 -la/-lift.
  []
@@ -838,15 +855,12 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 4273 strings out of 493848
- 63142 string characters out of 3149207
+ 4279 strings out of 493848
+ 63220 string characters out of 3149207
  164327 words of memory out of 3000000
- 7465 multiletter control sequences out of 15000+200000
+ 7471 multiletter control sequences out of 15000+200000
  11971 words of font info for 43 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  36i,11n,42p,1386b,1686s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -862,7 +876,7 @@ cal/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local
 /texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on abgabedokument_semesterarbeit.pdf (91 pages, 649498 bytes).
+Output written on abgabedokument_semesterarbeit.pdf (91 pages, 651722 bytes).
 PDF statistics:
  350 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

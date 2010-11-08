@@ -97,13 +97,13 @@
 \contentsline {subsection}{\numberline {5.4.2}Architektur}{62}
 \contentsline {subsubsection}{RESTful Webservices}{62}
 \contentsline {subsubsection}{Security}{63}
-\contentsline {subsection}{\numberline {5.4.3}Ferienplanung}{63}
-\contentsline {subsection}{\numberline {5.4.4}Teammanagement}{63}
-\contentsline {section}{\numberline {5.5}Mail-Versand (Notifikationen)}{63}
-\contentsline {subsection}{\numberline {5.5.1}Use Cases}{63}
-\contentsline {subsection}{\numberline {5.5.2}Technische Umsetzung}{64}
-\contentsline {subsubsection}{Konfiguration des Mailers}{64}
-\contentsline {subsubsection}{Mails versenden}{64}
+\contentsline {subsection}{\numberline {5.4.3}Ferienplanung und Teammangement}{63}
+\contentsline {subsection}{\numberline {5.4.4}Evaluation Kalender}{64}
+\contentsline {section}{\numberline {5.5}Mail-Versand (Notifikationen)}{64}
+\contentsline {subsection}{\numberline {5.5.1}Use Cases}{64}
+\contentsline {subsection}{\numberline {5.5.2}Technische Umsetzung}{65}
+\contentsline {subsubsection}{Konfiguration des Mailers}{65}
+\contentsline {subsubsection}{Mails versenden}{65}
 \contentsline {chapter}{\numberline {6}Entwicklung, Build und Deployment}{67}
 \contentsline {section}{\numberline {6.1}Build-System}{67}
 \contentsline {section}{\numberline {6.2}Entwicklungsumgebung}{68}
@@ -117,7 +117,7 @@
 \contentsline {subsection}{\numberline {8.1.1}Entwicklung und Deployment}{75}
 \contentsline {section}{\numberline {8.2}Optionale Ziele}{75}
 \contentsline {subsection}{\numberline {8.2.1}Performance Tests}{75}
-\contentsline {subsection}{\numberline {8.2.2}Internationalization}{75}
+\contentsline {subsection}{\numberline {8.2.2}Internationalisierung}{75}
 \contentsline {subsection}{\numberline {8.2.3}Search Engine Optimization}{75}
 \contentsline {subsection}{\numberline {8.2.4}Usability}{75}
 \contentsline {part}{IV\hspace {1em}Anhang}{85}

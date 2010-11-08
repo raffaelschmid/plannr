@@ -2,44 +2,44 @@ This is BibTeX, Version 0.99c (TeX Live 2009)
 The top-level auxiliary file: abgabedokument_semesterarbeit.aux
 The style file: plain.bst
 Database file #1: rschmid.bib
-You've used 15 entries,
+You've used 19 entries,
             2118 wiz_defined-function locations,
-            565 strings with 5528 characters,
-and the built_in function-call counts, 3240 in all, are:
-= -- 293
-> -- 127
+            579 strings with 5886 characters,
+and the built_in function-call counts, 4053 in all, are:
+= -- 368
+> -- 155
 < -- 0
-+ -- 53
-- -- 38
-* -- 110
-:= -- 548
-add.period$ -- 42
-call.type$ -- 15
-change.case$ -- 61
++ -- 65
+- -- 46
+* -- 132
+:= -- 681
+add.period$ -- 53
+call.type$ -- 19
+change.case$ -- 77
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 120
-empty$ -- 331
-format.name$ -- 38
-if$ -- 701
+cite$ -- 19
+duplicate$ -- 148
+empty$ -- 419
+format.name$ -- 46
+if$ -- 880
 int.to.chr$ -- 0
-int.to.str$ -- 15
+int.to.str$ -- 19
 missing$ -- 6
-newline$ -- 75
-num.names$ -- 30
-pop$ -- 131
+newline$ -- 94
+num.names$ -- 38
+pop$ -- 166
 preamble$ -- 1
-purify$ -- 49
+purify$ -- 61
 quote$ -- 0
-skip$ -- 112
+skip$ -- 143
 stack$ -- 0
-substring$ -- 75
-swap$ -- 15
+substring$ -- 95
+swap$ -- 19
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 54
+type$ -- 70
 warning$ -- 0
-while$ -- 30
-width$ -- 17
-write$ -- 138
+while$ -- 38
+width$ -- 21
+write$ -- 174

@@ -14,6 +14,7 @@
 		<!--controllers-->
 		<controller:UserController id="userController"/>
 		<controller:TeamController id="teamController"/>
+		<controller:VacationController id="vacationController"/>
 		
 		<!--services-->
 		<swiz:ServiceHelper id="serviceHelper" />

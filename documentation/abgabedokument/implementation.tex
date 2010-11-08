@@ -237,11 +237,26 @@ Zu Beginn habe ich die Authentifizierung der Webservice-Aufrufe \"uber Basic Aut
 Nun habe ich die Authentifizierung auf eine Form-Authentication umgestellt, bei der die Benutzer-Identifikation respektive in meinem Fall die Email-Adresse in der Session gespeichert wird. Somit muss nur der Login-Formular Submit via das Https-Protokoll laufen.
 
 
-\subsection{Ferienplanung}\label{implementation:ferienplanung}
+\subsection{Ferienplanung und Teammangement}\label{implementation:ferienplanung}
+Die Prozesse der Teamadministration und Ferienplanung sind unter ``\ref{prozess:ferien} \titleref{prozess:ferien}'' und  ``\ref{prozess:team} \titleref{prozess:team}'' beschrieben. Aufgrund der folgenden drei Gr\"unde habe ich mich entschieden, beide Teile in Flex zu implementieren:
+\begin{itemize}
+\item \textbf{Usability: } Usability bezeichnet die vom Nutzer erlebte Nutzungsqualit\"at (respektive User Experience) bei der Interaktion mit einem System\cite{wiki:usability}. Heutzutage erreicht man dies mit der Verwendung von Technologien wie Ajax, Flex, Silverlight, oder andere. Der Benutzer erf\"ahrt die Webseite wie als eine auf seinem Rechner installierte Applikation:
+\begin{itemize}
+\item kurze Ladezeiten
+\item Interaktion mit dem Server findet statt indem nur Teile der Seite ausgetauscht werden.
+\end{itemize}
+\item \textbf{Aufwand: }Der Aufwand um Administrationsoberfl\"achen zu implementieren ist vergleichsweise geringer. Man muss allerdings auch ber\"ucksichtigen, dass die Kommunikation mit dem Backend respektive das Testen der Schnittstelle zum Backend trotzdem eine Menge Zeit in Anspruch nimmt.
+\item \textbf{Kalender: } Die Verwendung des Flex Kalenders ``IBM Eloxier'' erschien mir als angemessen (Siehe Abschnitt ``\ref{evaluation:kalender} \titleref{evaluation:kalender}'')
+\end{itemize}
 
+\subsection{Evaluation Kalender}\label{evaluation:kalender}
+Unter dem Namen ``Elixier'' verkauft IBM Flex Komponenten. Da ich bereits im Besitz der Standard-Lizenz war, habe ich mich f\"ur diesen Kalender entschieden. Die Enterprise Version beinhaltet zus\"atzlich noch ein Gantt-Chart \cite{wiki:gantt}, der f\"ur private doch relativ hohe Preis (dieser liegt momentan bei 3130 USD) hat mich allerdings von der Verwendung dieser Komponente gehindert.  Andere Widgets habe ich aufgrund mangelnder Qualit\"at oder Funktionalit\"at nicht verwendet:
 
+\begin{itemize}
+\item Simile Timeline\cite{simileTimeline}
+\item Flex Calendar Components \cite{flexCalendar}
+\end{itemize}
 
-\subsection{Teammanagement}\label{implementation:teammanagement}
 
 \section{Mail-Versand (Notifikationen)}
 \subsection{Use Cases}

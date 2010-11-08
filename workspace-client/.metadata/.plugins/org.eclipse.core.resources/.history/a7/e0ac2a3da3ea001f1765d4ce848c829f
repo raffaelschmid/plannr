@@ -1,0 +1,85 @@
+package ch.plannr.model
+{
+	import flash.xml.XMLDocument;
+	
+	import mx.rpc.xml.SimpleXMLEncoder;
+	
+	[Bindable]
+	public class Vacation
+	{
+		
+		private var _summary:String = "";
+		private var _description:String="";
+		private var _startTime:Date = null;
+		private var _endTime:Date = null;
+		
+		public function Vacation(startTime:Date, endTime:Date,summary:String="",description:String="")
+		{
+			this._startTime=startTime;
+			this._endTime=endTime;
+			this._summary=summary;
+			this._description=description;
+		}
+		
+		public function get startTime():Date
+		{
+			return _startTime;
+		}
+
+		public function get endTime():Date
+		{
+			return _endTime;
+		}
+		
+		public function set startTime(value:Date):void
+		{
+			_startTime= value;
+		} 
+
+		public function set endTime(value:Date):void
+		{
+			_endTime= value;
+		} 
+		
+		public function set description(value:String):void
+		{
+			_description= value;
+		} 
+		
+		public function get summary():String
+		{
+			return _summary;
+		}
+		
+		public function set summary(value:String):void
+		{
+			_summary= value;
+		} 
+		public function get description():String
+		{
+			return _description;
+		}
+		
+		public function toEventXml():XML{
+			var addedItem:XML= <event/>;                                                             
+			addedItem.@startTime = _startTime;              
+			addedItem.@endTime = _endTime;
+			addedItem.@summary = _summary;
+			addedItem.@description = _description;
+			return addedItem;
+		}
+		
+		public function toXml():XML {
+			var qName:QName = new QName("user");
+			var xmlDocument:XMLDocument = new XMLDocument();
+			var simpleXMLEncoder:SimpleXMLEncoder = new SimpleXMLEncoder(xmlDocument);
+			var xmlNode:XMLNode = simpleXMLEncoder.encodeValue(this, qName, xmlDocument);
+			var xml:XML = new XML(xmlDocument.toString());
+			return xml;
+		}
+		
+		public function toString():String{
+			return "Vacation[startTime=" + startTime+",endTime=" + endTime+",summary=" + summary+",description=" + description + "]"
+		}
+	}
+}

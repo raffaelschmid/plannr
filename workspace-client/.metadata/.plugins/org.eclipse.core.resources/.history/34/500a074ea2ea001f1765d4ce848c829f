@@ -1,0 +1,25 @@
+package ch.plannr.controller
+{
+	import ch.plannr.service.HttpServiceFactory;
+	
+	import flash.events.IEventDispatcher;
+	
+	import org.swizframework.utils.services.ServiceHelper;
+
+	public class VacationController
+	{
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
+		[Inject]
+		public var serviceHelper : ServiceHelper;
+		
+		[Inject]
+		public var httpServiceFactory:HttpServiceFactory;
+		
+		
+		public function VacationController()
+		{
+		}
+	}
+}

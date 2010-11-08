@@ -4901,3 +4901,279 @@ Binding(COMMAND+SHIFT+G,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+!SESSION 2010-11-07 09:54:01.806 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_22
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=carbon, NL=en_US
+Framework arguments:  -keyring /Users/rschmid/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws carbon -arch x86 -keyring /Users/rschmid/.eclipse_keyring -consoleLog -showlocation
+
+!ENTRY org.eclipse.equinox.p2.repository 4 0 2010-11-07 09:54:02.505
+!MESSAGE ProvisioningEventBus could not be obtained. Metadata caches may not be cleaned up properly.
+
+!ENTRY org.eclipse.core.net 1 0 2010-11-07 09:54:13.399
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2010-11-07 17:37:19.929
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-11-07 17:37:19.929
+!MESSAGE A conflict occurred for COMMAND+G:
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		ActionHandler(com.adobe.flexbuilder.as.editor.ui.packageexplorer.actions.FlexPackageExplorerFindAllDeclarationsAction@15d117),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.declarations.in.workspace,Find All Declarations In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		ActionHandler(com.adobe.flexbuilder.as.editor.ui.packageexplorer.actions.FlexPackageExplorerFindAllDeclarationsAction@15d117),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2010-11-07 17:37:19.929
+!MESSAGE A conflict occurred for COMMAND+SHIFT+G:
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		ActionHandler(com.adobe.flexbuilder.as.editor.ui.packageexplorer.actions.FlexPackageExplorerFindAllReferencesAction@526300),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexide.editorcore.flexEditorScope,,,system)
+Binding(COMMAND+SHIFT+G,
+	ParameterizedCommand(Command(com.adobe.flexbuilder.as.editor.find.all.references.in.workspace,Find All References In Workspace,
+		,
+		Category(com.adobe.flexbuilder.editorcore.navigation.category,Navigation,null,true),
+		ActionHandler(com.adobe.flexbuilder.as.editor.ui.packageexplorer.actions.FlexPackageExplorerFindAllReferencesAction@526300),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	com.adobe.flexbuilder.as.editor.context.packageexplorer,,,system)
+
+!ENTRY org.eclipse.ui 4 0 2010-11-07 17:45:31.021
+!MESSAGE Warning: Detected recursive attempt by part com.adobe.flexbuilder.editors.mxml.MXMLEditor to create itself (this is probably, but not necessarily, a bug)
+!STACK 1
+org.eclipse.ui.PartInitException: Warning: Detected recursive attempt by part com.adobe.flexbuilder.editors.mxml.MXMLEditor to create itself (this is probably, but not necessarily, a bug)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:586)
+	at org.eclipse.ui.internal.EditorReference.getEditor(EditorReference.java:286)
+	at org.eclipse.ui.internal.EditorManager.findEditor(EditorManager.java:403)
+	at org.eclipse.ui.internal.EditorManager.findEditor(EditorManager.java:381)
+	at org.eclipse.ui.internal.WorkbenchPage.findEditor(WorkbenchPage.java:2096)
+	at org.eclipse.ui.ide.ResourceUtil.findEditor(ResourceUtil.java:97)
+	at org.eclipse.ui.views.navigator.ResourceNavigator.linkToEditor(ResourceNavigator.java:1013)
+	at org.eclipse.ui.views.navigator.ResourceNavigator$7.run(ResourceNavigator.java:491)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3342)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3071)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.block(ModalContext.java:173)
+	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:388)
+	at org.eclipse.jface.dialogs.ProgressMonitorDialog.run(ProgressMonitorDialog.java:507)
+	at com.adobe.flexide.editorcore.loadservice.CodeModelProjectLoadDialog.runLoadProject(CodeModelProjectLoadDialog.java:188)
+	at com.adobe.flexide.editorcore.loadservice.DefaultCMLoadService.loadProject(DefaultCMLoadService.java:52)
+	at com.adobe.flexide.editorcore.loadservice.DefaultCMLoadService.loadProject(DefaultCMLoadService.java:71)
+	at com.adobe.flexide.editorcore.editor.AbstractFlexDocumentProvider.connect(AbstractFlexDocumentProvider.java:106)
+	at com.adobe.flexbuilder.mxml.editor.code.MXMLDocumentProvider.connect(MXMLDocumentProvider.java:65)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.doSetInput(AbstractTextEditor.java:4134)
+	at org.eclipse.ui.texteditor.StatusTextEditor.doSetInput(StatusTextEditor.java:203)
+	at org.eclipse.ui.texteditor.AbstractDecoratedTextEditor.doSetInput(AbstractDecoratedTextEditor.java:1413)
+	at org.eclipse.ui.editors.text.TextEditor.doSetInput(TextEditor.java:166)
+	at com.adobe.flexide.editorcore.editor.AbstractFlexEditor.doSetInput(AbstractFlexEditor.java:1422)
+	at org.eclipse.ui.texteditor.AbstractTextEditor$19.run(AbstractTextEditor.java:3115)
+	at org.eclipse.jface.operation.ModalContext.runInCurrentThread(ModalContext.java:464)
+	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:372)
+	at org.eclipse.jface.window.ApplicationWindow$1.run(ApplicationWindow.java:759)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.jface.window.ApplicationWindow.run(ApplicationWindow.java:756)
+	at org.eclipse.ui.internal.WorkbenchWindow.run(WorkbenchWindow.java:2579)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.internalInit(AbstractTextEditor.java:3133)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.init(AbstractTextEditor.java:3160)
+	at com.adobe.flexide.editorcore.editor.AbstractFlexEditor.init(AbstractFlexEditor.java:452)
+	at com.adobe.flexide.mxml.core.editor.MXMLCoreEditor.init(MXMLCoreEditor.java:75)
+	at org.eclipse.ui.part.MultiPageEditorPart.addPage(MultiPageEditorPart.java:238)
+	at org.eclipse.ui.part.MultiPageEditorPart.addPage(MultiPageEditorPart.java:212)
+	at com.adobe.flexbuilder.editorcore.editor.CodeAndDesignEditor.createPages(CodeAndDesignEditor.java:209)
+	at com.adobe.flexbuilder.mxml.editor.MXMLEditor.createPages(MXMLEditor.java:217)
+	at org.eclipse.ui.part.MultiPageEditorPart.createPartControl(MultiPageEditorPart.java:357)
+	at org.eclipse.ui.internal.EditorReference.createPartHelper(EditorReference.java:662)
+	at org.eclipse.ui.internal.EditorReference.createPart(EditorReference.java:462)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:595)
+	at org.eclipse.ui.internal.EditorReference.getEditor(EditorReference.java:286)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditorBatched(WorkbenchPage.java:2857)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditor(WorkbenchPage.java:2762)
+	at org.eclipse.ui.internal.WorkbenchPage.access$11(WorkbenchPage.java:2754)
+	at org.eclipse.ui.internal.WorkbenchPage$10.run(WorkbenchPage.java:2705)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(WorkbenchPage.java:2701)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(WorkbenchPage.java:2685)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(WorkbenchPage.java:2676)
+	at org.eclipse.ui.ide.IDE.openEditor(IDE.java:651)
+	at org.eclipse.ui.ide.IDE.openEditor(IDE.java:610)
+	at org.eclipse.ui.actions.OpenFileAction.openFile(OpenFileAction.java:99)
+	at org.eclipse.ui.actions.OpenSystemEditorAction.run(OpenSystemEditorAction.java:99)
+	at org.eclipse.ui.views.navigator.OpenActionGroup.runDefaultAction(OpenActionGroup.java:133)
+	at com.adobe.flexbuilder.editors.derived.ui.navigator.FlexMainActionGroup.runDefaultAction(FlexMainActionGroup.java:350)
+	at org.eclipse.ui.views.navigator.ResourceNavigator.handleOpen(ResourceNavigator.java:787)
+	at org.eclipse.ui.views.navigator.ResourceNavigator$6.open(ResourceNavigator.java:499)
+	at org.eclipse.ui.OpenAndLinkWithEditorHelper$InternalListener.open(OpenAndLinkWithEditorHelper.java:48)
+	at org.eclipse.jface.viewers.StructuredViewer$2.run(StructuredViewer.java:842)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:888)
+	at org.eclipse.ui.internal.JFaceUtil$1.run(JFaceUtil.java:48)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:175)
+	at org.eclipse.jface.viewers.StructuredViewer.fireOpen(StructuredViewer.java:840)
+	at org.eclipse.jface.viewers.StructuredViewer.handleOpen(StructuredViewer.java:1101)
+	at org.eclipse.jface.viewers.StructuredViewer$6.handleOpen(StructuredViewer.java:1205)
+	at org.eclipse.jface.util.OpenStrategy.fireOpenEvent(OpenStrategy.java:264)
+	at org.eclipse.jface.util.OpenStrategy.access$2(OpenStrategy.java:258)
+	at org.eclipse.jface.util.OpenStrategy$1.handleEvent(OpenStrategy.java:298)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1598)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1622)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1607)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:1396)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3484)
+	at org.eclipse.swt.widgets.Control.sendTrackEvents(Control.java:3036)
+	at org.eclipse.swt.widgets.Control.kEventControlTrack(Control.java:2116)
+	at org.eclipse.swt.widgets.Widget.controlProc(Widget.java:375)
+	at org.eclipse.swt.widgets.Display.controlProc(Display.java:863)
+	at org.eclipse.swt.internal.carbon.OS.CallNextEventHandler(Native Method)
+	at org.eclipse.swt.widgets.Tree.kEventMouseDown(Tree.java:2653)
+	at org.eclipse.swt.widgets.Widget.mouseProc(Widget.java:1362)
+	at org.eclipse.swt.widgets.Display.mouseProc(Display.java:2930)
+	at org.eclipse.swt.internal.carbon.OS.SendEventToEventTarget(Native Method)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3051)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2405)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2369)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2221)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:500)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:493)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.adobe.flexbuilder.standalone.FlexBuilderApplication.start(FlexBuilderApplication.java:109)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:194)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:368)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:559)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:514)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1311)
+!SUBENTRY 1 org.eclipse.ui 4 0 2010-11-07 17:45:31.024
+!MESSAGE Warning: Detected recursive attempt by part com.adobe.flexbuilder.editors.mxml.MXMLEditor to create itself (this is probably, but not necessarily, a bug)
+
+!ENTRY com.adobe.flexbuilder.project 4 43 2010-11-07 17:54:29.145
+!MESSAGE Exception in design view callback: addItem(mx.controls.TextArea,com.adobe.flexide.extensions.components.mx.controls.TextAreaExtension,Panel37,[object Object],[object Object],-1)
+!STACK 0
+java.lang.Exception
+	at com.adobe.flexbuilder.project.internal.FlexProjectCore.createErrorStatus(FlexProjectCore.java:975)
+	at com.adobe.flexbuilder.project.internal.FlexProjectCore.log(FlexProjectCore.java:823)
+	at com.adobe.flexbuilder.util.logging.GlobalLogImpl.log(GlobalLogImpl.java:56)
+	at com.adobe.flexbuilder.util.logging.GlobalLog.log(GlobalLog.java:39)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller$DesignViewCallbacks.reportInternalError(MXMLDesignView4Controller.java:441)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at com.adobe.flexide.playerview.DesignCall.invoke(DesignCall.java:89)
+	at com.adobe.flexide.playerview.PlayerListenerHost.notifyDesignCall(PlayerListenerHost.java:166)
+	at com.adobe.flexide.playerview.PlayerListenerHost.callFunction(PlayerListenerHost.java:46)
+	at com.adobe.flexide.embeddedplayer.PlayerNativeCallbacks.CallJavaFunction(PlayerNativeCallbacks.java:31)
+	at com.adobe.flexide.embeddedplayer.PlayerNatives.CallActionScript(Native Method)
+	at com.adobe.flexide.embeddedplayer.ExternalPlayer.callFunction2(ExternalPlayer.java:87)
+	at com.adobe.flexide.designitems.surface.Commander.invokePlayerFunction(Commander.java:149)
+	at com.adobe.flexide.designitems.surface.DesignCommander.addItem(DesignCommander.java:199)
+	at com.adobe.flexide.designitems.surface.DesignVisitor.processItem(DesignVisitor.java:357)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitItem(ModelWalker.java:399)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitMXMLItem(ModelWalker.java:183)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitSubItems(ModelWalker.java:174)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitItem(ModelWalker.java:420)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitMXMLItem(ModelWalker.java:183)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitSubItems(ModelWalker.java:174)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitItem(ModelWalker.java:420)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitMXMLItem(ModelWalker.java:183)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitSubItems(ModelWalker.java:174)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitItem(ModelWalker.java:420)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitMXMLItem(ModelWalker.java:183)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitSubItems(ModelWalker.java:174)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitItem(ModelWalker.java:420)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitMXMLItem(ModelWalker.java:183)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitSubItems(ModelWalker.java:174)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitItem(ModelWalker.java:420)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitMXMLItem(ModelWalker.java:183)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitSubItems(ModelWalker.java:174)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitItem(ModelWalker.java:420)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitMXMLItem(ModelWalker.java:183)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitSubItems(ModelWalker.java:174)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitRootItem(ModelWalker.java:162)
+	at com.adobe.flexide.designitems.modeltree.ModelWalker.visitMXMLModel(ModelWalker.java:129)
+	at com.adobe.flexide.designitems.surface.DesignSurface.visitModel(DesignSurface.java:948)
+	at com.adobe.flexide.designitems.surface.DesignSurface.install(DesignSurface.java:224)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller.finishDesignSurfaceInstall(MXMLDesignView4Controller.java:320)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller.access$17(MXMLDesignView4Controller.java:312)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller$1.notifyAllSwfsLoaded(MXMLDesignView4Controller.java:297)
+	at com.adobe.flexide.designitems.surface.FXGComponentManager.notifyAllSwfsLoaded(FXGComponentManager.java:560)
+	at com.adobe.flexide.designitems.surface.FXGComponentManager.loadAllSWFs(FXGComponentManager.java:547)
+	at com.adobe.flexide.designitems.surface.FXGComponentManager.scanModel(FXGComponentManager.java:495)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller.installDesignSurface(MXMLDesignView4Controller.java:302)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller.runtimeStylesLoaded(MXMLDesignView4Controller.java:1305)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller.loadRuntimeStyleDeclarations(MXMLDesignView4Controller.java:847)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller.embeddedAssetsSwfLoaded(MXMLDesignView4Controller.java:1289)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller.access$4(MXMLDesignView4Controller.java:1283)
+	at com.adobe.flexbuilder.mxml.editor.design.internal.MXMLDesignView4Controller$DesignViewCallbacks.embeddedAssetsSwfLoaded(MXMLDesignView4Controller.java:471)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at com.adobe.flexide.playerview.DesignCall.invoke(DesignCall.java:89)
+	at com.adobe.flexide.playerview.PlayerListenerHost.notifyDesignCall(PlayerListenerHost.java:166)
+	at com.adobe.flexide.playerview.PlayerListenerHost.callFunction(PlayerListenerHost.java:46)
+	at com.adobe.flexide.embeddedplayer.PlayerNativeCallbacks.CallJavaFunction(PlayerNativeCallbacks.java:31)
+	at org.eclipse.swt.internal.carbon.OS.ReceiveNextEvent(Native Method)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3048)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2405)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2369)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2221)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:500)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:493)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at com.adobe.flexbuilder.standalone.FlexBuilderApplication.start(FlexBuilderApplication.java:109)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:194)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:368)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:559)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:514)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1311)
+
+!ENTRY com.adobe.flexbuilder.project 4 43 2010-11-07 22:42:38.746
+!MESSAGE Marker id 2964 not found.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 2964 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:56)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:236)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:222)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.changeInstantiationStatusCount(FlexBreakpoint.java:139)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpoint.removeInstantiationStatus(FlexBreakpoint.java:114)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexBreakpointMap.clearBreakpointLocations(FlexBreakpointMap.java:122)
+	at com.adobe.flexbuilder.debug.breakpoints.FlexLineBreakpoint.uninstantiate(FlexLineBreakpoint.java:555)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.uninstantiateBreakpoint(FlexDebugTarget.java:1034)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget.access$12(FlexDebugTarget.java:1031)
+	at com.adobe.flexbuilder.debug.model.FlexDebugTarget$2.run(FlexDebugTarget.java:1072)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2010-11-07 22:42:38.749
+!MESSAGE Marker id 2964 not found.

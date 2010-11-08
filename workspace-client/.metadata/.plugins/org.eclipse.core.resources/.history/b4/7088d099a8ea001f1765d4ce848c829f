@@ -1,0 +1,45 @@
+package ch.plannr.controller
+{
+	import ch.plannr.event.CustomEvent;
+	import ch.plannr.event.Events;
+	import ch.plannr.model.Vacation;
+	import ch.plannr.service.HttpServiceFactory;
+	
+	import flash.events.IEventDispatcher;
+	
+	import mx.controls.Alert;
+	import mx.rpc.events.ResultEvent;
+	
+	import org.swizframework.utils.services.ServiceHelper;
+
+	public class VacationController
+	{
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
+		[Inject]
+		public var serviceHelper : ServiceHelper;
+		
+		[Inject]
+		public var httpServiceFactory:HttpServiceFactory;
+		
+		
+		
+		
+		public function VacationController()
+		{
+		}
+		
+		[Mediate( event="Events.VACATION_SAVE", properties="vacation" )]
+		public function registerUser( vacation : Vacation ) : void
+		{
+			Alert.show("sending:" + vacation.toXml().toString());
+			serviceHelper.executeServiceCall( httpServiceFactory.postService("/webservices/vacation/add?userId=1&teamId=1",true).send(vacation.toXml()), handleVacationSaveResult );
+		}
+		private function handleVacationSaveResult( event : ResultEvent ) : void
+		{
+			var xml:XML = new XML(event.result);
+			dispatcher.dispatchEvent(new CustomEvent(Events.VACATION_SAVE_SUCCESS));
+		}
+	}
+}

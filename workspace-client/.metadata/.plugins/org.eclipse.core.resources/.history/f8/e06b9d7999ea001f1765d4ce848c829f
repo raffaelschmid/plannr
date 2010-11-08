@@ -1,0 +1,11 @@
+package ch.plannr.model
+{
+	
+	[Bindable]
+	public class Vacation
+	{
+		public function Vacation()
+		{
+		}
+	}
+}

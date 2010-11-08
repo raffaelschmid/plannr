@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent label="Scheduler" width="100%" height="100%"  
+					xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/mx" 
+					xmlns:ibm="http://www.ibm.com/xmlns/prod/ilog/elixir/2010"
+					 xmlns:ilog="http://www.ilog.com/2007/ilog/flex"
+					 xmlns:local="ch.plannr.view.renderer.*" 
+					 contentCreationComplete="init()">
+	<s:states>
+		<s:State name="VACATION_NO_CHANGES"/>
+	</s:states>
+	
+	<fx:Script>
+		<![CDATA[
+			import ilog.calendar.CalendarEvent;
+			import ilog.calendar.CalendarEventReason;
+			import ilog.calendar.CalendarItem;
+			import ilog.utils.GregorianCalendar;
+			import ilog.utils.TimeUnit;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.ItemClickEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			[Inject(source="context.ownedTeams", bind="true")]
+			public var ownedTeams:ArrayCollection = null;
+			
+			[Bindable]
+			private var _calendarItem:CalendarItem;
+			
+			private var baseModel:XML = 
+				<list>
+				  <event d="1" s="0"  e="72"  key="vacation"  calendar="0" />
+				  <event d="2" s="0"  e="72" key="vacation"     calendar="0" />
+				</list>;
+			
+			private function createDefaultModel():XMLList {
+				
+				var gCal:GregorianCalendar = new GregorianCalendar();
+				var startOfWeek:Date = gCal.floor(new Date(), TimeUnit.WEEK, 1);
+				
+				for each (var evt:XML in baseModel.children()) {
+					var dayOfWeek:int = parseInt(evt.@d);          
+					
+					var startHour:int = parseInt(evt.@s);
+					var duration:int = parseInt(evt.@e);
+					
+					var s:Date = gCal.addUnits(startOfWeek, TimeUnit.DAY, dayOfWeek);                   
+					s = gCal.addUnits(s, TimeUnit.HOUR, startHour, true);
+					
+					var e:Date = gCal.addUnits(s, TimeUnit.HOUR, duration);
+					
+					evt.@startTime = s.toString();
+					evt.@endTime = e.toString();
+					
+					evt.@summary = resourceManager.getString("plannrclient", "model.summary." + evt.@key);          
+				}
+				
+				return baseModel.children();
+			}
+			
+			private var modes:Array = [
+				Calendar.DAY_MODE,
+				Calendar.WORK_WEEK_MODE,
+				Calendar.WEEK_MODE,
+				Calendar.MONTH_MODE
+			];  
+			
+			[Bindable]  
+			private var calendars:Array = [
+				{ id: "0", label: "vacation", color:0x6B56BB}
+			];   
+		
+			[Bindable]
+			private var totalPrice:Number = 0.00;
+		
+	/*		protected function itemIndexChangeHandler(event:IndexChangeEvent):void
+			{
+				schedulerViewStack.selectedChild=overlays.selectedItem.show;
+			}*/
+			
+			private function itemColorFunction(calItem:CalendarItem):Object {
+				
+				var now:Date = new Date();
+				
+				if (calItem.endTime < now) {
+					return 0x555555;
+				} else {
+					var index:int = parseInt(calItem.calendar as String);
+					return calendars[index].color;        
+				}
+			}
+			
+			private function zoomInCalendar():void {
+				if (cal.mode != Calendar.MONTH_MODE) {                   
+					zoomInButton.enabled = cal.zoom(2, true);
+					zoomOutButton.enabled = true;                    
+				}
+			}
+			
+			private function zoomOutCalendar():void {
+				if (cal.mode != Calendar.MONTH_MODE) {          
+					zoomOutButton.enabled = cal.zoom(0.5, true);
+					zoomInButton.enabled = true;          
+				}        
+			}
+			
+			private function moveToCurrentDay():void {
+				
+				cal.date = new Date();
+				cal.mode = Calendar.DAY_MODE;                                   
+			}
+			
+			private function toggleMode(event:ItemClickEvent):void {
+				if (cal.date == null) {          
+					cal.date = cal.endDate;              
+				}
+				cal.mode = modes[event.index];
+				
+				cal.rowHeaderEnabled = cal.mode == Calendar.MONTH_MODE;
+				cal.columnHeaderEnabled = cal.mode != Calendar.MONTH_MODE;
+			}
+			
+			private function updateDisplayedTimeRangeLabel():void {
+				var e:Date = cal.calendar.addUnits(cal.endDisplayedDate, TimeUnit.DAY, 1);
+				rangeLabel.text = cal.getTimeRangeLabel(null, cal.startDisplayedDate, e);
+			}
+			
+			private function visibleTimeRangeChanged(event:CalendarEvent):void {
+				
+				updateDisplayedTimeRangeLabel();
+				
+				var buttonEnabled:Boolean = cal.mode != Calendar.MONTH_MODE;
+				zoomInButton.enabled = buttonEnabled;
+				zoomOutButton.enabled = buttonEnabled;
+				
+				toggleModeBar.selectedIndex = modes.indexOf(cal.mode);                               
+			}
+			
+		
+			private function init():void{
+				
+				cal.addEventListener(CalendarEvent.VISIBLE_TIME_RANGE_CHANGE, visibleTimeRangeChanged);
+				cal.addEventListener(CalendarEvent.ITEM_EDIT_END, itemEditEnd, false);        
+				cal.addEventListener(CalendarEvent.ITEM_EDIT_BEGIN, itemEditBegin, false);
+				cal.addEventListener(CalendarEvent.CHANGE, selectionChanged);
+				
+				toggleModeBar.dataProvider = [
+					resourceManager.getString('plannrclient', 'plannrclient.button.Day'),
+					resourceManager.getString('plannrclient', 'plannrclient.button.WorkWeek'),
+					resourceManager.getString('plannrclient', 'plannrclient.button.Week'),     
+					resourceManager.getString('plannrclient', 'plannrclient.button.Month')
+				];
+				
+				toggleModeBar.selectedIndex = 3;
+				
+				cal.mode=Calendar.MONTH_MODE;
+				cal.dataProvider = createDefaultModel();
+			}
+			
+			private function selectionChanged(event:CalendarEvent):void {
+				
+				var item:CalendarItem = null;
+				if (cal.selectedItems.length == 1) {
+					item = cal.itemToCalendarItem(cal.selectedItems[0]);
+				} 
+				
+				_calendarItem = item;
+			}  
+			
+			private var editingValues:Object;
+			private function itemEditBegin(event:CalendarEvent):void {
+				
+				/* Alert.show("itemEditBegin");
+				var calItem:CalendarItem = cal.itemToCalendarItem(event.item);
+				
+				 editingValues = {
+					oldStartTime: new Date(calItem.startTime.time),
+					oldEndTime: new Date(calItem.endTime.time)
+				};  */
+				
+			}
+			
+			
+			private function itemEditEnd(event:CalendarEvent):void {
+				/* Alert.show("itemEditEnd"); */
+				
+				if (event.reason == CalendarEventReason.COMPLETED) {
+					
+					var calItem:CalendarItem = cal.itemToCalendarItem(event.item);
+					
+					/* if (event.item is IRecurrenceInstance) {
+						
+						event.preventDefault();                      
+						
+						editingValues.kind = cal.editKind;
+						editingValues.item = event.item;
+						editingValues.newStartTime = new Date(calItem.startTime.time);
+					} */
+				}
+			}
+		]]>
+	</fx:Script>
+	<mx:HBox height="100%" width="100%">
+		<mx:VDividedBox width="100%" height="100%" label="All" id="all"  paddingLeft="10" paddingBottom="10" paddingRight="10" paddingTop="10">
+			<mx:Canvas width="100%">
+				
+				<mx:HBox left="0" bottom="0">
+					<mx:Label id="rangeLabel" fontWeight="bold" fontSize="18" />                                           
+				</mx:HBox>
+				
+				<mx:HBox id="box" right="0" bottom="0">
+					
+					<mx:Button id="zoomInButton" width="36" icon="@Embed(source='../resources/zoom.png')" click="zoomInCalendar()" />
+					<mx:Button id="zoomOutButton" width="36" icon="@Embed(source='../resources/unzoom.png')" click="zoomOutCalendar()" />
+					<mx:Box width="20" height="10" />
+					
+					<mx:Button id="prevButton" height="22" skin="ilog.skins.PreviousArrowSkin" click="cal.previousRange()"  />
+					<mx:Button id="nextButton" height="22" skin="ilog.skins.NextArrowSkin" click="cal.nextRange()"  /> 
+					<mx:Button label="@Resource(bundle='plannrclient', key='plannrclient.button.Today')" click="moveToCurrentDay()" />
+					<mx:Box width="5" height="10" />
+					
+					<mx:ToggleButtonBar id="toggleModeBar" itemClick="toggleMode(event)"/>            
+					
+				</mx:HBox>
+				
+			</mx:Canvas>    
+			<mx:HBox width="100%" height="60%">
+				<s:BorderContainer width="300" height="100%">
+					<s:layout><s:VerticalLayout paddingLeft="5" paddingTop="5" paddingBottom="5" paddingRight="5"/></s:layout>
+						<mx:DateChooser id="dc" width="100%" allowMultipleSelection="false" allowDisjointSelection="false" />
+						<mx:Form width="100%" height="100%" id="selectTeamForm">
+							<mx:FormHeading fontSize="14"  label="Select Team	" />
+							<s:DropDownList dataProvider="{ownedTeams}" labelField="name" width="250" id="cbTeam" />
+							<mx:Spacer height="30"/>
+							<mx:Text text="{_calendarItem.startTime}"/>
+						</mx:Form>
+				</s:BorderContainer>
+				<ilog:Calendar id="cal" width="100%" height="100%"                                           
+							   animationDuration="1000"                     
+							   doubleClickEnabled="true"
+							   itemColorFunction="{itemColorFunction}"                      
+							   allowMultipleSelection="false"                                                 
+							   startDisplayedTime="[8,0]"
+							   endDisplayedTime="[18,0]"
+							   showItemIndicators="true"
+							   columnHeaderEnabled="true">
+					<ilog:currentTimeIndicatorStroke >
+						<mx:SolidColorStroke alpha="0.8" color="#9C35BE" weight="2" caps="none" />
+					</ilog:currentTimeIndicatorStroke>
+					
+					<ilog:workingTimes>
+						<fx:Object rangeStart="8:00" rangeEnd="18:00"/>
+					</ilog:workingTimes>  
+					
+					<ilog:itemVerticalRenderer>
+						<fx:Component>
+							<ilog:CalendarItemVerticalRenderer/>
+						</fx:Component>
+					</ilog:itemVerticalRenderer>                       
+					
+				</ilog:Calendar>           
+			</mx:HBox>
+		</mx:VDividedBox>
+	</mx:HBox>
+</s:NavigatorContent>
