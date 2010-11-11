@@ -1,4 +1,50 @@
 \chapter{Auswertung und Fazit der verwendeten Technologien}
 \section{Scala}\label{auswertung:scala}
+Subjektiv gesehen hat man stark das Gef\"uhl, dass Funktionale Sprachen, insbesondere Sprachen auf der Java- oder Dot-Net-Plattform in letzter Zeit das Interesse der Entwicklergemeinde auf sich gezogen haben. Auch der Tiobe Index \cite{tiobe} hat diese Tendenz in den letzten Monaten best\"atigt. In wenigen Worten haben die erw\"ahnten Sprachen oft eine ``smartere'' Syntax (siehe Abschnitt ``\ref{imperativ-deklarativ} \titleref{imperativ-deklarativ}''), lassen sich im Grossen und Ganzen besser parallelisieren und k\"onnen in vielen Bereichen von bestehenden Bibliotheken und Frameworks ihrer bereits etablierten Plattformen profitieren. Man kann wohl sagen, dass sich die \"aquivalenten Problemstellungen, bis anhin implementiert in Sprachen wie Java, in Zukunft auch mit Scala umgesetzt werden k\"onnen. Trotzdem kann die Effizienz w\"ahrend der Entwicklung sich, aufgrund des massiv schlechteren Tool Supports\footnote{}, noch nicht mit dem Entwicklungsprozessen, wie sie bei Java Applikationen der Fall sind, messen. In den folgenden Abschnitten m\"ochte ich mich auf die Syntax und Ausdrucksst\"arke beziehen:
+\subsection{Typisierung}
+Zu diesem Thema scheiden sich ja bekanntlich die Geister - und ich habe nicht den Anspruch, ein Fazit pro oder kontra typisierter Sprachen zu ziehen. Bef\"urworter dynamischer Sprachen anerkennen zwar die Typsicherheit zur Kompilierzeit, kalkulieren aber den daf\"ur zu bezahlenden Preis mit schlechtem Code Smell.  Die n\"achste Tabelle soll zeigen, dass die in diesem Zusammenhang erw\"ahnten Argumente nichts mit der Typisierung zu tun haben. 
+  \begin{longtable}{|p{4cm}|p{4cm}|p{4cm}|}
+      \caption{Genannte Gr\"unde gegen typisierte Sprachen}\\
+\hline
+  \textbf{Genannte Gr\"unde} & \textbf{Auswirkung in Java} & \textbf{Scala}\\
+  \hline
+  DRY-Prinzip\footnote{Don't Repeat Yourself, ein Grundsatz f\"ur guten Code Smell} \newline repetit. Informationen& 
+  Explizite Typangabe: \newline String s = ''explizit'' & Implizite Typisierung \newline val s = ''implizit''\\
+  \hline
+  Verbosit\"at & z. Bsp. annonyme Innerklassen wie Comparator & Funktionsobjekte, Closures \\
+  \hline
+\end{longtable}
+
+\subsection{Sprachdesign und Syntax}
+Bei der Einarbeitung in Scala f\"allt einem sofort folgendes auf:
+\begin{itemize}
+\item Scala ist statisch, stark typisiert, hat hervorragende Type Inference
+\item Scala wurde von vielen Sprachen beeinflusst: Java, ML, Haskell
+\item Scala wurde von Personen entwickelt, die schon lange im Sprachdesign t\"atigt sind. Ich begr\"unde diese Aussage mit der wunderbaren Konsistenz 
+\begin{itemize}
+\item hinsichtlich Operator Overloading, respektive alles ist eine Methode.
+\item hinsichtlich der Verwendung von Collections wie List und Map. 
+\end{itemize}
+\item Scala beinhaltet grossartige Konzepte wie
+\begin{itemize}
+\item Pattern Matching.
+\item Implizit Conversions.
+\end{itemize}
+\end{itemize}
+
+\subsection{Tool Support}
+Nebst der Tatsache, dass Scala Code um L\"anger pr\"agnanter\footnote{t\"ont in Englisch besser: concise} ist als Java, wird man w\"ahrend der Entwicklung mit der Tatsache konfrontiert, dass das Tooling, die Programme die einen w\"ahrend der Entwicklung unterst\"utzen, noch lange nicht auf dem Level von Java ist: 
+\begin{itemize}
+\item der Scala Compiler ist aktuell noch nicht gen\"ugend schnell
+\item die Code-Vervollst\"andigung erkennt nur ganz einfache Zusammenh\"ange
+\end{itemize}
+
+\subsection{Verbreitung}
+Trotz der Sch\"onheit und Kosistenz dieser Sprache, bin ich sehr gespannt, wie sie sich in der nahen Zukunft auch in der Industrie festsetzen wird. Ich bin der Meinung, dass die Verbreitung von Scala ohne ein Framework im Bereich des Internets sehr schwierig sein wird. Web Frameworks k\"onnen sich nur dann verbreiten, wenn durch eine augekl\"ugelte Erweiterbarkeit ein \"Okosystem rundherum entsteht. So dass Websiten in kurzer Zeit und entsprechend kosteng\"unstig entstehen k\"onnen. Als Paradebeispiel in diesem Bereich sehe ich Rails aber auch Grails (siehe Abschnitt ``\ref{auswertung:groovy-lift} \titleref{auswertung:groovy-lift}''. 
+
+
 
 \section{Lift Framework}\label{auswertung:lift}
+
+\subsection{Vergleich von Lift mit Grails}\label{auswertung:groovy-lift}
+

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  7 NOV 2010 11:12
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  11 NOV 2010 08:18
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -237,11 +237,11 @@ Overfull \hbox (0.22519pt too wide) in paragraph at lines 19--19
 o-gram-mier-spra- 
  []
 
-[5] [6])
+[5] [6] [7])
 \tf@toc=\write3
 \openout3 = `abgabedokument_semesterarbeit.toc'.
 
- (./einleitung.tex [7] [8]) [9
+ (./einleitung.tex [8]) [9
 
 ] [10
 
@@ -377,19 +377,25 @@ Overfull \hbox (1.44164pt too wide) in paragraph at lines 457--458
 -Applikation un-ter-schei-
  []
 
-[40]) (./design.tex [41] [42
+[40] [41]
+Overfull \hbox (42.99098pt too wide) in paragraph at lines 501--502
+\OT1/cmr/m/n/10.95 Methode aus-gef[]uhrt und das Re-sul-tat vom Typ Box[Thing] 
+wird zur[]uckgegeben. 
+ []
+
+[42]) (./design.tex [43] [44
 
 ]
 Kapitel 4.
 
-LaTeX Warning: Reference `design:architektur' on page 43 undefined on input lin
+LaTeX Warning: Reference `design:architektur' on page 45 undefined on input lin
 e 2.
 
 
-LaTeX Warning: Reference `design:architektur' on page 43 undefined on input lin
+LaTeX Warning: Reference `design:architektur' on page 45 undefined on input lin
 e 2.
 
-<images/usecases.png, id=146, 468.75125pt x 561.09625pt>
+<images/usecases.png, id=153, 468.75125pt x 561.09625pt>
 File: images/usecases.png Graphic file (type png)
 
 <use images/usecases.png>
@@ -400,16 +406,16 @@ Overfull \hbox (9.88582pt too wide) in paragraph at lines 6--7
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [43]
+ [45]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [44 <./images/usecases.png (PNG copy)>]
+ [46 <./images/usecases.png (PNG copy)>]
 Overfull \hbox (15.12923pt too wide) in paragraph at lines 21--22
 \OT1/cmr/m/n/10.95 Die vom Mit-ar-bei-ter er-fass-ten Fe-ri-en k[]onnen durch d
 en Ad-mi-nis-tra-tor bez[]uglich
  []
 
-[45] [46] <images/process_registration.png, id=160, 585.18625pt x 258.9675pt>
+[47] [48] <images/process_registration.png, id=166, 585.18625pt x 258.9675pt>
 File: images/process_registration.png Graphic file (type png)
 
 <use images/process_registration.png>
@@ -420,8 +426,8 @@ Overfull \hbox (66.79134pt too wide) in paragraph at lines 71--72
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [47]
-<images/process_vacation.png, id=164, 683.55376pt x 259.97125pt>
+ [49]
+<images/process_vacation.png, id=171, 683.55376pt x 259.97125pt>
 File: images/process_vacation.png Graphic file (type png)
 
 <use images/process_vacation.png>
@@ -429,7 +435,7 @@ Overfull \hbox (66.79134pt too wide) in paragraph at lines 78--79
  [][] 
  []
 
-<images/process_team_administration.png, id=165, 584.1825pt x 550.055pt>
+<images/process_team_administration.png, id=172, 584.1825pt x 550.055pt>
 File: images/process_team_administration.png Graphic file (type png)
 
 <use images/process_team_administration.png>
@@ -440,8 +446,8 @@ Overfull \hbox (66.79134pt too wide) in paragraph at lines 86--87
 
 Underfull \vbox (badness 3769) has occurred while \output is active []
 
- [48 <./images/process_registration.png (PNG copy)> <./images/process_vacation.
-png (PNG copy)>] <images/navigation_process.png, id=169, 702.625pt x 641.39626p
+ [50 <./images/process_registration.png (PNG copy)> <./images/process_vacation.
+png (PNG copy)>] <images/navigation_process.png, id=176, 702.625pt x 641.39626p
 t>
 File: images/navigation_process.png Graphic file (type png)
 
@@ -453,15 +459,15 @@ Overfull \hbox (9.88582pt too wide) in paragraph at lines 93--94
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [49 <./images/process_team_administration.png (PNG copy)>] [50 <./images/navig
-ation_process.png (PNG copy)>] <images/erm.png, id=177, 859.21pt x 622.325pt>
+ [51 <./images/process_team_administration.png (PNG copy)>] [52 <./images/navig
+ation_process.png (PNG copy)>] <images/erm.png, id=183, 859.21pt x 622.325pt>
 File: images/erm.png Graphic file (type png)
 
 <use images/erm.png>
 
 LaTeX Warning: Float too large for page by 55.16353pt on input line 105.
 
-[51 <./images/erm.png (PNG copy)>]) (./implementation.tex [52
+[53 <./images/erm.png (PNG copy)>]) (./implementation.tex [54
 
 
 ]
@@ -472,10 +478,10 @@ Overfull \hbox (2.44536pt too wide) in paragraph at lines 5--6
 he der drei m[]oglichen
  []
 
-[53
+[55
 
-] [54] [55]
-<images/validation_registration.png, id=194, 512.91624pt x 195.73125pt>
+] [56] [57]
+<images/validation_registration.png, id=200, 512.91624pt x 195.73125pt>
 File: images/validation_registration.png Graphic file (type png)
 
 <use images/validation_registration.png>
@@ -487,12 +493,12 @@ r-wen-de die-se Constraints-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [56]
+ [58]
 Overfull \hbox (5.39929pt too wide) in paragraph at lines 80--82
 [][][][][][][][] 
  []
 
-[57 <./images/validation_registration.png (PNG copy)>] [58]
+[59 <./images/validation_registration.png (PNG copy)>] [60]
 Underfull \hbox (badness 10000) in paragraph at lines 137--137
 []|\OT1/cmr/m/n/10.95 Benutzer
  []
@@ -540,7 +546,7 @@ Overfull \hbox (18.84001pt too wide) in paragraph at lines 157--158
 ns-ter Frontend-Technologien
  []
 
-[59]
+[61]
 Overfull \hbox (27.37506pt too wide) in paragraph at lines 162--162
 [] []
  []
@@ -550,7 +556,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 162--162
 
  []
 
-[60]
+[62]
 Overfull \hbox (0.59006pt too wide) in paragraph at lines 184--185
 \OT1/cmr/m/n/10.95 hand ei-nes Bei-spie-les. Be-ans und so-mit der ap-pli-ka-ti
 -ons-wei-te Con-
@@ -592,7 +598,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 202--202
 
  []
 
-[61]
+[63]
 Overfull \hbox (7.43266pt too wide) in paragraph at lines 218--219
 \OT1/cmr/m/n/10.95 und XHTML 1.0 hat man mit Flex die M[]oglichkeit, Da-ten re-
 spek-ti-ve Zust[]ande
@@ -604,13 +610,13 @@ Overfull \hbox (0.13373pt too wide) in paragraph at lines 224--226
 thoden POST, PUT,
  []
 
-[62]
+[64]
 Overfull \hbox (109.96854pt too wide) in paragraph at lines 231--232
 \OT1/cmr/m/n/10.95 Auf Client-Seite wird das At-tri-bu-te in der ActionScript-K
 lasse ch.plannr.service.HttpServiceFactory
  []
 
-[63]
+[65]
 Overfull \hbox (47.27957pt too wide) in paragraph at lines 248--249
 \OT1/cmr/m/n/10.95 men-tie-ren ist ver-gleichs-wei-se ge-rin-ger. Man muss al-l
 er-dings auch ber[]ucksichtigen,
@@ -671,9 +677,9 @@ Overfull \hbox (45.8858pt too wide) in alignment at lines 264--277
  [] [] [] 
  []
 
-[64] [65] [66]
+[66] [67] [68]
 Kapitel 6.
-[67
+[69
 
 ]
 Overfull \hbox (6.85585pt too wide) in paragraph at lines 310--311
@@ -681,7 +687,7 @@ Overfull \hbox (6.85585pt too wide) in paragraph at lines 310--311
 e Tests ausf[]uhren. 
  []
 
-[68]
+[70]
 Overfull \hbox (27.37506pt too wide) in paragraph at lines 322--322
 [] []
  []
@@ -707,119 +713,154 @@ Overfull \hbox (0.83339pt too wide) in paragraph at lines 339--340
 er-sis-tence.xml
  []
 
-) [69] [70] [71
+) [71] [72] [73
 
-] [72] (./auswertung.tex
+] [74] (./auswertung.tex
 Kapitel 7.
-) (./analyse-basis-aufgabenstellung.tex [73
+[75
 
 ]
+Overfull \hbox (17.43306pt too wide) in alignment at lines 6--16
+ [] [] [] 
+ []
+
+
 Overfull \hbox (72.21526pt too wide) has occurred while \output is active
-\OT1/cmr/m/n/10.95 74 \OT1/cmr/m/sl/10.95 KAPITEL 7.  AUSWERTUNG UND FAZIT DER 
+\OT1/cmr/m/n/10.95 76 \OT1/cmr/m/sl/10.95 KAPITEL 7.  AUSWERTUNG UND FAZIT DER 
 VERWENDETEN TECHNOLOGIEN
  []
 
-[74
+[76]
+Overfull \hbox (1.8675pt too wide) in paragraph at lines 39--40
+[]\OT1/cmr/m/n/10.95 die Code-Vervollst[]andigung er-kennt nur ganz ein-fa-che 
+Zu-sam-menh[]ange 
+ []
+
+) (./analyse-basis-aufgabenstellung.tex [77]
+Overfull \hbox (72.21526pt too wide) has occurred while \output is active
+\OT1/cmr/m/n/10.95 78 \OT1/cmr/m/sl/10.95 KAPITEL 7.  AUSWERTUNG UND FAZIT DER 
+VERWENDETEN TECHNOLOGIEN
+ []
+
+[78
 
 ]
 Kapitel 8.
-) (./literaturverzeichnis.tex (./abgabedokument_semesterarbeit.bbl [75]
+) (./literaturverzeichnis.tex (./abgabedokument_semesterarbeit.bbl [79]
 Overfull \hbox (80.1212pt too wide) has occurred while \output is active
-\OT1/cmr/m/n/10.95 76 \OT1/cmr/m/sl/10.95 KAPITEL 8.  ANALYSE DER ARBEIT AUF DE
+\OT1/cmr/m/n/10.95 80 \OT1/cmr/m/sl/10.95 KAPITEL 8.  ANALYSE DER ARBEIT AUF DE
 R BASIS DER AUFGABENSTELLUNG
  []
 
-[76
+[80
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 16--18
 []\OT1/cmr/m/n/10.95 Integrating flex, bla-zeds, and sca-la/-lift.
  []
 
+Missing character: There is no Ž in font cmr10!
 
-Overfull \hbox (33.29994pt too wide) in paragraph at lines 45--49
+Underfull \hbox (badness 8075) in paragraph at lines 40--45
+[]\OT1/cmr/m/n/10.95 Jonas Bonr.  Real-world sca-la: De-pen-den-cy in-jec-ti-on
+ (di).
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--45
+\OT1/cmr/m/n/10.95 http://jonasboner.com/2008/10/06/real-world-scala-dependency
+-
+ []
+
+
+Overfull \hbox (33.29994pt too wide) in paragraph at lines 52--56
 []\OT1/cmr/m/n/10.95 Liftweb.  Using sbt.  http://www.assembla.com/wiki/show/li
 ftweb/Using[]SBT,
  []
 
+[81]
+Underfull \hbox (badness 10000) in paragraph at lines 73--76
+[]\OT1/cmr/m/n/10.95 TIOBE.  Tio-be soft-wa-re: Tio-be in-dex.
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--66
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--83
 []\OT1/cmr/m/n/10.95 Wikipedia.  Be-nut-zer-freund-lich-keit --- wi-ki-pe-dia.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--66
+Underfull \hbox (badness 10000) in paragraph at lines 78--83
 \OT1/cmr/m/n/10.95 http://de.wikipedia.org/w/index.php?title=Benutzerfreundlich
 keit,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 68--73
+Underfull \hbox (badness 10000) in paragraph at lines 85--90
 []\OT1/cmr/m/n/10.95 Wikipedia.  End-re-kur-si-on --- wi-ki-pe-dia.
  []
 
 
-Overfull \hbox (25.37979pt too wide) in paragraph at lines 68--73
+Overfull \hbox (25.37979pt too wide) in paragraph at lines 85--90
 \OT1/cmr/m/n/10.95 http://de.wikipedia.org/w/index.php?title=Endrekursion&oldid
 =78741723,
  []
 
-[77]
-Overfull \hbox (61.17403pt too wide) in paragraph at lines 80--84
+
+Overfull \hbox (61.17403pt too wide) in paragraph at lines 97--101
 []\OT1/cmr/m/n/10.95 Wikipedia.  Nos-ql --- wi-ki-pe-dia.  http://de.wikipedia.
 org/w/index.php?title=NoSQL,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 86--92
+Underfull \hbox (badness 10000) in paragraph at lines 103--109
 []\OT1/cmr/m/n/10.95 Wikipedia.  Re-pre-sen-ta-tio-nal state trans-fer --- wi-k
 i-pe-dia.
  []
 
 
-Overfull \hbox (29.70497pt too wide) in paragraph at lines 86--92
+Overfull \hbox (29.70497pt too wide) in paragraph at lines 103--109
 \OT1/cmr/m/n/10.95 http://de.wikipedia.org/w/index.php?title=Representational[]
 State[]Transfer,
  []
 
 
-Underfull \hbox (badness 6758) in paragraph at lines 94--97
+Underfull \hbox (badness 6758) in paragraph at lines 111--114
 []\OT1/cmr/m/n/10.95 Derek Wi-schu-sen.  In-te-gra-ting flex, bla-zeds, and sca
 -la/-lift.
  []
 
-)) [78] (./abgabedokument_semesterarbeit.lol [79
+)) [82] (./abgabedokument_semesterarbeit.lol [83
 
 ])
 \tf@lol=\write4
 \openout4 = `abgabedokument_semesterarbeit.lol'.
 
- [80]
+ [84]
 (./abgabedokument_semesterarbeit.lof)
 \tf@lof=\write5
 \openout5 = `abgabedokument_semesterarbeit.lof'.
 
- [81
+ [85
 
-] [82
+] [86
 
 ]
 (./abgabedokument_semesterarbeit.lot)
 \tf@lot=\write6
 \openout6 = `abgabedokument_semesterarbeit.lot'.
 
- [83] [84
+ [87] [88
 
-] [85] [86] (./glossary.tex
+] [89] [90] (./glossary.tex
 Anhang A.
 
 Overfull \hbox (62.33858pt too wide) in alignment at lines 2--10
  [] [] 
  []
 
-) (./journal.tex [87
+) (./journal.tex [91
 
-] [88
+] [92
 
 ]
 Anhang B.
@@ -833,7 +874,7 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 6--68
  [] [] 
  []
 
-[89]
+[93]
 Underfull \hbox (badness 10000) in paragraph at lines 81--82
 []\OT1/cmr/m/n/10.95 Initialer Com-mit ins Git Re-po-si-to-ry un-ter
  []
@@ -843,12 +884,12 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 73--97
  [] [] 
  []
 
-[90]
+[94]
 Overfull \hbox (62.33858pt too wide) in alignment at lines 102--111
  [] [] 
  []
 
-) [91] (./abgabedokument_semesterarbeit.aux)
+) [95] (./abgabedokument_semesterarbeit.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -857,10 +898,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4279 strings out of 493848
- 63220 string characters out of 3149207
+ 4304 strings out of 493848
+ 63566 string characters out of 3149207
  164327 words of memory out of 3000000
- 7471 multiletter control sequences out of 15000+200000
+ 7496 multiletter control sequences out of 15000+200000
  11971 words of font info for 43 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  36i,11n,42p,1386b,1686s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -876,9 +917,9 @@ cal/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local
 /texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on abgabedokument_semesterarbeit.pdf (91 pages, 651722 bytes).
+Output written on abgabedokument_semesterarbeit.pdf (95 pages, 662967 bytes).
 PDF statistics:
- 350 PDF objects out of 1000 (max. 8388607)
+ 362 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

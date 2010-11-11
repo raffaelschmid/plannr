@@ -19,14 +19,15 @@
 \contentsline {lstlisting}{\numberline {3.19}Relation Mapping mit JPA}{38}
 \contentsline {lstlisting}{\numberline {3.20}Konfigurationsschema von .properties-Dateien im Lift Framework}{40}
 \contentsline {lstlisting}{\numberline {3.21}\"Uberschreibung der Locale-Berechnung}{41}
-\contentsline {lstlisting}{\numberline {5.1}User: ScalaJPA Entity Definiton}{55}
-\contentsline {lstlisting}{\numberline {5.2}User: ScalaJPA Id mit Auto-Increment}{55}
-\contentsline {lstlisting}{\numberline {5.3}User: ScalaJPA firstname Mapping}{55}
-\contentsline {lstlisting}{\numberline {5.4}Validation innerhalb der Klasse Persistence}{57}
-\contentsline {lstlisting}{\numberline {5.5}Implementation Funktionalit\"at Passwort-Reset}{58}
-\contentsline {lstlisting}{\numberline {5.6}Event-Deklaration mit dem Mate Framework}{60}
-\contentsline {lstlisting}{\numberline {5.7}Swiz: Bean Deklaration}{61}
-\contentsline {lstlisting}{\numberline {5.8}Swiz: Bean Injection}{61}
-\contentsline {lstlisting}{\numberline {5.9}Swiz: Event Observer}{61}
-\contentsline {lstlisting}{\numberline {6.1}Konfiguration Maven mit Stax}{69}
-\contentsline {lstlisting}{\numberline {6.2}Befehl Deployment Stax}{69}
+\contentsline {lstlisting}{\numberline {3.22}Dependency Injection mit dem Lift Framework - ein Beispiel}{42}
+\contentsline {lstlisting}{\numberline {5.1}User: ScalaJPA Entity Definiton}{57}
+\contentsline {lstlisting}{\numberline {5.2}User: ScalaJPA Id mit Auto-Increment}{57}
+\contentsline {lstlisting}{\numberline {5.3}User: ScalaJPA firstname Mapping}{57}
+\contentsline {lstlisting}{\numberline {5.4}Validation innerhalb der Klasse Persistence}{59}
+\contentsline {lstlisting}{\numberline {5.5}Implementation Funktionalit\"at Passwort-Reset}{60}
+\contentsline {lstlisting}{\numberline {5.6}Event-Deklaration mit dem Mate Framework}{62}
+\contentsline {lstlisting}{\numberline {5.7}Swiz: Bean Deklaration}{63}
+\contentsline {lstlisting}{\numberline {5.8}Swiz: Bean Injection}{63}
+\contentsline {lstlisting}{\numberline {5.9}Swiz: Event Observer}{63}
+\contentsline {lstlisting}{\numberline {6.1}Konfiguration Maven mit Stax}{71}
+\contentsline {lstlisting}{\numberline {6.2}Befehl Deployment Stax}{71}

@@ -36,6 +36,13 @@ Stax.
 Swiz framework for adobe flex.
 \newblock http://swizframework.org.
 
+\bibitem{bonerCakePattern}
+Jonas Bonér.
+\newblock Real-world scala: Dependency injection (di).
+\newblock
+  http://jonasboner.com/2008/10/06/real-world-scala-dependency-injection-di.ht%
+ml.
+
 \bibitem{chen2009lift}
 D.~Chen-Becker, M.~Danciu, and T.~Weir.
 \newblock {\em {The Definitive Guide to Lift}}.
@@ -47,6 +54,11 @@ Liftweb.
 \newblock http://www.assembla.com/wiki/show/liftweb/Using\_SBT, 2010.
 \newblock [Online; Stand 10. Oktober 2010].
 
+\bibitem{oderskyCakePattern}
+Matthias~Zenger Martin~Odersky.
+\newblock Scalable component abstractions.
+\newblock http://lamp.epfl.ch/~odersky/papers/ScalableComponent.pdf.
+
 \bibitem{odersky2008programming}
 M.~Odersky, L.~Spoon, and B.~Venners.
 \newblock {\em {Programming in Scala}}.
@@ -56,6 +68,11 @@ M.~Odersky, L.~Spoon, and B.~Venners.
 Lothar Piepmeyer.
 \newblock {\em Grundkurs funktionale Programmierung mit Scala}.
 \newblock Hanser Fachbuchverlag, 6 2010.
+
+\bibitem{tiobe}
+TIOBE.
+\newblock Tiobe software: Tiobe index.
+\newblock http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html.
 
 \bibitem{wiki:usability}
 Wikipedia.

@@ -1,4 +1,4 @@
-\chapter{Grundlagen}
+\chapter{Grundlagen}\label{grundlagen}
 Zu Beginn dieser Semesterarbeit stand die Einarbeitung in Scala und das Lift Framework auf dem Programm. Im ersten Teil dieses Abschnitts beschreibe ich grundlegende Paradigmen und Eigenschaften, die zum Vergleich und zur Klassifizierung von Programmiersprachen wesentlich sind.  Im wesentlichen geht es dabei um Kriterien wie Typisierung und Fragen wie Imperative versus Deklarative / Funktionale Programmierungs.  Im zweiten Teil beschreibe ich Eigenschaften der Sprache Scala, insbesondere diese Kriterien machen die Affinit\"at vieler Entwickler zu dieser Sprache  fassbar und sollen darstellen, dass die Beliebtheit von Sprachen wie Java\footnote{Ich meine hier nur die Sprache Java, nicht aber die ganze Plattform} in\"achster Zeit r\"uckl\"aufig sein wird. Trotz meiner m\"assigen Begeisterung \"uber das Lift Framework (siehe Abschnitt \ref{auswertung:lift} \titleref{auswertung:lift}) m\"ochte ich im zweiten Teil vorallem die mir positiv aufgefallenen Bereiche aufzeigen. Bereiche die ich aus anderen Frameworks nicht kenne und welchen 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -7,7 +7,7 @@ Zu Beginn dieser Semesterarbeit stand die Einarbeitung in Scala und das Lift Fra
 \section{Begriffserkl\"arungen zur Klassifizierung von Programmiersprachen}
  \subsection{Funktionale Programmierung}
 Um das Prinzip der Funktionalen Programmierung zu verstehen hier ein kurzer Vergleich zwischen imperativer und deklarativer Programmierung.
-\subsubsection{Imperativ vs. Deklarativ}
+\subsubsection{Imperativ vs. Deklarativ}\label{imperativ-deklarativ}
 Im Gegensatz zu den Imperativen\footnote{der Begriff Imperativ bezeichnet die Befehlsform (lat: imperare=Befehlen)} Sprachen wird der ''Computer'' angewiesen, wie er ein bestimmtes Resultat berechnen muss. Die Deklarativen Sprachen hingegen erm\"oglichen eine Trennung zwischen Arbeits- und Steuerungsalgorithmus. Wir formulieren, was wir haben wollen, und m\"ussen dazu nicht wissen, wie es im Hintergrund ''erarbeitet'' wird.
 
 Als gutes Beispiel f\"ur eine deklarative Sprache ist SQL, die Structured Query Language zur Abfrage von Daten einer Datenbank, und ist deshalb ein gutes Beispiel f\"ur eine Sprache die unserem Denken entspricht. 
@@ -471,8 +471,37 @@ LiftRules.localeCalculator = localeCalc _
 
 Dieser Issue w\"urde bespielsweise bestehen, wenn man trotz der eingestellten Browsersprache initial die Deutsche Sprache laden m\"ochte.
 
-\subsection{Fazit}
+\subsection{Dependency Injection mit dem Lift Framework}
+Dreh- und Angelpunkt des guten Designs von Applikationen ist heutzutage oft die Art und Weise, wie Abh\"angigkeiten zwischen Komponenten, insbesondere Objekten, aufgel\"ost werden. In den letzten Jahren haben sich auch deshalb Dependency Injection (DI) Frameworks (Spring, Guice, Weld) und seit 2009 nun auch Standards (JSR 330, JSR299) etabliert, welche zur Laufzeit die Abh\"angigkeiten aufl\"osen. Die dadurch entstehenden Architekturen zeichnen sich durch eine gute Erweiterbarkeit (die Abstraktion der verschiedenen Abh\"angigkeiten durch Beispielsweise Interfaces l\"asst einzelne Komponenten einfach austauschen) und gerade deshalb durch eine gute Testbarkeit (Unit-Testing) aus. Die Scala und Lift-Community zeichnet sich m.E. eben auch dadurch aus, dass sie oft neue Wege beschreiten und l\"ost mit dem Cake-Pattern\cite{bonerCakePattern}\cite{oderskyCakePattern} diese Anforderung mit Sprachinternen Mitteln. Im Bereich des Lift Frameworks gibt es zus\"atzlich den Trait SimpleInjector, mittels welchem sich so einfache DI-Mechanismen applikationsweit erstellen lassen. Dazu ein kleines Beispiel:
 
+\begin{lstlisting}[caption=Dependency Injection mit dem Lift Framework - ein Beispiel]
+import net.liftweb.common.Box
+import net.liftweb.util.SimpleInjector
+
+abstract class Thing
+class TestThing extends Thing
+class ProdThing extends Thing
+object Injection extends SimpleInjector
+trait Unboxing{
+  implicit def unboxing[T](input:Box[T]):T = input.open_!
+}
+
+object Test extends Application with Unboxing{
+  Injection.registerInjection[Thing]{()=>
+    new TestThing
+  }
+
+  val myThing1:Thing = Injection.inject[Thing]
+  println(myThing1.getClass.getName)
+}\end{lstlisting}
+In diesem Beispiel gibt es zwei Implementation (TestThing und ProdThing) der Klasse Thing. Das Objekt Test ist Startpunkt der Applikation. Java-Entwickler suchen in diesem Beispiel vergeblich nach der main-Methode, weil diese sich im Trait Application befindet. Der Ablauf  funktioniert folgendermassen:
+\begin{enumerate}
+\item Die main-Methode innerhalb Application instanziert das Objekt Test.
+\item Der Konstruktor wird aufgerufen, Konstruktor ist in diesem Fall alles was sich zwischen den beiden geschweiften Klammern von Test befindet. Injection, ein Objekt vom Typ SimpleInjector, wird konfiguriert und speichert sich die Factory-Methoden intern in einer Map.
+\item Mittels Injection.inject[Thing] wird die eben konfigurierte Factory-Methode ausgef\"uhrt und das Resultat vom Typ Box[Thing] wird zur\"uckgegeben.
+\item Mittels der impliziten Konversion im Typ Unboxing wird der Typ automatisch ausgepackt und der Variablen zugewiesen.
+\item Ausgabe: TestThing
+\end{enumerate}
 
 \section{Stax Cloud Plattform}
 Die Stax Cloud Plattform\cite{Stax} bietet die M\"oglichkeit, Applikationen, die bevorzugt Maven und Ant als Build-Instrumente verwenden, auf die Amazon EC2 Plattform zu deployen. Die Verwendung der Stax Test Cloud ist gratis und kann zu einem beliebigen Zeitpunkt auf die Premium Java Cloude aufger\"ustet werden. Bei der Premium Cloud bezahlt man anhand benutzer Bandbreite und gr\"osse der CPU Instanz.
