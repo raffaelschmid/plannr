@@ -8,7 +8,11 @@ import ch.plannr.model.User
  * 
  * TODO
  */
-object SearchService extends Loggable {
+abstract class SearchService{
+  def fullTextUserSearch(term:String):List[User]
+}
+
+object SearchServiceImpl extends SearchService with Loggable {
   def fullTextUserSearch(term:String):List[User]={
     User.findFullTextLike(term)  
   }

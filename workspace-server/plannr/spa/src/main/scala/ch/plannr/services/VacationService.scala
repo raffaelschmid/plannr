@@ -7,11 +7,12 @@ import ch.plannr.model.Vacation
  *
  * TODO
  */
-object VacationService {
+abstract class VacationService{
+  def save(vacation: Vacation): Vacation
+
+}
+object VacationServiceImpl extends VacationService {
   def save(vacation: Vacation): Vacation = {
     vacation.persist
-    //TODO send email 
-
-    vacation
   }
 }

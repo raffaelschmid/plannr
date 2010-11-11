@@ -45,24 +45,7 @@ object SingletonServer {
   }
 
   def shutdown = {
-    server.stop
-    server.join
-
-
-    //    initialized = false
-    //    if (initialized) {
-    //      println("shutting down server")
-    //
-    //      try {
-    //        server.stop
-    //        server.join
-    //      }
-    //      catch {
-    //        case exc: Exception => {}
-    //      }
-    //      finally {
-    //        initialized = false
-    //      }
-    //    }
+      server.stop
+      server.join
   }
 }

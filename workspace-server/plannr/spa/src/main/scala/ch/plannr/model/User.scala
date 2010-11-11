@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.{NotEmpty, Email}
 import xml.NodeSeq
 import javax.validation.constraints.{NotNull, Size}
 import util.Random
-import common.{Conversion, FullEquality}
+import common.{Conversion}
 import common.persistence.{MetaDomain, Domain, Persistent}
 import net.liftweb.common.Full
 import reflect.BeanProperty
@@ -179,7 +179,7 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
 
   override def toString = "User [ id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", activationSalt=" + activationSalt + ", street1=" + address.street1 + "]"
 }
-object User extends User with MetaDomain[User] with MetaMegaBasicUser[User] with FullEquality with Conversion {
+object User extends User with MetaDomain[User] with MetaMegaBasicUser[User] with Conversion {
   def apply() = new User
 
   private var rand = new Random()

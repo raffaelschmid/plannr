@@ -4,11 +4,12 @@ import net.liftweb.http.rest.RestHelper
 import ch.plannr.common.webservice.RESTSupport
 import ch.plannr.model.{Team, User, Vacation}
 import scala.collection.JavaConversions._
-import ch.plannr.services.VacationService
 import xml.Node
 import net.liftweb.http._
 import javax.validation.{ConstraintViolation, ConstraintViolationException}
 import ch.plannr.common.Conversion
+import ch.plannr.common.di.Context
+import ch.plannr.services.{SecurityService, VacationService, VacationServiceImpl}
 
 /**
  * User: Raffael Schmid
@@ -16,8 +17,13 @@ import ch.plannr.common.Conversion
  * TODO
  */
 object VacationWebservice extends RestHelper with RESTSupport with Conversion {
+
+  val vacationService = Context.inject_![VacationService]
+
+  val securityService = Context.inject_![SecurityService]
+
   serve {
-    //PUT: /webservices/vacation
+    //DELETE: /webservices/vacation
     case r@Req("webservices" :: "vacation" :: vacationId, _, DeleteRequest) => {
       try {
         val vacation = Vacation.findById(vacationId.head.toLong)
@@ -52,11 +58,11 @@ object VacationWebservice extends RestHelper with RESTSupport with Conversion {
         }
       }
     }
-    //POST: /webservices/vacation/add
+    //GET: /webservices/vacation/add
     case r@Req("webservices" :: "vacation" :: _, _, GetRequest) => {
       try {
-        if (User.currentUser.isDefined) {
-          val ownerId = User.currentUser.open_!.id
+        if (securityService.isUserLoggedIn) {
+          val ownerId = securityService.currentUser.id
           val user = User.findById(ownerId).open_!
           val list: List[Vacation] = user.vacations
           val retVal = list2VacationXml(list.toArray: _*)
@@ -69,12 +75,12 @@ object VacationWebservice extends RestHelper with RESTSupport with Conversion {
 
     }
 
-    // /webservices/vacation/add
+    //POST /webservices/vacation/add
     case r@Req("webservices" :: "vacation" :: "add" :: _, _, PostRequest) => {
 
       try {
-        if (User.currentUser.isDefined) {
-          val userId = User.currentUser.open_!.id
+        if (securityService.isUserLoggedIn) {
+          val userId = securityService.currentUser.id
 
           val teamId = S.param("teamId").open_!.toLong
           val user = User.findById(userId).open_!
@@ -85,8 +91,10 @@ object VacationWebservice extends RestHelper with RESTSupport with Conversion {
           val vacation = Vacation.fromXml(r.xml.open_!)
           vacation.team = team
           vacation.user = user
-
-          VacationService.save(vacation)
+          println("----------------------")
+          println(vacation.validate)
+          println("----------------------")
+          vacationService.save(vacation)
 
           vacation.toXml
 

@@ -16,12 +16,14 @@ import ch.plannr.common.Conversion
 class TeamWebserviceSpec extends Specification with IntegrationTestPhase with TeamTestdata with Conversion {
   "POST to /webservices/team" should {
     "return error -> invalid team" in {
-
       val response: TestResponse = post("/webservices/team?ownerId=1", invalidTeam.toXml)
       response.!(200, "http response code must be 200")
 
       val xml = response.xml.open_!
+      println(xml)
       val violations: NodeSeq = (xml \\ "response" \\ "violations" \\ "violation")
+      println("********************************************************************************************************************************************************************************************************")
+      println((violations(0) \ "@property").text.trim)
       (violations(0) \ "@property").text.trim must beEqual("name")
     }
     "save valid instance and update afterwards" in {
@@ -57,38 +59,6 @@ class TeamWebserviceSpec extends Specification with IntegrationTestPhase with Te
       val teams = get("/webservices/team=ownerId=1").xml.open_!
       teams.size must beEqual(1)
     }
-    "add member to team, check, and delete afterwards" in {
-      val userA = new User()
-      userA.id=1
-//      userA.firstname = "a" * 10
-//      userA.lastname = "a" * 10
-//      userA.email = "aa@aaa.aa"
-//      userA.password = "a" * 10
-
-      val userB = new User()
-      userB.id=2
-//      userB.firstname = "b" * 10
-//      userB.lastname = "b" * 10
-//      userB.email = "bb@bbb.bb"
-//      userB.password = "b" * 10
-
-
-      val addResponse: TestResponse = post("/webservices/team/member?teamId=1", listOfUsersToNode(List(userA, userB)))
-      val users: List[User] = addResponse.xml.open_!
-      val sortedUsers = users.sortBy(it=>it.id)
-      sortedUsers(0).firstname must beEqual("Raffael")
-      sortedUsers(1).firstname must beEqual("Flavor")
-      
-      sortedUsers.size must beEqual(2)
-
-
-
-      val delResponse: TestResponse = delete("/webservices/team/member/" + users(1).id + "?teamId=1")
-      val usersAfterDelete: List[User] = delResponse.xml.open_!
-      (usersAfterDelete.size) must beEqual(1)
-
-    }
-
   }
 
   implicit def node2ListOfTeams(xml: NodeSeq): List[Team] = {

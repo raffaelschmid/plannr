@@ -26,16 +26,17 @@ import net.liftweb.common.{Box, Full}
 import javax.mail.{Authenticator, PasswordAuthentication}
 import ch.plannr.common.mail.Mail
 import net.liftweb.util.{Props, Mailer}
+import bootstrap.config.Beans
 
 /**
  * A class that's instantiated early and run.  It allows the application
  * to modify lift's environment
  */
 
-class Boot{
-
+class Boot {
   def boot {
 
+    Beans.init
     Mail.configure
     LiftRules.resourceNames = "messages" :: LiftRules.resourceNames
 
@@ -45,40 +46,37 @@ class Boot{
       case Req("webservices" :: "login" :: _, _, _) => Full(AuthRole("admin"))
     }
 
-    println(System.getProperty("mail.smtp.host"))
+    val entries = Menu(Loc("Home", List("index"), "Home")) :: Menu(Loc("Manager", List("manager"), "Manager", If(User.loggedIn_? _, S.??("must.be.logged.in")))) :: User.sitemap
 
-  val entries = Menu(Loc("Home", List("index"), "Home")) :: Menu(Loc("Manager", List("manager"), "Manager",If(User.loggedIn_? _, S.??("must.be.logged.in")))) :: User.sitemap
-
-  LiftRules.setSiteMap(SiteMap(entries: _*))
+    LiftRules.setSiteMap(SiteMap(entries: _*))
 
 
-  //    LiftRules.authentication = HttpBasicAuthentication("plannr")
-  //              {
-  //      case (email, password, req) => {
-  //        try {
-  //          val user = User.login(email, password)
-  //          userRoles(AuthRole("admin"))
-  //          true
-  //        }
-  //        catch {
-  //          case se: SecurityException => {
-  //            false
-  //          }
-  //          case _ => false
-  //        }
-  //      }
-  //    }
+    //    LiftRules.authentication = HttpBasicAuthentication("plannr")
+    //              {
+    //      case (email, password, req) => {
+    //        try {
+    //          val user = User.login(email, password)
+    //          userRoles(AuthRole("admin"))
+    //          true
+    //        }
+    //        catch {
+    //          case se: SecurityException => {
+    //            false
+    //          }
+    //          case _ => false
+    //        }
+    //      }
+    //    }
 
-  LiftRules.loggedInTest = Full(() => User.loggedIn_?)
+    LiftRules.loggedInTest = Full(() => User.loggedIn_?)
 
-  LiftRules.dispatch.append(UserWebservice)
-  LiftRules.dispatch.append(TeamWebservice)
-  LiftRules.dispatch.append(VacationWebservice)
-  LiftRules.dispatch.append(SearchWebservice)
+    LiftRules.dispatch.append(TeamWebservice)
+    LiftRules.dispatch.append(VacationWebservice)
+    LiftRules.dispatch.append(SearchWebservice)
 
 
-  S.addAround(new TransactionalLoanWrapper())
+    S.addAround(new TransactionalLoanWrapper())
 
-}
+  }
 }
 

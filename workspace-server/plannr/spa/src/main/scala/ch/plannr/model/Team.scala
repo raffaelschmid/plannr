@@ -2,7 +2,7 @@ package ch.plannr.model
 
 import javax.validation.constraints.{Size, NotNull}
 import javax.persistence._
-import ch.plannr.common.{Conversion, FullEquality}
+import ch.plannr.common.{Conversion}
 import ch.plannr.common.persistence.{DBModel, Persistent, Domain}
 import net.liftweb.common.Box
 import scala.collection.JavaConversions._
@@ -68,7 +68,7 @@ class Team extends Domain with Persistent[Team] {
   override def toString = "Team [ id=" + id + ", name=" + name + ", description=" + description + "]"
 }
 
-object Team extends Team with FullEquality with Conversion {
+object Team extends Team with Conversion {
   def apply(name: String, description: String): Team = {
     val retVal = new Team
     retVal.name = name

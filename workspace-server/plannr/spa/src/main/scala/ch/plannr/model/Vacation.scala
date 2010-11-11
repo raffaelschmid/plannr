@@ -7,6 +7,7 @@ import ch.plannr.common.Conversion
 import xml.NodeSeq
 import net.liftweb.common.Box
 import ch.plannr.common.persistence.{DBModel, MetaDomain, Domain, Persistent}
+import reflect.BeanProperty
 
 /**
  * User: Raffael Schmid
@@ -23,30 +24,37 @@ class Vacation extends Domain with Persistent[Vacation] with Conversion {
 
   @Column(name = "TITLE", nullable = false)
   @NotNull
+  @BeanProperty
   var title: String = _
 
   @Column(name = "DESCRIPTION")
+  @BeanProperty
   var description: String = _
 
   @ManyToOne
   @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+  @BeanProperty
   var user: User = _
 
   @ManyToOne
   @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID")
+  @BeanProperty
   var team: Team = _
 
   @Temporal(TemporalType.DATE)
   @Column(name = "FROM_DATE", nullable = false)
   @NotNull
+  @BeanProperty
   var from: Date = _
 
   @Temporal(TemporalType.DATE)
   @Column(name = "TO_DATE", nullable = false)
   @NotNull
+  @BeanProperty
   var to: Date = _
 
   @OneToMany(mappedBy = "vacation")
+  @BeanProperty
   var ownerOf: _root_.java.util.Set[Comment] = new _root_.java.util.HashSet[Comment]
 
   override def toXml =

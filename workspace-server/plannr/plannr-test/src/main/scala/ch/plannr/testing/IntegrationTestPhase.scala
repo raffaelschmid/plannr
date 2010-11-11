@@ -13,24 +13,19 @@ import net.liftweb.http.testing.{ReportFailure, TestKit}
  * To change this template use File | Settings | File Templates.
  */
 
-trait IntegrationTestPhase extends Specification with TestKit {
+trait IntegrationTestPhase extends Specification with TestKit with BeforeAfter {
   def port = 9999
 
   def url = "localhost"
 
   def baseUrl = "http://" + url + ":" + port
 
+  doBeforeSpec({
+    System.setProperty("run.mode", "test")
+    SingletonServer.startup
+  }
+    )
 
-  //  implicit def responseType2Node(response: ResponseType): Node = response.xml match {
-  //    case x: Failure => <error>
-  //      {x.msg}
-  //    </error>
-  //    case x@Full(m) => x.open_!
-  //    case _ => <error>undefined</error>
-  //  }
-
-  //  val server = new SingletonServer
-  doBeforeSpec(SingletonServer.startup)
   doAfterSpec(SingletonServer.shutdown)
 
   implicit val reportError = new ReportFailure {

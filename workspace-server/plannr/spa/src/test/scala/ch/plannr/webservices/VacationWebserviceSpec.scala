@@ -21,6 +21,7 @@ class VacationWebserviceSpec extends Specification with IntegrationTestPhase wit
       response.!(200, "http response code must be 200")
 
       val vacation = Vacation.fromXml(response.xml.open_!)
+      println(vacation)
       vacation.id must beEqual(1)
       vacation.title must beEqual(vacation01.title)
       vacation.description must beEqual(vacation01.description)

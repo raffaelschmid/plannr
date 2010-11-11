@@ -6,16 +6,21 @@ import net.liftweb.http.{S, GetRequest, Req}
 import ch.plannr.common.webservice.RESTSupport
 import ch.plannr.common.Conversion
 import xml.Node
-import ch.plannr.services.SearchService
+import ch.plannr.services.{SearchService}
+import ch.plannr.common.di.Context
 
 object SearchWebservice extends RestHelper with RESTSupport with Conversion {
+
+
+  val searchService = Context.inject_![SearchService]
+
   serve {
     // /webservices/search/user?term=raffael
     case r@Req("webservices" :: "search" :: "user" :: _, _, GetRequest) => {
       val term = S.param("term")
       if(term.isDefined){
         try{
-          val users = SearchService.fullTextUserSearch(term.open_!)
+          val users = searchService.fullTextUserSearch(term.open_!)
           xmlSuccess(list2UsersXml(users: _*))
         }
         catch{

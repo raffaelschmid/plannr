@@ -11,8 +11,16 @@ import net.liftweb.common.Loggable
  *
  * TODO
  */
-object TeamService extends MailSupport with Loggable {
+abstract class TeamService{
+    def addTeamToOwner(newTeam: Team, ownerId: Long): Team
+    def delete(team: Team)
+    def update(newValues: Team): Team
+    def addUsersToTeam(teamId: Long, users: List[User]): List[User]
+    def deleteUserFromTeam(teamId: Long, memberId: Long): List[User]
+}
 
+
+object TeamServiceImpl extends TeamService with MailSupport with Loggable {
 
   /**
    * update of data
