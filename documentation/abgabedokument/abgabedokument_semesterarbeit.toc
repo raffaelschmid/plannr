@@ -48,8 +48,8 @@
 \contentsline {subsubsection}{Relationale Datenbanken}{37}
 \contentsline {subsubsection}{NoSql-Datenbanken}{39}
 \contentsline {subsection}{\numberline {3.3.7}Konfiguration}{39}
-\contentsline {subsection}{\numberline {3.3.8}Internationalisierung}{41}
-\contentsline {subsection}{\numberline {3.3.9}Dependency Injection mit dem Lift Framework}{41}
+\contentsline {subsection}{\numberline {3.3.8}Dependency Injection mit dem Lift Framework}{41}
+\contentsline {subsection}{\numberline {3.3.9}Internationalisierung}{42}
 \contentsline {section}{\numberline {3.4}Stax Cloud Plattform}{43}
 \contentsline {chapter}{\numberline {4}Design und Konzeption}{45}
 \contentsline {section}{\numberline {4.1}Use Cases Beschreibung}{46}
@@ -119,12 +119,10 @@
 \contentsline {subsection}{\numberline {7.2.1}Vergleich von Lift mit Grails}{77}
 \contentsline {chapter}{\numberline {8}Analyse der Arbeit auf der Basis der Aufgabenstellung}{79}
 \contentsline {section}{\numberline {8.1}Zielerreichung}{79}
-\contentsline {subsection}{\numberline {8.1.1}Entwicklung und Deployment}{79}
+\contentsline {subsection}{\numberline {8.1.1}Prototyp}{79}
+\contentsline {subsubsection}{Entwicklung}{79}
+\contentsline {subsubsection}{Deployment}{79}
 \contentsline {section}{\numberline {8.2}Optionale Ziele}{79}
-\contentsline {subsection}{\numberline {8.2.1}Performance Tests}{79}
-\contentsline {subsection}{\numberline {8.2.2}Internationalisierung}{79}
-\contentsline {subsection}{\numberline {8.2.3}Search Engine Optimization}{79}
-\contentsline {subsection}{\numberline {8.2.4}Usability}{79}
 \contentsline {part}{IV\hspace {1em}Anhang}{89}
 \contentsline {chapter}{\numberline {A}Glossar}{91}
 \contentsline {chapter}{\numberline {B}Journal}{93}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  11 NOV 2010 08:18
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  11 NOV 2010 08:46
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -371,16 +371,16 @@ Overfull \hbox (39.24965pt too wide) in paragraph at lines 413--415
 und Dokumentenorientierte-
  []
 
-[39]
-Overfull \hbox (1.44164pt too wide) in paragraph at lines 457--458
-\OT1/cmr/m/n/10.95 Die M[]oglichkeiten zur In-ter-na-tio-na-li-sie-rung von Web
--Applikation un-ter-schei-
- []
-
-[40] [41]
-Overfull \hbox (42.99098pt too wide) in paragraph at lines 501--502
+[39] [40] [41]
+Overfull \hbox (42.99098pt too wide) in paragraph at lines 483--484
 \OT1/cmr/m/n/10.95 Methode aus-gef[]uhrt und das Re-sul-tat vom Typ Box[Thing] 
 wird zur[]uckgegeben. 
+ []
+
+
+Overfull \hbox (1.44164pt too wide) in paragraph at lines 489--490
+\OT1/cmr/m/n/10.95 Die M[]oglichkeiten zur In-ter-na-tio-na-li-sie-rung von Web
+-Applikation un-ter-schei-
  []
 
 [42]) (./design.tex [43] [44
@@ -746,15 +746,19 @@ VERWENDETEN TECHNOLOGIEN
 
 ]
 Kapitel 8.
-) (./literaturverzeichnis.tex (./abgabedokument_semesterarbeit.bbl [79]
+[79]
+Overfull \hbox (0.95605pt too wide) in paragraph at lines 19--20
+[]\OT1/cmr/bx/n/10.95 Usability:  \OT1/cmr/m/n/10.95 Auch hier geht es m.E. in 
+ers-ter Li-nie um nicht Framework-
+ []
+
+) (./literaturverzeichnis.tex (./abgabedokument_semesterarbeit.bbl
 Overfull \hbox (80.1212pt too wide) has occurred while \output is active
 \OT1/cmr/m/n/10.95 80 \OT1/cmr/m/sl/10.95 KAPITEL 8.  ANALYSE DER ARBEIT AUF DE
 R BASIS DER AUFGABENSTELLUNG
  []
 
-[80
-
-]
+[80]
 Underfull \hbox (badness 10000) in paragraph at lines 16--18
 []\OT1/cmr/m/n/10.95 Integrating flex, bla-zeds, and sca-la/-lift.
  []
@@ -778,7 +782,9 @@ Overfull \hbox (33.29994pt too wide) in paragraph at lines 52--56
 ftweb/Using[]SBT,
  []
 
-[81]
+[81
+
+]
 Underfull \hbox (badness 10000) in paragraph at lines 73--76
 []\OT1/cmr/m/n/10.95 TIOBE.  Tio-be soft-wa-re: Tio-be in-dex.
  []
@@ -898,10 +904,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4304 strings out of 493848
- 63566 string characters out of 3149207
+ 4305 strings out of 493848
+ 63594 string characters out of 3149207
  164327 words of memory out of 3000000
- 7496 multiletter control sequences out of 15000+200000
+ 7497 multiletter control sequences out of 15000+200000
  11971 words of font info for 43 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  36i,11n,42p,1386b,1686s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -917,7 +923,7 @@ cal/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local
 /texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on abgabedokument_semesterarbeit.pdf (95 pages, 662967 bytes).
+Output written on abgabedokument_semesterarbeit.pdf (95 pages, 664117 bytes).
 PDF statistics:
  362 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

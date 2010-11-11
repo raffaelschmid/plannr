@@ -453,26 +453,8 @@ Innerhalb der Applikation kann man dann mit dem folgenden Befehl eine Eigenschaf
 
 Props.get(''key'') liefert als erstes eine Box\footnote{Box ist ein in Scala oft verwendetes Pattern um st\"andigen Not-Null-Tests aus dem Weg zu gehen. Im Fall dass die Box leer ist  (z.Bsp. das Property wurde nirgends konfiguriert) wird beim \"offnen mittels der Methode open\_! eine Exception geworfen. openOr \"ubernimmt ein Argument und verwendet dies - ohne eine Exception zu werfen, als Default-Wert.}
 
-\subsection{Internationalisierung}
-Die M\"oglichkeiten zur Internationalisierung von Web-Applikation unterscheiden sich im Wesentlichen nicht von den M\"oglichkeiten anderer Applikationen und basieren ebenfalls auf java.util.Locale, die wir aus der Java-Entwicklung bereits kennen. 
-
-Ressourcen werden in sogenannten Properties Dateien (Resource Bundles) im Klassenpfad abgelegt und erhalten Key-Value-Pairs. Das jeweilige Bundle wird anhand der berechneten Locale geladen. 
-Es gibt wie bereits unter \ref{grundlagen:templates} \titleref{grundlagen:templates} beschrieben die M\"oglichkeit, unterschiedliche Templates zu definieren, welche beim rendern der Seite Locale-abh\"angig ausgew\"ahlt werden.
-
-Eine Methode mit der folgende Signatur k\"onnte im Bootstrap konfiguriert werden, um die Berechnung der Locale wie sie per default durchgef\"uhrt wird, zu \"uberschreiben:
-
-\begin{lstlisting}[caption=\"Uberschreibung der Locale-Berechnung]
-def localeCal(request : Box[HTTPRequest]): Locale = {...}
-
-//Konfiguration im Boot.scala
-LiftRules.localeCalculator = localeCalc _
-\end{lstlisting}
-
-
-Dieser Issue w\"urde bespielsweise bestehen, wenn man trotz der eingestellten Browsersprache initial die Deutsche Sprache laden m\"ochte.
-
 \subsection{Dependency Injection mit dem Lift Framework}
-Dreh- und Angelpunkt des guten Designs von Applikationen ist heutzutage oft die Art und Weise, wie Abh\"angigkeiten zwischen Komponenten, insbesondere Objekten, aufgel\"ost werden. In den letzten Jahren haben sich auch deshalb Dependency Injection (DI) Frameworks (Spring, Guice, Weld) und seit 2009 nun auch Standards (JSR 330, JSR299) etabliert, welche zur Laufzeit die Abh\"angigkeiten aufl\"osen. Die dadurch entstehenden Architekturen zeichnen sich durch eine gute Erweiterbarkeit (die Abstraktion der verschiedenen Abh\"angigkeiten durch Beispielsweise Interfaces l\"asst einzelne Komponenten einfach austauschen) und gerade deshalb durch eine gute Testbarkeit (Unit-Testing) aus. Die Scala und Lift-Community zeichnet sich m.E. eben auch dadurch aus, dass sie oft neue Wege beschreiten und l\"ost mit dem Cake-Pattern\cite{bonerCakePattern}\cite{oderskyCakePattern} diese Anforderung mit Sprachinternen Mitteln. Im Bereich des Lift Frameworks gibt es zus\"atzlich den Trait SimpleInjector, mittels welchem sich so einfache DI-Mechanismen applikationsweit erstellen lassen. Dazu ein kleines Beispiel:
+Dreh- und Angelpunkt des guten Designs von Applikationen ist heutzutage oft die Art und Weise, wie Abh\"angigkeiten zwischen Komponenten, insbesondere Objekten, aufgel\"ost werden. In den letzten Jahren haben sich auch deshalb Dependency Injection (DI) Frameworks (Spring, Guice, Weld) und seit 2009 nun auch Standards (JSR 330, JSR 299) etabliert, welche zur Laufzeit die Abh\"angigkeiten aufl\"osen. Die dadurch entstehenden Architekturen zeichnen sich durch eine gute Erweiterbarkeit (die Abstraktion der verschiedenen Abh\"angigkeiten durch Beispielsweise Interfaces l\"asst einzelne Komponenten einfach austauschen) und gerade deshalb durch eine gute Testbarkeit (Unit-Testing) aus. Die Scala und Lift-Community beschreiten in den meisten F\"allen auch andere, neue Wege und l\"ost zum Beispiel mittels Cake-Pattern\cite{bonerCakePattern}\cite{oderskyCakePattern} diese Problematik damit mit sprachinternen mitteln. Im Bereich des Lift Frameworks gibt es zus\"atzlich den Trait SimpleInjector um  die DI-Mechanismen applikationsweit zu l\"osen. Dazu ein kleines Beispiel:
 
 \begin{lstlisting}[caption=Dependency Injection mit dem Lift Framework - ein Beispiel]
 import net.liftweb.common.Box
@@ -502,6 +484,24 @@ In diesem Beispiel gibt es zwei Implementation (TestThing und ProdThing) der Kla
 \item Mittels der impliziten Konversion im Typ Unboxing wird der Typ automatisch ausgepackt und der Variablen zugewiesen.
 \item Ausgabe: TestThing
 \end{enumerate}
+
+\subsection{Internationalisierung}\label{lift:internationalisierung}
+Die M\"oglichkeiten zur Internationalisierung von Web-Applikation unterscheiden sich im Wesentlichen nicht von den M\"oglichkeiten anderer Applikationen und basieren ebenfalls auf java.util.Locale, die wir aus der Java-Entwicklung bereits kennen. 
+
+Ressourcen werden in sogenannten Properties Dateien (Resource Bundles) im Klassenpfad abgelegt und erhalten Key-Value-Pairs. Das jeweilige Bundle wird anhand der berechneten Locale geladen. 
+Es gibt wie bereits unter \ref{grundlagen:templates} \titleref{grundlagen:templates} beschrieben die M\"oglichkeit, unterschiedliche Templates zu definieren, welche beim rendern der Seite Locale-abh\"angig ausgew\"ahlt werden.
+
+Eine Methode mit der folgende Signatur k\"onnte im Bootstrap konfiguriert werden, um die Berechnung der Locale wie sie per default durchgef\"uhrt wird, zu \"uberschreiben:
+
+\begin{lstlisting}[caption=\"Uberschreibung der Locale-Berechnung]
+def localeCal(request : Box[HTTPRequest]): Locale = {...}
+
+//Konfiguration im Boot.scala
+LiftRules.localeCalculator = localeCalc _
+\end{lstlisting}
+
+
+Diese Anforderung w\"urde bespielsweise bestehen, wenn man trotz der eingestellten Browsersprache initial die Deutsche Sprache laden m\"ochte.
 
 \section{Stax Cloud Plattform}
 Die Stax Cloud Plattform\cite{Stax} bietet die M\"oglichkeit, Applikationen, die bevorzugt Maven und Ant als Build-Instrumente verwenden, auf die Amazon EC2 Plattform zu deployen. Die Verwendung der Stax Test Cloud ist gratis und kann zu einem beliebigen Zeitpunkt auf die Premium Java Cloude aufger\"ustet werden. Bei der Premium Cloud bezahlt man anhand benutzer Bandbreite und gr\"osse der CPU Instanz.
