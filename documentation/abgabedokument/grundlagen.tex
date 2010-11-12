@@ -308,7 +308,7 @@ Die Tags werden von aussen nach innen transformiert, entsprechend wird hier das 
 \begin{lstlisting}[caption=Lift Template Binding]
 <lift:bind name="content"/>
 \end{lstlisting}
-der Output der Methode world von der Klasse Hello eingef\"ugt. Bei der Klasse Hello spricht man von einem Snippet. Es handelt sich allerdings um eine normale Scala Klasse, die in der Methode world eine Objekt vom Typ scala.xml.Elem zur\"uck gibt.
+der Output der Methode world der Klasse Hello eingef\"ugt. Bei der Klasse Hello spricht man von einem Snippet. Es handelt sich allerdings um eine normale Scala Klasse, die in der Methode world eine Objekt vom Typ scala.xml.Elem zur\"uck gibt.
 
 \begin{lstlisting}[caption=Snippet]
 class Hello {
@@ -453,7 +453,7 @@ Innerhalb der Applikation kann man dann mit dem folgenden Befehl eine Eigenschaf
 
 Props.get(''key'') liefert als erstes eine Box\footnote{Box ist ein in Scala oft verwendetes Pattern um st\"andigen Not-Null-Tests aus dem Weg zu gehen. Im Fall dass die Box leer ist  (z.Bsp. das Property wurde nirgends konfiguriert) wird beim \"offnen mittels der Methode open\_! eine Exception geworfen. openOr \"ubernimmt ein Argument und verwendet dies - ohne eine Exception zu werfen, als Default-Wert.}
 
-\subsection{Dependency Injection mit dem Lift Framework}
+\subsection{Dependency Injection mit dem Lift Framework}\label{lift:di}
 Dreh- und Angelpunkt des guten Designs von Applikationen ist heutzutage oft die Art und Weise, wie Abh\"angigkeiten zwischen Komponenten, insbesondere Objekten, aufgel\"ost werden. In den letzten Jahren haben sich auch deshalb Dependency Injection (DI) Frameworks (Spring, Guice, Weld) und seit 2009 nun auch Standards (JSR 330, JSR 299) etabliert, welche zur Laufzeit die Abh\"angigkeiten aufl\"osen. Die dadurch entstehenden Architekturen zeichnen sich durch eine gute Erweiterbarkeit (die Abstraktion der verschiedenen Abh\"angigkeiten durch Beispielsweise Interfaces l\"asst einzelne Komponenten einfach austauschen) und gerade deshalb durch eine gute Testbarkeit (Unit-Testing) aus. Die Scala und Lift-Community beschreiten in den meisten F\"allen auch andere, neue Wege und l\"ost zum Beispiel mittels Cake-Pattern\cite{bonerCakePattern}\cite{oderskyCakePattern} diese Problematik damit mit sprachinternen mitteln. Im Bereich des Lift Frameworks gibt es zus\"atzlich den Trait SimpleInjector um  die DI-Mechanismen applikationsweit zu l\"osen. Dazu ein kleines Beispiel:
 
 \begin{lstlisting}[caption=Dependency Injection mit dem Lift Framework - ein Beispiel]
@@ -484,6 +484,8 @@ In diesem Beispiel gibt es zwei Implementation (TestThing und ProdThing) der Kla
 \item Mittels der impliziten Konversion im Typ Unboxing wird der Typ automatisch ausgepackt und der Variablen zugewiesen.
 \item Ausgabe: TestThing
 \end{enumerate}
+
+Zu diesem Thema beschreibt Abschnitt ``\ref{implementation:di} \titleref{implementation:di}'', wie ich Dependency Injection im Prototypen eingesetzt habe.
 
 \subsection{Internationalisierung}\label{lift:internationalisierung}
 Die M\"oglichkeiten zur Internationalisierung von Web-Applikation unterscheiden sich im Wesentlichen nicht von den M\"oglichkeiten anderer Applikationen und basieren ebenfalls auf java.util.Locale, die wir aus der Java-Entwicklung bereits kennen. 

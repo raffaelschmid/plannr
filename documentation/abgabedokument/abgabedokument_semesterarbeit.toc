@@ -80,52 +80,47 @@
 \contentsline {subsubsection}{Teammitgliedschaft, Membership}{54}
 \contentsline {subsubsection}{Teamzugeh\"origkeit}{54}
 \contentsline {subsubsection}{Ferien}{54}
-\contentsline {chapter}{\numberline {5}Implementation}{55}
-\contentsline {section}{\numberline {5.1}Persistenz}{55}
-\contentsline {subsection}{\numberline {5.1.1}Auswahl Persistenz-Provider}{55}
-\contentsline {subsubsection}{Aktive Weiterentwicklung}{55}
-\contentsline {subsubsection}{Dokumentation}{55}
-\contentsline {subsubsection}{Reifegrad}{56}
-\contentsline {subsubsection}{Fazit}{56}
-\contentsline {subsection}{\numberline {5.1.2}Domain Mapping}{56}
-\contentsline {subsubsection}{Klasse User}{56}
-\contentsline {subsection}{\numberline {5.1.3}Validation}{58}
-\contentsline {section}{\numberline {5.2}Benutzermanagement}{59}
-\contentsline {section}{\numberline {5.3}Navigation}{61}
-\contentsline {section}{\numberline {5.4}Flex Client}{61}
-\contentsline {subsection}{\numberline {5.4.1}Software-Design}{62}
-\contentsline {subsection}{\numberline {5.4.2}Architektur}{64}
-\contentsline {subsubsection}{RESTful Webservices}{64}
-\contentsline {subsubsection}{Security}{65}
-\contentsline {subsection}{\numberline {5.4.3}Ferienplanung und Teammangement}{65}
-\contentsline {subsection}{\numberline {5.4.4}Evaluation Kalender}{66}
-\contentsline {section}{\numberline {5.5}Mail-Versand (Notifikationen)}{66}
-\contentsline {subsection}{\numberline {5.5.1}Use Cases}{66}
-\contentsline {subsection}{\numberline {5.5.2}Technische Umsetzung}{67}
-\contentsline {subsubsection}{Konfiguration des Mailers}{67}
-\contentsline {subsubsection}{Mails versenden}{67}
+\contentsline {chapter}{\numberline {5}Implementation des Prototypen}{55}
+\contentsline {section}{\numberline {5.1}Architektur, Technologiewahl}{55}
+\contentsline {subsection}{\numberline {5.1.1}Dependency Injection}{55}
+\contentsline {subsection}{\numberline {5.1.2}Persistenz}{56}
+\contentsline {subsubsection}{Evaluation des Persistenz Frameworks}{56}
+\contentsline {subsubsection}{Domain Mapping}{57}
+\contentsline {subsubsection}{Validierung}{59}
+\contentsline {subsection}{\numberline {5.1.3}Verwendung und Aufbau des Flex Clients}{60}
+\contentsline {subsubsection}{Architektur}{60}
+\contentsline {subsubsection}{Kommunikation mit dem Backend}{62}
+\contentsline {subsection}{\numberline {5.1.4}Navigation}{63}
+\contentsline {section}{\numberline {5.2}Details zur Implementation der Use Cases}{64}
+\contentsline {subsection}{\numberline {5.2.1}Benutzermanagement}{64}
+\contentsline {subsection}{\numberline {5.2.2}Ferienplanung und Teammanagement}{65}
+\contentsline {subsubsection}{Evaluation Kalender}{66}
+\contentsline {subsection}{\numberline {5.2.3}Email-Versand (Notifikationen)}{66}
+\contentsline {subsubsection}{Use Cases}{66}
+\contentsline {subsubsection}{Technische Umsetzung}{67}
 \contentsline {chapter}{\numberline {6}Entwicklung, Build und Deployment}{69}
 \contentsline {section}{\numberline {6.1}Build-System}{69}
 \contentsline {section}{\numberline {6.2}Entwicklungsumgebung}{70}
 \contentsline {section}{\numberline {6.3}Test- und Produktiv-Umgebung}{70}
 \contentsline {part}{III\hspace {1em}R\"uckblick}{73}
-\contentsline {chapter}{\numberline {7}Auswertung und Fazit der verwendeten Technologien}{75}
+\contentsline {chapter}{\numberline {7}Fazit der verwendeten Technologien}{75}
 \contentsline {section}{\numberline {7.1}Scala}{75}
 \contentsline {subsection}{\numberline {7.1.1}Typisierung}{75}
-\contentsline {subsection}{\numberline {7.1.2}Sprachdesign und Syntax}{76}
-\contentsline {subsection}{\numberline {7.1.3}Tool Support}{76}
+\contentsline {subsection}{\numberline {7.1.2}Syntax}{76}
+\contentsline {subsection}{\numberline {7.1.3}Tool Support}{77}
 \contentsline {subsection}{\numberline {7.1.4}Verbreitung}{77}
 \contentsline {section}{\numberline {7.2}Lift Framework}{77}
-\contentsline {subsection}{\numberline {7.2.1}Vergleich von Lift mit Grails}{77}
-\contentsline {chapter}{\numberline {8}Analyse der Arbeit auf der Basis der Aufgabenstellung}{79}
-\contentsline {section}{\numberline {8.1}Zielerreichung}{79}
-\contentsline {subsection}{\numberline {8.1.1}Prototyp}{79}
-\contentsline {subsubsection}{Entwicklung}{79}
-\contentsline {subsubsection}{Deployment}{79}
-\contentsline {section}{\numberline {8.2}Optionale Ziele}{79}
-\contentsline {part}{IV\hspace {1em}Anhang}{89}
-\contentsline {chapter}{\numberline {A}Glossar}{91}
-\contentsline {chapter}{\numberline {B}Journal}{93}
-\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{93}
-\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{94}
-\contentsline {section}{\numberline {B.3}Phase Dokumentation}{95}
+\contentsline {subsection}{\numberline {7.2.1}Eigene Wege}{78}
+\contentsline {subsection}{\numberline {7.2.2}Testing}{78}
+\contentsline {chapter}{\numberline {8}Analyse der Arbeit auf der Basis der Aufgabenstellung}{81}
+\contentsline {section}{\numberline {8.1}Vorgehensweise}{81}
+\contentsline {section}{\numberline {8.2}Zielerreichung Prototyp}{81}
+\contentsline {subsection}{\numberline {8.2.1}Entwicklung}{81}
+\contentsline {subsection}{\numberline {8.2.2}Deployment}{81}
+\contentsline {section}{\numberline {8.3}Optionale Ziele Prototyp}{81}
+\contentsline {part}{IV\hspace {1em}Anhang}{91}
+\contentsline {chapter}{\numberline {A}Glossar}{93}
+\contentsline {chapter}{\numberline {B}Journal}{95}
+\contentsline {section}{\numberline {B.1}Phase Implementation Backend}{95}
+\contentsline {section}{\numberline {B.2}Phase Implementation Frontend}{96}
+\contentsline {section}{\numberline {B.3}Phase Dokumentation}{97}

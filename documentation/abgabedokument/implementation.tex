@@ -1,28 +1,50 @@
-\chapter{Implementation}\label{implementation}
+\chapter{Implementation des Prototypen}\label{implementation}
 
-\section{Persistenz}
-\subsection{Auswahl Persistenz-Provider}
+\section{Architektur, Technologiewahl}
+\subsection{Dependency Injection}\label{implementation:di}
+
+\begin{lstlisting}[caption=Abh\"angigkeiten abh\"angig von der Umgebung]
+object Beans {
+  lazy val env = System.getProperty("run.mode")
+  def init = {
+    env match {
+      case "test" =>
+        Context.put[SecurityService]{()=>
+            MockSecurityService}
+      case _ =>
+        Context.put[SecurityService]{()=>
+            SecurityServiceImpl}
+     }
+  }
+}
+\end{lstlisting}
+Das Dependency Management wurde mittels der im Abschnitt ``\ref{lift:di} \titleref{lift:di}'' Verfahren implementiert. Mittels der oben beschriebenen Bean-Definition die sich im Objekt bootstrap.config.Beans befindet ist es m\"oglich, je nach definiertem Environment (test, prod) eine die Objekte innerhalb des Bean-Contextes unterschiedlich zu definieren. Die oben beschriebenen Closures werden jedes mal aufgerufen, wenn eine Variable aus dem Context injected werden soll. Da hier ein Scala Objekt zur\"uckgeliefert wird, ist die Instanz vom Typ SecurityService zur Laufzeit nur einmal vorhanden. Bei Spring oder \"ahnlichen Frameworks spricht man vom ``Singleton Scope''. Liefert man ein neues Objekt zur\"uck, entspricht das Verhalten dem ``Prototype Scope bei Spring''. Der Lift-Injection bietet auch die M\"oglichkeit, Request- und Session-Scoped Objekte zu speichern. Als Beispiel, wie eine Variable vom Context angefordert wird die folgende Deklaration:
+
+\begin{lstlisting}[caption=Anfrage einer Variable aus dem Lift Bean Context]
+val securityService = Context.inject_![SecurityService]
+\end{lstlisting}
+
+
+\subsection{Persistenz}
+\subsubsection{Evaluation des Persistenz Frameworks}
 Bereits zu Beginn stellte sich die Frage, warum man welche der drei m\"oglichen und im Abschnitt ``\ref{grundlagen:persistenz} \titleref{grundlagen:persistenz}'' aufgelisteten Persistenz-Provider Mapper, Record oder ScalaJPA  verwenden sollte.
 
 Ich versuchte herauszufinden und auszuf\"uhren, wie weit Ans\"atze hinsichtlich Dokumentation, aktive Weiterentwicklung und Reifegrad der Implementation sind.
 
-\subsubsection{Aktive Weiterentwicklung}
-Ein Blick auf die verschiedenen Commit Histories der Persistenz Module Mapper\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-mapper} und Record\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-record} zeigt schnell auf, dass in beiden Frameworks aktiv nicht sonderlich viel geschieht. \"Anderungen im Bereich der Persistenz-Libraries finden momentan vorallem im Bereich der NoSQL Datenbanken statt. 
+\begin{itemize}
+\item \textbf{Aktive Weiterentwicklung: }Ein Blick auf die verschiedenen Commit Histories der Persistenz Module Mapper\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-mapper} und Record\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-record} zeigt schnell auf, dass in beiden Frameworks aktiv nicht sonderlich viel geschieht. \"Anderungen im Bereich der Persistenz-Libraries finden momentan vorallem im Bereich der NoSQL Datenbanken statt. 
 
-\subsubsection{Dokumentation}
-W\"ahrend die Dokumentation von Mapper\footnote{http://www.assembla.com/wiki/show/liftweb/Mapper} noch einigermassen anspricht, kann man zum Mapping mit dem Record Framework ausser ganz wenige Beispiele in \cite[p. 79 - 113]{chen2009lift} nicht viel auffinden.
+\item \textbf{Dokumentation: }W\"ahrend die Dokumentation von Mapper\footnote{http://www.assembla.com/wiki/show/liftweb/Mapper} noch einigermassen anspricht, kann man zum Mapping mit dem Record Framework ausser ganz wenige Beispiele in \cite[p. 79 - 113]{chen2009lift} nicht viel auffinden.
 
-\subsubsection{Reifegrad}
-Der Reifegrad der im Lift Framework enthaltenen Persistenz-Bibliotheken ist meines Erachtens gering. Anforderungen wie das Mappen von Hierarchien (Beispiele in Hibernate Table per Klasse, Table per Hierarchie) fehlen g\"anzlich. Die Relationen zwischen den Klassen sind relativ unflexibel und gen\"ugen h\"ochstens, wenn man ein Projekt auf der ``Gr\"unen Wiese'' starten kann. Der dritte wichtige Mangel ist, dass mit der Verwendung von Mapper und Record eine Kopplung der gesamten Applikation ans Persistenz-Framework passiert. Siehe dazu Abschnitt ``\ref{persistenz:kopplung} \titleref{persistenz:kopplung}''.
+\item \textbf{Reifegrad: }Der Reifegrad der im Lift Framework enthaltenen Persistenz-Bibliotheken ist meines Erachtens gering. Anforderungen wie das Mappen von Hierarchien (Beispiele in Hibernate Table per Klasse, Table per Hierarchie) fehlen g\"anzlich. Die Relationen zwischen den Klassen sind relativ unflexibel und gen\"ugen h\"ochstens, wenn man ein Projekt auf der ``Gr\"unen Wiese'' starten kann. Der dritte wichtige Mangel ist, dass mit der Verwendung von Mapper und Record eine Kopplung der gesamten Applikation ans Persistenz-Framework passiert. Siehe dazu Abschnitt ``\ref{persistenz:kopplung} \titleref{persistenz:kopplung}''.
 
 
-\subsubsection{Fazit}
-Meines Erachtens liefern Mapper und Record nicht das, was wir uns von bereits existierenden Frameworks wie Hibernate gewohnt sind. Ich habe mich aus oben beschriebenen Gr\"unden dazu entschieden, JPA 2.0 und Hibernate in der Version 3.5.1 im Persistenz-Layer zu verwenden. 
+\item \textbf{Fazit: }Meines Erachtens liefern Mapper und Record nicht das, was wir uns von bereits existierenden Frameworks wie Hibernate gewohnt sind. Ich habe mich aus oben beschriebenen Gr\"unden dazu entschieden, JPA 2.0 und Hibernate in der Version 3.5.1 im Persistenz-Layer zu verwenden. 
 
-\subsection{Domain Mapping}
+\end{itemize}
+\subsubsection{Domain Mapping}
 Ich habe die Mappings der Dom\"anenklassen mittels im Abschnitt ``\ref{grundlagen:integration:java} \titleref{grundlagen:integration:java}'' kurz angesprochenen Annotationen gemacht. Ich gehe im folgenden auf das Mapping der User Klasse ein, werde aber an dieser Stelle auf die Beschreibung der Mappings aller Klassen verzichten. 
 
-\subsubsection{Klasse User}
 Die Mapping Informationen f\"ur Hibernate respektive JPA befinden sich in Klasse ch.plannr.model.User. Die Klasse verwendet als Mixins folgende Traits:
 \begin{itemize}
 	\item \textbf{MegaBasicUser - } verf\"ugt in Anlehnung an MegaProtoUser\footnote{Mega ProtoUser ist die Basis-User-Klasse f\"ur das Mapper Framework und stellt eine Basis f\"ur die Benutzerverwaltung zur Verf\"ugung} \"uber die Funktionalit\"aten, die im Zusammenhang mit der Registrierung, Login, Passwort-Reset ben\"otigt werden. 
@@ -62,18 +84,18 @@ Des weiteren sind die Annotationen @Embedded\footnote{@Embedded bietet die M\"og
 
 
 
-\subsection{Validation}\label{jpa:validation}
+\subsubsection{Validierung}\label{jpa:validation}
 Annotationen wie @NotNull, @Null, @Past, @Future sind definiert \"uber den JSR330 (Bean Validation 1.0). Mittels Bean Validation lassen sich Validierungen auf allen Ebenen des Systems durchf\"uhren. Zum Beispiel lassen sich User-Objekte bereits ohne Speicherung validieren und entsprechend f\"ur jedes Property Fehlermeldungen in der View bereitstellen. Auf der Ebene der Datenbank k\"onnen anhand dieser annotierten Properties automatisch Constraints  generiert werden.
 
-Alle Dom\"anenklassen die als Mixin die bereits erw\"ahnte Klasse Persistent[T] verwenden k\"onnen mittels der methode validate validiert werden. Die Validierung wird vollumf\"anglich anhand der in den Klassen enthaltenen Annotationen gemacht. Als R\"uckgabewert werden die Constraints-Verletzungen innerhal eines Sets zur\"uckgeliefert. Ich verwende diese Constraints-Verletzungen weiter f\"ur die Anzeige in der View. Zum Beispiel der Validierung bei der Registrierung werden bei unvollst\"andiger Eingabe folgende Fehler angezeigt:
+Alle Dom\"anenklassen die als Mixin die bereits erw\"ahnte Klasse Persistent[T] verwenden k\"onnen mittels der methode validate validiert werden. Die Validierung wird vollumf\"anglich anhand der in den Klassen enthaltenen Annotationen gemacht. Als R\"uckgabewert werden die Constraints-Verletzungen als Set zur\"uckgeliefert. Ich verwende diese Constraints-Verletzungen weiter f\"ur die Anzeige in der View. Zum Beispiel der Validierung bei der Registrierung werden bei unvollst\"andiger Eingabe folgende Fehler angezeigt:
  \begin{figure}[H]
   	\centering
-    	\includegraphics[width=12cm]{images/validation_registration}
+    	\includegraphics[width=9cm]{images/validation_registration}
         	\caption{Formular Validierung: Registration}
 \end{figure}
 
 
-Die Implementation der Methode validate ist relativ einfach und sieht folgendermassen aus:
+Die Implementation der Methode validate basiert wie bereits gesagt auf dem Validation Framework und sieht folgendermassen aus:
 \begin{lstlisting}[caption=Validation innerhalb der Klasse Persistence]
 @Transient
 private val validatorFactory = 
@@ -86,74 +108,10 @@ def validate() = {
   validator.validate(this)
 }
 \end{lstlisting}
-\section{Benutzermanagement}
-Sofern man bei der Entwicklung von Webapplikationen mittels Lift den Persistenz-Provider Mapper ausw\"ahlt, erh\"alt man Benutzerverwaltung inklusive Login-, Registrierung- und Passwort-Reset-Mechanismus mitgeliefert und kann diesen relativ flexibel erweitern. Sofern man sich f\"ur JPA entscheidet, muss dies - insbesondere weil die Kopplung zwischen Dom\"anenklassen und Mapper respektive Record so hoch ist - selber implementieren. In anlehnung an ProtoUser, MegaProtoUser und MetaMegaProtoUser vom Mapper-Framework habe ich Funktionalit\"at \"ubernommen und MegaBasicUser respektive MetaMegaBasicUser f\"ur das Mapping mit JPA implementiert. In Sachen LOC\footnote{Lines of Code} haben die Klassen noch etwas Optimierungspotential, in Sachen Registrierung, Login, Validierung, Passwort Reset, Benutzer Editierung tun sie aber ihren Zweck. Als kurze Erl\"auterung die Beschreibung zur Funktionalit\"at f\"ur das Passwort-Reset beispielhaft:
 
-\begin{lstlisting}[caption=Implementation Funktionalit\"at Passwort-Reset]
-def passwordReset(id: String) =
-    findById(id.toLong) match {
-      case Full(user) =>
-        def finishSet() {
-          val violations = user.validate
-          if (violations.size == 0)
-            user.merge
-          else {
-            val node: NodeSeq = violations
-            S.error(node)
-            S.redirectTo("/")
-          }
-        }
-
-        bind("user", HtmlTemplate.passwordResetXhtml,
-          "pwd" -> 
-            password_*("", (p: List[String]) =>
-              user.password = p.head),
-          "submit" -> 
-            submit(S.??("set.password"), finishSet _))
-      case _ => 
-        S.error(S.??("password.link.invalid")); 
-        S.redirectTo(homePage)
-    }
-\end{lstlisting}
-Die Methode zum Reset des Passworts wird vom Menu respektive der Lift-Internen SiteMap Funktionalit\"at (siehe unter: ``\ref{lift:sitemap} \titleref{lift:sitemap}'') aufgerufen. Dies allerdings nur, wenn der Benutzer in der Http-Session angemeldet ist.  Der R\"uckgabewert der passwordReset-Methode ist ein Objekt vom Typ scala.xml.NodeSeq, welches das eigentliche Formular repr\"asentiert. Eingabefelder werden nicht in reinem HTML definiert, sondern via die Verwendung der Methoden text, password, usw. Diese Methoden der Klasse SHtml registrieren zum einen eine Callback-Funktion, zum anderen geben sie das auszugebenden Xml-Element als scala.xml.Elem zur\"uck. Beim \"Ubermitteln des Formulars wird dann die entsprechend zu einer definierten ID registrierte Callback-Funktion mit dem vom Benutzer eingegebenen Wert aufgerufen. Zum einen wird somit f\"ur die Textfelder der Wert hinterlegt, zum anderen via die Methode finishSet der Benutzer validiert und gespeichert. 
-
-Alle Formulare der Benutzerverwaltung sind in etwa auf diese Weise implementiert. 
-
-\section{Navigation}
-Da die Ferienplanung und Administration der Benutzer vollumf\"anglich in Flex implementiert ist, basiert auch die Navigation dieser Beiden Use Cases auf Flex Komponenten wie Tab-Panels sowie States und Transitions (siehe: ``\ref{implementation:ferienplanung} \titleref{implementation:ferienplanung}'').  Ausserhalb ist die Navigation mittels der Lift-Sitemap implementiert. Wie bereits unter ``\ref{lift:sitemap} \titleref{lift:sitemap}'' angek\"undigt bezieht sich die Lift-Sitemap nicht nur auf das Verlinken von Seiten, sondern auch f\"ur die Zugriffskontrolle. Die Struktur des Menus sieht folgendermassen aus:
-
-\begin{spacing}{0.5}
-  \begin{longtable}{|p{2cm}|p{5cm}|p{6cm}|}
-      \caption{Navigation und Menustruktur}\\
-\hline
-  \textbf{Name} & \textbf{Link} & \textbf{Constraints}\\
-  \hline
-  Home & /index & keine\\
-  \hline
-  Manager & /manager & Benutzer angemeldet\\
-  \hline
-  Login & /user\_mgt/login & Benutzer nicht angemeldet\\
-  \hline
-  Benutzer registrieren & /user\_mgt/sign\_up & Benutzer nicht angemeldet\\
-  \hline
-  Passwort verloren & /user\_mgt/lost\_password & Benutzer nicht angemeldet\\
-  \hline
-  Logout & /user\_mgt/logout & Benutzer angemeldet\\
-  \hline
- Passworter reset & /user\_mgt/reset\_password & Benutzer angemeldet\\
-  \hline
-  Benutzer editieren & /user\_mgt/edit & Benutzer angemeldet\\
-  \hline
-  Passwort \"andern & /user\_mgt/change\_password & Benutzer angemeldet\\
-  \hline
-  \end{longtable}
-\end{spacing}
-
-Das Menu wird aus einer Liste von Menu-Eintr\"agen in der Klasse Boot.scala definiert und in die SiteMap gesetzt. Die Zugriffssteuerung wird \"uber die LocParams implementiert die sich in den Menu Instanzen befinden. 
- 
-\section{Flex Client}
+\subsection{Verwendung und Aufbau des Flex Clients}
 F\"ur die Administration der Teams sowie auch f\"ur die Ferienplanung habe ich mich wegen von mir subjektiv empfundener besserer Usability und der M\"oglichkeit eines etwas besseren Software-Designs f\"ur Adobe Flex entschieden. 
-\subsection{Software-Design}
+\subsubsection{Architektur}
 Die meisten User-Interfaces zeichnen sich, insbesondere durch die hohe Kopplung zwischen Komponenten, durch eine extrem schlechte Wartbarkeit aus. Diese Problematik kann in Applikationen verschiedenster Frontend-Technologien auftreten - egal ob Javascript, Flex, GWT oder Silverlight. Eine weitere Schwierigkeit bei diesen Applikationen sind die angemessene und zentrale Behandlung von auftretenden Events, die Verf\"ugbarkeit von Contexten und die Unterst\"utzung in der Anbindung an Backend-Systemen. Damit solche Problemstellungen f\"ur diesen Client minimiert werden k\"onnen, habe ich eine kurze Evaluation bestehender Flex-Frameworks durchgef\"uhrt und dabei die folgenden angeschaut:
 \begin{itemize}
 \item \textbf{Cairngorm\cite{Cairngorm} - } unter Flex 2 und 3 war Cairngorm noch ein Frameworks mit Fokus auf die MVC-Architektur von Client-Applikationen. Mittlerweile handelt es sich allerdings um ein breiteres Set von Guidelines, Tools und Bibliotheken. Welche sich frameworkunabh\"angig einsetzen lassen. Mittlerweile basieren viele dieser Bibliotheken auf anderen Dependency Injection und MVC Frameworks wie Parsley, Swiz, oder Spring ActionScript
@@ -214,30 +172,89 @@ Hier wird das Property term des geworfenen Events zus\"atzlich der Methode als A
 
 Aufgrund der Einfachheit des Swiz-Frameworks, der Flexibilit\"at und der eleganten Konfiguration habe ich mich gegen Cairngorm und Mate entschieden und das Event-Handling sowie Context und Dependency Injection mit Swiz implementiert.
 
-\subsection{Architektur}
-Flex-Applikationen werden als Flash-Dateien dem Browser gesendet und laufen innerhalb der Flash Runtime Umgebung. Verglichen mit HTML 4.0.1 und XHTML 1.0 hat man mit Flex die M\"oglichkeit, Daten respektive Zust\"ande clientseitig zu Speichern. In der Praxis w\"are es auch m\"oglich, ganz auf den Browser zu verzichten - dann l\"asst man die Flex-Applikation in der Adobe Air Runtime laufen. Hier h\"atte k\"onnte man Daten sogar Clientseitig in eine SQLLight Datenbank speichern. 
-
-In meinem Fall wird der Flex-Client innerhalb der Lift-Applikation eingebettet und kommuniziert mit dem Backend via RESTful\cite{wiki:rest} Webservices. Siehe Abschnitt \ref{implementation:restful-webservices} \titleref{implementation:restful-webservices}. Hinsichtlich eines einfacheren Implementationsaufwandes w\"are es Sinnvoll, ob ein Framework zur Kommunikation wie BlazeDS\cite{blazeDs}\cite{IntegratingBlazeDsLiftweb} oder GranitDS\cite{graniteDs} nicht sinnvoll w\"are. F\"ur Informationen zum Thema Security siehe Abschnitt \ref{flex:security}.
-
-
-\subsubsection{RESTful Webservices}\label{implementation:restful-webservices}
-Nebest verschiedenen Konzepten wie die ``Betrachtung von Daten als Ressourcen'' ist die Verwendung der verschiedenen Http-Methoden POST, PUT, GET, DELETE, etc. 
-Die Kommunikation von Flex-Applikationen zu anderen Systemen findet \"uber den darunterliegenden Browser statt, welcher in den meisten F\"allen PUT und DELETE nicht unterst\"utzt. Ein M\"oglicher Workaround f\"ur dieses Problem ist die Verwendung eines Http-Attributes wie zum Beispiel ''X-HTTP-Method-Override''. Bei PUT- und DELETE-Aufrufen setze ich dieses Attribut in den Http-Header (Beispiel: X-HTTP-Method-Override=PUT). Auf der Serverseite wird der eintretende Request gewrappt und Aufrufe wie request.getMethode() liefern anhand des Headers auch PUT oder DELETE zur\"uck. F\"ur weitere Informationen siehe
+\subsubsection{Kommunikation mit dem Backend}
+Flex-Applikationen werden als Flash-Dateien dem Browser gesendet und laufen innerhalb der Flash Runtime Umgebung. Verglichen mit HTML 4.0.1 und XHTML 1.0 hat man mit Flex die M\"oglichkeit, Daten respektive Zust\"ande clientseitig zu Speichern.
+In meinem Fall wird der Flex-Client innerhalb der Lift-Applikation eingebettet und kommuniziert mit dem Backend via \textbf{RESTful Webservices}. REST ist ein Architekturstil f\"ur Hypermedien wie das World Wide Web und legt nahe, jede Ressource mit einer eigenen URI anzusprechen. Operationen auf Ressourcen werden mittels HTTP Methoden  wie PUT, DELETE, POST,GET, HEAD, etc. zu verwenden.\cite{wiki:rest} Innerhalb der Browser-Umgebung ist die Verwendung von POST und GET m\"oglich, die anderen Methoden stehen allerdings nicht in allen Browsern zur Verf\"ugung. Zu diesem Zweck werden bei meinem Prototypen PUT- und DELETE-Requests mit dem HTTP-Header  ''X-HTTP-Method-Override'' ausgestattet und als eigentliche POST-Requests gesendet. Die Applikation merkt serverseitig von diesem Header nichts, da er bereits in der Filter-Kette zuvor die richtige Methode auf dem Request setzt. F\"ur weitere Informationen siehe:
 \begin{itemize}
-\item Klasse ch.plannr.common.http.WrappedRequest.java,
-\item Klasse ch.plannr.common.http.RequestWrapperFilter.scala,
-\item web.xml
+\item ch.plannr.common.http.WrappedRequest.java (server)
+\item Klasse ch.plannr.common.http.RequestWrapperFilter.scala (server)
+\item web.xml (server)
+\item ch.plannr.service.HttpServiceFactory (client)
 \end{itemize}
-Auf Client-Seite wird das Attribute in der ActionScript-Klasse ch.plannr.service.HttpServiceFactory gesetzt. 
+REST definiert grunds\"atzlich nicht, in welcher Form daten \"ubertragen werden m\"ussen.  M\"ogliche Formate w\"aren JSON und XML. Es war naheliegend, aufgrund der XML-Unterst\"utzung in Scala, dieses Format zu nehmen. F\"ur eine weitere Applikation w\"urde ich den Einsatz von BlazeDS\cite{blazeDs}\cite{IntegratingBlazeDsLiftweb} oder GranitDS\cite{graniteDs} p\"ufen.
 
-REST definiert grunds\"atzlich nicht, in welcher Form daten \"ubertragen werden m\"ussen. Es hat sich bereits etabliert, dass entweder Daten im XML- oder JSON-Format ausgetauscht werden. Aufgrund der XML-Unterst\"utzung in Scala (XML-Datentyp, Pattern-Matching auf XML) habe ich mich f\"ur XML entschieden.
-
-\subsubsection{Security}\label{flex:security}
-Zu Beginn habe ich die Authentifizierung der Webservice-Aufrufe \"uber Basic Authentication gemacht. Dies hat in der Praxis den wesentlichen Nachteil, dass prinzipiell alle Aufrufe verschl\"usselt werden m\"ussten. Basic Authentication \"ubermittelt das Passwort zwar nicht klartext, allerdings nur Base-64 Encoded. Somit k\"onnte man mit einem Sniffern sofort daran gelangen.
+Zu Beginn habe ich die \textbf{Authentifizierung} der Webservice-Aufrufe \"uber Basic Authentication gemacht. Dies h\"atte in der Praxis den wesentlichen Nachteil, dass prinzipiell alle Aufrufe verschl\"usselt werden m\"ussen\footnote{Bei Basic Authentication wird Benutzernamen und Passwort in der Form ``username:password'' im Base-64 Format \"ubermittelt}.
 Nun habe ich die Authentifizierung auf eine Form-Authentication umgestellt, bei der die Benutzer-Identifikation respektive in meinem Fall die Email-Adresse in der Session gespeichert wird. Somit muss nur der Login-Formular Submit via das Https-Protokoll laufen.
 
+\subsection{Navigation}
+Da die Ferienplanung und Administration der Benutzer vollumf\"anglich in Flex implementiert ist, basiert auch die Navigation dieser Beiden Use Cases auf Flex Komponenten wie Tab-Panels sowie States und Transitions (siehe: ``\ref{implementation:ferienplanung} \titleref{implementation:ferienplanung}'').  Ausserhalb ist die Navigation mittels der Lift-Sitemap implementiert. Wie bereits unter ``\ref{lift:sitemap} \titleref{lift:sitemap}'' angek\"undigt bezieht sich die Lift-Sitemap nicht nur auf das Verlinken von Seiten, sondern auch f\"ur die Zugriffskontrolle. Die Struktur des Menus sieht folgendermassen aus:
 
-\subsection{Ferienplanung und Teammangement}\label{implementation:ferienplanung}
+\begin{spacing}{0.5}
+  \begin{longtable}{|p{2cm}|p{5cm}|p{6cm}|}
+      \caption{Navigation und Menustruktur}\\
+\hline
+  \textbf{Name} & \textbf{Link} & \textbf{Constraints}\\
+  \hline
+  Home & /index & keine\\
+  \hline
+  Manager & /manager & Benutzer angemeldet\\
+  \hline
+  Login & /user\_mgt/login & Benutzer nicht angemeldet\\
+  \hline
+  Benutzer registrieren & /user\_mgt/sign\_up & Benutzer nicht angemeldet\\
+  \hline
+  Passwort verloren & /user\_mgt/lost\_password & Benutzer nicht angemeldet\\
+  \hline
+  Logout & /user\_mgt/logout & Benutzer angemeldet\\
+  \hline
+ Passworter reset & /user\_mgt/reset\_password & Benutzer angemeldet\\
+  \hline
+  Benutzer editieren & /user\_mgt/edit & Benutzer angemeldet\\
+  \hline
+  Passwort \"andern & /user\_mgt/change\_password & Benutzer angemeldet\\
+  \hline
+  \end{longtable}
+\end{spacing}
+
+Das Menu wird aus einer Liste von Menu-Eintr\"agen in der Klasse Boot.scala definiert und in die SiteMap gesetzt. Die Zugriffssteuerung wird \"uber die LocParams implementiert die sich in den Menu Instanzen befinden. 
+ 
+ \section{Details zur Implementation der Use Cases}
+ \subsection{Benutzermanagement}
+Sofern man bei der Entwicklung von Webapplikationen mittels Lift den Persistenz-Provider Mapper ausw\"ahlt, erh\"alt man Benutzerverwaltung inklusive Login-, Registrierung- und Passwort-Reset-Mechanismus mitgeliefert und kann diesen relativ flexibel erweitern. Da ich mich allerdings aus den oben beschriebenen Gr\"unden f\"ur JPA und gegen Mapper entschieden habe, musste ich diese Funktionalit\"at selber implementieren. Dies habe ich auf der Basis des ProtoUsers, MegaProtoUsers und MetaMegaProtoUser vom Mapper-Framework getan. Zur Beschreibung wie die Benutzerdaten zwischen Formularen und dem Backend ausgetauscht werden, eine kurze Erl\"auterung wie die Funktionalit\"at Passwort-Reset funktioniert:
+
+\begin{lstlisting}[caption=Implementation Funktionalit\"at Passwort-Reset]
+def passwordReset(id: String) =
+    findById(id.toLong) match {
+      case Full(user) =>
+        def finishSet() {
+          val violations = user.validate
+          if (violations.size == 0)
+            user.merge
+          else {
+            val node: NodeSeq = violations
+            S.error(node)
+            S.redirectTo("/")
+          }
+        }
+
+        bind("user", HtmlTemplate.passwordResetXhtml,
+          "pwd" -> 
+            password_*("", (p: List[String]) =>
+              user.password = p.head),
+          "submit" -> 
+            submit(S.??("set.password"), finishSet _))
+      case _ => 
+        S.error(S.??("password.link.invalid")); 
+        S.redirectTo(homePage)
+    }
+\end{lstlisting}
+Die Methode zum Reset des Passworts wird vom Menu respektive der Lift-Internen SiteMap Funktionalit\"at (siehe unter: ``\ref{lift:sitemap} \titleref{lift:sitemap}'') aufgerufen. M\"oglich ist dies nur, wenn der Benutzer angemeldet ist..  Der R\"uckgabewert der passwordReset-Methode ist ein Objekt vom Typ scala.xml.NodeSeq, welches das eigentliche Formular repr\"asentiert. Eingabefelder werden nicht in reinem HTML definiert, sondern via die Verwendung der Methoden text, password, usw. Diese Methoden der Klasse SHtml registrieren zum einen eine Callback-Funktion, zum anderen geben sie das auszugebenden Xml-Element als scala.xml.Elem zur\"uck. Beim \"Ubermitteln des Formulars wird dann die entsprechend zu einer definierten ID registrierte Callback-Funktion mit dem vom Benutzer eingegebenen Wert aufgerufen. Zum einen wird somit f\"ur die Textfelder der Wert hinterlegt, zum anderen via die Methode finishSet der Benutzer validiert und gespeichert. 
+
+Alle Formulare der Benutzerverwaltung sind in etwa auf diese Weise implementiert. 
+
+
+ 
+\subsection{Ferienplanung und Teammanagement}\label{implementation:ferienplanung}
 Die Prozesse der Teamadministration und Ferienplanung sind unter ``\ref{prozess:ferien} \titleref{prozess:ferien}'' und  ``\ref{prozess:team} \titleref{prozess:team}'' beschrieben. Aufgrund der folgenden drei Gr\"unde habe ich mich entschieden, beide Teile in Flex zu implementieren:
 \begin{itemize}
 \item \textbf{Usability: } Usability bezeichnet die vom Nutzer erlebte Nutzungsqualit\"at (respektive User Experience) bei der Interaktion mit einem System\cite{wiki:usability}. Heutzutage erreicht man dies mit der Verwendung von Technologien wie Ajax, Flex, Silverlight, oder andere. Der Benutzer erf\"ahrt die Webseite wie als eine auf seinem Rechner installierte Applikation:
@@ -249,8 +266,8 @@ Die Prozesse der Teamadministration und Ferienplanung sind unter ``\ref{prozess:
 \item \textbf{Kalender: } Die Verwendung des Flex Kalenders ``IBM Eloxier'' erschien mir als angemessen (Siehe Abschnitt ``\ref{evaluation:kalender} \titleref{evaluation:kalender}'')
 \end{itemize}
 
-\subsection{Evaluation Kalender}\label{evaluation:kalender}
-Unter dem Namen ``Elixier'' verkauft IBM Flex Komponenten. Da ich bereits im Besitz der Standard-Lizenz war, habe ich mich f\"ur diesen Kalender entschieden. Die Enterprise Version beinhaltet zus\"atzlich noch ein Gantt-Chart \cite{wiki:gantt}, der f\"ur private doch relativ hohe Preis (dieser liegt momentan bei 3130 USD) hat mich allerdings von der Verwendung dieser Komponente gehindert.  Andere Widgets habe ich aufgrund mangelnder Qualit\"at oder Funktionalit\"at nicht verwendet:
+\subsubsection{Evaluation Kalender}\label{evaluation:kalender}
+Unter dem Namen ``Elixier'' verkauft IBM Flex Komponenten. Da ich bereits im Besitz der Standard-Lizenz war, habe ich mich f\"ur diesen Kalender entschieden. Die Enterprise Version beinhaltet zus\"atzlich noch ein Gantt-Chart \cite{wiki:gantt}, der f\"ur private doch relativ hohe Preis (dieser liegt momentan bei 3130 USD) hat mich allerdings von der Verwendung dieser Komponente gehindert.  Andere Widgets habe ich aufgrund meiner Meinung nach mangelnder Qualit\"at, Stabilit\"at oder Funktionalit\"at nicht verwendet:
 
 \begin{itemize}
 \item Simile Timeline\cite{simileTimeline}
@@ -258,10 +275,10 @@ Unter dem Namen ``Elixier'' verkauft IBM Flex Komponenten. Da ich bereits im Bes
 \end{itemize}
 
 
-\section{Mail-Versand (Notifikationen)}
-\subsection{Use Cases}
-Zu unterschiedlichen Zwecken m\"ussen  Emails an die Benutzer versendet werden. Die Email-Adressen gelten systemweit als Benutzer Identifikatoren und werden hierf\"ur auch verwendet. Nachfolgend eine Liste der Aktionen die einen Email-Versand zur Folge haben. Zus\"atzlich auch der Status der Implementation:
-  \begin{longtable}{|p{3cm}|p{7cm}|p{3cm}|}
+\subsection{Email-Versand (Notifikationen)}
+\subsubsection{Use Cases}
+Zu unterschiedlichen Zwecken m\"ussen  Emails an die Benutzer versendet werden. Die Email-Adressen gelten systemweit als Benutzer Identifikatoren und sind deshalb sowieso bereits beim Benutzer gespeichert. Nachfolgend eine Liste der Use Cases mit Email und der Stand der Implementation im Prototypen:
+ \begin{longtable}{|p{3cm}|p{7cm}|p{3cm}|}
       \caption{Use Cases Email Versand}\\
 \hline
   \textbf{Aktion} & \textbf{Beschreibung} & \textbf{Status der Implementation}\\
@@ -276,12 +293,10 @@ Zu unterschiedlichen Zwecken m\"ussen  Emails an die Benutzer versendet werden. 
   \hline
 \end{longtable}
  
- \subsection{Technische Umsetzung}
- \subsubsection{Konfiguration des Mailers}
+ \subsubsection{Technische Umsetzung}
  In meinem Fall l\"asst sich der Lift-Mail-Support, der sich innerhalb der Klasse net.liftweb.util.Mailer befindet, nicht nur \"uber die definition der Properties (mail.smtp.host, mail.username, mail.password) konfigurieren - ich muss zus\"atzlich den Authenticator (Mailer.authenticator) des Objekts Mailer setzen.
 
- \subsubsection{Mails versenden}
-  Mails k\"onnen nun mit dem Aufruf der folgenden Methode versendet werden:
+ Mails k\"onnen nun mit dem Aufruf der folgenden Methode versendet werden:
 \begin{lstlisting}[caption=]
     Mailer.sendMail(From(emailFrom), 
                     Subject(signupMailSubject),

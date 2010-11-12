@@ -2,14 +2,16 @@ package ch.plannr.webservices
 
 import net.liftweb.http.rest.RestHelper
 import ch.plannr.model.User
-import net.liftweb.http.{S, GetRequest, Req}
 import ch.plannr.common.webservice.RESTSupport
 import ch.plannr.common.Conversion
 import xml.Node
 import ch.plannr.services.{SearchService}
 import ch.plannr.common.di.Context
+import net.liftweb.http.{LiftRules, S, GetRequest, Req}
 
-object SearchWebservice extends RestHelper with RESTSupport with Conversion {
+abstract class SearchWebservice extends LiftRules.DispatchPF
+
+object SearchWebserviceImpl extends SearchWebservice with RestHelper with RESTSupport with Conversion {
 
 
   val searchService = Context.inject_![SearchService]

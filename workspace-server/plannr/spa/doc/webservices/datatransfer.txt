@@ -1,7 +1,0 @@
-//POST /webservices/register
-<user>
-    <password>testuser</password>
-    <firstname>Testuser</firstname>
-    <lastname>Testuser</lastname>
-    <email>testuser@plannr.ch</email>
-</user>

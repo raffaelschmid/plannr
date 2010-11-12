@@ -8,7 +8,12 @@ import ch.plannr.common.Unboxing
  * 
  * TODO
  */
+
 object Context extends SimpleInjector with Unboxing{
 
-  implicit def inject_![T](implicit man: Manifest[T]): T = inject(man) 
+  implicit def inject_![T](implicit man: Manifest[T]): T = inject(man)
+
+  def put[T](f: () => T)(implicit man: Manifest[T]){
+    registerInjection(f)(man)
+  }
 }

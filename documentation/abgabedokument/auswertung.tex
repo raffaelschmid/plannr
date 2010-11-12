@@ -1,26 +1,21 @@
-\chapter{Auswertung und Fazit der verwendeten Technologien}
+\chapter{Fazit der verwendeten Technologien}
 \section{Scala}\label{auswertung:scala}
-Subjektiv gesehen hat man stark das Gef\"uhl, dass Funktionale Sprachen, insbesondere Sprachen auf der Java- oder Dot-Net-Plattform in letzter Zeit das Interesse der Entwicklergemeinde auf sich gezogen haben. Auch der Tiobe Index \cite{tiobe} hat diese Tendenz in den letzten Monaten best\"atigt. In wenigen Worten haben die erw\"ahnten Sprachen oft eine ``smartere'' Syntax (siehe Abschnitt ``\ref{imperativ-deklarativ} \titleref{imperativ-deklarativ}''), lassen sich im Grossen und Ganzen besser parallelisieren und k\"onnen in vielen Bereichen von bestehenden Bibliotheken und Frameworks ihrer bereits etablierten Plattformen profitieren. Man kann wohl sagen, dass sich die \"aquivalenten Problemstellungen, bis anhin implementiert in Sprachen wie Java, in Zukunft auch mit Scala umgesetzt werden k\"onnen. Trotzdem kann die Effizienz w\"ahrend der Entwicklung sich, aufgrund des massiv schlechteren Tool Supports\footnote{}, noch nicht mit dem Entwicklungsprozessen, wie sie bei Java Applikationen der Fall sind, messen. In den folgenden Abschnitten m\"ochte ich mich auf die Syntax und Ausdrucksst\"arke beziehen:
-\subsection{Typisierung}
-Zu diesem Thema scheiden sich ja bekanntlich die Geister - und ich habe nicht den Anspruch, ein Fazit pro oder kontra typisierter Sprachen zu ziehen. Bef\"urworter dynamischer Sprachen anerkennen zwar die Typsicherheit zur Kompilierzeit, kalkulieren aber den daf\"ur zu bezahlenden Preis mit schlechtem Code Smell.  Die n\"achste Tabelle soll zeigen, dass die in diesem Zusammenhang erw\"ahnten Argumente nichts mit der Typisierung zu tun haben. 
-  \begin{longtable}{|p{4cm}|p{4cm}|p{4cm}|}
-      \caption{Genannte Gr\"unde gegen typisierte Sprachen}\\
-\hline
-  \textbf{Genannte Gr\"unde} & \textbf{Auswirkung in Java} & \textbf{Scala}\\
-  \hline
-  DRY-Prinzip\footnote{Don't Repeat Yourself, ein Grundsatz f\"ur guten Code Smell} \newline repetit. Informationen& 
-  Explizite Typangabe: \newline String s = ''explizit'' & Implizite Typisierung \newline val s = ''implizit''\\
-  \hline
-  Verbosit\"at & z. Bsp. annonyme Innerklassen wie Comparator & Funktionsobjekte, Closures \\
-  \hline
-\end{longtable}
+Subjektiv gesehen hat man stark das Gef\"uhl, dass Funktionale Sprachen, insbesondere Sprachen auf der Java- oder Dot-Net-Plattform in letzter Zeit das Interesse der Entwicklergemeinde auf sich gezogen haben. Auch der Tiobe Index \cite{tiobe} hat diese Tendenz in den letzten Monaten best\"atigt. In wenigen Worten haben die erw\"ahnten Sprachen oft eine ``smartere'' Syntax (siehe Abschnitt ``\ref{imperativ-deklarativ} \titleref{imperativ-deklarativ}''), lassen sich im Grossen und Ganzen besser parallelisieren und k\"onnen in vielen Bereichen von bestehenden Bibliotheken und Frameworks ihrer bereits etablierten Plattformen profitieren. Die Zukunft geh\"ort diesen Sprachen, da Problemstellungen damit in wesentlich weniger LOC implementiert werden k\"onnen. Trotzdem behaupte ich, dass der mangelnde Toolsupport noch lange nicht den Reifegrad wie bei anderen Sprachen erreicht hat und deshalb die Verbreitung der Sprache in der Industrie nur schleppend vonstatten geht. Auch die Nachfrage von Scala Entwicklern bei IT-Consulting unternehmen ist deshalb noch nicht so ausgepr\"agt. Trotzdem erweckt die Syntax und Semantik der Sprache bei vielen Begeisterung und ich m\"ochte in den folgenden Abschnitten nochmals kurz darau eingehen.
 
-\subsection{Sprachdesign und Syntax}
+\subsection{Typisierung}
+Typisierung ist einer der ersten Kriterien zur Klassifizierung von Sprachen, und bekanntlich scheiden sich hier auch bereits die Geister. In der Folge habe ich die am wohl verbreitetsten Argumente aufgelistet und m\"ochte anhand der statischen Sprache Scala zeigen, dass diese sie gar nichts mit der Typisierung zu tun haben, sondern mit der Art und Weise wie die Sprache implementiert ist, wie gut der Kompiler Typen erkennt oder wie ausgepr\"agt die Typen-Inferenz ist.
+
+\begin{itemize}
+\item Man sagt, dass statische Sprachen das DRY\footnote{Don't Repeat Yourself, ein Grundsatz f\"ur guten Code Smell}  verletzten. Als Beispiel wird genannt, dass man beispielsweise die Typen auf beiden Seiten des Gleichheitszeichen angeben m\"usse. Mit impliziter Typisierung sind bei Scala die Typen bereits bei Kompilierzeit bekannt.
+\item Man sagt, dass statische Sprachen eine hohe Verbosit\"at haben. Dieser Punkt wird zum Beispiel im Zusammenhang mit anonymen Innerklassen genannt. Auch hier hat dies insbesondere mit der Problematik zu tun, dass man in Java schon lange h\"atte Closures respektive Funktionsobjekte einf\"uhren sollen.
+\end{itemize}
+  
+\subsection{Syntax}
 Bei der Einarbeitung in Scala f\"allt einem sofort folgendes auf:
 \begin{itemize}
-\item Scala ist statisch, stark typisiert, hat hervorragende Type Inference
+\item Scala ist statisch, stark typisiert, hat hervorragende Typ Inferenz
 \item Scala wurde von vielen Sprachen beeinflusst: Java, ML, Haskell
-\item Scala wurde von Personen entwickelt, die schon lange im Sprachdesign t\"atigt sind. Ich begr\"unde diese Aussage mit der wunderbaren Konsistenz 
+\item Scala wurde von Personen entwickelt, die schon lange im Sprachdesign t\"atigt sind. Ich begr\"unde diese Aussage mit der auff\"allig klaren Konsistenz 
 \begin{itemize}
 \item hinsichtlich Operator Overloading, respektive alles ist eine Methode.
 \item hinsichtlich der Verwendung von Collections wie List und Map. 
@@ -32,20 +27,42 @@ Bei der Einarbeitung in Scala f\"allt einem sofort folgendes auf:
 \end{itemize}
 \end{itemize}
 
+Die Konsistenz ist meines Erachtens von Anfang bis Ende durchdacht. 
+
 \subsection{Tool Support}
-Nebst der Tatsache, dass Scala Code um L\"anger pr\"agnanter\footnote{t\"ont in Englisch besser: concise} ist als Java, wird man w\"ahrend der Entwicklung mit der Tatsache konfrontiert, dass das Tooling, die Programme die einen w\"ahrend der Entwicklung unterst\"utzen, noch lange nicht auf dem Level von Java ist: 
+Nebst der Tatsache, dass Scala Code um L\"anger pr\"agnanter\footnote{das Englische Wort w\"are hier angebrachter: ``concise''} ist als Java, wird man w\"ahrend der Entwicklung mit der Tatsache konfrontiert, dass das Tooling, die Programme die einen w\"ahrend der Entwicklung unterst\"utzen, noch lange nicht auf dem Level von Java ist: 
 \begin{itemize}
 \item der Scala Compiler ist aktuell noch nicht gen\"ugend schnell
 \item die Code-Vervollst\"andigung erkennt nur ganz einfache Zusammenh\"ange
 \end{itemize}
 
 \subsection{Verbreitung}
-Trotz der Sch\"onheit und Kosistenz dieser Sprache, bin ich sehr gespannt, wie sie sich in der nahen Zukunft auch in der Industrie festsetzen wird. Ich bin der Meinung, dass die Verbreitung von Scala ohne ein Framework im Bereich des Internets sehr schwierig sein wird. Web Frameworks k\"onnen sich nur dann verbreiten, wenn durch eine augekl\"ugelte Erweiterbarkeit ein \"Okosystem rundherum entsteht. So dass Websiten in kurzer Zeit und entsprechend kosteng\"unstig entstehen k\"onnen. Als Paradebeispiel in diesem Bereich sehe ich Rails aber auch Grails (siehe Abschnitt ``\ref{auswertung:groovy-lift} \titleref{auswertung:groovy-lift}''. 
+Trotz der Sch\"onheit und Kosistenz dieser Sprache, bin ich sehr gespannt, wie sie sich in der nahen Zukunft auch in der Industrie festsetzen wird. Ich bin der Meinung, dass die Verbreitung von Scala ohne ein Framework im Bereich des Internets sehr schwierig sein wird. Web Frameworks k\"onnen sich nur dann verbreiten, wenn durch eine augekl\"ugelte Erweiterbarkeit ein \"Okosystem rundherum entsteht. So dass Websiten in kurzer Zeit und entsprechend kosteng\"unstig entstehen k\"onnen. Als Paradebeispiel in diesem Bereich sehe ich Rails aber auch Grails (siehe Abschnitt ``\ref{auswertung-lift} \titleref{auswertung:groovy-lift}''. 
 
 
 
 \section{Lift Framework}\label{auswertung:lift}
-\subsecton{Allgemeiner Eindruck}
+Bei Einstieg ins Lift Framework gibt es doch ein paar Stolpersteine, die einem das Leben zu Beginn doch ein bisschen schwer machen, obwohl man sagen muss, dass mit Maven das perfekte Build-Tool gew\"ahlt wurde und man damit in k\"urze eine lauff\"ahige Applikation erzeugen kann. Ich denke, dass sich die zu Beginn auftretenden Fragen nicht gross von denen beim Einstieg in andere Frameworks unterscheiden:
+\begin{itemize}
+ \item Wie binde ich meine Applikation in die IDE ein? Welche IDE ist die richtige?
+ \item Wie kann ich meine Applikation und deren Unit-Tests starte, debuggen?
+ \item Wie komme ich an die Sourcen des Lift Frameworks? Diese sind zum Beispiel noch nicht seit Beginn im Maven Repository.
+\end{itemize}
 
-\subsection{Vergleich von Lift mit Grails}\label{auswertung:groovy-lift}
+Mit der Zeit wirds dann etwas konkreter, vorallem wenn es darum geht, welchen Persistenz Provider man nehmen soll. Ich pers\"onlich war sehr froh, als es dann mit JPA funktionierte und ich die OR-Mappings mit bekannten Mitteln erstellen konnte. Sp\"ater dann, wenn man dann nach langer Zeit auch bemerkt hat, dass einem ein Hauch Dependency Injection zur Verf\"ugung steht, wird aus dem Frust dann pl\"otzlich Lust. Man erkennt, wie man Problemstellungen in zuk\"unftigen Applikationen umsetzen k\"onnte, wie man durch bessere Architektur eine entsprechend bessere Testbarkeit erreichen k\"onnte, usw. Und komischerweise \"uberlegt man sich, welche kleinen Projekte in Zukunft mit diesem Framework umgesetzt werden k\"onnten. Im Folgenden Abschnitt m\"ochte ich auf ein paar wenige Punkte im Detail genauer eingehen. Ein paar Punkte werde ich auch mit dem Grails Framework vergleichen, da ich momentan beruflich vorallem in diesem Bereich unterwegs bin.
+
+\subsection{Eigene Wege}
+Das Lift Framework ist in vielen Bereichen sehr innovativ und beschreitet in fast allen Bereichen neue Wege. Dies ist insofern verst\"andlich, da bereits durch die Auswahl der Programmiersprache eine F\"ulle anderer M\"oglichkeiten entstehen. Ich kritisiere trotzdem diesen Entscheid im Bereich des \textbf{Objekt-Relationalem-Mappings} - da wo es offensichtlich, trotz den vielen guten Ideen, mit Record und Mapper nicht gelang, eine ad\"aquate Alternative zu finden. Hier h\"atte man diese Ideen meines Erachtens besser in einen Wrapper auf bestehende Implementationen investiert. Auch im Bereich des \textbf{Dependency Injections} gibt es ein Paar Frameworks, die diese Funktionalit\"at besser und flexibler bereitstellen. Nebst Spring gibt es auch den Standard ``Context and Dependency Injection for Java'' , wo die Konfiguration der Abh\"angigkeiten eine in meinen Augen noch nie da gewesene Flexibilit\"at  erm\"oglicht.
+
+\subsection{Testing}
+Die unterst\"utzung f\"ur \textbf{Unit-Tests} ist in erster Linie nicht eine Frage des Frameworks, sondern hat mit dem Aufbau und der Architektur der Applikation zu tun. Klassen lassen sich dann gut testen, wenn die Kopplung zum Umsystem gering ist und es wird entsprechend schwierig, wenn die Abh\"angigkeiten der UUT\footnote{Unit under Test}  nicht von aussen gesetzt werden k\"onnen. Im zusammenhang mit Unit-Tests sind trotzdem ein paar Punkte interessant:
+
+\begin{itemize}
+ \item Art der Tests: Tests mit der Sprache Java lassen sich mit den unterschiedlichsten Methoden implementieren: JUnit, TestNG, ScalaTest, ScalaSpecs. Ich habe mich f\"ur die ScalaSpecs entschieden, diese lassen es zu, menschenlesbare Spezifikationen zu schreiben. Trotzdem, mittlerweile finde ich den durch die Specs entstehenden erh\"ohten Aufwand nur in wenigen F\"allen ad\"aquat.
+ \item Es gibt Mock-Klassen f\"ur HttpServletRequest, HttpServletResponse und HttpSession, die sich im Lift TestFramework befinden. F\"ur weitere Mocks siehe Package net.liftweb.mocks des Lift-Testkits.
+\end{itemize}
+
+Bei der Frage nach dem Framework-Support bei Integration Tests \footnote{dabei meine ich das Testen gesamter Gruppen, beinhaltet unter anderem auch die Anbindung an die Datenbank} trennt sich bei den Web Frameworks die Spreu vom Weizen. Die Unterst\"utzung durch Lift ist relativ bescheiden - Frameworks wie Grails und Rails bieten daf\"ur einen wesentlich gr\"osseren Funktionsumfang.
+
+
 

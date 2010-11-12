@@ -3,6 +3,7 @@ package bootstrap.config
 import ch.plannr.common.di.{Context}
 import ch.plannr.services._
 import ch.plannr.model.User
+import ch.plannr.webservices._
 
 /**
  * User: Raffael Schmid
@@ -11,35 +12,39 @@ import ch.plannr.model.User
  */
 
 object Beans {
+  lazy val env = System.getProperty("run.mode")
   def init = {
-    System.getProperty("run.mode") match {
+    env match {
       case "test" =>
-        Context.registerInjection[TeamService]{()=>TeamServiceImpl}
-        Context.registerInjection[VacationService]{()=>VacationServiceImpl}
-        Context.registerInjection[SearchService]{()=>SearchServiceImpl}
-        Context.registerInjection[SecurityService]{()=>MockSecurityService}
+        Context.put[TeamService] {() => TeamServiceImpl}
+        Context.put[VacationService] {() => VacationServiceImpl}
+        Context.put[SearchService] {() => SearchServiceImpl}
+        Context.put[SecurityService] {() => MockSecurityService}
+        Context.put[TeamWebservice] {() => TeamWebserviceImpl}
+        Context.put[VacationWebservice] {() => VacationWebserviceImpl}
+        Context.put[SearchWebservice] {() => SearchWebserviceImpl}
 
       case _ =>
-        Context.registerInjection[TeamService]{()=>TeamServiceImpl}
-        Context.registerInjection[VacationService]{()=>VacationServiceImpl}
-        Context.registerInjection[SearchService]{()=>SearchServiceImpl}
-        Context.registerInjection[SecurityService]{()=>SecurityServiceImpl}
+        Context.put[TeamService] {() => TeamServiceImpl}
+        Context.put[VacationService] {() => VacationServiceImpl}
+        Context.put[SearchService] {() => SearchServiceImpl}
+        Context.put[SecurityService] {() => SecurityServiceImpl}
+        Context.put[TeamWebservice] {() => TeamWebserviceImpl}
+        Context.put[VacationWebservice] {() => VacationWebserviceImpl}
+        Context.put[SearchWebservice] {() => SearchWebserviceImpl}
 
     }
-
-
   }
-
-
 }
 
-object MockSecurityService extends SecurityService{
-  def isUserLoggedIn:Boolean = true
+object MockSecurityService extends SecurityService {
+  def isUserLoggedIn: Boolean = true
+
   def currentUser = {
     val user = User
-    user.id=1
-    user.firstname="Test"
-    user.lastname="Test"
+    user.id = 1
+    user.firstname = "Test"
+    user.lastname = "Test"
     user
   }
 }

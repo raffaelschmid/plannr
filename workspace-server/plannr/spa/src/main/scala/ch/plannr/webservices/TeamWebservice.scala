@@ -10,7 +10,10 @@ import ch.plannr.common.Conversion
 import ch.plannr.common.di.Context
 import ch.plannr.services.{SecurityService, TeamService}
 
-object TeamWebservice extends RestHelper with RESTSupport with Conversion {
+
+abstract class TeamWebservice extends LiftRules.DispatchPF
+
+object TeamWebserviceImpl extends TeamWebservice with RestHelper with RESTSupport with Conversion {
 
   val teamService = Context.inject_![TeamService]
   val securityService = Context.inject_![SecurityService]

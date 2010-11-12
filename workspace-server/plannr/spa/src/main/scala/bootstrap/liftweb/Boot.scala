@@ -27,6 +27,7 @@ import javax.mail.{Authenticator, PasswordAuthentication}
 import ch.plannr.common.mail.Mail
 import net.liftweb.util.{Props, Mailer}
 import bootstrap.config.Beans
+import ch.plannr.common.di.Context
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -49,30 +50,11 @@ class Boot {
     val entries = Menu(Loc("Home", List("index"), "Home")) :: Menu(Loc("Manager", List("manager"), "Manager", If(User.loggedIn_? _, S.??("must.be.logged.in")))) :: User.sitemap
 
     LiftRules.setSiteMap(SiteMap(entries: _*))
-
-
-    //    LiftRules.authentication = HttpBasicAuthentication("plannr")
-    //              {
-    //      case (email, password, req) => {
-    //        try {
-    //          val user = User.login(email, password)
-    //          userRoles(AuthRole("admin"))
-    //          true
-    //        }
-    //        catch {
-    //          case se: SecurityException => {
-    //            false
-    //          }
-    //          case _ => false
-    //        }
-    //      }
-    //    }
-
     LiftRules.loggedInTest = Full(() => User.loggedIn_?)
 
-    LiftRules.dispatch.append(TeamWebservice)
-    LiftRules.dispatch.append(VacationWebservice)
-    LiftRules.dispatch.append(SearchWebservice)
+    LiftRules.dispatch.append(Context.inject_![SearchWebservice])
+    LiftRules.dispatch.append(Context.inject_![VacationWebservice])
+    LiftRules.dispatch.append(Context.inject_![TeamWebservice])
 
 
     S.addAround(new TransactionalLoanWrapper())

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  11 NOV 2010 08:56
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.3.11)  12 NOV 2010 15:43
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -237,13 +237,13 @@ Overfull \hbox (0.22519pt too wide) in paragraph at lines 19--19
 o-gram-mier-spra- 
  []
 
-[5] [6] [7])
+[5] [6])
 \tf@toc=\write3
 \openout3 = `abgabedokument_semesterarbeit.toc'.
 
- (./einleitung.tex [8]) [9
+ (./einleitung.tex [7] [8
 
-] [10
+]) [9] [10
 
 ] [11] [12] (./aufgabenstellung.tex
 Kapitel 1.
@@ -274,6 +274,12 @@ Kapitel 2.
 [19
 
 ]
+Overfull \hbox (1.19835pt too wide) in paragraph at lines 18--19
+\OT1/cmr/m/n/10.95 zur Um-set-zung be-fin-den sich im Ab-schnitt 5[] Im-ple-men
+-ta-ti-on des Prototypen[]. 
+ []
+
+
 Overfull \hbox (0.95499pt too wide) in paragraph at lines 30--31
 []\OT1/cmr/m/n/10.95 Die De-fi-ni-tio-nen der Pro-zes-se be-fin-den sich Ab-sch
 nitt 4.3[] Prozesse[] 
@@ -378,7 +384,7 @@ wird zur[]uckgegeben.
  []
 
 
-Overfull \hbox (1.44164pt too wide) in paragraph at lines 489--490
+Overfull \hbox (1.44164pt too wide) in paragraph at lines 491--492
 \OT1/cmr/m/n/10.95 Die M[]oglichkeiten zur In-ter-na-tio-na-li-sie-rung von Web
 -Applikation un-ter-schei-
  []
@@ -473,242 +479,239 @@ LaTeX Warning: Float too large for page by 55.16353pt on input line 105.
 ]
 Kapitel 5.
 
-Overfull \hbox (2.44536pt too wide) in paragraph at lines 5--6
-\OT1/cmr/m/n/10.95 Bereits zu Be-ginn stell-te sich die Fra-ge, warum man wel-c
-he der drei m[]oglichen
+Overfull \hbox (25.86633pt too wide) in paragraph at lines 21--22
+\OT1/cmr/m/n/10.95 der oben be-schrie-be-nen Bean-Definition die sich im Ob-jek
+t boot-strap.config.Beans
  []
 
 [55
 
-] [56] [57]
-<images/validation_registration.png, id=200, 512.91624pt x 195.73125pt>
+]
+Overfull \hbox (2.44536pt too wide) in paragraph at lines 30--31
+\OT1/cmr/m/n/10.95 Bereits zu Be-ginn stell-te sich die Fra-ge, warum man wel-c
+he der drei m[]oglichen
+ []
+
+
+Overfull \hbox (12.06427pt too wide) in paragraph at lines 39--40
+[]\OT1/cmr/bx/n/10.95 Reifegrad: \OT1/cmr/m/n/10.95 Der Rei-fe-grad der im Lift
+ Fra-me-work ent-hal-te-nen Persistenz-
+ []
+
+[56] [57] [58]
+<images/validation_registration.png, id=203, 512.91624pt x 195.73125pt>
 File: images/validation_registration.png Graphic file (type png)
 
 <use images/validation_registration.png>
-Overfull \hbox (16.7412pt too wide) in paragraph at lines 68--73
-\OT1/cmr/m/n/10.95 Verletzungen in-nerhal ei-nes Sets zur[]uckgeliefert. Ich ve
-r-wen-de die-se Constraints-
+Overfull \hbox (22.76369pt too wide) in paragraph at lines 90--95
+\OT1/cmr/m/n/10.95 Verletzungen als Set zur[]uckgeliefert. Ich ver-wen-de die-s
+e Constraints-Verletzungen
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [58]
-Overfull \hbox (5.39929pt too wide) in paragraph at lines 80--82
+Overfull \hbox (5.39929pt too wide) in paragraph at lines 102--104
 [][][][][][][][] 
  []
 
-[59 <./images/validation_registration.png (PNG copy)>] [60]
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
-[]|\OT1/cmr/m/n/10.95 Benutzer
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 139--139
-[]|\OT1/cmr/m/n/10.95 Passwort
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 143--143
-[]|\OT1/cmr/m/n/10.95 Passworter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 145--145
-[]|\OT1/cmr/m/n/10.95 Benutzer
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
-[]|\OT1/cmr/m/n/10.95 Passwort
- []
-
-
-Overfull \hbox (45.8858pt too wide) in alignment at lines 126--149
- [] [] [] 
- []
-
-
-Overfull \hbox (10.92874pt too wide) in paragraph at lines 152--153
-[]\OT1/cmr/m/n/10.95 Das Me-nu wird aus ei-ner Lis-te von Menu-Eintr[]agen in d
-er Klas-se Boot.scala
- []
-
-
-Overfull \hbox (1.68492pt too wide) in paragraph at lines 157--158
+[59 <./images/validation_registration.png (PNG copy)>]
+Overfull \hbox (1.68492pt too wide) in paragraph at lines 115--116
 \OT1/cmr/m/n/10.95 Die meis-ten User-Interfaces zeich-nen sich, ins-be-son-de-r
 e durch die ho-he Kopp-
  []
 
 
-Overfull \hbox (18.84001pt too wide) in paragraph at lines 157--158
+Overfull \hbox (18.84001pt too wide) in paragraph at lines 115--116
 \OT1/cmr/m/n/10.95 Die-se Pro-ble-ma-tik kann in Ap-pli-ka-tio-nen ver-schie-de
 ns-ter Frontend-Technologien
  []
 
-[61]
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 162--162
+
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 120--120
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--162
+Underfull \hbox (badness 10000) in paragraph at lines 120--120
 
  []
 
-[62]
-Overfull \hbox (0.59006pt too wide) in paragraph at lines 184--185
+[60]
+Overfull \hbox (0.59006pt too wide) in paragraph at lines 142--143
 \OT1/cmr/m/n/10.95 hand ei-nes Bei-spie-les. Be-ans und so-mit der ap-pli-ka-ti
 -ons-wei-te Con-
  []
 
 
-Overfull \hbox (51.46509pt too wide) in paragraph at lines 185--185
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 143--143
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--185
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
 
  []
 
 
-Overfull \hbox (51.46509pt too wide) in paragraph at lines 194--194
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 152--152
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 194--194
+Underfull \hbox (badness 10000) in paragraph at lines 152--152
 
  []
 
 
-Overfull \hbox (22.64088pt too wide) in paragraph at lines 200--201
+Overfull \hbox (22.64088pt too wide) in paragraph at lines 158--159
 \OT1/cmr/m/n/10.95 ter-fa-ces IE-vent-Dis-pat-cher ge-wor-fen wer-den. MXML sin
 d grunds[]atzlich
  []
 
-
-Overfull \hbox (51.46509pt too wide) in paragraph at lines 202--202
+[61]
+Overfull \hbox (51.46509pt too wide) in paragraph at lines 160--160
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--202
+Underfull \hbox (badness 10000) in paragraph at lines 160--160
 
  []
 
-[63]
-Overfull \hbox (7.43266pt too wide) in paragraph at lines 218--219
+
+Overfull \hbox (7.43266pt too wide) in paragraph at lines 176--178
 \OT1/cmr/m/n/10.95 und XHTML 1.0 hat man mit Flex die M[]oglichkeit, Da-ten re-
 spek-ti-ve Zust[]ande
  []
 
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\OT1/cmr/m/n/10.95 Benutzer
+ []
 
-Overfull \hbox (0.13373pt too wide) in paragraph at lines 224--226
-\OT1/cmr/m/n/10.95 sour-cen'' ist die Ver-wen-dung der ver-schie-de-nen Http-Me
-thoden POST, PUT,
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--206
+[]|\OT1/cmr/m/n/10.95 Passwort
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--210
+[]|\OT1/cmr/m/n/10.95 Passworter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--212
+[]|\OT1/cmr/m/n/10.95 Benutzer
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--214
+[]|\OT1/cmr/m/n/10.95 Passwort
+ []
+
+
+Overfull \hbox (45.8858pt too wide) in alignment at lines 193--216
+ [] [] [] 
+ []
+
+[63]
+Overfull \hbox (10.92874pt too wide) in paragraph at lines 219--220
+[]\OT1/cmr/m/n/10.95 Das Me-nu wird aus ei-ner Lis-te von Menu-Eintr[]agen in d
+er Klas-se Boot.scala
  []
 
 [64]
-Overfull \hbox (109.96854pt too wide) in paragraph at lines 231--232
-\OT1/cmr/m/n/10.95 Auf Client-Seite wird das At-tri-bu-te in der ActionScript-K
-lasse ch.plannr.service.HttpServiceFactory
- []
-
-[65]
-Overfull \hbox (47.27957pt too wide) in paragraph at lines 248--249
+Overfull \hbox (47.27957pt too wide) in paragraph at lines 265--266
 \OT1/cmr/m/n/10.95 men-tie-ren ist ver-gleichs-wei-se ge-rin-ger. Man muss al-l
 er-dings auch ber[]ucksichtigen,
  []
 
-
-Underfull \hbox (badness 1484) in paragraph at lines 269--269
+[65]
+Underfull \hbox (badness 1484) in paragraph at lines 286--286
 \OT1/cmr/m/n/10.95 Validierung ein Email in-klu-si-ve ei-nem
  []
 
 
-Underfull \hbox (badness 3492) in paragraph at lines 269--270
+Underfull \hbox (badness 3492) in paragraph at lines 286--287
 []|\OT1/cmr/m/n/10.95 Nicht im-ple-men-
  []
 
 
-Underfull \hbox (badness 3333) in paragraph at lines 271--271
+Underfull \hbox (badness 3333) in paragraph at lines 288--288
 []|\OT1/cmr/m/n/10.95 Passwort ver-ges-
  []
 
 
-Underfull \hbox (badness 7851) in paragraph at lines 273--273
+Underfull \hbox (badness 7851) in paragraph at lines 290--290
 \OT1/cmr/m/n/10.95 ri-en durch den
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 273--273
+Underfull \hbox (badness 10000) in paragraph at lines 290--290
 []|\OT1/cmr/m/n/10.95 Nachdem der Be-nut-zer sei-ne Fe-ri-
  []
 
 
-Underfull \hbox (badness 3492) in paragraph at lines 273--274
+Underfull \hbox (badness 3492) in paragraph at lines 290--291
 []|\OT1/cmr/m/n/10.95 Nicht im-ple-men-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 275--275
+Underfull \hbox (badness 10000) in paragraph at lines 292--292
 []|\OT1/cmr/m/n/10.95 Status[]anderung
  []
 
 
-Underfull \hbox (badness 2359) in paragraph at lines 275--275
+Underfull \hbox (badness 2359) in paragraph at lines 292--292
 \OT1/cmr/m/n/10.95 durch Vor-ge-setz-
  []
 
 
-Underfull \hbox (badness 4886) in paragraph at lines 275--275
+Underfull \hbox (badness 4886) in paragraph at lines 292--292
 []|\OT1/cmr/m/n/10.95 Nachdem der Vor-ge-setz-te die Fe-ri-en
  []
 
 
-Underfull \hbox (badness 3492) in paragraph at lines 275--276
+Underfull \hbox (badness 3492) in paragraph at lines 292--293
 []|\OT1/cmr/m/n/10.95 Nicht im-ple-men-
  []
 
 
-Overfull \hbox (45.8858pt too wide) in alignment at lines 264--277
+Overfull \hbox (45.8858pt too wide) in alignment at lines 281--294
  [] [] [] 
  []
 
-[66] [67] [68]
-Kapitel 6.
-[69
+[66] [67] [68
 
 ]
-Overfull \hbox (6.85585pt too wide) in paragraph at lines 310--311
+Kapitel 6.
+[69]
+Overfull \hbox (6.85585pt too wide) in paragraph at lines 325--326
 \OT1/cmr/m/n/10.95 Plug-ins k[]onnen al-ler-dings auch Scala-Specs oder an-de-r
 e Tests ausf[]uhren. 
  []
 
 [70]
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 322--322
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 337--337
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 322--322
+Underfull \hbox (badness 10000) in paragraph at lines 337--337
 
  []
 
 
-Overfull \hbox (27.37506pt too wide) in paragraph at lines 334--334
+Overfull \hbox (27.37506pt too wide) in paragraph at lines 349--349
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 334--334
+Underfull \hbox (badness 10000) in paragraph at lines 349--349
 
  []
 
 
-Overfull \hbox (0.83339pt too wide) in paragraph at lines 339--340
+Overfull \hbox (0.83339pt too wide) in paragraph at lines 354--355
 \OT1/cmr/m/n/10.95 men und Pass-wort ver-bin-det, wird im Pro-filabh[]angigen p
 er-sis-tence.xml
  []
@@ -719,34 +722,39 @@ er-sis-tence.xml
 Kapitel 7.
 [75
 
-]
-Overfull \hbox (17.43306pt too wide) in alignment at lines 6--16
- [] [] [] 
- []
-
-
-Overfull \hbox (72.21526pt too wide) has occurred while \output is active
-\OT1/cmr/m/n/10.95 76 \OT1/cmr/m/sl/10.95 KAPITEL 7.  AUSWERTUNG UND FAZIT DER 
-VERWENDETEN TECHNOLOGIEN
- []
-
-[76]
-Overfull \hbox (1.8675pt too wide) in paragraph at lines 39--40
+] [76]
+Overfull \hbox (1.8675pt too wide) in paragraph at lines 36--37
 []\OT1/cmr/m/n/10.95 die Code-Vervollst[]andigung er-kennt nur ganz ein-fa-che 
 Zu-sam-menh[]ange 
  []
 
-) (./analyse-basis-aufgabenstellung.tex [77]
-Overfull \hbox (72.21526pt too wide) has occurred while \output is active
-\OT1/cmr/m/n/10.95 78 \OT1/cmr/m/sl/10.95 KAPITEL 7.  AUSWERTUNG UND FAZIT DER 
-VERWENDETEN TECHNOLOGIEN
+
+LaTeX Warning: Reference `auswertung-lift' on page 77 undefined on input line 4
+0.
+
+
+LaTeX Warning: Reference `auswertung:groovy-lift' on page 77 undefined on input
+ line 40.
+
+[77]
+Overfull \hbox (0.49872pt too wide) in paragraph at lines 55--56
+\OT1/cmr/m/n/10.95 durch die Aus-wahl der Pro-gram-mier-spra-che ei-ne F[]ulle 
+an-de-rer M[]oglichkeiten
  []
 
-[78
+[78]
+Missing character: There is no Ê in font cmr10!
+
+Overfull \hbox (0.16504pt too wide) in paragraph at lines 65--66
+[]\OT1/cmr/m/n/10.95 Bei der Fra-ge nach dem Framework-Support bei In-te-gra-ti
+-on Tests[] trennt
+ []
+
+) (./analyse-basis-aufgabenstellung.tex [79] [80
 
 ]
 Kapitel 8.
-[79]
+[81]
 Overfull \hbox (0.95605pt too wide) in paragraph at lines 19--20
 []\OT1/cmr/bx/n/10.95 Usability:  \OT1/cmr/m/n/10.95 Auch hier geht es m.E. in 
 ers-ter Li-nie um nicht Framework-
@@ -754,11 +762,11 @@ ers-ter Li-nie um nicht Framework-
 
 ) (./literaturverzeichnis.tex (./abgabedokument_semesterarbeit.bbl
 Overfull \hbox (80.1212pt too wide) has occurred while \output is active
-\OT1/cmr/m/n/10.95 80 \OT1/cmr/m/sl/10.95 KAPITEL 8.  ANALYSE DER ARBEIT AUF DE
+\OT1/cmr/m/n/10.95 82 \OT1/cmr/m/sl/10.95 KAPITEL 8.  ANALYSE DER ARBEIT AUF DE
 R BASIS DER AUFGABENSTELLUNG
  []
 
-[80]
+[82]
 Underfull \hbox (badness 10000) in paragraph at lines 16--18
 []\OT1/cmr/m/n/10.95 Integrating flex, bla-zeds, and sca-la/-lift.
  []
@@ -782,7 +790,7 @@ Overfull \hbox (33.29994pt too wide) in paragraph at lines 52--56
 ftweb/Using[]SBT,
  []
 
-[81
+[83
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 73--76
@@ -835,38 +843,38 @@ Underfull \hbox (badness 6758) in paragraph at lines 111--114
 -la/-lift.
  []
 
-)) [82] (./abgabedokument_semesterarbeit.lol [83
+)) [84] (./abgabedokument_semesterarbeit.lol [85
 
 ])
 \tf@lol=\write4
 \openout4 = `abgabedokument_semesterarbeit.lol'.
 
- [84]
+ [86]
 (./abgabedokument_semesterarbeit.lof)
 \tf@lof=\write5
 \openout5 = `abgabedokument_semesterarbeit.lof'.
 
- [85
+ [87
 
-] [86
+] [88
 
 ]
 (./abgabedokument_semesterarbeit.lot)
 \tf@lot=\write6
 \openout6 = `abgabedokument_semesterarbeit.lot'.
 
- [87] [88
+ [89] [90
 
-] [89] [90] (./glossary.tex
+] [91] [92] (./glossary.tex
 Anhang A.
 
 Overfull \hbox (62.33858pt too wide) in alignment at lines 2--10
  [] [] 
  []
 
-) (./journal.tex [91
+) (./journal.tex [93
 
-] [92
+] [94
 
 ]
 Anhang B.
@@ -880,7 +888,7 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 6--68
  [] [] 
  []
 
-[93]
+[95]
 Underfull \hbox (badness 10000) in paragraph at lines 81--82
 []\OT1/cmr/m/n/10.95 Initialer Com-mit ins Git Re-po-si-to-ry un-ter
  []
@@ -890,12 +898,12 @@ Overfull \hbox (62.33858pt too wide) in alignment at lines 73--97
  [] [] 
  []
 
-[94]
+
 Overfull \hbox (62.33858pt too wide) in alignment at lines 102--111
  [] [] 
  []
 
-) [95] (./abgabedokument_semesterarbeit.aux)
+[96]) [97] (./abgabedokument_semesterarbeit.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -904,13 +912,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4305 strings out of 493848
- 63594 string characters out of 3149207
+ 4314 strings out of 493848
+ 63724 string characters out of 3149207
  164330 words of memory out of 3000000
- 7497 multiletter control sequences out of 15000+200000
+ 7506 multiletter control sequences out of 15000+200000
  11971 words of font info for 43 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 36i,11n,42p,1386b,1686s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,11n,42p,1386b,1624s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pf
 b></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
@@ -923,9 +931,9 @@ cal/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local
 /texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on abgabedokument_semesterarbeit.pdf (95 pages, 664117 bytes).
+Output written on abgabedokument_semesterarbeit.pdf (97 pages, 672397 bytes).
 PDF statistics:
- 362 PDF objects out of 1000 (max. 8388607)
+ 369 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

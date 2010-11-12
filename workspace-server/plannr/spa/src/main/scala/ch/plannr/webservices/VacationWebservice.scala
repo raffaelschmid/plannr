@@ -16,7 +16,9 @@ import ch.plannr.services.{SecurityService, VacationService, VacationServiceImpl
  *
  * TODO
  */
-object VacationWebservice extends RestHelper with RESTSupport with Conversion {
+abstract class VacationWebservice extends LiftRules.DispatchPF
+
+object VacationWebserviceImpl extends VacationWebservice with RestHelper with RESTSupport with Conversion {
 
   val vacationService = Context.inject_![VacationService]
 
