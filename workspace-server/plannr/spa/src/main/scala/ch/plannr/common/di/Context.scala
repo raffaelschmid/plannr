@@ -3,12 +3,6 @@ package ch.plannr.common.di
 import net.liftweb.util.SimpleInjector
 import ch.plannr.common.Unboxing
 
-/**
- * User: Raffael Schmid
- * 
- * TODO
- */
-
 object Context extends SimpleInjector with Unboxing{
 
   implicit def inject_![T](implicit man: Manifest[T]): T = inject(man)

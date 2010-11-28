@@ -3,11 +3,6 @@ package ch.plannr.common.http
 import javax.servlet._
 import http.{HttpServletRequest, HttpServletResponse}
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 class RequestWrapperFilter extends Filter {
   def init(config: FilterConfig) {}
 

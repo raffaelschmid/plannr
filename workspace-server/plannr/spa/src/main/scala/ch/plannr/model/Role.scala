@@ -3,11 +3,6 @@ package ch.plannr.model
 import javax.persistence._
 import ch.plannr.common.persistence.{Domain, Persistent}
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 
 @Entity
 @Table(name = "TBL_ROLE")

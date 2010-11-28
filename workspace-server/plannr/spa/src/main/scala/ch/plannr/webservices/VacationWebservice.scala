@@ -11,11 +11,6 @@ import ch.plannr.common.Conversion
 import ch.plannr.common.di.Context
 import ch.plannr.services.{SecurityService, VacationService, VacationServiceImpl}
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 abstract class VacationWebservice extends LiftRules.DispatchPF
 
 object VacationWebserviceImpl extends VacationWebservice with RestHelper with RESTSupport with Conversion {

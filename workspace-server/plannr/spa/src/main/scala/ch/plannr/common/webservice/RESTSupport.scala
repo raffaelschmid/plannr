@@ -4,11 +4,6 @@ import scala.xml.Node
 import javax.validation.ConstraintViolation
 import net.liftweb.common.Loggable
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 trait RESTSupport extends Loggable{
   private def stringValue(o: Any): String = if (o != null) o.toString else ""
 

@@ -5,11 +5,6 @@ import net.liftweb.http.js.JsCmds.Run
 import net.liftweb.util.Helpers._
 import net.liftweb.http.js.JsCmds._
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 class Flash {
   
   val headString = """

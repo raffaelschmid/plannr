@@ -1,21 +1,20 @@
 \chapter{Grundlagen}\label{grundlagen}
-Zu Beginn dieser Semesterarbeit stand die Einarbeitung in Scala und das Lift Framework auf dem Programm. Im ersten Teil dieses Abschnitts beschreibe ich grundlegende Paradigmen und Eigenschaften, die zum Vergleich und zur Klassifizierung von Programmiersprachen wesentlich sind.  Im wesentlichen geht es dabei um Kriterien wie Typisierung und Fragen wie Imperative versus Deklarative / Funktionale Programmierungs.  Im zweiten Teil beschreibe ich Eigenschaften der Sprache Scala, insbesondere diese Kriterien machen die Affinit\"at vieler Entwickler zu dieser Sprache  fassbar und sollen darstellen, dass die Beliebtheit von Sprachen wie Java\footnote{Ich meine hier nur die Sprache Java, nicht aber die ganze Plattform} in\"achster Zeit r\"uckl\"aufig sein wird. Trotz meiner m\"assigen Begeisterung \"uber das Lift Framework (siehe Abschnitt \ref{auswertung:lift} \titleref{auswertung:lift}) m\"ochte ich im zweiten Teil vorallem die mir positiv aufgefallenen Bereiche aufzeigen. Bereiche die ich aus anderen Frameworks nicht kenne und welchen 
-
+Zu Beginn dieser Semesterarbeit stand die Einarbeitung in Scala und das Lift Framework auf dem Programm. Im ersten Teil dieses Abschnitts beschreibe ich grundlegende Sprachkonzepte, die zur Klassifizierung von Scala und Programmiersprachen im Allgemeinen beitragen. Es handelt sich um Punkte, denen man beim Einstieg in die Sprache notgedrungen begegnet. Gerade weil sich mit Scala deklarativ (funktional) Programmieren l\"asst, sind einige dieser Grundlagen f\"urs Verst\"andnis sinnvoll. Der zweite Teil konzentriert sich aber auf Sprachfeatures im Detail, f\"ur Javaprogrammierer k\"onnte das eine oder andere relativ neu sein. Der dritte Teil widmet sich voll und ganz dem Lift Framework und beschreibt, wie Anforderungen heutiger Webapplikationen umgesetzt werden k\"onnen.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%BEGRIFFSERKLAERUNG
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Begriffserkl\"arungen zur Klassifizierung von Programmiersprachen}
  \subsection{Funktionale Programmierung}
-Um das Prinzip der Funktionalen Programmierung zu verstehen hier ein kurzer Vergleich zwischen imperativer und deklarativer Programmierung.
+Das Prinzip der Funktionalen Programmierung ist nicht nur wegen der besseren Parallelisierbarkeit bekannt, sondern weil man mit diesen Sprachen vermehrt deklarativ programmieren kann und man deshalb bei diesen von Sprachen der 5. Generation spricht. Der Vergleich zur Imperativen Programmierung wird im folgenden Abschnitt erkl\"art.
 \subsubsection{Imperativ vs. Deklarativ}\label{imperativ-deklarativ}
-Im Gegensatz zu den Imperativen\footnote{der Begriff Imperativ bezeichnet die Befehlsform (lat: imperare=Befehlen)} Sprachen wird der ''Computer'' angewiesen, wie er ein bestimmtes Resultat berechnen muss. Die Deklarativen Sprachen hingegen erm\"oglichen eine Trennung zwischen Arbeits- und Steuerungsalgorithmus. Wir formulieren, was wir haben wollen, und m\"ussen dazu nicht wissen, wie es im Hintergrund ''erarbeitet'' wird.
+Bei den Imperativen\footnote{der Begriff Imperativ bezeichnet die Befehlsform (lat: imperare=Befehlen)} Sprachen wird der ''Computer'' angewiesen, wie er ein bestimmtes Resultat berechnen muss. Im Gegenzug erm\"oglichen deklarative Sprachen eine Trennung zwischen Arbeits- und Steuerungsalgorithmus. Wir formulieren, was wir haben wollen, und m\"ussen dazu nicht wissen, wie es im Hintergrund ''erarbeitet'' wird.
 
-Als gutes Beispiel f\"ur eine deklarative Sprache ist SQL, die Structured Query Language zur Abfrage von Daten einer Datenbank, und ist deshalb ein gutes Beispiel f\"ur eine Sprache die unserem Denken entspricht. 
+Als gutes Beispiel f\"ur eine deklarative Sprache gilt SQL. Code in der Structured Query Language entspricht der Art unseres Denkens. Wir erfragen was wir wollen und sind am darunter liegenden Prozess nicht interessiert:
 
 \begin{lstlisting}[caption=Sql Deklaration]
 select first_name, last_name, zip, city 
 from tbl_user 
-where zip<=8000;
+where zip=5430;
 \end{lstlisting}
 
 
@@ -24,11 +23,11 @@ where zip<=8000;
 \hline
   firstname & lastname & zip & city\\
   \hline
-    Flavor & Flav & 8000 & Z\"urich\\
+    Raffael & Schmid & 5430 & Wettingen\\
   \hline
   \end{longtable}
 
-Eine Sql-Anweisung ist im Normalfall auch ohne detaillierte Erkl\"arung verst\"andlich und man hat sich nicht mit dem Steuerungsalgorithmus im Hintergrund zu besch\"aftigen. Da die Queries nur auf Tabellen operieren, m\"ussen wir nicht einmal wissen, wie Computer funktionieren. Mit Hilfe der Abfragesprache k\"onnen wir uns auf das Wesentliche konzentrieren und mit wenigen Anweisungen viel erreichen. \cite{Piepmeyer201006}
+Eine Sql-Anweisung ist im Normalfall auch ohne detaillierte Erkl\"arung verst\"andlich und man hat sich nicht mit dem Steuerungsalgorithmus im Hintergrund zu besch\"aftigen. Da die Queries nur auf Tabellen operieren, m\"ussen wir die Funktionsweise des Computers nicht verstehen. Mit Hilfe der Abfragesprache k\"onnen wir uns auf das Wesentliche konzentrieren und mit wenigen Anweisungen viel erreichen. \cite{Piepmeyer201006}
 
 Im Gegensatz zu dieser Deklaration ist beispielsweise die Aufsummierung aller Zahlen einer Liste in Sprachen wie Java, C++ oder C\# imperativ:
 
@@ -47,7 +46,7 @@ Imperative Sprachen haben unter anderem die folgenden Eigenschaften:
 \item Werte von Variablen ver\"andern sich unter umst\"anden kontinuierlich.
 \end{itemize}
 
-In h\"oheren Sprachen wie zum Beispiel Scala wird die Berechnung der Summe auf deklarative Weise gemacht und sieht folgendermassen aus:
+In der deklarativen Schreibweise h\"oherer Sprachen kann die Aufsummierung folgendermassen aussehen:
 \begin{lstlisting}[caption=Summe einer Liste in Scala]
 List(1,2,3).foldLeft(0)((sum,x) => sum+x)
 \end{lstlisting} 
@@ -57,8 +56,8 @@ Funktionale Programmierung besitzt die folgenden Eigenschaften:
 \begin{itemize}
 \item jedes Programm ist auch eine Funktion
 \item jede Funktion kann weitere Funktionen aufrufen
-\item Funktionale Sprachen haben Top-Class Funktionen welche nicht nur definiert und aufgerufen werden k\"onnen, sondern als Werte respektive Objekte herumgereicht werden k\"onnen.
-\item Die theoretische Grundlage von Funktionaler Programmiersprachen basiert auf dem Lambda-Kalk\"ul\footnote{Der Lambda-Kalk\"ul ist eine formale Sprache zur Untersuchung von Funktionen. Sie beschreibt Funktionsdefinitionen, das Definieren formaler Parameter sowie das Auswerten und Einsetzen aktueller Parameter. http://de.wikipedia.org/wiki/Lambda-Kalk\"ul} Jeder Ausdruck wird dabei als auswertbare Funktion betrachtet, so dass Funktionen als Parameter \"ubergeben werden k\"onnen.
+\item Funktionale Sprachen haben Funktionen als ``Top-Class-Citizen''  diese k\"onnen zus\"atzlich zum Aufruf auch als Objekte herumgereicht werden.
+\item Die theoretische Grundlage von Funktionaler Programmiersprachen basiert auf dem Lambda-Kalk\"ul\footnote{Der Lambda-Kalk\"ul ist eine formale Sprache zur Untersuchung von Funktionen. Sie beschreibt Funktionsdefinitionen, das Definieren formaler Parameter sowie das Auswerten und Einsetzen aktueller Parameter. Jeder Ausdruck wird dabei als auswertbare Funktion betrachtet, so dass Funktionen als Parameter \"ubergeben werden k\"onnen\cite{wiki:lambdakalkuel}}.
 \end{itemize}
 
 
@@ -66,15 +65,15 @@ Funktionale Programmierung besitzt die folgenden Eigenschaften:
 
 
 \subsection{Statisch typisierte Sprachen}
-Statisch typisierte Sprachen zeichnen sich dadurch aus, dass sie im Gegensatz zu dynamisch typisierten Sprachen den Typ von Variablen schon beim Kompilierungsprozess ermitteln. Dies kann im wesentlichen durch 2 verschiedene Arten geschehen:
+Statisch typisierte Sprachen zeichnen sich dadurch aus, dass sie im Gegensatz zu dynamisch typisierten Sprachen den Typ von Variablen schon beim Kompilierungsprozess ermitteln. Der Typ kann entweder durch explizite Deklaration oder Typ Inferenz ermittelt werden.
 
-\subsubsection{Explizite Deklaration und Typinferenz}
-Bei der expliziten Deklaration wird der Typ einer Variablen respektive der R\"uckgabetyp einer Funktion festgelegt und wird f\"ur die weitere Verwendung bekannt gemacht. Im Normalfall k\"onnen diese expliziten Definitionen aus den restlichen Angaben hergeleitet werden und k\"onnen in h\"oheren Sprachen wie beispielsweise Scala weggelassen werden - dann Spricht man von Typinferenz. Die heutigen Programmiersprachen besitzen unterschiedliche F\"ahigkeiten in Sachen Typinferent. 
+\subsubsection{Explizite Deklaration und Typ Inferenz}
+Bei der expliziten Deklaration wird der Typ einer Variablen respektive der R\"uckgabetyp einer Funktion durch den Programmierer festgelegt und wird f\"ur die weitere Verwendung bekannt gemacht. Im Normalfall k\"onnen diese expliziten Definitionen aus den restlichen Angaben hergeleitet werden und k\"onnen in h\"oheren Sprachen wie beispielsweise Scala weggelassen werden - dann Spricht man von Typ Inferenz. Die F\"ahigkeiten in Sachen Typ Inferenz sind bei den Compilern der aktuellen Sprachen sehr unterschiedlich.
 
-\subsubsection{Typinferenz in Java}
-In Sachen Typinferenz ist Java wenige beg\"utert. Ein kleines Beispiel welches das kleine bisschen Typinferenz in Java aufzeigen soll:
+\subsubsection{Typ Inferenz in Java}
+In diesem Bereich ist der Java Compiler nicht besonders clever. Das kleine Bisschen Typ Inferenz von Java wird am folgenden Beispiel gezeigt:
 
-\begin{lstlisting}[caption=Typeinferenz in Java]
+\begin{lstlisting}[caption=Typ Inferenz in Java]
 public static void main(String[] args) {
 	List<String> list = newArrayList();
 }
@@ -82,24 +81,26 @@ public static <T> List<T> newArrayList() {
 	return new ArrayList<T>();
 }
 \end{lstlisting}
-Die Ermittlung des R\"uckgabetyps aufgrund des Variablen-Typs ist schon fast alles was Java in Sachen Typeinferenz zu bieten hat.
+Die Ermittlung des R\"uckgabetyps aufgrund des Variablen-Typs ist alles, was Java hier bieten kann.
 
 \subsubsection{Vorteile von statischer Typisierung}
+Trotz der geringeren Flexibilit\"at von statisch typisierten Sprachen gibt es auch ein paar nicht zu untersch\"atzende Vorteile:
+
 \begin{itemize}
-\item Bestimmte Fehler werden durch die Typpr\"ufung w\"ahrend der Kompilierzeit vermieden.
-\item Grunds\"atzlich ist das akribische Testen von Code weniger wichtig. 
-\item Die Performance von statisch typisierten Sprachen ist deshalb besser, weil die ermittlung des Typs zur Laufzeit in den meisten F\"allen vermieden werden kann.
+\item Typ-Fehler werden bereits bei der Kompilierung erkannt.
+\item Das Testen von Applikationen erh\"alt durch den Compile-Time check eine geringere Wichtigkeit. 
+\item Die Performance von statisch typisierten Sprachen ist besser, weil die Ermittlung des Typs zur Laufzeit in den meisten F\"allen vermieden werden kann.
 \end{itemize}
 
 \subsubsection{Nachteile von statischer Typisierung}
 \begin{itemize}
+\item Kompilieraufwand ist wesentlich gr\"osser.
 \item Dynamische Sprachen erm\"oglichen eine h\"ohere Flexibilit\"at. Zum Beispiel k\"onnen folgende Dinge in statischen Sprachen teilweise relativ sch\"on, aber mit erh\"ohtem aufwand gemacht werden:
 \begin{itemize}
 \item Einf\"ugen von Methoden in Classen oder Objekte zur Laufzeit in Java ist beispielsweise mit AspectJ\footnote{AspectJ ist eine aspekt-orientierte Erweiterung von Java, bei Xerox Parc entwickelt und mittlerweile Teil des Eclipse Projektes} m\"oglich, herk\"ommliche Mittel erlauben dies nicht.
 \item Interceptoren k\"onnen mittels dem seit Java 1.3 verf\"ugbaren java.lang.reflect.Proxy implementiert werden. Dabei wird vor jeder Methodenlogik der Interceptor-Code durchlaufen. Dynamische Sprachen auf der Java-Plattform greifen auf techniken der Byte-Code-Manipulation und stellen diese Funktionalit\"at in wesentlich einfacherer Art zur Verf\"ugung
 \item Duck Typing\footnote{Duck-Typing ist ein Konzept der objektorientierten Programmierung, bei dem der Typ eines Objektes nicht durch seine Klasse beschrieben wird, sondern durch das Vorhandensein bestimmter Methoden. http://de.wikipedia.org/wiki/Duck-Typing}
 \end{itemize}
-\item Kompilieraufwand ist wesentlich gr\"osser.
 \end{itemize}
 
 
@@ -107,16 +108,15 @@ Die Ermittlung des R\"uckgabetyps aufgrund des Variablen-Typs ist schon fast all
 %%SCALA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scala}\label{einarbeitung:scala}
-Scala wird von Martin Odersky seit 2003 an der EPFL in Lausanne entwickelt. Trotzdem dass Scala an einer Hochschule entwickelt wurde, handelt es sich dabei um eine Sprache f\"ur den industriellen Gebrauch. Dies ist unter anderem auch deshalb m\"oglich, da die Sprache auf der Java Plattform aufbaut und deshalb andere Frameworks wie zum Beispiel JPA Bibliotheken verwendet werden k\"onnen. Die Ideologie hinter Scala l\"asst sich durch die folgenden beiden Begriffe umschreiben:
+Scala wird von Martin Odersky seit 2003 an der EPFL in Lausanne entwickelt. Obwohl Scala an einer Hochschule entwickelt wurde, handelt es sich dabei um eine Sprache mit dem Ziel des industriellen Gebrauchs. Dies ist unter anderem auch deshalb m\"oglich, da die Sprache auf der Java Plattform aufbaut ist und deshalb andere Bibliotheken verwendet werden k\"onnen. Die Ideologie hinter Scala l\"asst sich durch die folgenden beiden Begriffe umschreiben:
 \begin{itemize}
-\item \bf{Concise\footnote{\"ubersetzt pr\"agnant}} - Dieser Begriff wird in B\"uchern \"uber Scala pro Seite gef\"uhlte 10 mal. Mehr dazu unter Ausdrucksst\"arke.
-\item \bf{Consistent\footnote{\"ubersetzt einheitlich}} - Mehr dazu in der Sektion Consistenz.
+\item \bf{Concise\footnote{\"ubersetzt pr\"agnant - Gesch\"atzte 10 Mal pro Seite wird dieser Begriff in Fachliteratur zu Scala verwendet.}}
+\item \bf{Konsistent}
 \end{itemize}
 
-Im Anschluss werden f\"unf Konzepte von Scala vorgestellt, welche die Sprache und ihre Sch\"onheit aufzeigen.
-
+Im Anschluss werden verschiedene neue Konzepte\footnote{aus der Sicht eines Java-Entwicklers} gezeigt, die wesentlich f\"ur die Sch\"onheit dieser Sprache verantwortlich sind.
 \subsection{Scala Type Inferenz}
-Auch wenn es sich anhand der Syntax von Scala nicht darauf schliessen l\"asst, bei Scala handelt es sich um eine statisch typisierte Sprache. Der Unterschied zu herk\"ommlichen Sprachen befindet sich in der Typinferenz - bei Scala ist die Angabe des Variablen-Typs meist optional. So handelt es sich bei den folgenden Zeilen g\"ultige Scala-Ausdr\"ucke:
+Auch wenn es sich anhand der Syntax von Scala nicht darauf schliessen l\"asst, bei Scala handelt es sich um eine statisch typisierte Sprache. Der Unterschied zu herk\"ommlichen Sprachen befindet sich in der Typinferenz - bei Scala ist die Angabe des Variablen-Typs meist optional. So handelt es sich bei den folgenden Zeilen um g\"ultige Scala-Ausdr\"ucke:
 
 \begin{lstlisting}[caption=Typeinferenz in Scala]
 val name = "Rudolf"           //Variable des Typs String
@@ -126,33 +126,26 @@ val l = List("a","b","c")     //typisierte Liste
 def add(a:Int,b:Int)=a+b      //Methode (impliziter Typ)
 \end{lstlisting}
 \subsection{Traits}
-Traits sind ein fundamentales Konzept in Scala f\"ur die Wiederverwendbarkeit von Code. Im Gegensatz zu der Klassenvererbung k\"onnen unz\"ahlige Traits\footnote{bedeutet \"ubersetzt Eigenschaft respektive Merkmal} eingemischt werden und aufgrund der Linearisierung dieser "mixins" k\"onnen bekannte Probleme wie sie in der Mehrfachvererbung vorkommen vermieden werden. Zur erkl\"arung von Traits in Scala ein Beispiel\cite[p. 222-227]{odersky2008programming}:
+Traits sind ein fundamentales Konzept in Scala f\"ur die Wiederverwendbarkeit von Code. Im Gegensatz zu der Klassenvererbung k\"onnen unz\"ahlige Traits\footnote{bedeutet \"ubersetzt Eigenschaft respektive Merkmal} eingemischt werden und aufgrund der Linearisierung dieser "mixins" k\"onnen Probleme wie sie bei Mehrfachvererbung vorkommen vermieden werden. Auch hier zur Erkl\"arung wieder ein Beispiel aus \cite[p. 222-227]{odersky2008programming}:
 
 \begin{lstlisting}[caption=Klassen und Traits definieren]
-import scala.collection.mutable.ArrayBuffer
-
 abstract class IntQueue{
    def get():Int
    def put(x:Int)
 }
-
 class BasicIntQueue extends IntQueue{
    private val buf = new ArrayBuffer[Int]
    def get() = buf.remove(0)
    def put(x:Int){buf+=x}
 }
-
 trait Doubling extends IntQueue{
    abstract override def put(x:Int){super.put(2*x)}
 }
-
 trait Incrementing extends IntQueue{
    abstract override def put(x:Int){super.put(x+1)}
 }
 \end{lstlisting}
-Hier haben wir eine abstrakte Klasse IntQueue deklariert, welche keine beider Methoden implementiert. Anschliessend implementieren wir beide Methoden in einer Basisklasse BasicIntQueue und erstellen zwei, welche die \"ubergebene Zahl in die put-Methode je inkrementieren respektive verdoppeln. In Java wurde ein solches Verhalten bis anhin vorzugsweise mit dem Delegate-Pattern implementiert.
-Wie wir die Traits verwenden sehen wir nun im Folgenden Code-Ausschnitt. 
-
+Hier haben wir eine abstrakte Klasse IntQueue deklariert. In der Basis-Klasse BasicIntQueue implementieren wir die beiden Methoden. Doubling und Incrementing implementieren ebenfalls die Methode get zur Verdopplung und Inkrementierung. In Java verwenden wir f\"ur das selbe Verhalten das Delegate Pattern. Der folgende Codeausschnitt verdeutlicht was passiert: 
 
 \begin{lstlisting}[caption=Traits: Verschiedene Instanzen vom Typ IntQueue und die entsprechenden Auswirkungen]
 val diQ=new BasicIntQueue with Incrementing with Doubling
@@ -171,22 +164,20 @@ assert(3==iQ.get)
 dQ.put(2)
 assert(4==dQ.get)
 \end{lstlisting}
-Nun erstellen wir eine Doubling-Incrementing-Queue (diQ), bei welcher die \"ubergebene Variable zuerst verdoppelt und dann inkrementiert wird. Dann eine Incrementing-Doubling-Queue, bei welcher die \"ubergebene Varialbe incrementiert und dann verdoppelt wird, eine Increment-Queue (iQ) und eine Doubling-Queue(dQ).
+Nun erstellen wir eine Doubling-Incrementing-Queue (diQ), bei welcher die \"ubergebene Variable zuerst verdoppelt und dann inkrementiert. F\"ur die umgekehrte Reihenfolge die Incrementing-Doubling-Queue, sowie die anderen Increment-Queue (iQ) und Doubling-Queue(dQ).
 
 Am Beispiel Doubling-Incrementing-Queue schauen wir uns an, was hinter den Kulissen passiert. Folgende Deklaration dient als Ausgangslage: 
 \begin{lstlisting}[caption=Traits: Deklaration Doubling-Incrementing-Queue]
 val diQ=new BasicIntQueue with Incrementing with Doubling
 \end{lstlisting}
 
-Die Delegation des Super-Calls wird bei dieser Deklaration von rechts nach links durchgef\"uhrt, damit Klassen nicht mehrmals aufgerufen werden f\"uhrt der Scala Compiler bei der Instanzierung eine wie folgt definierte Linearisierung durch. Sofern eine Klasse in der Vererbungshierarchie mehrmals vorkommt, wird nur die erste verwendet (in Punkt 4 wird die Klasse BasicIntQueue beim ersten Mal ignoriert). 
+Die Delegation des Super-Calls wird bei dieser Deklaration von rechts nach links durchgef\"uhrt, damit Klassen nicht mehrmals aufgerufen werden f\"uhrt der Scala Compiler bei der Instanzierung eine wie folgt definierte Linearisierung durch: Sofern eine Klasse in der Vererbungshierarchie mehrmals vorkommt gilt der Grundsatz, dass nur die welchem am ersten Auftritt verwendet (in Punkt 4 wird die Klasse BasicIntQueue beim ersten Mal ignoriert). 
 \begin{enumerate}
 	\item IntQueue - AnyRef - Any
 	\item BasicIntQueue - IntQueue - AnyRef - Any
 	\item Incrementing - BasicIntQueue - IntQueue - AnyRef - Any
 	\item \bf{Doubling - \sout{BasicIntQueue} - Incrementing - BasicIntQueue - IntQueue - AnyRef -Any}
 \end{enumerate}
-Die \"Ubergebenen Argumente werden nun zuerst verdoppelt und inkrementiert, bevor sie in die Queue gestellt werden.
-
 
 \subsection{Funktionen als Objekte}
 Scala erf\"ullt die wichtigsten Kriterien, die eine Sprache als Funktional bezeichnen lassen\cite[p. 28]{Piepmeyer201006}:
@@ -194,7 +185,7 @@ Scala erf\"ullt die wichtigsten Kriterien, die eine Sprache als Funktional bezei
 \item Funktionen k\"onnen anonym definiert werden. Das heisst, man kann Funktionen vereinbaren, ohne ihnen einen Namen zu geben. 
 \item Funktionen werden wie alle anderen Daten behandelt. Das hat zur Folge, dass in einer statischen Sprache jede Funktion ein Typ hat. 
 \item Funktionen sind First-Class Values und k\"onnen anderen Funktionen \"ubergeben oder als Resultate von anderer Funktionen zur\"uckgegeben werden.
-\item Funktioneller Style ist unter anderem, dass Eingabewerte auf Ausgabewerte gemappt werden. Andernfalls programmiert man Funktionen respektive Methoden mit Seiteneffekten.
+\item Funktioneller Style ist unter anderem, dass Eingabewerte auf Ausgabewerte gemappt werden. Andernfalls spricht man von Methoden mit Side-Effects\footnote{Nebeneffekte} welche Problematisch sind bei Nebenl\"aufigkeit von Systemen.
 \end{itemize}
 \subsection{Currying}
 Currying\footnote{Bezeichnet ein Konzept der Funktionalen Programmierung benannt nach dem Erfinder der Sprache Haskell:  Haskell Brooks Curry} wird in Scala mit Partieller Anwendung von Funktionen erreicht. Die Spezialisierung einer Funktion ist darauf angewiesen, dass Funktionen Konstanten zugewiesen werden k\"onnen. Im folgenden Beispiel wird eine Funktion add definiert, um anschliessend die Partielle Anwendung mit der Funktion increment zu definieren.
@@ -215,9 +206,9 @@ res4: Int = 4
 
 
 \subsection{Pattern Matching}
-Mustererkennung respektive Pattern Matching kennen die meisten von Regul\"aren Ausdr\"ucken, welche bestimmte Patterns in Texten erkennen k\"onnen. In Scala geht die Mustererkennung wesentlich weiter als nur die Anwendung aus Text - die Idee gibt es allerdings schon viel l\"anger, wurde sie zum ersten Mal in ML\footnote{http://de.wikipedia.org/wiki/ML\_(Programmiersprache)} verwendet.
+Mustererkennung respektive Pattern Matching kennen die meisten von Regul\"aren Ausdr\"ucken, welche bestimmte Patterns in Texten erkennen k\"onnen. In Scala geht die Mustererkennung wesentlich weiter. \footnote{Die Idee gibt es allerdings schon viel l\"anger. Zum ersten Mal wurde Pattern Matching in dieser Art in ML verwendet.}
 
-In Scala k\"onnen unterschiedliche Typen von Mustern auf Objekte angewendet werden:
+Hier kann Pattern Matching auf unterschiedliche Patterns von Objekttypen angewendet werden:
 \begin{itemize}
 	\item Konstante
 	\item Platzhalter
@@ -230,13 +221,11 @@ In Scala k\"onnen unterschiedliche Typen von Mustern auf Objekte angewendet werd
 
 Mehr Informationen gibt es unter \cite[p. 263-296]{odersky2008programming} oder \cite[p. 167-176]{Piepmeyer201006}
 
-Urspr\"unglich kommt die Idee von
-
 \subsection{Tail Recursion}
-Wie jede rekursive Funktion lassen sich Endrekursive\cite{wiki:Endrekursion} Funktion mittels einer Iteration darstellen, dabei sind die iterativen Varianten oft auch wesentlich sparsamer mit Ressourcen, da f\"ur jeden Funktionsaufruf ein Frame auf dem Stack erstellt wird. Allerdings lassen sich gewisse Problemstellungen wesentlich lesbarer mit Rekursion darstellen. Sogar in Java gibt es Compiler die es schaffen, Endrekursive Funktionen zu optimieren. Der Scala Compiler wandelt diese in Iterationen um. Seit der Scala Version 2.8 bietet der Compiler die M\"oglichkeit, die  Umwandlung "Endrekursiv - Iteration" mit der Annotation \textbf{@endrec} zu \"Uberpr\"ufen.
+Wie jede rekursive Funktion lassen sich Endrekursive\cite{wiki:Endrekursion} Funktion mittels einer Iteration darstellen, dabei sind die iterativen Varianten oft auch wesentlich ressourcenfreundlicher, da bei Rekursionen bei jedem Funktionsaufruf ein Frame auf dem Stack erstellt wird - und trotzdem ist die Rekursion wegen der besseren Lesbarkeit in vielen Situationen w\"unschenswert. Neuere Sprachen erkennen Endrekursionen und wandeln diese in Iterationen um. Sogar einzelne Java Compiler sind bereits in der Lage eine automatische Umwandlung durchzuf\"uhren. Der Scala Compiler bietet zus\"atzlich die M\"oglichkeit, mittels Annotation @endrec die Umwandlung des Compilers zu pr\"ufen.
 
 \subsection{Predef}
-Das Predef Objekt stellt Definitionen zur Verf\"ugung, die ohne explizite deklaration verf\"ugbar sind und vom Compiler in die Klasse importiert werden. Ein paar Beispiele, die via dieses Objekt implizit definiert sind: 
+Das Predef Objekt stellt Definitionen zur Verf\"ugung, die ohne explizite deklaration verf\"ugbar sind und vom Compiler in die Klasse importiert werden. Es sind zum Beispiel die folgenden Punkte:
 \begin{itemize}
 	\item Die Verwendung von List() liefert implizit eine Instanz vom Typ scala.collection.immutable.List. Das gleiche gilt f\"ur Set() und Map()
 	\item println() ist implizit ein Aufruf an Console.println().
@@ -251,51 +240,85 @@ s: java.lang.String = hello world!
 scala> println(s.reverse)
 !dlrow olleh
 \end{lstlisting}
-In diesem Beispiel ist es einigermassen erstaunlich, warum die Klasse java.lang.String pl\"otzlich eine Methode reverse besitzt. Unbemerkt haben wir es hier mit einer Impliziten Konversion der Klasse Predef zu tun. Diese respektive deren Super-Typ LowPriorityImplicits besitzt die Methode mit der folgenden definition:
+In diesem Beispiel erstaunt, warum die Klasse java.lang.String pl\"otzlich die Methode reverse besitzt. Unbemerkt haben wir es hier mit einer Impliziten Konversion der Klasse Predef zu tun. Deren Supertyp (LowPriorityImplicits) besitzt die Methode mit der definition:
 \begin{lstlisting}[caption=Implicit Conversions Method wrapString]
 implicit def wrapString(s:String):WrappedString = {
    new WrappedString(s)
 }
 \end{lstlisting}
-Sofern der Typ die aufgerufene Methode reverse nicht hat, wird im G\"ultigkeitsbereich nach einer Impliziten Conversion gesucht die zu einem R\"uckgabetyp mit dieser Methode f\"uhrt. Das ganze wird zur Kompilierzeit gemacht.
+Sofern der Typ die aufgerufene Methode reverse nicht hat, wird im G\"ultigkeitsbereich nach einer Impliziten Conversion gesucht, die als R\"uckgabetyp ein Typ mit dieser Methode hat. Das ganze wird zur Kompilierzeit gemacht und hat entsprechend keine grossen Einfluss auf die Performance.
 
 \subsection{XML Datentyp}\label{grundlagen:scala:xmldatentyp}
-TODO
+In Scala kann XML direkt in den Code eingebettet werden. Folgender Code ist deshalb v\"ollig legitim:
+
+\begin{lstlisting}[caption=XML Generierung mit Scala]
+object Test extends Application {
+
+  val name = "planets"
+  val elements = List("Merkur", "Venus", "Erde", "Mars",
+                     "Jupiter", "Saturn", "Uranus",
+                     "Neptun", "Pluto")
+  val xml =
+  <elements data={name}>
+    {for (element <- elements)
+    	yield <element>{element}</element>
+    }
+  </elements>
+  println(xml)
+}
+}\end{lstlisting}
+und produziert die Ausgabe:
+\begin{lstlisting}[caption=Ausgabe XML Generierung mit Scala]
+<elements data="planets">
+    <element>Merkur</element>
+    <element>Venus</element>
+    <element>Erde</element>
+    <element>Mars</element>
+    <element>Jupiter</element>
+    <element>Saturn</element>
+    <element>Uranus</element>
+    <element>Neptun</element>
+    <element>Pluto</element>
+  </elements>
+\end{lstlisting}
+
+Zus\"atzlich bietet Scala unz\"ahlige M\"oglichkeiten im Zusammenhang mit XML. Nebst der Serialisierung von Objekten k\"onnen so XML-Daten deserialisiert werden und es kann Pattern Matching angewendet werden. F\"ur weitere Informationen empfehle ich \cite[p. 513 - 526]{odersky2008programming}
+
+
 
 \subsection{Integration mit Java}\label{grundlagen:integration:java}
-TODO
-
+Bei der Integration mit Java gibt es zwei verschiedene M\"oglichkeiten. Die eine, man verwendet Java Bibliotheken aus Scala Code, ist in den meisten F\"allen m\"oglich. Der umgekehrte weg ist dann schon einiges komplizierter. Aufwendig und unleserlich ist es insofern dann, wenn Methodennamen wie +, - etc. verwendet werden. F\"ur weitere Informationen empfehle ich \cite[p. 569 - 581]{odersky2008programming}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%LIFT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Liftweb Framework}\label{einarbeitung:lift}
-Im Prinzip war die Entscheidung, welches Web Framework zu verwenden ist, bereits in der Aufgabenstellung definiert. Ziel war es viel mehr, eine Analyse des als Grundlage definierten Lift Frameworks zu erstellen und Wege zu finden, mit denen die einzelnen Problemstellungen, die im \"ubrigen praktisch in jeder Webapplikation auftreten, umgesetzt werden k\"onnen. Im ersten Teil werde ich deshalb viele einzelne Aspekte des Lift Webframeworks beleuchten. Im Anschluss an diese Punkte werde ich zus\"atzlich versuchen, den Vergleich mit Grails, eines auf Java, Spring, Hibernate und Groovy basierenden Webframeworks, herzustellen.
+Die Evaluation eines Web Frameworks war aufgrund der Aufgabenstellung nicht n\"otigt. Bei der Erarbeitung der Grundlagen war vielmehr das Ziel Wege zu finden, mit denen die einzelnen Problemstellungen, die im \"ubrigen praktisch in jeder Webapplikation auftreten, umgesetzt werden k\"onnen. Im ersten Teil werde ich deshalb viele einzelne Aspekte des Lift Webframeworks beleuchten. Ich beschreibe wie man ein Projekt erstellen kann, wie das Rendering der Webseiten funktioniert, wie Formulare hergestellt werde k\"onnen, Navigation und analysiere die verschiedenen m\"oglichen Persistenz Provider.
 
 \subsection{Erstellen eines Lift-Projektes}\label{lift:create}
-Innerhalb des ganzen Lift-\"Okosystems wird Maven\footnote{http://maven.apache.org} als das Build-System verwendet. Mittels der vordefinierten Maven Archetypen\footnote{Archetypes in Maven sind vordefinierte Templates mit welchen Maven-Projekte erstellt werden k\"onnen.} k\"onnen Lift-Projekte mit relativ geringem Aufwand erstellt werden. Momentan sind mehrere Archetypen f\"ur unterschiedliche Projekte vorhanden: zum Beispiel zur erstellung eines Lift-Projektes basierend auf JPA (lift-archetype-jpa-basic), oder eines Lift-Projektes basierend auf Mapper\footnote{Mapper ist nebst Record und der JPA-Integration eine der ORM-Libraries f\"ur Relationale Datenbanken} (lift-archetype-basic), usw.  Die Standardisierung an die sich Maven-Projekte halten\footnote{Convention over Configuration} vereinfachen die verschiedensten Phasen der Software-Entwicklung. Zum Beispiel k\"onnen Maven-Projekte in die meisten Continuous Integration Systeme ohne erheblichen Aufwand importiert werden.
+Innerhalb des ganzen Lift-\"Okosystems wird Maven\footnote{http://maven.apache.org} als das Build-System verwendet. Mittels der vordefinierten Maven Archetypen\footnote{Archetypes in Maven sind vordefinierte Templates mit welchen Maven-Projekte erstellt werden k\"onnen.} k\"onnen Projekte mit relativ geringem Aufwand erstellt werden und auch bestehende Erweiterungen k\"onnen einfach durch Angabe der Abh\"angigkeit beansprucht werden. Momentan sind mehrere Archetypen f\"ur unterschiedliche Projekte vorhanden: zum Beispiel zur Erstellung eines Lift-Projektes basierend auf JPA (lift-archetype-jpa-basic), oder eines Lift-Projektes basierend auf Mapper\footnote{Mapper ist nebst Record und der JPA-Integration eine der ORM-Libraries f\"ur Relationale Datenbanken} (lift-archetype-basic), usw. Auch wenn das Plugin Konzept verglichen mit beispielsweise Grails wesentlich weniger Leistungsf\"ahig ist, die Maven-Konventionen \footnote{Convention over Configuration} vereinfachen die verschiedensten Phasen der Softwareentwicklung ungemein. Es ergeben sich dadurch viele M\"oglichkeiten, zum Beispiel k\"onnen Maven-Projekte ohne Aufwand in Continuous Integration Systeme importiert werden. 
 
-Mittels folgendem Befehl l\"asst sich ein Wizard starten mittels welchem man ein neues Maven-Projekt erstellen kann. Die Auswahl des Archetypen kann zu Beginn gemacht werden. Aktuell befinden sich die Lift-Archetypen zwischen ca. Position 21 und 39.
-\begin{lstlisting}[caption=Erstellung eines Lift-Projektes]
+Um mit dem Setup einer Lift-Applikation zu beginnen muss folgendes Kommando ausgef\"uhrt werden: \begin{lstlisting}[caption=Erstellung eines Lift-Projektes]
 mvn archetype:generate
 \end{lstlisting}
+Anschliessend ist die Auswahl des Archetypen sowie von Gruppe, Name, Default-Package und Version notwendig. Lift-Archetypen befinden sich aktuell zwischen Position 21 und 39. 
 
-Lift- respektive Maven-Projekte lassen sich in den "g\"angigen"\footnote{damit wird Eclipse, IntelliJ und Netbeans gemeint} importieren. Es sind daf\"ur noch das Maven-Plugin (Eclipse) und das Scala-Plugin (IntelliJ, Eclipse, Netbeans) zu installieren. F\"ur die Entwicklung kann es einen gewissen Vorteil bringen, wenn man SBT\footnote{http://code.google.com/p/simple-build-tool} (Simple Build Tool) verwendet. SBT ist ein Build Tool f\"ur Scala und unterst\"utzt den Software-Entwicklungsprozess erheblich. Es stellt Funktionalit\"aten wie Continuous Compilation und Testing, Parallel Test Execution, usw. zur Verf\"ugung. Die Installation ist ebenfalls relativ einfach und kann unter \cite{liftweb:using-sbt} nachgeschaut werden.
+Nun l\"asst sich das Projekt in den "g\"angigen IDEs"\footnote{Eclipse, IntelliJ und Netbean} importieren. Meistens ist allerdings zus\"atzlich das Maven-Plugin (Eclipse) und das Scala-Plugin (IntelliJ, Eclipse, Netbeans) zu installieren. F\"ur die Entwicklung kann es einen gewissen Vorteil bringen, wenn man SBT\footnote{http://code.google.com/p/simple-build-tool} (Simple Build Tool) verwendet. SBT ist ein Build Tool f\"ur Scala und unterst\"utzt den Software-Entwicklungsprozess erheblich. Es stellt Funktionalit\"aten wie Continuous Compilation und Testing, Parallel Test Execution, usw. zur Verf\"ugung. Die Installation ist ebenfalls relativ einfach und kann unter \cite{liftweb:using-sbt} nachgeschaut werden.
 
 \subsection{Bootstrapping \cite[p. 26]{chen2009lift}}
-Das Bootstrapping der Applikation kann zus\"atzlich durch die Klasse Boot.scala erg\"anzt werden. In dieser Klassen k\"onnen Dinge wie das Setup einer Navigation, die Definition der Zugriffskontrolle, Url-Rewriting konfiguriert werden. Die Boot.scala Datei befindet sich per Default im Verzeichnis bootstrap.liftweb, was sich in besonderen F\"allen\footnote{davon wird aber ziemlich vehement abgeraten} via web.xml anpassen l\"asst.
+Das Bootstrapping der Applikation kann zus\"atzlich durch die Klasse Boot.scala erg\"anzt werden. In dieser Klassen k\"onnen Dinge wie das Setup einer Navigation, die Definition der Zugriffskontrolle sowie Url-Rewriting konfiguriert werden. Die Boot.scala Datei wird bei der Projekterstellung im Package bootstrap.liftweb angelegt, was sich via web.xml anpassen lassen w\"urde.
 
 \subsection{Site Rendering \cite[p. 27-43]{chen2009lift}}
 Das Rendering einer Webseite l\"asst sich in verschiedene Schritte unterteilen:
 
 \begin{enumerate}
 	\item Als erstes werden Url-Rewritings vorgenommen. Sofern eine Url nach aussen unter einem Alias verf\"ugbar sein soll, wird dieser Alias in den Internen Pfad \"ubersetzt.
-	\item Nun wird gepr\"uft, ob es f\"ur die Url eine spezifische Dispatch-Funktion gibt. Dies kann beispielsweise dann der Fall sein, wenn ein Chart oder ein Bild generiert werden soll, und nicht ein Template oder eine View angezeigt werden sollen. 
-	\item Im letzten Schritt wird gesucht, ob ein Template oder eine View f\"ur die Url vorhanden ist und diese entsprechend gerendert.
+	\item Nun wird gepr\"uft, ob es f\"ur die Url eine spezifische Dispatch-Funktion gibt. Dies kann beispielsweise dann der Fall sein, wenn ein Chart oder ein Bild generiert werden soll, im Gegensatz zu einem Template- oder View-Rendering. 
+	\item Falls dies nicht der Fall war, wird ein passendes Template oder eine View f\"ur die vorhandene Url gesucht.
 \end{enumerate}
 
 \subsubsection{Rendering mit Templates} \label{grundlagen:templates}
-Templates sind vordefinierte XML-Dateien, welche HTML und vordefinierte Lift-Tags enthalten k\"onnen. Anhand der hineinkommenden Url (Beispiel: /path/file) wird nacheinander versucht, die Dateien template\_de-CH (Locale: de-CH), template\_de (Locale: de) oder template mit je den Endungen .html, .htm und .xhtml aufzul\"osen. Die Templates k\"onnen zum Beispiel folgenden Inhalt enthalten:
+Templates sind vordefinierte XML-Dateien, welche HTML und Lift-Tags enthalten k\"onnen. Anhand der aufgerufenen Url (Beispiel: /path/file) wird nacheinander versucht, die Dateien mit Name ``file\_de-CH'' (Locale: de-CH), ``file\_de'' (Locale: de) oder ``file'' mit je den Endungen .html, .htm und .xhtml aufzul\"osen. Diese Funktionalit\"at kann zur Internationalisierung der Webapplikation verwendet werden. Eine datei k\"onnte folgenden Inhalt aufweisen:
 
 \begin{lstlisting}[caption=Lift Template Surround]
 <lift:surround with="default" at="content">
@@ -304,11 +327,11 @@ Templates sind vordefinierte XML-Dateien, welche HTML und vordefinierte Lift-Tag
 </lift:surround>
 \end{lstlisting}
 
-Die Tags werden von aussen nach innen transformiert, entsprechend wird hier das Default-Template angezogen und beim Tag 
+Die Tags werden von aussen nach innen transformiert, entsprechend wird hier das Default-Template verwendet. Innerhalb dieses Templates, das ansonsten HTML-Code enth\"alt, befindet sich der Tag zum einf\"ugen des Seiteninhaltes. 
 \begin{lstlisting}[caption=Lift Template Binding]
 <lift:bind name="content"/>
 \end{lstlisting}
-der Output der Methode world der Klasse Hello eingef\"ugt. Bei der Klasse Hello spricht man von einem Snippet. Es handelt sich allerdings um eine normale Scala Klasse, die in der Methode world eine Objekt vom Typ scala.xml.Elem zur\"uck gibt.
+Die Klasse Hello ist ein Snippte, befindet sich im Package ``snippet'' und hat eine oder mehrere Methoden mit dem R\"uckgabetyp scala.xml.Element.
 
 \begin{lstlisting}[caption=Snippet]
 class Hello {
@@ -318,7 +341,7 @@ class Hello {
 
 
 \subsubsection{Rendering mit Views}
-Als Alternative zu Template Dateien kann HTML-Code auch direkt aus den Methoden generiert werden. Um das Dispatching auf die entsprechenden Klassen und Methoden zu erm\"oglichen, wird am Besten der Trait LiftView verwendet und die Methode dispatch \"uberschrieben. Ein Beispiel sieht folgendermassen aus:
+Anstelle von Views (die sich in Html-Datein befinden) kann wie oben beschrieben auch das Dispatching verwendet werden. Bei eingetragenen Dispatchern handelt es sich um Klassen vom Typ LiftView in welchen die Methode dispatch \"uberschrieben wird. Hier auch wieder ein Beispiel aus \cite{chen2009lift}: 
 
 \begin{lstlisting}[caption=Views]
 class ExpenseView extends LiftView{
@@ -334,24 +357,24 @@ class ExpenseView extends LiftView{
 }
 \end{lstlisting}
  
-Views m\"ussen sich im Package {default-namespace}.views befinden. Hier wird eine Dispatch-Funktion von "/ExpenseView/enumerate" auf die Methode doEnumerate durchgef\"uhrt. Mit dieser zus\"atzlichen Definition stellt man sicher, dass nicht alle Methoden via eine Url ansprechbar sind. Das Resultat wird nachtr\"aglich prozessiert und \"aquivalent wie Templates behandelt - der R\"uckgabewert des Beispiels kann ebenfalls wieder Lift-Tags enthalten.
+Views m\"ussen sich im Package ``views'' befinden. Wenn man den Pfad der View auf  ``ExpenseView/enumerate''  mapt wird sichergestellt, dass nicht alle Methoden via eine Url ansprechbar sind. Das Resultat wird nachtr\"aglich gerendert.
 
 \subsection{Formulare}
 Mit dem oben beschriebenen Mechanismus k\"onnen ebenfalls Formulare definiert werden. Dabei werden in den Snippets zus\"atzliche Callback-Funktionen definiert, die beim \"Ubermitteln des Post-Requests ausgef\"uhrt werden. Mehr dazu kann unter  \cite[p. 47-58]{chen2009lift} nachgeschlagen werden.
 
 \subsection{SiteMap \cite[p. 61-70]{chen2009lift}}\label{lift:sitemap}
-Grunds\"atzlich stellt die Lift SiteMap die Menu-Struktur mit entsprechenden Links zur Verf\"ugung und kann mittels der Unordered List auf der Webseite eingef\"ugt werden. Des weiteren bietet aber die SiteMap noch eine Vielzahl anderer Funktionen:
+Im Lift Framework wird das Menu in form der Klasse SiteMap definiert und kann auf die Seite ebenfalls automatisch integriert werden. Des weiteren bietet aber die SiteMap noch eine Vielzahl anderer Funktionen:
 \begin{itemize}
-\item Hierarchien und Gruppierungen von Elementen der Navigation, somit k\"onnen auch nur einzelne \"Aste der Navigation angezeigt werden.
-\item Zugriffskontrolle auf die einzelnen Elemente
+\item Hierarchie und Gruppierungen von Navigationselementen, damit k\"onnen auch nur einzelne \"Aste auf der Seite angezeigt werden
+\item Zugriffskontrolle auf den einzelnen Elementen durch LocParams\footnote{LocParam ist eine Klasse, von der es verschiedene Subtypen gibt Bei der Implementation eines ``net.liftweb.sitemap.Loc.If'' kann man definieren, ob der Zugriff f\"ur den Benutzer auf diese Url gew\"ahrleistet wird oder nicht. }
 \item Request-Rewriting
 \end{itemize}
 
 \subsection{Persistenz}\label{grundlagen:persistenz}
 \subsubsection{Relationale Datenbanken}
-Im Bereich der Persistenz mit relationalen Datenbanken habe ich mir die drei Verf\"ugbaren Ans\"atze angeschaut. Die Entwickler hinter dem Lift-Framework gingen den Weg, dass sie vorallem zu Beginn versuchten, eigene OR-Mapper respektive eigene Persistenz Frameworks auf der Basis von Scala zu entwickeln. \newline\newline
-\textbf{Mapper - }Das originale Framework, namentlich Mapper, ist bereits seit l\"angerem verf\"ugbar. Mit ihm lassen sich die g\"angigen Relationen (many-to-many, one-to-many) abbilden und es stellt daf\"ur alle CRUD\footnote{Create, Read, Update, Delete}-Operationen f\"ur Objekte und sticht vorallem im Bereich des Scaffoldings\footnote{Scaffolding bedeutet soviel wie die Generierung von View-Komponenten aus den in den Modellklassen existierenden Informationen.} heraus. \newline\newline
-Ein Beispiel f\"ur das Mapping einer User-Klasse\footnote{Quelle ist das Mapper Framework} sieht folgendermassen aus:
+Im Bereich der Persistenz mit relationalen Datenbanken habe ich mir die zwei neueren Framworks von Lift  plus JPA angeschaut. Die Entwickler hinter dem Lift-Framework versuchten eigene OR-Mapper auf der Basis von Scala zu entwickeln: \newline\newline
+\textbf{Mapper - }Das erste Framework, namentlich Mapper, ist bereits seit l\"angerem verf\"ugbar. Mit ihm lassen sich die g\"angigen Relationen (many-to-many, one-to-many) abbilden und es stellt daf\"ur alle CRUD\footnote{Create, Read, Update, Delete}-Operationen f\"ur Objekte bereit und sticht im Bereich des Scaffoldings\footnote{Scaffolding bedeutet soviel wie die Generierung von View-Komponenten aus den in den Modellklassen existierenden Informationen.} heraus. \newline\newline
+Ein Beispiel f\"ur das Mapping einer User-Klasse\footnote{Quelle ist das Mapper Framework} w\"urde folgendermassen aussehen:
 
 \begin{lstlisting}[caption=Beispiel Mapping User Klasse mit Mapper]
 trait ProtoUser[T <: ProtoUser[T]] 
@@ -367,7 +390,8 @@ trait ProtoUser[T <: ProtoUser[T]]
 
   // First Name
   object firstName extends MappedString(this, 32) {
-    override def displayName = fieldOwner.firstNameDisplayName
+    override def displayName = 
+    	fieldOwner.firstNameDisplayName
     override val fieldId = Some(Text("txtFirstName"))
   }
 
@@ -376,10 +400,9 @@ trait ProtoUser[T <: ProtoUser[T]]
   //...
 } 
 \end{lstlisting}
-Die Verwendung von Typen aus dem Persistenz-Framework als Properties f\"uhrt zu einer \textbf{hohen Kopplung an den Persistenz-Layer}\label{persistenz:kopplung}, insbesondere auch in Service-Klassen und Controller, sehr gross wird.\newline\newline
-\textbf{Record - }Die \"uberarbeitet Version dieser Bibliothek Record \footnote{Ich vermute, der Terminus Record stammt vom Active Record Design Pattern, das durch Martin Folwer definiert wurde.} bietet \"ahnliche Funktionen an. 
-Im wesentlichen unterscheiden sich die beiden Frameworks durch die Art- und Weise der Konfiguration. \newline\newline
-\textbf{JPA - }Nebst den beiden genannten Objekt-Relationalen Mappern gibt es aber auch die M\"oglichkeit, die auf der Basis von scalajpa verf\"ugbare lift-jpa Library zu verwenden. Es bietet sich dabei sogleich an, als JPA-Implementation Hibernate zu verwenden. Lift-JPA-Applikationen k\"onnen mit dem Maven Archetype ''lift-archetype-jpa-basic'' erzeugt werden. Wie im folgenden Beispiel beschrieben k\"onnen die Annotationen wie anhin in Java Dom\"anenklassen verwendet werden:
+Die Verwendung von Typen aus dem Persistenz-Framework als Properties f\"uhrt zu einer \textbf{hohen Kopplung}\label{persistenz:kopplung}, insbesondere auch in Service-und Controller-Klassen.\newline\newline
+\textbf{Record - \footnote{Ich vermute, der Terminus Record stammt vom Active Record Design Pattern, das durch Martin Folwer definiert wurde.}}Die \"uberarbeitet Version dieser Bibliothek bietet \"ahnliche Funktionen an. Im wesentlichen unterscheiden sich die beiden Frameworks durch die Art- und Weise der Konfiguration. \newline\newline
+\textbf{JPA - }Nebst den beiden genannten Objekt-Relationalen Mappern gibt es aber auch die M\"oglichkeit, die auf der Basis von scalajpa verf\"ugbare lift-jpa Library zu verwenden. Als JPA-Implementation ist somit auch die Implementation durch Hibernate m\"oglich. Die Mapping-Konfiguration kann mittels den bereits bekannten Java-Annotationen in den Dom\"anenklassen gemacht werden. Nachteil ist allerdings, dass Scala Typen (Map, Set, etc.) nicht verwendet werden k\"onnen.
 \begin{lstlisting}[caption=Property Mapping mit JPA]
 @Column(name = "FIRST_NAME", nullable = false)
 @NotNull
@@ -410,18 +433,16 @@ Kompliziertere Mappings werden in Java mittels Nested-Annotations\footnote{Annot
   \end{lstlisting}
   
 \subsubsection{NoSql-Datenbanken}
-In den vergangenen 1-2 Jahren haben Objektorientierte- und Dokumentenorientierte-Datenbanken\footnote{Zusammengefasst spricht man von NoSql (Not only Sql) Datenbanken} stark an Wichtigkeit gewonnen. Man\cite{wiki:NoSQL} begr\"undet die dies vorallem damit, dass Relationale Datenbanken mit bestimmten Charakteristiken heute vorkommender Daten-Manipulationen\footnote{Mehrheitlich haben sie Probleme mit hoher Anzahl an Daten\"anderungen und gleichzeitig hohen Datenvolumen} an Leistungsgrenzen gelangen.
-Die Scala-Entwickler haben im Bereich der NoSql Datenbanken f\"ur relativ viel Wirbel gesorgt, dies sicherlich auch deshalb, weil grosse Plattformen wie Novel oder Foursquare auf diesen beiden Technologien aufgebaut sind. F\"ur die meisten dieser Datenbanken sind Treiber in Scala oder mindestens Java vorhanden:
+In den vergangenen ein bis zwei Jahren haben Objektorientierte- und Dokumentenorientierte-Datenbanken\footnote{Zusammengefasst spricht man von NoSql (Not only Sql) Datenbanken} stark an allgemeinem Interesse gewonnen. Man\cite{wiki:NoSQL} begr\"undet dies damit, dass Relationale Datenbanken mit den Eigenschaften der Zugriffen wie sie heutige Webapplikationen\footnote{hohe Anzahl an Daten\"anderungen bei gleichzeitig hohen Datenvolumen f\"uhrt zu vielen grossen Rollback Segmenten} machen an ihre Leistungsgrenzen gelangen k\"onnen.
+F\"ur Scala gibt es bereits eine grosse Anzahl an Adapter f\"ur diese Datenbanken und verschiedene Plattformen\footnote{Beispiele: Foursquare, Novell} setzen sie bereits ein:
 \begin{itemize}
 \item MongoDB\footnote{http://github.com/mongodb/mongo-java-driver}
 \item CouchDB\footnote{http://code.google.com/p/scouchdb}
 \item BigTable
 \end{itemize}
 
-Die Integration von MongoDB wird via den oben erw\"ahnten Java-Treiber gemacht, auf die CouchDB wird auf der Basis einer Thirdparty Library via RESTful Http Requests zugegriffen, aber auch hier bietet das Lift-Framework einen d\"unnen Wrapper um die Libraries.
-
 \subsection{Konfiguration}
-Fast alle Applikationen werden ben\"otigen fr\"uher oder sp\"ager eine umgebungsabh\"angige Konfigurationsm\"oglichkeit. Bereits Maven gibt einem die M\"oglichkeit, verschiedene Konfigurationen Profilabh\"angig in den Klassenpfad zu laden. Lift Applikationen haben zus\"atzlich einen Run-Mode, der sich \"uber das System-Property ``run.mode'' definieren l\"asst. Grunds\"atzlich sind die Run-Modes Test, Staging, Production, Pilot, Profile m\"oglich. Properties-Dateien im Root- oder ``props''-Verzeichnis des Klassenpfades werden, sofern sie einer Namenskonvention entsprechen, nach einem bestimmten Schema geladen. Der Code befindet sich in der Klasse net.liftweb.util.Props und ist praktisch selbsterkl\"arend:
+Fast alle Applikationen ben\"otigen fr\"uher oder sp\"ager eine umgebungsabh\"angige Konfiguration. Bereits Maven gibt einem die M\"oglichkeit, verschiedene Konfigurationen Profilabh\"angig in den Klassenpfad zu laden. Lift Applikationen haben zus\"atzlich einen Run-Mode, der sich \"uber das System-Property ``run.mode'' definieren l\"asst. Grunds\"atzlich sind die Run-Modes Test, Staging, Production, Pilot, Profile m\"oglich. Properties-Dateien im Root- oder ``props''-Verzeichnis des Klassenpfades werden, sofern sie einer Namenskonvention entsprechen, nach einem bestimmten Schema geladen. Der Code befindet sich in der Klasse net.liftweb.util.Props und ist selbsterkl\"arend:
 
 \begin{lstlisting}[caption=Konfigurationsschema von .properties-Dateien im Lift Framework]
 lazy val toTry: List[() => String] = List(
@@ -435,7 +456,7 @@ lazy val toTry: List[() => String] = List(
       () => "/" + _modeName + "default.")
 \end{lstlisting}
 
-Im Test-Modus, Localhost und dem Benutzer ``rschmid'' werden die Konfigurations-Properties mit folgender Priorit\"at geladen:
+F\"ur das Beispiel Umgebung=Test, Server=Localhost, Benutzer=rschmid werden die Konfigurationsdateien in folgender Reihenfolge geladen:
 
 \begin{enumerate}
 \item /props/test.rschmid.localhost.properties
@@ -450,11 +471,10 @@ Im Test-Modus, Localhost und dem Benutzer ``rschmid'' werden die Konfigurations-
 
 Innerhalb der Applikation kann man dann mit dem folgenden Befehl eine Eigenschaft aus diesen Properties laden:
 
-
-Props.get(''key'') liefert als erstes eine Box\footnote{Box ist ein in Scala oft verwendetes Pattern um st\"andigen Not-Null-Tests aus dem Weg zu gehen. Im Fall dass die Box leer ist  (z.Bsp. das Property wurde nirgends konfiguriert) wird beim \"offnen mittels der Methode open\_! eine Exception geworfen. openOr \"ubernimmt ein Argument und verwendet dies - ohne eine Exception zu werfen, als Default-Wert.}
+Props.get(''key'') liefert als erstes eine Box\footnote{Box ist ein in Lift oft verwendetes Pattern um st\"andigen Not-Null-Tests aus dem Weg zu gehen. Im Fall dass die Box leer ist  (z.Bsp. das Property wurde nirgends konfiguriert) wird beim \"offnen mittels der Methode open\_! eine Exception geworfen. openOr \"ubernimmt ein Argument und verwendet dies als Default-Wert.}
 
 \subsection{Dependency Injection mit dem Lift Framework}\label{lift:di}
-Dreh- und Angelpunkt des guten Designs von Applikationen ist heutzutage oft die Art und Weise, wie Abh\"angigkeiten zwischen Komponenten, insbesondere Objekten, aufgel\"ost werden. In den letzten Jahren haben sich auch deshalb Dependency Injection (DI) Frameworks (Spring, Guice, Weld) und seit 2009 nun auch Standards (JSR 330, JSR 299) etabliert, welche zur Laufzeit die Abh\"angigkeiten aufl\"osen. Die dadurch entstehenden Architekturen zeichnen sich durch eine gute Erweiterbarkeit (die Abstraktion der verschiedenen Abh\"angigkeiten durch Beispielsweise Interfaces l\"asst einzelne Komponenten einfach austauschen) und gerade deshalb durch eine gute Testbarkeit (Unit-Testing) aus. Die Scala und Lift-Community beschreiten in den meisten F\"allen auch andere, neue Wege und l\"ost zum Beispiel mittels Cake-Pattern\cite{bonerCakePattern}\cite{oderskyCakePattern} diese Problematik damit mit sprachinternen mitteln. Im Bereich des Lift Frameworks gibt es zus\"atzlich den Trait SimpleInjector um  die DI-Mechanismen applikationsweit zu l\"osen. Dazu ein kleines Beispiel:
+Dreh- und Angelpunkt des guten Designs von Applikationen ist heutzutage oft die Art und Weise, wie Abh\"angigkeiten zwischen Komponenten, insbesondere Objekten, aufgel\"ost werden. In den letzten Jahren haben sich auch deshalb Dependency Injection (DI) Frameworks (Spring, Guice, Weld) und seit 2009 nun auch Standards (JSR 330, JSR 299) etabliert, welche zur Laufzeit die Abh\"angigkeiten aufl\"osen. Die dadurch entstehenden Architekturen zeichnen sich durch eine gute Erweiterbarkeit\footnote{die Abstraktion der verschiedenen Abh\"angigkeiten durch Beispielsweise Interfaces l\"asst einzelne Komponenten einfach austauschen} und gerade deshalb durch eine gute Testbarkeit\footnote{Unit-Testing} aus. Die Scala und Lift-Community beschreitet in den meisten F\"allen andere, neue Wege und verwendet f\"ur solche Anforderungen das Cake-Pattern\cite{bonerCakePattern}\cite{oderskyCakePattern} und damit sprachinterne Mittel. Im Bereich des Lift Frameworks gibt es zus\"atzlich den Trait SimpleInjector um  die DI-Mechanismen applikationsweit zu l\"osen. Dazu ein kleines Beispiel aus \cite{lift:di}:
 
 \begin{lstlisting}[caption=Dependency Injection mit dem Lift Framework - ein Beispiel]
 import net.liftweb.common.Box
@@ -490,8 +510,8 @@ Zu diesem Thema beschreibt Abschnitt ``\ref{implementation:di} \titleref{impleme
 \subsection{Internationalisierung}\label{lift:internationalisierung}
 Die M\"oglichkeiten zur Internationalisierung von Web-Applikation unterscheiden sich im Wesentlichen nicht von den M\"oglichkeiten anderer Applikationen und basieren ebenfalls auf java.util.Locale, die wir aus der Java-Entwicklung bereits kennen. 
 
-Ressourcen werden in sogenannten Properties Dateien (Resource Bundles) im Klassenpfad abgelegt und erhalten Key-Value-Pairs. Das jeweilige Bundle wird anhand der berechneten Locale geladen. 
-Es gibt wie bereits unter \ref{grundlagen:templates} \titleref{grundlagen:templates} beschrieben die M\"oglichkeit, unterschiedliche Templates zu definieren, welche beim rendern der Seite Locale-abh\"angig ausgew\"ahlt werden.
+Ressourcen werden in sogenannten Properties Dateien (Resource Bundles) im Klassenpfad abgelegt und enthalten Key-Value-Pairs. Das jeweilige Bundle wird anhand der berechneten Locale geladen. 
+Es gibt wie bereits unter ``\ref{grundlagen:templates} \titleref{grundlagen:templates}'' beschrieben die M\"oglichkeit, unterschiedliche Templates zu definieren, welche beim rendern der Seite Locale-abh\"angig ausgew\"ahlt werden.
 
 Eine Methode mit der folgende Signatur k\"onnte im Bootstrap konfiguriert werden, um die Berechnung der Locale wie sie per default durchgef\"uhrt wird, zu \"uberschreiben:
 
@@ -504,9 +524,6 @@ LiftRules.localeCalculator = localeCalc _
 
 
 Diese Anforderung w\"urde bespielsweise bestehen, wenn man trotz der eingestellten Browsersprache initial die Deutsche Sprache laden m\"ochte.
-
-\section{Stax Cloud Plattform}
-Die Stax Cloud Plattform\cite{Stax} bietet die M\"oglichkeit, Applikationen, die bevorzugt Maven und Ant als Build-Instrumente verwenden, auf die Amazon EC2 Plattform zu deployen. Die Verwendung der Stax Test Cloud ist gratis und kann zu einem beliebigen Zeitpunkt auf die Premium Java Cloude aufger\"ustet werden. Bei der Premium Cloud bezahlt man anhand benutzer Bandbreite und gr\"osse der CPU Instanz.
 
 
 

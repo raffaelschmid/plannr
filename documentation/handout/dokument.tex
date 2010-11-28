@@ -1,0 +1,38 @@
+\section{Einleitung}
+Auf der Basis von Lift Webframework und der Programmiersprache Scala wurde ein Prototyp zur Planung von Ferien innerhalb Gruppen oder Teams entwickelt. Ziel dieser Arbeit war nebst dem fertigen Prototypen auch die Bewertung dieses relativ neuen Frameworks und der Sprache Scala. Das daf\"ur notwendige Knowhow wurde teils zuvor, teils w\"ahrend der Semesterarbeit erarbeitet. 
+
+\section{Analyse der Aufgabenstellung}
+Der Prototyp zur Ferienplanung soll im wesentlichen die folgenden Use Cases abdecken:
+\begin{itemize}
+\item Benutzeradministration von Team-Membern und -Ownern
+\item Erfassung von Teams und zuteilung von Mitarbeitern
+\item Eingabe und Best\"atigung von Ferien f\"ur Mitarbeiter.
+\end{itemize}
+
+\section{Grundlage}
+Scala entstand im wesentlich auch dadurch, da die Weiterentwicklung von Java aus vielerleigr\"unden (R\"uckw\"artskompatibilit\"at, etc.) nicht im erw\"unschten Masse m\"oglich war. Nebst dem grossen Einfluss der Sprache Java gab es auch unterschiedliche andere Sprachen, die in Syntax und Semantik von Scala erkennbar sind: Haskell, Erlang, Standard ML, Smalltalk, etc. Es handelt also nicht um einen Klon einer bereits existierenden Sprache auf der JVM (Bsp: JRuby-Ruby, Clojure-Lisp, Jython-Python, etc.)
+
+\subsection{Eigenschaften}
+\subsubsection{Scala}
+Bei Scala handelt es sich nicht um eine rein Funktionale Sprache, allerdings erf\"ullt sie viele der daf\"ur notwendigen Bedingungen:
+\begin{itemize}
+\item Anonyme Definition von Funktionen
+\item Funktionen werden wie Daten behandelt. D.h. es gibt in einer statisch typisierten Sprache einen passenden Datentyp zu jeder Funktion.
+\item Funktionen k\"onnen als Parameter und/oder R\"uckgabewerte von anderen Funktionen sein.
+\end{itemize}
+
+Weitere Eigenschaften der Sprache Scala sind: objektorientiert, statisch Typisiert.
+\subsubsection{Lift}
+Bei Lift handelt es sich um ein Webframework auf der Basis von Scala. Viele der Funktionalit\"aten die Lift zur Verf\"ugung stellt basieren deshalb relativ direkt auf den Sprachfeatures von Scala (Bsp: XML-Datentypen, etc.). Grunds\"atzlich sind viele Ans\"atze bei Lift relativ neu und innovativ und m\"oglicherweise in gewissen Bereichen der Zeit etwas voraus. F\"ur Anforderungen einer gew\"ohnlichen Webseite ist das Entwicklungstempo mit diesem Framework (zu) langsam. Meines Erachtens liegt das grosse Interesse daran insbesondere an der verwendeten Programmiersprache Scala. 
+
+\subsection{Design und Konzeption}
+Bevor der Prototyp in Angriff genommen wurde, wurden basierend auf den Use Cases Rollenkonzept, Navigationskonzept und die Prozesse definiert. Das Relationale Modell der Datenbank wurde anhand dieser Konzepte definiert. 
+
+\section{Implementation Prototyp}
+Als Basis f\"ur den Prototypen wurden folgende Frameworks verwendet:
+\begin{itemize}
+\item \textbf{Maven: } Als Basis f\"ur Lift-Projekte kann sowohl Maven als auch SBT\footnote{Simple Build Tool} verwendet werden. Die gr\"osse Verbreitung von Maven f\"uhrt zu einem reichhaltigen \"Okosystem an Plugins. So konnte beispielsweise das Projekt mittels dem Stax-Plugin auf diese Plattform\footnote{Stax basiert auf der Amazon Elastic Cloud} deployt werden.
+\item \textbf{Flex: }Ein Teil der Funktionalit\"at im Frontend wurden mittels Flex entwickelt. Der Zugriff auf das Backend findet via RESTful Webservices statt.
+\item \textbf{JPA: } Als Basis f\"ur die Persistenz wurde aus verschiedenen Gr\"unden (Reifegrad, Dokumentation) JPA 2.0 den Lift-internen Bibliotheken Mapper und Record vorgezogen.
+\end{itemize}
+

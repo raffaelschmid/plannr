@@ -2,11 +2,6 @@ package ch.plannr.common
 
 import java.lang.reflect.Field
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 trait ToString {
   override def toString() =
     {

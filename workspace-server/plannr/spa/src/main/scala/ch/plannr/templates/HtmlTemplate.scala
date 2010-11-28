@@ -3,11 +3,6 @@ package ch.plannr.templates
 import ch.plannr.model.MegaBasicUser
 import net.liftweb.http.S
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 object HtmlTemplate {
   def editXhtml = {
     (<form method="post" action={S.uri}>
@@ -110,9 +105,10 @@ object HtmlTemplate {
     (<form method="post" action={S.uri}>
       <p>
         <h2>
-          {S.??("enter.email")}
+           Lost Password
         </h2>
       </p>
+      <p>{S.??("enter.email")}</p>
       <p>
         <label>
           {S.??("email.address")}
@@ -128,7 +124,7 @@ object HtmlTemplate {
     (<form method="post" action={S.uri}>
       <p>
         <h2>
-          {S.??("log.in")}
+          {S.??("log.in")}.
         </h2>
       </p>
 

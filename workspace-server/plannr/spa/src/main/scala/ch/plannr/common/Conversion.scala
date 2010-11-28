@@ -6,11 +6,6 @@ import java.util.Date
 import javax.persistence.Transient
 import collection.JavaConversions._
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 trait Conversion {
   implicit def extract(s: NodeSeq): String = {
     val value = s.text.trim

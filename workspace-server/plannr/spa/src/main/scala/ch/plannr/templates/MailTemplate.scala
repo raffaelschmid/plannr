@@ -2,11 +2,6 @@ package ch.plannr.templates
 
 import net.liftweb.http.S
 
-/**
- * User: Raffael Schmid
- * 
- * TODO
- */
 object MailTemplate{
 
   def passwordResetMailBody(firstname:String, resetLink: String) = {

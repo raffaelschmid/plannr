@@ -9,11 +9,6 @@ import net.liftweb.common.Box
 import ch.plannr.common.persistence.{DBModel, MetaDomain, Domain, Persistent}
 import reflect.BeanProperty
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 @Entity
 @Table(name = "TBL_VACATION")
 class Vacation extends Domain with Persistent[Vacation] with Conversion {

@@ -5,12 +5,6 @@ import ch.plannr.services._
 import ch.plannr.model.User
 import ch.plannr.webservices._
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
-
 object Beans {
   lazy val env = System.getProperty("run.mode")
   def init = {

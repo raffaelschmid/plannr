@@ -20,12 +20,6 @@ import ch.plannr.common.MessageDisplay
 import javax.validation.{ConstraintViolation, ConstraintViolationException}
 import javax.persistence.{NoResultException}
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
-
 trait MegaBasicUser[T <: MegaBasicUser[T]] extends Persistent[T] with MessageDisplay {
   self: T =>
 

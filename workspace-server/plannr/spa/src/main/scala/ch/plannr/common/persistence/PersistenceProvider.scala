@@ -1,12 +1,5 @@
 package ch.plannr.common.persistence
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
-
-
 import org.scala_libs.jpa.{ThreadLocalEM, LocalEMF}
 import javax.validation.Validation
 import javax.persistence.Transient

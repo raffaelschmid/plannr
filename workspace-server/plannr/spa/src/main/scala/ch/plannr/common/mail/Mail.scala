@@ -5,11 +5,6 @@ import net.liftweb.util.{Props, Mailer}
 import net.liftweb.util.Mailer.{From, Subject, MailTypes, XHTMLMailBodyType, PlainMailBodyType, MailBodyType}
 import net.liftweb.common.{Box, Full}
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 object Mail {
   def configure {
     Mailer.authenticator = Full(new Authenticator {

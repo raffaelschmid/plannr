@@ -29,11 +29,6 @@ import net.liftweb.util.{Props, Mailer}
 import bootstrap.config.Beans
 import ch.plannr.common.di.Context
 
-/**
- * A class that's instantiated early and run.  It allows the application
- * to modify lift's environment
- */
-
 class Boot {
   def boot {
 

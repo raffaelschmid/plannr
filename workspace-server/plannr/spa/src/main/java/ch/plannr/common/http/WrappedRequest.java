@@ -13,11 +13,6 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * User: Raffael Schmid
- * <p/>
- * TODO
- */
 public class WrappedRequest implements HttpServletRequest {
 
     private HttpServletRequest delegate;

@@ -1,45 +1,43 @@
-\chapter{Analyse der Aufgabenstellung}
+\chapter{Analyse der Aufgabenstellung}\label{analyse-aufgabenstellung}
 \section{Idee und Ziele der Arbeit}
-Das grunds\"atzliche Ziel hinter der vorgelegten Semesterarbeit war es, sich mit dem Lift Webframework und Scala auseinander zu setzen um im Anschluss daran eine Aussage dar\"uber machen zu k\"onnen, ob sich die beiden Technologien in naher Zukunft als Plattform zur Entwicklung einer Webseite anbieten w\"urden. Zu Beginn steht auch die Erarbeitung des Knowhows in den beiden Bereichen Scala (siehe Abschnitt \ref{einarbeitung:scala} \titleref{einarbeitung:scala}) , Lift (siehe Abschnitt ''\ref{einarbeitung:lift} \titleref{einarbeitung:lift}'' im Zentrum. In der Folge sind die aus der Aufgabenstellung entstehenden Ziele definiert.
+Grunds\"atzliche Idee der vorgelegten Semesterarbeit war, anhand der Entwicklung eines Prototypen Erfahrungen mit Scala und dem Lift Framework zu machen, und um heraus zu finden wie das Potential beider Technologien ist. Zu Beginn steht nat\"urlich die Erarbeitung des Knowhows in beiden Bereichen Scala (siehe Abschnitt \ref{einarbeitung:scala} \titleref{einarbeitung:scala}) , Lift (siehe Abschnitt ''\ref{einarbeitung:lift} \titleref{einarbeitung:lift}'' im Zentrum. In der Folge sind die aus der Aufgabenstellung entstehenden Ziele definiert.
 
 \subsection{Vorbereitung: Erarbeitung des Basiswissens}
-Nebst dem Projekt-Setup und der Einarbeitung in Scala (siehe dazu Abschnitt \ref{einarbeitung:scala} \titleref{einarbeitung:scala})  besteht ein wesentlicher Bestandteil dieses Punktes auch darin, herauszufinden wie die folgenden Problemstellungen, die sich bei der Idee des Ferienplaners nicht wesentlich von anderen Punkten unterscheiden, mit Lift umsetzen lassen:
+Nebst dem Projekt-Setup und der Einarbeitung in Scala (siehe dazu Abschnitt ``\ref{einarbeitung:scala} \titleref{einarbeitung:scala}'')  besteht ein wesentlicher Bestandteil dieses Punktes auch darin, herauszufinden wie die folgenden Problemstellungen, die sich bei der Idee des Ferienplaners nicht wesentlich von anderen Gesch\"aftsideen unterscheiden, mit Lift umsetzen lassen:
 	\begin{itemize}
 		\item Authentifizierung, Authorisierung
 		\item Persistenz respektive Objekt-Relationales Mapping
 		\item Internationalisierung
+		\item Architektur von Applikationen
+		\item Testbarkeit
 	\end{itemize}
-Die soeben beschriebenen Punkte sind im Abschnit \ref{einarbeitung:lift} \titleref{einarbeitung:lift} dokumentiert.
+Die Ergebnisse sind im Abschnitt  ``\ref{einarbeitung:lift} \titleref{einarbeitung:lift}'' dargestellt.
 
 \subsection{Design}
-Nachdem die Einarbeitung abgeschlossen ist, kann mit dem Design der Arbeit begonnen werden. Dieser Punkt beinhaltet zum einen die Definition der Prozesse und zum anderen das Design des Datenbank Schemas. Beide Punkte sind angesichts der \"uberschaulichen Problemstellung des Ferienplaners zeitlich nicht sehr aufw\"andig.
+Nachdem die Einarbeitung abgeschlossen ist, kann mit dem Design der Arbeit begonnen werden. Dieser Punkt beinhaltet die Definition der Use Cases, der Prozesse des Navigationskonzepts, des Rollenkonzepts und das Design der Datenbank.
 
 \subsection{Technische Umsetzung}
-Im Anschluss an die Design-Phase wird der Prototyp umgesetzt. Die Details zur Umsetzung befinden sich im Abschnitt \ref{implementation} \titleref{implementation}.
+Im Anschluss an die Design-Phase wird der Prototyp umgesetzt. Die Details zur Umsetzung befinden sich im Abschnitt ``\ref{implementation} \titleref{implementation}''.
 
 
 \section{Lieferumfang der Semesterarbeit}
-\subsection{Dokumentation}
-
-Ausgehend von der Aufgabenstellung muss die Dokumentation folgende Teile beinhalten:
+Nebst dem \textbf{Prototypen} besteht die Abgabe aus \textbf{Dokumentation}, die folgende Teile beinhalten soll:
 \begin{itemize}
 	\item Konzepte
 	\begin{itemize}
 		\item Navigationskonzept befindet sich im Abschnitt \ref{konzept:navigation} \titleref{konzept:navigation}.
-		\item Rollenkonzept befindet sich im Abschnitt \ref{konzept:rollen} \titleref{konzept:rollen}.
-		\item Die Definitionen der Prozesse befinden sich Abschnitt \ref{konzept:prozesse} \titleref{konzept:prozesse}
+		\item Rollenkonzept befindet sich im Abschnitt ``\ref{konzept:rollen} \titleref{konzept:rollen}''.
+		\item Die Definitionen der Prozesse befinden sich im Abschnitt ``\ref{konzept:prozesse} \titleref{konzept:prozesse}''
 	\end{itemize}
-	\item Implementationsdetails befinden sich im Abschnitt \ref{implementation} \titleref{implementation}
+	\item Implementationsdetails befinden sich im Abschnitt ``\ref{implementation} \titleref{implementation}''
 \end{itemize}
-(aufgeteilt in Navigationskonzept, Rollenkonzept und Prozesse) und die Details zur Implementation (inklusive Begr\"undung, weshalb wann welche Technologien oder Module verwendet wurden) beinhalten. 
 
-\subsection{Prototyp}
 Die Definition des Wortes Prototyp ist bekanntlich ein bisschen schwammig. In meinem Sinne sollte der Prototyp die folgenden Punkte erf\"ullen:
 
 \begin{enumerate}
 \item \textbf{Potential} - Anhand der Implementation des Prototypen solle eine qualifizierte Aussage dar\"uber gemacht werden, wie viel Potential in Scala und Lift steckt. 
 
-\item \textbf{Erkenntnisse} - In den tangierten Bereichen (Persistenz, Webservices, usw.) sollen Ans\"atze von Best Practices erarbeitet werden k\"onnen respektive Aussagen \"uber die Vor- und Nachteile von verschiedenen Technologien gemacht werden k\"onnen. Dies betrifft auch die Bereiche Entwicklungsumgebung, Build-Tools, usw.
+\item \textbf{Erkenntnisse} - In den tangierten Bereichen (Persistenz, Webservices, usw.) sollen Ans\"atze von Best Practices erarbeitet werden respektive Aussagen \"uber die Vor- und Nachteile von verschiedenen Technologien gemacht werden k\"onnen. Dies betrifft auch die Bereiche Entwicklungsumgebung, Build-Tools, usw.
 
 \item \textbf{Abdeckung des Funktionsumfangs} - Ich werde versuchen, einen m\"oglichst grossen Funktionsumfang der Applikation zu implementieren.
 \end{enumerate}

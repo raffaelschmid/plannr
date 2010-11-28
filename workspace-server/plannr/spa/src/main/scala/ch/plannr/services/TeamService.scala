@@ -6,11 +6,6 @@ import scala.collection.JavaConversions._
 import ch.plannr.common.persistence.DBModel
 import net.liftweb.common.Loggable
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 abstract class TeamService{
     def addTeamToOwner(newTeam: Team, ownerId: Long): Team
     def delete(team: Team)

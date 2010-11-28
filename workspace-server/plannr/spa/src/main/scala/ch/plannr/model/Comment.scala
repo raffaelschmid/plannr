@@ -4,11 +4,6 @@ import javax.persistence._
 import javax.validation.constraints.{Size, NotNull}
 import java.util.Date
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
 @Entity
 @Table(name = "TBL_COMMENT")
 class Comment {

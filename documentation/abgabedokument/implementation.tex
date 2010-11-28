@@ -1,9 +1,10 @@
 \chapter{Implementation des Prototypen}\label{implementation}
+Dieser Abschnitt beschreibt die Phase der Implementation. Zu Beginn sind es verschiedene technologische Aspekte und Themen zur Architektur:  Dependency Injection, Mapping der Dom\"ane, Validierung, etc. Anschliessend gehe ich auf die spezifischen Anforderungen der Applikation ein: Navigation, Email-Versand und die Implementation der verschiedenen Use Cases. 
 
 \section{Architektur, Technologiewahl}
 \subsection{Dependency Injection}\label{implementation:di}
-
-\begin{lstlisting}[caption=Abh\"angigkeiten abh\"angig von der Umgebung]
+Das Dependency Management wurde mittels dem im Abschnitt ``\ref{lift:di} \titleref{lift:di}'' beschriebenen Verfahren implementiert. Mittels der folgenden Bean-Definition\footnote{Die Bean-Definition befindet sich im Objekt bootstrap.config.Beans } ist es m\"oglich, je nach definiertem Environment (test, prod) die Objekte innerhalb des Bean-Contextes unterschiedlich zu definieren. Somit k\"onnen beispielsweise w\"ahrend dem Test andere Security Implementationen verwendet werden.
+\begin{lstlisting}[caption=Umgebungsabh\"angigkeit]
 object Beans {
   lazy val env = System.getProperty("run.mode")
   def init = {
@@ -18,8 +19,7 @@ object Beans {
   }
 }
 \end{lstlisting}
-Das Dependency Management wurde mittels der im Abschnitt ``\ref{lift:di} \titleref{lift:di}'' Verfahren implementiert. Mittels der oben beschriebenen Bean-Definition die sich im Objekt bootstrap.config.Beans befindet ist es m\"oglich, je nach definiertem Environment (test, prod) eine die Objekte innerhalb des Bean-Contextes unterschiedlich zu definieren. Die oben beschriebenen Closures werden jedes mal aufgerufen, wenn eine Variable aus dem Context injected werden soll. Da hier ein Scala Objekt zur\"uckgeliefert wird, ist die Instanz vom Typ SecurityService zur Laufzeit nur einmal vorhanden. Bei Spring oder \"ahnlichen Frameworks spricht man vom ``Singleton Scope''. Liefert man ein neues Objekt zur\"uck, entspricht das Verhalten dem ``Prototype Scope bei Spring''. Der Lift-Injection bietet auch die M\"oglichkeit, Request- und Session-Scoped Objekte zu speichern. Als Beispiel, wie eine Variable vom Context angefordert wird die folgende Deklaration:
-
+Die oben beschriebenen Closures werden bei jedem Injection-Vorgang aufgerufen und liefern das entsprechende Resultat. In diesem Fall werden Scala Objekte\footnote{Ein Scala-Sprachfeature zur Implementation von Singletons} zur\"uckgegeben. Bei Spring oder \"ahnlichen Frameworks spricht man vom ``Singleton Scope''. Mit diesem Mechanismus kann man auch Prototype-, Request- und Session-Scoped Objekte injizieren. Um die Referenz einer Variable auf ein Objekt im Context zu setzen, wird innerhalb des Prototypen die folgende Anweisung ausgef\"uhrt: 
 \begin{lstlisting}[caption=Anfrage einer Variable aus dem Lift Bean Context]
 val securityService = Context.inject_![SecurityService]
 \end{lstlisting}
@@ -27,29 +27,29 @@ val securityService = Context.inject_![SecurityService]
 
 \subsection{Persistenz}
 \subsubsection{Evaluation des Persistenz Frameworks}
-Bereits zu Beginn stellte sich die Frage, warum man welche der drei m\"oglichen und im Abschnitt ``\ref{grundlagen:persistenz} \titleref{grundlagen:persistenz}'' aufgelisteten Persistenz-Provider Mapper, Record oder ScalaJPA  verwenden sollte.
+Bereits zu Beginn stellte sich die Frage, aus welchen Gr\"unden man welchen Persistenz-Provider verwenden soll. Siehe Abschnitt ``\ref{grundlagen:persistenz} \titleref{grundlagen:persistenz}''.
 
-Ich versuchte herauszufinden und auszuf\"uhren, wie weit Ans\"atze hinsichtlich Dokumentation, aktive Weiterentwicklung und Reifegrad der Implementation sind.
+Ich analysierte, wie weit die drei Ans\"atze hinsichtlich Dokumentation, aktive Weiterentwicklung und Reifegrad der Implementation sind.
 
 \begin{itemize}
-\item \textbf{Aktive Weiterentwicklung: }Ein Blick auf die verschiedenen Commit Histories der Persistenz Module Mapper\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-mapper} und Record\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-record} zeigt schnell auf, dass in beiden Frameworks aktiv nicht sonderlich viel geschieht. \"Anderungen im Bereich der Persistenz-Libraries finden momentan vorallem im Bereich der NoSQL Datenbanken statt. 
+\item \textbf{Aktive Weiterentwicklung: }Ein Blick auf die Code-\"Anderungen\footnote{Commit-History} an den Persistenz Modulen Mapper\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-mapper} und Record\footnote{http://github.com/lift/lift/commits/master/framework/lift-persistence/lift-record} zeigt schnell auf, dass an beiden Frameworks aktiv nicht sonderlich viel gemacht wird. \"Anderungen im Bereich der Persistenz-Libraries finden momentan vorallem im Bereich der NoSQL Datenbanken statt. 
 
-\item \textbf{Dokumentation: }W\"ahrend die Dokumentation von Mapper\footnote{http://www.assembla.com/wiki/show/liftweb/Mapper} noch einigermassen anspricht, kann man zum Mapping mit dem Record Framework ausser ganz wenige Beispiele in \cite[p. 79 - 113]{chen2009lift} nicht viel auffinden.
+\item \textbf{Dokumentation: }W\"ahrend die Dokumentation von Mapper\footnote{http://www.assembla.com/wiki/show/liftweb/Mapper} noch einigermassen anspricht, kann man zum Mapping mit dem Record Framework ausser ganz wenigen Beispielen in \cite[p. 79 - 113]{chen2009lift} zum aktuellen Zeitpunkt nichts finden.
 
-\item \textbf{Reifegrad: }Der Reifegrad der im Lift Framework enthaltenen Persistenz-Bibliotheken ist meines Erachtens gering. Anforderungen wie das Mappen von Hierarchien (Beispiele in Hibernate Table per Klasse, Table per Hierarchie) fehlen g\"anzlich. Die Relationen zwischen den Klassen sind relativ unflexibel und gen\"ugen h\"ochstens, wenn man ein Projekt auf der ``Gr\"unen Wiese'' starten kann. Der dritte wichtige Mangel ist, dass mit der Verwendung von Mapper und Record eine Kopplung der gesamten Applikation ans Persistenz-Framework passiert. Siehe dazu Abschnitt ``\ref{persistenz:kopplung} \titleref{persistenz:kopplung}''.
-
-
-\item \textbf{Fazit: }Meines Erachtens liefern Mapper und Record nicht das, was wir uns von bereits existierenden Frameworks wie Hibernate gewohnt sind. Ich habe mich aus oben beschriebenen Gr\"unden dazu entschieden, JPA 2.0 und Hibernate in der Version 3.5.1 im Persistenz-Layer zu verwenden. 
-
+\item \textbf{Reifegrad: }Der Reifegrad der im Lift Framework enthaltenen Persistenz-Bibliotheken ist meines Erachtens gering. Anforderungen wie das Mappen von Hierarchien (Beispiele in Hibernate Table per Klasse, Table per Hierarchie) fehlen g\"anzlich. Die Konfigurationsm\"oglichkeit von Attributen und Relationen zwischen Klassen sind unflexibel und gen\"ugen h\"ochstens bei Projekten die auf der ``Gr\"unen Wiese'' beginnen. Der dritte wichtige Mangel ist, dass mit der Verwendung von Mapper und Record eine Kopplung der gesamten Applikation ans Persistenz-Framework passiert. Siehe dazu Abschnitt ``\ref{persistenz:kopplung} \titleref{persistenz:kopplung}''.
 \end{itemize}
+
+\textbf{Fazit: }Meines Erachtens liefern Mapper und Record nicht das, was wir uns von bereits existierenden Frameworks wie Hibernate gewohnt sind. Ich habe mich aus oben beschriebenen Gr\"unden dazu entschieden, JPA 2.0 und Hibernate in der Version 3.5.1 im Persistenz-Layer zu verwenden. 
+
+
 \subsubsection{Domain Mapping}
 Ich habe die Mappings der Dom\"anenklassen mittels im Abschnitt ``\ref{grundlagen:integration:java} \titleref{grundlagen:integration:java}'' kurz angesprochenen Annotationen gemacht. Ich gehe im folgenden auf das Mapping der User Klasse ein, werde aber an dieser Stelle auf die Beschreibung der Mappings aller Klassen verzichten. 
 
 Die Mapping Informationen f\"ur Hibernate respektive JPA befinden sich in Klasse ch.plannr.model.User. Die Klasse verwendet als Mixins folgende Traits:
 \begin{itemize}
-	\item \textbf{MegaBasicUser - } verf\"ugt in Anlehnung an MegaProtoUser\footnote{Mega ProtoUser ist die Basis-User-Klasse f\"ur das Mapper Framework und stellt eine Basis f\"ur die Benutzerverwaltung zur Verf\"ugung} \"uber die Funktionalit\"aten, die im Zusammenhang mit der Registrierung, Login, Passwort-Reset ben\"otigt werden. 
-	\item \textbf{Domain -} definiert abstrakte Methoden zur Umwandlung von Objekten in XML und in die JSON\footnote{Javascript Object Notation}. 
-	\item \textbf{Persistent - }Stellt in Anlehnung an das Active Record Design Pattern Methoden zum Persistieren, L\"oschen, Editieren von Objekten zur Verf\"ugung. Die Klasse Persistent verwendet f\"ur die beschriebenen Operationen eine ThreadLocal basierten EntityManager. Mit diesem Konstrukt wird die Thread-Safety dieses EntityManagers sicher gestellt und gleichzeitig ein lokaler Context f\"ur die Attachten Klassen definiert.	
+	\item \textbf{MegaBasicUser - }stellt in Anlehnung an MegaProtoUser\footnote{Mega ProtoUser ist die Basis-User-Klasse f\"ur das Mapper Framework und stellt eine Basis f\"ur die Benutzerverwaltung zur Verf\"ugung} die Funktionalit\"aten, die im Zusammenhang mit der Registrierung, Login, Passwort-Reset ben\"otigt werden, zur Verf\"ugung. 
+	\item \textbf{Domain -} definiert abstrakte Methoden zur Umwandlung von Objekten in XML und in die JSON\footnote{Javascript Object Notation}-Notation. 
+	\item \textbf{Persistent - }Stellt in Anlehnung an das Active Record Design Pattern Methoden zum Persistieren, L\"oschen, Editieren von Objekten zur Verf\"ugung. Die Klasse Persistent verwendet f\"ur die beschriebenen Operationen eine ThreadLocal basierten EntityManager. Mit diesem Konstrukt wird die Thread-Safety dieses EntityManagers sichergestellt. Gleichzeitig entspricht der EntityManager dem First-Level-Cache f\"ur bereits instanzierte Objekte.	
 \end{itemize}
 
 Zu persistierende Objekte werden als Entities bezeichnet und m\"ussen in JPA mit 
@@ -58,7 +58,7 @@ Zu persistierende Objekte werden als Entities bezeichnet und m\"ussen in JPA mit
 @Table(name = "TBL_USER")
 \end{lstlisting}
 
-annotiert werden. Mit Table kann man den Tabellennamen spezifizieren. Was auch ein Mapping auf Legacy Datenbanken erm\"oglichen w\"urde.
+annotiert werden. Mit Table kann man den Default-Tabellennamen \"uberschreiben. Was auch ein Mapping auf Legacy Datenbanken erm\"oglichen w\"urde.
 
 Die Id des Benutzers kann bei bestimmten Datenbanken automatisch ermittelt werden. In meinem Fall MySQL wird das mittels 
 \begin{lstlisting}[caption=User: ScalaJPA Id mit Auto-Increment]
@@ -71,7 +71,7 @@ Die Id des Benutzers kann bei bestimmten Datenbanken automatisch ermittelt werde
 var id: Long = _
 \end{lstlisting}
 gemappt. Im Fall von Oracle m\"usste der GenerationType.SEQUENCE verwendet werden.
-Normale Properties ben\"otigen eigentlich keine Annotation mehr, per Default werden in JPA alle Properties als Spalten angelegt, mit der @Column Annotation kann man allerdings die Defaults (Constraints, Spaltenname) \"uberschreiben. @NotNull und @NotEmpty sind Annotationen zur Validierung von Objekten (siehe Abschnitt ``\ref{jpa:validation} \titleref{jpa:validation}''). Die Annotation @BeanProperty sorg daf\"ur, dass f\"ur ein Feld Getter- und Setter-Methoden erstellt werden. Dies ist vorallem zur Interoperabilit\"at mit Java-Frameworks teilweise m\"oglich - in diesem Fall wird es ebenfalls f\"ur die Validierung ben\"otigt. 
+Normale Properties ben\"otigen eigentlich keine Annotation mehr, per Default werden in JPA alle Properties als Spalten angelegt, mit der @Column Annotation kann man allerdings die Defaults (Constraints, Spaltenname) \"uberschreiben. @NotNull und @NotEmpty sind Annotationen zur Validierung von Objekten (siehe Abschnitt ``\ref{jpa:validation} \titleref{jpa:validation}''). Die Annotation @BeanProperty ist Bestandteil von Scala und sorgt daf\"ur, dass f\"ur ein Feld Getter- und Setter-Methoden erstellt werden. Dies ist vorallem zur Interoperabilit\"at mit Java-Frameworks teilweise notwendig - in diesem Fall wird es ebenfalls f\"ur die Validierung ben\"otigt. 
 \begin{lstlisting}[caption=User: ScalaJPA firstname Mapping]
 @Column(name = "FIRST_NAME", nullable = false)
 @NotNull
@@ -85,7 +85,7 @@ Des weiteren sind die Annotationen @Embedded\footnote{@Embedded bietet die M\"og
 
 
 \subsubsection{Validierung}\label{jpa:validation}
-Annotationen wie @NotNull, @Null, @Past, @Future sind definiert \"uber den JSR330 (Bean Validation 1.0). Mittels Bean Validation lassen sich Validierungen auf allen Ebenen des Systems durchf\"uhren. Zum Beispiel lassen sich User-Objekte bereits ohne Speicherung validieren und entsprechend f\"ur jedes Property Fehlermeldungen in der View bereitstellen. Auf der Ebene der Datenbank k\"onnen anhand dieser annotierten Properties automatisch Constraints  generiert werden.
+Annotationen wie @NotNull, @Null, @Past, @Future sind seit gut einem Jahr definiert \"uber den Standard JSR330 (Bean Validation 1.0). Mittels Bean Validation lassen sich Validierungen auf allen Ebenen des Systems durchf\"uhren. Zum Beispiel lassen sich User-Objekte bereits ohne Speicherung validieren und entsprechend f\"ur jedes Property Fehlermeldungen in der View bereitstellen. Auf der Ebene der Datenbank k\"onnen anhand dieser annotierten Properties automatisch Constraints  generiert werden.
 
 Alle Dom\"anenklassen die als Mixin die bereits erw\"ahnte Klasse Persistent[T] verwenden k\"onnen mittels der methode validate validiert werden. Die Validierung wird vollumf\"anglich anhand der in den Klassen enthaltenen Annotationen gemacht. Als R\"uckgabewert werden die Constraints-Verletzungen als Set zur\"uckgeliefert. Ich verwende diese Constraints-Verletzungen weiter f\"ur die Anzeige in der View. Zum Beispiel der Validierung bei der Registrierung werden bei unvollst\"andiger Eingabe folgende Fehler angezeigt:
  \begin{figure}[H]
@@ -110,11 +110,12 @@ def validate() = {
 \end{lstlisting}
 
 \subsection{Verwendung und Aufbau des Flex Clients}
-F\"ur die Administration der Teams sowie auch f\"ur die Ferienplanung habe ich mich wegen von mir subjektiv empfundener besserer Usability und der M\"oglichkeit eines etwas besseren Software-Designs f\"ur Adobe Flex entschieden. 
+F\"ur die Administration der Teams sowie auch f\"ur die Ferienplanung habe ich mich wegen der besseren Benutzungsfreundlichekeit und dem besseren Software-Design im Frontend f\"ur Adobe Flex entschieden. Ich werde im n\"achsten Abschnitt aufzeigen, wie die Architektur von Flex  Clients mit dem Einsatz eines Flex-Frameworks umgesetzt werden kann.
 \subsubsection{Architektur}
-Die meisten User-Interfaces zeichnen sich, insbesondere durch die hohe Kopplung zwischen Komponenten, durch eine extrem schlechte Wartbarkeit aus. Diese Problematik kann in Applikationen verschiedenster Frontend-Technologien auftreten - egal ob Javascript, Flex, GWT oder Silverlight. Eine weitere Schwierigkeit bei diesen Applikationen sind die angemessene und zentrale Behandlung von auftretenden Events, die Verf\"ugbarkeit von Contexten und die Unterst\"utzung in der Anbindung an Backend-Systemen. Damit solche Problemstellungen f\"ur diesen Client minimiert werden k\"onnen, habe ich eine kurze Evaluation bestehender Flex-Frameworks durchgef\"uhrt und dabei die folgenden angeschaut:
+Die meisten User-Interfaces sind wegen der hohen Kopplung zwischen einzelnen Komponenten sehr schlecht wartbar. Dies betrifft nebst Swing- und Flex-Clients auch viele Frontends in Javascript und HTML. Zu dieser Kopplung geh\"ort auch das Problem, dass Observer f\"ur Events nicht via Konfiguration sondern programmatisch registriert werden. Des weiteren gibt es generelle Anforderungen an Zentrale Daten (Contexte) und die Anbindung an Backend-Systeme. Damit solche Problemstellungen und die im Zusammenhang damit auftretenden Fragen f\"ur diesen Client minimiert werden k\"onnen, habe ich eine kurze Evaluation bestehender Flex Dependency Injection Frameworks gemacht. Bei den meisten geht allerdings der Funktionsumfang weit \"uber DI hinaus.
+
 \begin{itemize}
-\item \textbf{Cairngorm\cite{Cairngorm} - } unter Flex 2 und 3 war Cairngorm noch ein Frameworks mit Fokus auf die MVC-Architektur von Client-Applikationen. Mittlerweile handelt es sich allerdings um ein breiteres Set von Guidelines, Tools und Bibliotheken. Welche sich frameworkunabh\"angig einsetzen lassen. Mittlerweile basieren viele dieser Bibliotheken auf anderen Dependency Injection und MVC Frameworks wie Parsley, Swiz, oder Spring ActionScript
+\item \textbf{Cairngorm\cite{Cairngorm} - } unter Flex 2 und 3 war Cairngorm noch ein Framework mit Fokus auf die MVC-Architektur innerhalb Flex. Mittlerweile handelt es sich allerdings um ein breiteres Set von Guidelines, Tools und Bibliotheken. Welche sich frameworkunabh\"angig einsetzen lassen. Mittlerweile basieren viele dieser Bibliotheken auf anderen DI- und MVC-Frameworks wie Parsley, Swiz, oder Spring ActionScript
 \item \textbf{Mate\cite{Mate} - } in erster Linie wurde Mate f\"ur das Event-Handling entwickelt. Die Art und Weise der Konfiguration findet deklarativ via ein MXML statt und ist relativ unflexibel:
 
 \begin{lstlisting}[caption=Event-Deklaration mit dem Mate Framework]
@@ -173,15 +174,15 @@ Hier wird das Property term des geworfenen Events zus\"atzlich der Methode als A
 Aufgrund der Einfachheit des Swiz-Frameworks, der Flexibilit\"at und der eleganten Konfiguration habe ich mich gegen Cairngorm und Mate entschieden und das Event-Handling sowie Context und Dependency Injection mit Swiz implementiert.
 
 \subsubsection{Kommunikation mit dem Backend}
-Flex-Applikationen werden als Flash-Dateien dem Browser gesendet und laufen innerhalb der Flash Runtime Umgebung. Verglichen mit HTML 4.0.1 und XHTML 1.0 hat man mit Flex die M\"oglichkeit, Daten respektive Zust\"ande clientseitig zu Speichern.
-In meinem Fall wird der Flex-Client innerhalb der Lift-Applikation eingebettet und kommuniziert mit dem Backend via \textbf{RESTful Webservices}. REST ist ein Architekturstil f\"ur Hypermedien wie das World Wide Web und legt nahe, jede Ressource mit einer eigenen URI anzusprechen. Operationen auf Ressourcen werden mittels HTTP Methoden  wie PUT, DELETE, POST,GET, HEAD, etc. zu verwenden.\cite{wiki:rest} Innerhalb der Browser-Umgebung ist die Verwendung von POST und GET m\"oglich, die anderen Methoden stehen allerdings nicht in allen Browsern zur Verf\"ugung. Zu diesem Zweck werden bei meinem Prototypen PUT- und DELETE-Requests mit dem HTTP-Header  ''X-HTTP-Method-Override'' ausgestattet und als eigentliche POST-Requests gesendet. Die Applikation merkt serverseitig von diesem Header nichts, da er bereits in der Filter-Kette zuvor die richtige Methode auf dem Request setzt. F\"ur weitere Informationen siehe:
+Flex-Applikationen werden als Flash-Dateien dem Browser gesendet und laufen innerhalb der Flash Runtime Umgebung. Verglichen mit HTML 4.0.1 und XHTML 1.0 hat man mit Flex die M\"oglichkeit, Daten respektive Zust\"ande clientseitig zu Speichern - mindestens so lange die Applikation nicht neu geladen wird.
+In meinem Fall wird der Flex-Client innerhalb der Lift-Applikation eingebettet und kommuniziert mit dem Backend via \textbf{RESTful Webservices}. REST ist ein Architekturstil f\"ur Hypermedien wie das World Wide Web und legt nahe, jede Ressource mit einer eigenen URI anzusprechen. Operationen auf Ressourcen werden mittels HTTP Methoden  wie PUT, DELETE, POST,GET, HEAD, etc. manipuliert\cite{wiki:rest}. Innerhalb der Browser-Umgebung ist die Verwendung von POST und GET m\"oglich, die anderen Methoden stehen allerdings nicht in allen Browsern zur Verf\"ugung. Zu diesem Zweck werden bei meinem Prototypen PUT- und DELETE-Requests mit dem HTTP-Header  ''X-HTTP-Method-Override'' ausgestattet und als eigentliche POST-Requests gesendet. Die Applikation merkt serverseitig von diesem Header nichts, da er bereits in der Filter Chain zuvor die richtige Methode auf dem Request setzt. F\"ur weitere Informationen siehe:
 \begin{itemize}
 \item ch.plannr.common.http.WrappedRequest.java (server)
 \item Klasse ch.plannr.common.http.RequestWrapperFilter.scala (server)
 \item web.xml (server)
 \item ch.plannr.service.HttpServiceFactory (client)
 \end{itemize}
-REST definiert grunds\"atzlich nicht, in welcher Form daten \"ubertragen werden m\"ussen.  M\"ogliche Formate w\"aren JSON und XML. Es war naheliegend, aufgrund der XML-Unterst\"utzung in Scala, dieses Format zu nehmen. F\"ur eine weitere Applikation w\"urde ich den Einsatz von BlazeDS\cite{blazeDs}\cite{IntegratingBlazeDsLiftweb} oder GranitDS\cite{graniteDs} p\"ufen.
+REST definiert grunds\"atzlich nicht, in welchem Format daten \"ubertragen werden.  M\"ogliche Formate w\"aren JSON und XML. Es war naheliegend, aufgrund der XML-Unterst\"utzung in Scala, dieses Format zu nehmen. F\"ur eine weitere Applikation w\"urde ich den Einsatz von BlazeDS\cite{blazeDs}\cite{IntegratingBlazeDsLiftweb} oder GranitDS\cite{graniteDs} pr\"ufen.
 
 Zu Beginn habe ich die \textbf{Authentifizierung} der Webservice-Aufrufe \"uber Basic Authentication gemacht. Dies h\"atte in der Praxis den wesentlichen Nachteil, dass prinzipiell alle Aufrufe verschl\"usselt werden m\"ussen\footnote{Bei Basic Authentication wird Benutzernamen und Passwort in der Form ``username:password'' im Base-64 Format \"ubermittelt}.
 Nun habe ich die Authentifizierung auf eine Form-Authentication umgestellt, bei der die Benutzer-Identifikation respektive in meinem Fall die Email-Adresse in der Session gespeichert wird. Somit muss nur der Login-Formular Submit via das Https-Protokoll laufen.
@@ -216,11 +217,11 @@ Da die Ferienplanung und Administration der Benutzer vollumf\"anglich in Flex im
   \end{longtable}
 \end{spacing}
 
-Das Menu wird aus einer Liste von Menu-Eintr\"agen in der Klasse Boot.scala definiert und in die SiteMap gesetzt. Die Zugriffssteuerung wird \"uber die LocParams implementiert die sich in den Menu Instanzen befinden. 
+Das Menu wird aus einer Liste von Menu-Eintr\"agen in der Klasse Boot.scala definiert und in die SiteMap gesetzt. Die Zugriffssteuerung wird \"uber die LocParams implementiert gew\"ahrleistet. 
  
  \section{Details zur Implementation der Use Cases}
  \subsection{Benutzermanagement}
-Sofern man bei der Entwicklung von Webapplikationen mittels Lift den Persistenz-Provider Mapper ausw\"ahlt, erh\"alt man Benutzerverwaltung inklusive Login-, Registrierung- und Passwort-Reset-Mechanismus mitgeliefert und kann diesen relativ flexibel erweitern. Da ich mich allerdings aus den oben beschriebenen Gr\"unden f\"ur JPA und gegen Mapper entschieden habe, musste ich diese Funktionalit\"at selber implementieren. Dies habe ich auf der Basis des ProtoUsers, MegaProtoUsers und MetaMegaProtoUser vom Mapper-Framework getan. Zur Beschreibung wie die Benutzerdaten zwischen Formularen und dem Backend ausgetauscht werden, eine kurze Erl\"auterung wie die Funktionalit\"at Passwort-Reset funktioniert:
+Sofern man bei der Entwicklung von Webapplikationen mittels Lift den Persistenz-Provider Mapper ausw\"ahlt, erh\"alt man Benutzerverwaltung inklusive Login-, Registrierung- und Passwort-Reset-Mechanismus mitgeliefert und kann diesen relativ flexibel erweitern. Da ich mich allerdings aus den bereits beschriebenen Gr\"unden f\"ur JPA und gegen Mapper entschieden habe, musste ich diese Funktionalit\"at selber implementieren. Dies habe ich auf der Basis des ProtoUsers, MegaProtoUsers und MetaMegaProtoUser vom Mapper-Framework getan. Zur Beschreibung wie die Benutzerdaten zwischen Formularen und dem Backend ausgetauscht werden, eine kurze Erl\"auterung wie die Funktionalit\"at Passwort-Reset funktioniert:
 
 \begin{lstlisting}[caption=Implementation Funktionalit\"at Passwort-Reset]
 def passwordReset(id: String) =
@@ -250,7 +251,7 @@ def passwordReset(id: String) =
 \end{lstlisting}
 Die Methode zum Reset des Passworts wird vom Menu respektive der Lift-Internen SiteMap Funktionalit\"at (siehe unter: ``\ref{lift:sitemap} \titleref{lift:sitemap}'') aufgerufen. M\"oglich ist dies nur, wenn der Benutzer angemeldet ist..  Der R\"uckgabewert der passwordReset-Methode ist ein Objekt vom Typ scala.xml.NodeSeq, welches das eigentliche Formular repr\"asentiert. Eingabefelder werden nicht in reinem HTML definiert, sondern via die Verwendung der Methoden text, password, usw. Diese Methoden der Klasse SHtml registrieren zum einen eine Callback-Funktion, zum anderen geben sie das auszugebenden Xml-Element als scala.xml.Elem zur\"uck. Beim \"Ubermitteln des Formulars wird dann die entsprechend zu einer definierten ID registrierte Callback-Funktion mit dem vom Benutzer eingegebenen Wert aufgerufen. Zum einen wird somit f\"ur die Textfelder der Wert hinterlegt, zum anderen via die Methode finishSet der Benutzer validiert und gespeichert. 
 
-Alle Formulare der Benutzerverwaltung sind in etwa auf diese Weise implementiert. 
+Alle Formulare der Benutzerverwaltung sind auf diese Weise implementiert. 
 
 
  
@@ -260,7 +261,7 @@ Die Prozesse der Teamadministration und Ferienplanung sind unter ``\ref{prozess:
 \item \textbf{Usability: } Usability bezeichnet die vom Nutzer erlebte Nutzungsqualit\"at (respektive User Experience) bei der Interaktion mit einem System\cite{wiki:usability}. Heutzutage erreicht man dies mit der Verwendung von Technologien wie Ajax, Flex, Silverlight, oder andere. Der Benutzer erf\"ahrt die Webseite wie als eine auf seinem Rechner installierte Applikation:
 \begin{itemize}
 \item kurze Ladezeiten
-\item Interaktion mit dem Server findet statt indem nur Teile der Seite ausgetauscht werden.
+\item Interaktion mit dem Server findet statt, indem nur Teile der Seite ausgetauscht werden.
 \end{itemize}
 \item \textbf{Aufwand: }Der Aufwand um Administrationsoberfl\"achen zu implementieren ist vergleichsweise geringer. Man muss allerdings auch ber\"ucksichtigen, dass die Kommunikation mit dem Backend respektive das Testen der Schnittstelle zum Backend trotzdem eine Menge Zeit in Anspruch nimmt.
 \item \textbf{Kalender: } Die Verwendung des Flex Kalenders ``IBM Eloxier'' erschien mir als angemessen (Siehe Abschnitt ``\ref{evaluation:kalender} \titleref{evaluation:kalender}'')
@@ -274,6 +275,12 @@ Unter dem Namen ``Elixier'' verkauft IBM Flex Komponenten. Da ich bereits im Bes
 \item Flex Calendar Components \cite{flexCalendar}
 \end{itemize}
 
+Der Kalender sieht auf dem Prototypen folgendermassen aus:
+ \begin{figure}[H]
+  	\centering
+    	\fbox{\includegraphics[width=14cm]{images/calendar}}
+        	\caption{Ansicht des verwendeten Kalenders}
+\end{figure}
 
 \subsection{Email-Versand (Notifikationen)}
 \subsubsection{Use Cases}
@@ -281,7 +288,7 @@ Zu unterschiedlichen Zwecken m\"ussen  Emails an die Benutzer versendet werden. 
  \begin{longtable}{|p{3cm}|p{7cm}|p{3cm}|}
       \caption{Use Cases Email Versand}\\
 \hline
-  \textbf{Aktion} & \textbf{Beschreibung} & \textbf{Status der Implementation}\\
+  \textbf{Aktion} & \textbf{Beschreibung} & \textbf{Status Mail Versand}\\
   \hline
   Signup&Nach der Registrierung wird zur Email-Validierung ein Email inklusive einem Link an den Benutzer versendet, \"uber welchen er den Account aktivieren kann. Im Link enthalten ist eine Zufallszahl so dass kein Missbrauch betrieben werden kann. & Nicht implementiert\\
   \hline
@@ -294,7 +301,7 @@ Zu unterschiedlichen Zwecken m\"ussen  Emails an die Benutzer versendet werden. 
 \end{longtable}
  
  \subsubsection{Technische Umsetzung}
- In meinem Fall l\"asst sich der Lift-Mail-Support, der sich innerhalb der Klasse net.liftweb.util.Mailer befindet, nicht nur \"uber die definition der Properties (mail.smtp.host, mail.username, mail.password) konfigurieren - ich muss zus\"atzlich den Authenticator (Mailer.authenticator) des Objekts Mailer setzen.
+ In meinem Fall l\"asst sich der Lift-Mail-Support, der sich innerhalb der Klasse net.liftweb.util.Mailer befindet, nicht nur \"uber die definition der Properties (mail.smtp.host, mail.username, mail.password) konfigurieren - ich muss zus\"atzlich den Authenticator (Mailer.authenticator) des Objekts Mailer setzen. Deshalb wird der Mailer beim Startup entsprechend konfiguriert.
 
  Mails k\"onnen nun mit dem Aufruf der folgenden Methode versendet werden:
 \begin{lstlisting}[caption=]
@@ -307,28 +314,29 @@ Zu unterschiedlichen Zwecken m\"ussen  Emails an die Benutzer versendet werden. 
 
 Das erste Argument ist die Absender-Adresse, das zweite das Subject und das dritte eine Liste bestehend aus Empf\"anger, Carbon Copy (CC), Blind Carbon Copy (BCC) und Mailbodies (HTML, Plain Text). Die Liste wird vom Lift Framework beim Verwenden wieder in ihre Bestandteile aufgel\"ost und mit Empf\"anger und Subject versendet. 
 
-\chapter{Entwicklung, Build und Deployment}
+\chapter{Entwicklung, Build und Deployment}\label{entwicklung-build-deployment}
 
-\section{Build-System}Maven als Build-System basiert ebenfalls auf einem Plugin-Konzept und unterst\"utzt in den verschiedensten Bereichen des Build-Managements. Nicht zuletzt dank dem Grundsatz ``Convention over Configuration'' l\"asst es sich auf allen Plattformen im Nu deployen. Maven \"ubernimmt bei diesem Projekt eine vielzahl an Funktionen:
+\section{Build-System}Maven als Build-System basiert ebenfalls auf einem Plugin-Konzept und unterst\"utzt die Entwicklung in den verschiedensten Bereichen des Build-Managements. Nicht zuletzt dank dem Grundsatz ``Convention over Configuration'' l\"asst es sich auf allen Plattformen sehr schnell deployen. Maven \"ubernimmt bei diesem Projekt eine vielzahl an Funktionen:
 
 \begin{itemize}
 \item \textbf{Dependency Management: } Maven l\"adt die im pom.xml definierten Abh\"angigkeiten von \"offentlichen Repositories. 
-\item \textbf{Support Entwicklungsumgebung:  } Die grosse Verbreitung von Maven hat dazu gef\"uhrt, dass Entwicklungsumgebungen Adapter oder Plugins daf\"ur entwickelt haben vomit sich solche Projekte automatisch innerhalb der IDE konfigurieren. Dazu geh\"ort das Hinzuf\"ugen von Abh\"angigkeiten in den Source- und Build-Pfad, das korrekte setzen von Ausgabe-Ordner. 
-\item \textbf{Clean, Compile, Package: }Der gesamte Build-Prozess f\"urs Test-System findet mit Maven statt. Bei der Entwicklung werden die Klassen allerdings von der Entwicklungsumgebung kompilliert - diese beschriebenen Targets sind deshalb da nicht n\"otig. 
-\item \textbf{Profil Management - } Maven ist von Grund auf f\"ahig, verschiedene Profile zu definieren. Profile kann man beispielsweise dann verwenden, wenn Applikationen f\"ur Entwicklung, Test, Produktion in unterschiedlichen Umgebungen laufen. Dann gilt es meistens, unterschiedliche Konfigurationen zu verwenden. Profile brauche ich um folgende Probleme zu l\"osen:\begin{itemize}
-\item Der Datenbank-Zugriff wird in der Entwicklungsumgebung direkt \"uber JDBC gemacht, in der Testumgebung auf der Stax-Cloud wird eine von Servern verf\"ugbare Datasource verwendet.
+\item \textbf{Support Entwicklungsumgebung:  } Die grosse Verbreitung von Maven hat dazu gef\"uhrt, dass f\"ur Entwicklungsumgebungen Adapter/Plugins entwickelt wurden, womit sich Projekte ohne weiteres importieren lassen. Beim import werden Abh\"angigkeiten in den Source- und Build-Pfad gesetzt, die richtige Runtime gesetzt, Ordner f\"ur kompilierte Klassen gesetzt, etc. 
+\item \textbf{Clean, Compile, Package: }Der gesamte Build-Prozess f\"urs Produktiv-System wird mittels Maven gemacht, innerhalb der Entwicklung wird dies allerdings nicht ben\"otigt - das \"ubernimmt die IDE.
+\item \textbf{Profil Management - } Maven ist von Grund auf f\"ahig, verschiedene Profile zu definieren. Profile kann man beispielsweise dann verwenden, wenn Applikationen f\"ur Entwicklung, Test, Produktion in unterschiedlichen Umgebungen laufen. Dann gilt es meistens, unterschiedliche Konfigurationen zu verwenden. Bei mir sind folgende Dinge Profil-Abh\"angig:\begin{itemize}
+\item Der Datenbank-Zugriff wird in der Entwicklungsumgebung direkt \"uber JDBC gemacht, in der Testumgebung auf der Stax-Cloud wird eine vom Servern bereitgestellte Datasource verwendet.
 \end{itemize}
 \end{itemize}
 \section{Entwicklungsumgebung}
-W\"ahrend der Entwicklung hilft Maven vorallem im Bereich des Dependency Managements - Abh\"angigkeiten werden automatisch geladen, das Projekt kann nach der \"Offnung sofort kompiliert und gestartet werden. Die meisten Funktionalit\"aten im Backend habe ich Test-Driven mit Scala-Specs entwickelt, ohne dass ich die Funktionalit\"at jedesmal im Browser nachvollzog. Tests kann man auf verschiedene Arten ausf\"uhren:
+W\"ahrend der Entwicklung hilft Maven vorallem im Bereich des Dependency Managements - Abh\"angigkeiten werden automatisch geladen, das Projekt kann nach der \"Offnung sofort kompiliert und gestartet werden. Ein paar Funktionalit\"aten im Backend habe ich Test-Driven mit Scala-Specs entwickelt, ohne dass ich die Funktionalit\"at jedesmal im Browser nachvollzog. Tests kann man auf verschiedene Arten ausf\"uhren:
 \begin{itemize}
 \item Maven per Default unterst\"utzt die Ausf\"uhrung von JUnit-Tests, mit Plugins k\"onnen allerdings auch Scala-Specs oder andere Tests ausf\"uhren.
 \item Entwicklungsumgebungen welche Scala unterst\"utzen, bringen meistens auch Funktionalit\"at zum Testen (Ausf\"uhrung von Scala Specs oder Scala Unit  Tests). 
-\item Die Scala-Gemeinde richtet sich mehr und mehr auf das Simple Build Tool\cite{SimpleBuildTool} aus. Es handelt sich dabei um ein Tool welches ebenfalls Dependency Management, Test, Build, usw. unterst\"utzt und sich gegebenenfalls auch mit Maven kombinieren l\"asst. Bei der Entwicklung hat das Tool mir geholfen, die Tests auszuf\"uhren, indem es kontinuierlich auf \"Anderungen wartet, neu Kompiliert und entsprechend die Tests neu ausf\"uhrt. Das somit schnelle Feedback kann den Entwicklungsprozess massiv beschleunigen.\end{itemize}
+\item Die Scala-Gemeinde richtet sich mehr und mehr auf das Simple Build Tool\cite{SimpleBuildTool} aus. Es handelt sich dabei um ein Tool welches ebenfalls Dependency Management, Test, Build, usw. unterst\"utzt und sich gegebenenfalls auch mit Maven kombinieren l\"asst. Bei der Entwicklung hat das Tool mir geholfen, die Tests\footnote{Continuous Testing} auszuf\"uhren, indem es kontinuierlich auf \"Anderungen wartet, neu Kompiliert und entsprechend die Tests neu ausf\"uhrt. Das somit schnelle Feedback kann den Entwicklungsprozess massiv beschleunigen.\end{itemize}
 
 
 \section{Test- und Produktiv-Umgebung}
 Um die Applikation auch der Breiten Masse verf\"ugbar zu machen, habe ich sie auf der Cloud-Plattform namens Stax\cite{Stax} deployt. Bei der Verfolgung von Twitter-Nachrichten verschiedener Personen und Diensten bin ich auf diese Plattform aufmerksam geworden und die Einfachheit des Deployments hat mich sehr \"uberrascht.
+Die Stax Cloud Plattform\cite{Stax} bietet die M\"oglichkeit, Applikationen, die bevorzugt Maven und Ant als Build-Instrumente verwenden, auf die Amazon EC2 Plattform zu deployen. Die Verwendung der Stax Test Cloud ist gratis und kann zu einem beliebigen Zeitpunkt auf die Premium Java Cloude aufger\"ustet werden. Bei der Premium Cloud bezahlt man anhand benutzer Bandbreite und gr\"osse der CPU Instanz.
 
 F\"ur das Deployment auf diese Plattform musste ich folgende \"Anderungen durchf\"uhren:
 \begin{itemize}
@@ -355,6 +363,9 @@ mvn clean stax:deploy -Pprod -Dstax.appid=plannr
 \end{itemize} 
 
 Der Pfad f\"ur diese Dateien werden nur mit der Aktivierung \"uber das Maven-Profil geladen und \"uberschreiben die bereits bestehenden.
+
+\section{Source Code Management}
+Zur Versionskontrolle w\"ahrend der Zeit dieser Semesterarbeit habe ich Git \cite{Git} verwendet. Die Sourcen befinden sich unter \cite{gitRepo}.
 
 
 

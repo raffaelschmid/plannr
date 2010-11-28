@@ -6,12 +6,8 @@ import net.liftweb.json.JsonAST.JString
 import ch.plannr.common.ToString
 import xml.{NodeSeq, Text, Elem, Node}
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
-trait Domain { // extends ToString {
+
+trait Domain {
 
   def toXml = <unsupported/>
 

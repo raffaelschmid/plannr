@@ -3,16 +3,23 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Use Case Diagramm\relax }}{46}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Prozess Member Administration Webpage\relax }}{50}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Prozess Ferien beantragen, planen\relax }}{50}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Prozess Member Administration Webpage\relax }}{51}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Navigation Webpage\relax }}{52}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Entity Relationship Model\relax }}{53}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Use Case Diagramm\relax }}{32}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Prozess Member Administration Webpage\relax }}{35}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Prozess Ferien beantragen, planen\relax }}{36}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Prozess Member Administration Webpage\relax }}{37}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Navigation Webpage\relax }}{38}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Entity Relationship Model\relax }}{39}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Formular Validierung: Registration\relax }}{59}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Formular Validierung: Registration\relax }}{45}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Ansicht des verwendeten Kalenders\relax }}{51}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Login\relax }}{59}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Registrierung\relax }}{59}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Lost Password\relax }}{59}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Edit User\relax }}{60}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Change Password\relax }}{60}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Ferienplanung\relax }}{61}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Teamadministration\relax }}{62}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -17,7 +17,6 @@ object SearchWebserviceImpl extends SearchWebservice with RestHelper with RESTSu
   val searchService = Context.inject_![SearchService]
 
   serve {
-    // /webservices/search/user?term=raffael
     case r@Req("webservices" :: "search" :: "user" :: _, _, GetRequest) => {
       val term = S.param("term")
       if(term.isDefined){

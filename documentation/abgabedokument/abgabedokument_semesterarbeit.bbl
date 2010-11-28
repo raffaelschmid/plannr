@@ -4,9 +4,17 @@
 Cairngorm.
 \newblock http://sourceforge.net/adobe/cairngorm/home.
 
+\bibitem{lift:di}
+Dependency injection.
+\newblock http://www.assembla.com/wiki/show/liftweb/Dependency\_Injection.
+
 \bibitem{flexCalendar}
 Flex calendar components.
 \newblock http://code.google.com/p/flexcalendar.
+
+\bibitem{Git}
+Git - fast version control system.
+\newblock http://git-scm.com.
 
 \bibitem{graniteDs}
 Granit data services (flex \& java ee).
@@ -48,6 +56,11 @@ D.~Chen-Becker, M.~Danciu, and T.~Weir.
 \newblock {\em {The Definitive Guide to Lift}}.
 \newblock Springer, 2009.
 
+\bibitem{liftweb}
+Lift Community.
+\newblock Lift web framework.
+\newblock http://liftweb.net.
+
 \bibitem{liftweb:using-sbt}
 Liftweb.
 \newblock Using sbt.
@@ -68,6 +81,16 @@ M.~Odersky, L.~Spoon, and B.~Venners.
 Lothar Piepmeyer.
 \newblock {\em Grundkurs funktionale Programmierung mit Scala}.
 \newblock Hanser Fachbuchverlag, 6 2010.
+
+\bibitem{gitRepo}
+Raffael Schmid.
+\newblock Git repository - plannr.
+\newblock http://github.com/schmidic/plannr.
+
+\bibitem{Plannr}
+Raffael Schmid.
+\newblock plannr - a web based planning tool for vacations.
+\newblock http://plannr.schmidic.staxapps.net.
 
 \bibitem{tiobe}
 TIOBE.
@@ -92,6 +115,11 @@ Wikipedia.
 Wikipedia.
 \newblock Gantt-diagramm --- wikipedia, 2010.
 \newblock [Online; Stand 7. November 2010].
+
+\bibitem{wiki:lambdakalkuel}
+Wikipedia.
+\newblock Lambda-kalkül --- wikipedia, 2010.
+\newblock [Online; Stand 12. November 2010].
 
 \bibitem{wiki:NoSQL}
 Wikipedia.

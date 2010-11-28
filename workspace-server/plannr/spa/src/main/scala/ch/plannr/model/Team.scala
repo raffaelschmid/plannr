@@ -8,11 +8,7 @@ import net.liftweb.common.Box
 import scala.collection.JavaConversions._
 import xml.NodeSeq
 
-/**
- * User: Raffael Schmid
- *
- * TODO
- */
+
 @Entity
 @Table(name = "TBL_TEAM")
 class Team extends Domain with Persistent[Team] {

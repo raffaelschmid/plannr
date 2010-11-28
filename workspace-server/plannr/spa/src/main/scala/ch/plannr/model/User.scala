@@ -27,9 +27,6 @@ import net.liftweb.common.Full
 import reflect.BeanProperty
 
 
-/**
- *
- */
 @Entity
 @Table(name = "TBL_USER")
 class User extends MegaBasicUser[User] with Domain with Persistent[User] {
@@ -141,19 +138,19 @@ class User extends MegaBasicUser[User] with Domain with Persistent[User] {
       </validated>
       <address>
         <street1>
-          {address.street1}
+          {if(address!=null)address.street1 else ""}
         </street1>
         <street2>
-          {address.street2}
+          {if(address!=null)address.street2 else ""}
         </street2>
         <zip>
-          {address.zip}
+          {if(address!=null)address.zip else ""}
         </zip>
         <city>
-          {address.city}
+          {if(address!=null)address.city else ""}
         </city>
         <countryCode>
-          {address.countryCode}
+          {if(address!=null)address.countryCode else ""}
         </countryCode>
       </address>
     </user>
